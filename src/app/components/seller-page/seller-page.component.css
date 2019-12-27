@@ -1,0 +1,30 @@
+.ui.inverted.segment
+{
+    border-radius: 0 !important;
+}
+.column 
+{
+    padding:2%;
+}
+.six.wide.column img{
+    height:250px;
+}
+.header
+{
+    color:#fff;
+}
+.two.column .column{
+    width:auto;
+}
+.two.column .left.floated
+{
+    padding-left:0%;
+}
+.icon.input
+{
+    margin-top:3%;
+}
+.field label
+{
+    color:#fff !important;
+}

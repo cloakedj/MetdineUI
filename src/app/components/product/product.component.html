@@ -1,0 +1,17 @@
+<div class="ui three stackable cards grid container">
+    <div class="ui card" *ngFor="let product of products; let i = index" >
+        <div class="image">
+        <img src="../../../assets/products/{{product.photo}}">
+        </div>
+        <div class="content">
+        <a class="header">{{product.name}}</a>
+          <div class="description">
+            <div class="ui red horizontal label" *ngFor="let tag of product.tags">{{tag}}</div>
+          </div>
+        </div>
+        <div class="extra content">
+            <a [routerLink]= "['cart', product.id]"><button class="positive ui button right floated">Add</button></a>
+            <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
+        </div>
+      </div>
+</div>
