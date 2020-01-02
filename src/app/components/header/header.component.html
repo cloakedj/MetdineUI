@@ -2,11 +2,11 @@
     <mat-toolbar-row>
            <a routerLink='/home'><span>Metdine</span></a>
            <span class="spacer"></span>
-           <button mat-icon-button aria-label="User's Shopping Cart">
+           <a href="/cart"><button mat-icon-button aria-label="User's Shopping Cart">
            <mat-icon class="icon" aria-hidden="false" aria-label="cart icon">shopping_cart
             </mat-icon>
-            <div class="floating ui circular red label">22</div>
-            </button>
+        <div class="floating ui circular red label" *ngIf="cart.getCartLength()">{{cart.getCartLength()}}</div>
+            </button></a>
             <a href="/profile"><button mat-icon-button aria-label="User's Profile">
            <mat-icon class="icon" aria-hidden="false" aria-label="Example heart icon">person</mat-icon>
             </button></a>

@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="extra content">
-            <a [routerLink]= "['cart', product.id]"><button class="positive ui button right floated">Add</button></a>
+            <button class="positive ui button right floated" (click)="cart.updateCart(product.id)">Add</button>
             <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
         </div>
       </div>

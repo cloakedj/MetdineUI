@@ -18,7 +18,6 @@ const routes: Routes =[
     { path: '', redirectTo: '/profile/(userProfile:profileOptions)', pathMatch: 'full'},
   ]},
   { path: 'cart', component: CartComponent},
-  { path: 'cart/:id', component: CartComponent},
   { path: '', redirectTo: '/home',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent} 
 ]
