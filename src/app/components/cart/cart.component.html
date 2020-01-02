@@ -1,0 +1,78 @@
+<div class="ui grid">
+  <div class="ui basic modal" *ngIf="clearCartModalShow">
+    <div class="ui two column centered grid">
+      <div class="row">
+    <div class="ui compact center aligned segment">
+    <div class="ui icon header">
+      <i class="archive icon"></i>
+      Clear Cart
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="content">
+      <p>Are You Sure You Want To Clear Your Cart</p>
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="actions">
+      <div class="ui red  cancel inverted button" (click)="clearCartModalShow = !clearCartModalShow">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green ok inverted button" (click)="cart.clearCart()">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+    </div>
+  </div>
+    </div>
+  </div>
+    <div class="six wide right floated column" *ngIf="cart.getCartLength(); else emptyCart">
+    <div class="ui compact center aligned segment">
+    <h2 class="ui header">
+        <img src="https://www.cyanidemedia.com/wp-content/uploads/2018/02/influencer-marketing-for-restaurant-1.jpg" class="ui image">
+        XYZ Restaurant
+      </h2>
+      <div class="row" *ngFor="let item of cart.items;">
+        <div class="ui relaxed horizontal list">
+          <div class="item">
+            <img class="ui avatar image" src="../../../assets/products/{{item.product.photo}}">
+          </div>
+          <div class="item">
+            <h5 class="center aligned header">{{item.product.name}}</h5>
+        </div>
+        <div class="item">
+          <div class="ui small basic icon buttons">
+          <button class="ui positive basic button" (click)="cart.updateCart(item.product.id)"><i class="plus icon"></i></button>
+          <button class="ui button">{{item.quantity}}</button>
+          <button class="ui negative basic button" (click) = "cart.remove(item.product.id)"><i class="minus icon"></i></button>
+        </div>
+      </div>
+        <div class="item">
+            <h5 class="header">{{item.quantity * item.product.price}}</h5>
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+    </div>
+    <div class="ui section divider"></div>
+    <div class="ui right aligned grid">
+    <div class="left floated left aligned six wide column">
+      <h4 class="ui header">To Pay: </h4>
+    </div>
+    <div class="right floated right aligned six wide column">
+      <h4 class="ui header">{{cart.total}}</h4> 
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="two ui buttons">
+    <button class="ui positive button">Checkout</button>
+    <button class="ui negative button" (click)="clearCartModalShow = !clearCartModalShow;">Clear Cart</button>
+  </div>
+</div>
+</div>
+<ng-template #emptyCart>
+  <h2 class="ui center aligned icon header">
+    <i class="shopping cart icon"></i>
+    Your Cart Is Empty
+  </h2>
+</ng-template>
+</div>

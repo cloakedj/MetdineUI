@@ -1,0 +1,20 @@
+.seller-card {
+max-width: 280px;
+}
+
+.seller-card-image {
+background-image: url('https://www.cyanidemedia.com/wp-content/uploads/2018/02/influencer-marketing-for-restaurant-1.jpg');
+background-size: cover;
+}
+.spacer {
+flex: 1 1 auto;
+}
+mat-card-actions
+{
+    display:flex;
+}
+.ui.grid
+{
+  margin-right:0 !important;
+  margin-left:0 !important;
+}

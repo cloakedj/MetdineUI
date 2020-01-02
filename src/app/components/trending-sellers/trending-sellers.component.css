@@ -1,0 +1,20 @@
+.glide--swipeable
+{
+    height:280px;
+    background:black;
+}
+.glide__slides
+{
+    height:250px;
+    padding-left:5%;
+    padding-right:5%;
+}
+.glide__slide{
+    background:#fff;
+}
+.glide__slide img{
+    width:100%;
+}
+.glide{
+    margin-bottom:5%;
+}
