@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Item } from '../../entities/item.entity';
 import { ProductService } from '../product-service/product.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-	items: Item[] = [];
+  items: Item[] = [];
   total: number = 0;
   cartLength: number = 0;
-  constructor(
-    private productService: ProductService,
+  constructor(private productService: ProductService
   ){ }
 
 loadCart(): void {
@@ -46,7 +46,7 @@ remove(id: string): void {
       break;
     }
   }
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem('cart', JSON.stringify(cart));
   this.loadCart();
 }
 getCartLength(): Number{
@@ -81,7 +81,7 @@ updateCart(id: string): void{
       let item: Item = JSON.parse(cart[index]);
       item.quantity += 1;
       cart[index] = JSON.stringify(item);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
     }
     this.loadCart();
@@ -90,9 +90,10 @@ updateCart(id: string): void{
   }
 }
   clearCart(): void{
-   localStorage.setItem("cart",JSON.stringify(""));
+   localStorage.removeItem('cart');
    this.cartLength = 0;
    this.items = [];
    this.total = 0;
+   
   }
 }

@@ -1,0 +1,5 @@
+<div class="ui small basic icon buttons" *ngIf="!onProdZero()">
+    <button class="ui negative basic button" (click) = "cartComp.cart.remove(productId)"><i class="minus icon"></i></button>
+    <button class="ui button">{{getId()}}</button>
+    <button class="ui positive basic button" (click)="cartComp.cart.updateCart(productId)"><i class="plus icon"></i></button>
+</div>

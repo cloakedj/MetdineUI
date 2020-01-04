@@ -10,7 +10,8 @@
           </div>
         </div>
         <div class="extra content">
-            <button class="positive ui button right floated" (click)="cart.updateCart(product.id)">Add</button>
+            <button class="positive ui button right floated"   (click)="[cart.updateCart(product.id),incdeccart.getId()]" *ngIf="incdeccart.onProdZero(product.id)">Add</button>
+            <app-inc-dec-cart  [productId] = "product.id" class="right floated"></app-inc-dec-cart>
             <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
         </div>
       </div>

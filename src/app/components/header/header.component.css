@@ -5,3 +5,6 @@
 .spacer {
 flex: 1 1 auto;
 }
+.ui.horizontal.list .item{
+  margin-left:0 !important;
+}

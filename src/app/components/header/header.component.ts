@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   constructor(public cart: CartService) { }
 
   ngOnInit() {  
+    if(localStorage.getItem("cart") != null)
     this.cart.loadCart();
   }
 

@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BodycardsComponent } from './components/bodycards/bodycards.component';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
@@ -28,6 +29,11 @@ import { BuyerProfileComponent } from './components/buyer-profile/buyer-profile.
 import { UserProfileComponent } from './components/buyer-profile/user-profile/user-profile.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
+import { IncDecCartComponent } from './components/inc-dec-cart/inc-dec-cart.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 
 @NgModule({
@@ -45,6 +51,9 @@ import { CartComponent } from './components/cart/cart.component';
     UserProfileComponent,
     ProductComponent,
     CartComponent,
+    IncDecCartComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +71,12 @@ import { CartComponent } from './components/cart/cart.component';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
-  providers: [],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

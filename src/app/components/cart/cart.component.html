@@ -2,9 +2,9 @@
   <div class="ui basic modal" *ngIf="clearCartModalShow">
     <div class="ui two column centered grid">
       <div class="row">
-    <div class="ui compact center aligned segment">
+    <div class="ui compact center aligned segment clcartmodal">
     <div class="ui icon header">
-      <i class="archive icon"></i>
+      <i class="shopping cart icon"></i>
       Clear Cart
     </div>
     <div class="ui hidden divider"></div>
@@ -17,7 +17,7 @@
         <i class="remove icon"></i>
         No
       </div>
-      <div class="ui green ok inverted button" (click)="cart.clearCart()">
+      <div class="ui green ok inverted button" (click)="cart.clearCart(); clearCartModalShow = !clearCartModalShow">
         <i class="checkmark icon"></i>
         Yes
       </div>
@@ -40,13 +40,7 @@
           <div class="item">
             <h5 class="center aligned header">{{item.product.name}}</h5>
         </div>
-        <div class="item">
-          <div class="ui small basic icon buttons">
-          <button class="ui positive basic button" (click)="cart.updateCart(item.product.id)"><i class="plus icon"></i></button>
-          <button class="ui button">{{item.quantity}}</button>
-          <button class="ui negative basic button" (click) = "cart.remove(item.product.id)"><i class="minus icon"></i></button>
-        </div>
-      </div>
+        <app-inc-dec-cart [productId] = "item.product.id" class="item"></app-inc-dec-cart>
         <div class="item">
             <h5 class="header">{{item.quantity * item.product.price}}</h5>
         </div>

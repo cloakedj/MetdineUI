@@ -9,10 +9,11 @@ import { CartService } from '../../services/cart-service/cart.service';
 export class CartComponent implements OnInit {
   clearCartModalShow: boolean = false;
   constructor(
-	private cart: CartService,
+	public cart: CartService,
 	) {}
 
   	ngOnInit() {
+      if(localStorage.getItem("cart") != null)
       this.cart.loadCart();
 	}
 

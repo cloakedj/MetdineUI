@@ -1,0 +1,21 @@
+<div class="ui two column centered grid">
+  <div class="ui raised segment">
+    <h2 class="ui header">
+        Login To Metdine
+      </h2>
+    <div class="row">
+        <div class="ui form">
+          <form [formGroup]="loginForm">
+                  <mat-form-field>
+                      <input matInput placeholder="XXX-XXX-XXXX" [formControl]="phoneNumberFC"
+                             [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="phoneNumberFC.hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+            </form>
+          </div>
+    </div>
+  </div>
+</div>
+
