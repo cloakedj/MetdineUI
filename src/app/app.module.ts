@@ -44,6 +44,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { SellerDashboardComponent } from './components/seller-side/seller-dashbo
     MatStepperModule,
     MatRadioModule,
     MatSlideToggleModule,
+    HttpClientModule,
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
