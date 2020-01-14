@@ -4,9 +4,8 @@
             <div class="ui raised attached segment">
               <img class="ui circular centered small image" src="../../../assets/molly.png">
               <div class="ui divider"></div>
-              <div class="row">
                   <div class="ui fluid form">
-                      <form [formGroup]="signUpForm" (ngSubmit)="signUpAction()">
+                      <form [formGroup]="signUpForm" (ngSubmit)="signUpAction()" (ngForm)="signUpUser">
                         <div class="field">
                           <input placeholder="First Name"  formControlName="fname" type="text">
                           <div class="ui pointing red basic label"  *ngIf="fname.invalid && !fname.pristine">
@@ -22,8 +21,8 @@
                         <div class="field">
                           <input placeholder="Phone Number" formControlName="phoneNumber" type="text">
                           <div class="ui pointing red basic label"  *ngIf="phoneNumber.invalid && !phoneNumber.pristine">
-                                <span *ngIf="phoneNumber.errors.required">Phone Number Is required</span>
-                                <span *ngIf="phoneNumber.errors.minlength || phoneNumber.errors.maxlength ||phoneNumber.errors.pattern">Enter A Valid Phone Number</span>
+                                <span *ngIf="phoneNumber.errors?.required">Phone Number Is required</span>
+                                <span *ngIf="phoneNumber.errors?.minlength || phoneNumber.errors?.maxlength ||phoneNumber.errors?.pattern">Enter A Valid Phone Number</span>
                          </div>
                         </div>
                         <div class="field">
@@ -34,23 +33,27 @@
                         </div>
                         <div class="field">
                                 <input placeholder="Password" formControlName="password" type="password">
-                        <div class="ui pointing red basic label"  *ngIf="password.errors.required && !password.pristine">
+                        <div class="ui pointing red basic label"  *ngIf="password.errors?.required && !password.pristine">
                                 Password Is Required
                          </div>
                         </div>
                         <div class="field">
                         <input placeholder="Confirm Password" formControlName="confirmPassword" type="password">
-                        <div class="ui pointing red basic label"  *ngIf="signUpForm.controls['confirmPassword'].hasError('NoPassswordMatch') && !confirmPassword.pristine">
+                        <!-- <div class="ui pointing red basic label"  *ngIf="signUpForm.controls['confirmPassword'].hasError('NoPassswordMatch') && !confirmPassword.pristine">
                          Password and Confirm Password Should Match
-                        </div>
+                        </div> -->
                             </div>
-                        <div class="ui buttons">
-                          <button class="positive fluid ui button" [disabled]="signUpForm.pristine || signUpForm.invalid" type="submit">Sign Up</button>
-                          <button class="negative fluid ui button" [disabled]="signUpForm.pristine">Reset</button>
-                        </div>
+                            <div class="field">
+                              <div class="two ui buttons">
+                                <button class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid" type="submit">Sign Up</button>
+                                <button class="ui negative button" [disabled]="signUpForm.pristine" (click)="signUpForm.reset();">Reset</button>
+                              </div>
+                            </div>
                     </form>
                     </div>
               </div>
+              <h5 class="ui bottom attached center aligned inverted header">
+                Already A User? Sign In <a [routerLink]="['/userGateway',{ outlets: { userGatewayRouter : ['login']}}]" routerLinkActive="active">Here.</a>
+              </h5>
             </div>
-              </div>
       </div>

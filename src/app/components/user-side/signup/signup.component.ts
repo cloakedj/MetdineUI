@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../../entities/user.entity';
-import { PassMatcher } from '../../validators/pass-matcher';
+import { User } from '../../../entities/user.entity';
+import { PassMatcher } from '../../../validators/pass-matcher';
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +9,7 @@ import { PassMatcher } from '../../validators/pass-matcher';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  userData = User;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -21,10 +22,7 @@ export class SignupComponent implements OnInit {
     email:['',Validators.email],
     password:['',Validators.required],
     confirmPassword:['',Validators.required],
-  },   {
-    // check whether our password and confirm password match
-    validator: PassMatcher.passwordMatchValidator
- });
+  });
   constructor(private formBuilder: FormBuilder) {
   }
 
