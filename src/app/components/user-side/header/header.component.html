@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="api.checkUserToken()">
     <mat-toolbar-row>
            <a routerLink='/home'><span>Metdine</span></a>
            <span class="spacer"></span>

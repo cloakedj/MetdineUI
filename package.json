@@ -23,6 +23,7 @@
     "@angular/router": "~8.2.14",
     "@glidejs/glide": "^3.4.1",
     "@nebular/theme": "^4.6.0",
+    "@types/googlemaps": "^3.39.1",
     "ajv": "6.10.0",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",

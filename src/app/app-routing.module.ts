@@ -14,6 +14,7 @@ import { SellerProfileComponent } from './components/seller-side/seller-profile/
 import { ProfileOptionsComponent } from './components/seller-side/seller-profile/profile-options/profile-options.component';
 import { MenuItemComponent } from './components/seller-side/menu-item/menu-item.component';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
+import { GeolocationComponent } from './components/geolocation/geolocation.component';
 
 
 const routes: Routes =[
@@ -38,6 +39,7 @@ const routes: Routes =[
   ]},
   { path:'addItem', component:MenuItemComponent},
   { path:'seller-dashboard' ,component: SellerDashboardComponent},
+  { path:'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent} 
 ]

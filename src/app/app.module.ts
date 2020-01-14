@@ -45,6 +45,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GeolocationComponent } from './components/geolocation/geolocation.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileOptionsComponent,
     MenuItemComponent,
     SellerDashboardComponent,
+    GeolocationComponent,
   ],
   imports: [
     BrowserModule,

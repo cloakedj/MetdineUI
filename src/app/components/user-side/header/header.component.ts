@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
 
 
 @Component({
@@ -8,7 +9,8 @@ import { CartService } from '../../../services/cart-service/cart.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public cart: CartService) { }
+  constructor(public cart: CartService,
+    private api: ApiService) { }
 
   ngOnInit() {  
     if(localStorage.getItem("cart") != null)

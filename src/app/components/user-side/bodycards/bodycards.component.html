@@ -1,7 +1,9 @@
 <div class="ui grid">
   <app-filter-sidebar></app-filter-sidebar>
   <div class="twelve wide column">
-<mat-card class="seller-card" *ngFor="let seller of sellers$ | async">
+    <div class="ui three cards">
+<div class="ui card" *ngFor="let seller of sellers$ | async">
+<mat-card class="seller-card">
     <mat-card-header>
       <div mat-card-avatar class="seller-card-image"></div>
       <mat-card-title>{{seller.first_name}} {{seller.last_name}}</mat-card-title>
@@ -27,5 +29,7 @@
       </mat-chip-list>
     </mat-card-actions>
   </mat-card>
+</div>
+</div>
 </div>
 </div>
