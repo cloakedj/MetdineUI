@@ -44,8 +44,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
+import { AuthInterceptor } from 'src/app/services/api-service/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,11 @@ import { GeolocationComponent } from './components/geolocation/geolocation.compo
     HttpClientModule,
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {
+    provide : HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi   : true,
+    }
   ],
   bootstrap: [AppComponent]
 })

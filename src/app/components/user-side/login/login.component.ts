@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-    res$ : Observable<any>;
+    Auth_Key = '';
     loginForm: FormGroup = this.formbuilder.group({
     username:['',[Validators.required]],
     password:['',Validators.required],
@@ -20,7 +20,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(Data){
-    this.api.loginUser(Data);
+    this.api.loginUser(Data)
+    .subscribe(
+      (data) => this.Auth_Key = data["key"],
+      (err) => console.log(err),
+      () =>     this.api.AddUserTokenHeader(this.Auth_Key)
+    );
     this.loginForm.reset();
   }
   get username(){ return this.loginForm.get('username');}

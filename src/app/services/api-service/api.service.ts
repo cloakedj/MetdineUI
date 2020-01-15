@@ -13,7 +13,8 @@ import { error } from 'util';
 })
 export class ApiService {
   API_URL = 'http://83c7e284.ngrok.io';
-  httpHeaders = new HttpHeaders({'Content-type':'application/json'});
+  private  Auth_Key :string = '';
+  private isUserAuthenticated = this.checkUserToken !== null ? true :false;
   constructor(private http: HttpClient) { 
   }
   private handleError(error: HttpErrorResponse) {
@@ -33,37 +34,27 @@ export class ApiService {
   };
 
   getAllSellers():Observable<Seller[]>{
-      return this.http.get<Seller[]>(`${this.API_URL}/api/seller/` ,
-      { headers : this.httpHeaders});
+      return this.http.get<Seller[]>(`${this.API_URL}/api/seller/`);
   }
   buyerRegistration(userData : User):Observable<User>{
-    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData , 
-    {headers :this.httpHeaders})
+    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData)
     .pipe(
       catchError(this.handleError)
     )
   }
   loginUser(credentials){
-    return this.http.post(`${this.API_URL}/rest-auth/login/`, credentials,{headers : this.httpHeaders})
-    .subscribe(
-      res => {
-        console.log(res);
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-      }
-    );
+    return this.http.post(`${this.API_URL}/rest-auth/login/`, credentials)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
-  checkUserToken(res: Response):boolean{
-    // if(res["key"])
-    // {
-    // console.log(res["key"]);
-    // this.httpHeaders.append("AuthToken",res["key"])
-    // return true;
-    // }
-    return false; 
+  AddUserTokenHeader(token :string){
+    this.Auth_Key = token;
   }
+  checkUserToken():any{
+    if(this.Auth_Key !== '')
+    return this.Auth_Key;
+    else return null;
+  }
+  ensurity(): boolean{ return this.isUserAuthenticated;}
 }

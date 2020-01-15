@@ -8,6 +8,6 @@
           </div>
     </div>
 </div>
-<div class="row">
-    <router-outlet name="userProfile"></router-outlet>
-</div>
+<main class="row" [@routeAnimations]="outlet">
+    <router-outlet name="userProfile" #outlet="outlet"></router-outlet>
+</main>

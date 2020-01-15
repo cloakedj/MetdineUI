@@ -12,8 +12,8 @@ export class GeolocationComponent implements OnInit, AfterViewInit {
   lng = 77.6060;
   coordinates = new google.maps.LatLng(this.lat, this.lng);
   mapOptions: google.maps.MapOptions = {
-    center: this.coordinates,
     zoom: 8,
+    center: this.coordinates,
   };
   mapInitializer() {
     this.map = new google.maps.Map(this.gmap.nativeElement, 
@@ -21,7 +21,7 @@ export class GeolocationComponent implements OnInit, AfterViewInit {
     
    }
    marker = new google.maps.Marker({
-    position: this.coordinates,
+    position: {lat:42.4668,lng:-709495},
     map: this.map,
   });
   constructor() { }
