@@ -30,7 +30,7 @@ loadCart(): void {
   }
 }
 
-remove(id: string): void {
+remove(id: Number): void {
   let cart: any = JSON.parse(localStorage.getItem('cart'));
   let index: number = -1;
   for (var i = 0; i < cart.length; i++) {
@@ -54,10 +54,10 @@ getCartLength(): Number{
   this.cartLength=0;
   return this.cartLength;
 }
-updateCart(id: string): void{
+updateCart(id: Number): void{
   if (id) {
     var item: Item = {
-    product: this.productService.findOne(id),
+    product: this.productService.getSelectedItem(id),
     quantity: 1
     };
     if (localStorage.getItem('cart') == null) {
@@ -94,6 +94,5 @@ updateCart(id: string): void{
    this.cartLength = 0;
    this.items = [];
    this.total = 0;
-   
   }
 }

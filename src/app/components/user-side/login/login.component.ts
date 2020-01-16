@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
       (err) => console.log(err),
       () =>     this.api.AddUserTokenHeader(this.Auth_Key)
     );
-    this.loginForm.reset();
   }
   get username(){ return this.loginForm.get('username');}
   get password(){ return this.loginForm.get('password');}

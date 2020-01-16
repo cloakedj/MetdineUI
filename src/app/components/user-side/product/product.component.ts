@@ -4,6 +4,9 @@ import { ProductService } from '../../../services/product-service/product.servic
 import { CartComponent } from '../cart/cart.component';
 import { IncDecCartComponent } from '../inc-dec-cart/inc-dec-cart.component';
 import { CartService } from 'src/app/services/cart-service/cart.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
+import { SellerItem } from 'src/app/entities/seller-item.entity';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,16 +16,19 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
   providers: [CartComponent,IncDecCartComponent],
 })
 export class ProductComponent implements OnInit {
-  products: Product[];
   constructor(
   private productService: ProductService,
   private incdeccart: IncDecCartComponent,
   private cart: CartService,
+  private api : ApiService,
   ) 
   { }
 
   ngOnInit() {
-   this.products = this.productService.findAll();
+  }
+  vegNonvegFilter(type : boolean):string{
+    if (type) return "Veg";
+    return "Non Veg";
   }
 
 }

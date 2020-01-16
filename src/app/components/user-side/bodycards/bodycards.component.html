@@ -2,15 +2,15 @@
   <app-filter-sidebar></app-filter-sidebar>
   <div class="twelve wide column">
     <div class="ui three cards">
-<div class="ui card" *ngFor="let seller of sellers$ | async">
+<div class="ui card" *ngFor="let seller of product.sellers$ | async">
 <mat-card class="seller-card">
     <mat-card-header>
       <div mat-card-avatar class="seller-card-image"></div>
       <mat-card-title>{{seller.first_name}} {{seller.last_name}}</mat-card-title>
       <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     </mat-card-header>
-    <a routerLink="/seller-page" routerLinkActive="active">
-    <img mat-card-image src="seller.logo" alt="Seller Picture">
+    <a [routerLink]="['/seller-page',seller.id]" routerLinkActive="active">
+    <img mat-card-image src="{{seller.logo}}" alt="Seller Picture">
     </a>
     <mat-card-content>
       <h4>

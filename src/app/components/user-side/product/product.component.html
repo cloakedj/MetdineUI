@@ -1,16 +1,27 @@
 <div class="ui three stackable cards grid container">
-    <div  class="ui card" *ngFor="let product of products; let i = index" >
+    <div  class="ui card" *ngFor="let product of productService.products; let i = index" >
         <div class="image">
-        <img src="../../../assets/products/{{product.photo}}">
+        <img src="{{product.image}}">
         </div>
         <div class="content">
-        <a class="header">{{product.name}}</a>
+        <a class="header">{{product.title}}</a>
           <div class="description">
-            <div class="ui red horizontal label" *ngFor="let tag of product.tags">{{tag}}</div>
+            <p>
+              {{product.short_description}}
+            </p>
+            <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
+              {{vegNonvegFilter(product.is_veg)}}
+            </div>
+            <div class="ui  teal horizontal label">
+              {{product.category}}
+            </div>
+            <div class="ui oreange horizontal label">
+              {{product.time_to_prepare}}
+            </div>
           </div>
         </div>
         <div class="extra content">
-            <button class="positive ui button right floated"   (click)="[cart.updateCart(product.id),incdeccart.getId()]" *ngIf="incdeccart.onProdZero(product.id)">Add</button>
+            <button class="positive ui button right floated"   (click)="[cart.updateCart(product.id),incdeccart.getId(),api.addNewOrder(product.id)]" *ngIf="incdeccart.onProdZero(product.id)">Add</button>
             <app-inc-dec-cart  [productId] = "product.id" class="right floated"></app-inc-dec-cart>
             <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
         </div>

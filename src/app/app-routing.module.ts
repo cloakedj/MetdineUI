@@ -18,7 +18,7 @@ import { GeolocationComponent } from './components/geolocation/geolocation.compo
 
 
 const routes: Routes =[
-  { path: 'seller-page', component: SellerPageComponent},
+  { path: 'seller-page/:id', component: SellerPageComponent},
   { path: 'seller-page/cart', redirectTo:'cart'},
   { path: 'seller-page/cart/:id', redirectTo:'cart/:id'},
   { path: 'home', component: HomepageComponent},
@@ -38,6 +38,7 @@ const routes: Routes =[
     { path:'', redirectTo:'/seller-profile/(sellerProfile:profileOptions)', pathMatch: 'full'},
   ]},
   { path:'addItem', component:MenuItemComponent},
+  { path:'seller-dashboard/:id', redirectTo:'seller-dashboard'},
   { path:'seller-dashboard' ,component: SellerDashboardComponent},
   { path:'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},

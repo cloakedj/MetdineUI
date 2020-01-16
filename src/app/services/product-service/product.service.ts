@@ -1,31 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Product } from '../../entities/product.entity';
+import { Observable, throwError, Observer } from 'rxjs';
+import { SellerItem } from 'src/app/entities/seller-item.entity';
+import { ApiService } from '../api-service/api.service';
+import { Seller } from 'src/app/entities/seller.entity';
+import { find , map } from 'rxjs/operators';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[];
-
-  constructor() {
-    this.products = [
-      { id: 'pid1', name: 'Product 1', price: 100, photo: 'englishbreakfast.jpeg',tags: ['breakfast','english'] },
-      { id: 'pid2', name: 'Product 2', price: 200, photo: 'golgappa.jpg', tags: ['snack','spicy'] },
-      { id: 'pid3', name: 'Product 3', price: 300, photo: 'southindianthali.jpeg', tags: ['southindianfood'] }
-    ];
-   }
-   findAll(): Product[]{
-    return this.products;
+  private products : SellerItem[];
+  sellers$: Observable<Seller[]>;
+  sellerId : any;
+  sellerLogo : any;
+  product : SellerItem;
+  constructor(private api : ApiService) {
+    this.getSellersDetails();
   }
-  findOne(id: string): Product{
-    return this.products[this.getSelectedItem(id)];
+  getSellersDetails():void{
+    this.sellers$ = this.api.getAllSellers();
   }
-  private getSelectedItem(id: string){
-    for(var i=0;i<this.products.length;i++){
-      if(this.products[i].id === id){
-        return i;
-      }
-    }
-    return -1;
+  getSellerItems(id : Number){
+    this.api.requestSellerDetails(this.sellerId)
+    .subscribe((elem) => this.products = elem);
   }
+ getSelectedItem(id: Number){
+   this.product = this.products.find(elem => elem.id === id);
+   return this.product;
+  } 
 }

@@ -9,7 +9,7 @@ import { ProductService } from '../../../services/product-service/product.servic
   styleUrls: ['./inc-dec-cart.component.css'],
 })
 export class IncDecCartComponent implements OnInit{
-  @Input() productId : string;
+  @Input() productId : Number;
   items: Item[] = [];
   constructor(
     private cartComp: CartComponent,
@@ -19,7 +19,7 @@ export class IncDecCartComponent implements OnInit{
   ngOnInit() {
   }
 
-  getId(prodId? : string): number{
+  getId(prodId? : number): number{
     if(prodId)
       this.productId = prodId;
     for(let item of this.cartComp.cart.items){
@@ -27,7 +27,7 @@ export class IncDecCartComponent implements OnInit{
       return item.quantity;
   }
 }
-onProdZero(prodId? : string): boolean{
+onProdZero(prodId? : number): boolean{
   if(this.getId(prodId) == 0 || this.getId(prodId) == undefined)
     return true;
   return false;

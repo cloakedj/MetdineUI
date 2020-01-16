@@ -1,0 +1,378 @@
+<div class="ui grid ">
+<!-- <div class="four wide column">
+<div class="ui raised segment sidebarmenu">
+    <div class="row">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+</div>
+</div> -->
+<div class="eighteen wide column">
+<div class="ui grid quickoptions">
+    <div class="four wide column" *ngFor="let prop of sellerData">
+        <div class="ui card">
+            <div class="content">
+              <div class="header">{{prop.first_name}}</div>
+              <div class="meta">
+                <span>2 days ago</span>
+                <a>Animals</a>
+              </div>
+              <p></p>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div class="ui hidden divider"> 
+  </div>
+  <h2 class="ui center aligned icon header">
+    <i class="circular edit icon"></i>
+    Requested Orders
+  </h2> 
+  <div class="ui centered grid"> 
+  <div class="row">
+    <div class="ui error compact message">
+        <div class="header">
+          Note:
+        </div>
+        <ul class="list">
+          <li>Rejected Orders Cannot be Revived. Kindly Remmeber this before cancelling.</li>
+            <li>Reject And Accept Orders.</li>
+            <li>Good Luck. happy Fulfilling</li>
+        </ul>
+    </div>
+</div>
+</div>  
+  <div class="ui centered raised cards orders">
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/southindianthali.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Jenny Hess
+        </div>
+        <div class="meta">
+          New Member
+        </div>
+        <div class="description">
+          Jenny wants to add you to the group <b>best friends</b>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui two buttons">
+          <div class="ui basic green button">Approve</div>
+          <div class="ui basic red button">Decline</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/englishbreakfast.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Elliot Fu
+        </div>
+        <div class="meta">
+          Friends of Veronika
+        </div>
+        <div class="description">
+          Elliot requested permission to view your contact details
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui two buttons">
+            <div class="ui basic green button">Approve</div>
+            <div class="ui basic red button">Decline</div>
+          </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/southindianthali.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Jenny Hess
+        </div>
+        <div class="meta">
+          New Member
+        </div>
+        <div class="description">
+          Jenny wants to add you to the group <b>best friends</b>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui two buttons">
+            <div class="ui basic green button">Approve</div>
+            <div class="ui basic red button">Decline</div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui hidden divider"> 
+</div>
+<h2 class="ui center aligned icon header">
+  <i class="circular tasks icon"></i>
+  Active Orders
+</h2> 
+<div class="ui center aligned grid">
+    <div class="row">
+        <div class="ui error message">
+            <div class="header">
+              Note:
+            </div>
+            <ul class="list">
+              <li>At any time to update the status of the order click on the order buttons to update accordingly.</li>
+                <li>Update Only As Per The Real time updates.</li>
+                <li>Good Luck. happy Fulfilling</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row status-index">
+    <div class="four wide column">
+        <a class="ui teal big label">
+            <i class="mail icon"></i> Cooking
+          </a>
+    </div>
+    <div class="four wide column">
+        <a class="ui orange big label">
+            <i class="user icon"></i> Ready
+          </a>
+    </div>
+    <div class="four wide column">
+        <a class="ui black big label">
+            <i class="user icon"></i> On The Way
+          </a>
+    </div>
+    <div class="four wide column">
+        <a class="ui purple big label">
+            <i class="user icon"></i> Delivered
+          </a>
+    </div>
+</div>
+  </div>
+  <div class="ui centered raised cards orders">
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/southindianthali.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Jenny Hess
+        </div>
+        <div class="meta">
+          New Member
+        </div>
+        <div class="description">
+          Jenny wants to add you to the group <b>best friends</b>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui four buttons">
+            <button class="ui teal circular cooking icon button">
+                <i class="facebook icon"></i>
+              </button>
+              <button class="ui orange circular ready icon button">
+                <i class="twitter icon"></i>
+              </button>
+              <button class="ui black circular on-the-way  icon button">
+                <i class="linkedin icon"></i>
+              </button>
+              <button class="ui purple circular delivered icon button">
+                <i class="google plus icon"></i>
+              </button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/englishbreakfast.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Elliot Fu
+        </div>
+        <div class="meta">
+          Friends of Veronika
+        </div>
+        <div class="description">
+          Elliot requested permission to view your contact details
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui four buttons">
+            <button class="ui teal circular cooking icon button">
+                <i class="facebook icon"></i>
+              </button>
+              <button class="ui orange circular ready icon button">
+                <i class="twitter icon"></i>
+              </button>
+              <button class="ui black circular on-the-way  icon button">
+                <i class="linkedin icon"></i>
+              </button>
+              <button class="ui purple circular delivered icon button">
+                <i class="google plus icon"></i>
+              </button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="image">
+            <img src="assets/products/southindianthali.jpeg">
+          </div>
+      <div class="content">
+        <div class="header">
+          Jenny Hess
+        </div>
+        <div class="meta">
+          New Member
+        </div>
+        <div class="description">
+          Jenny wants to add you to the group <b>best friends</b>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui four buttons">
+            <button class="ui teal circular cooking icon button">
+                <i class="facebook icon"></i>
+              </button>
+              <button class="ui orange circular ready icon button">
+                <i class="twitter icon"></i>
+              </button>
+              <button class="ui black circular on-the-way  icon button">
+                <i class="linkedin icon"></i>
+              </button>
+              <button class="ui purple circular delivered icon button">
+                <i class="google plus icon"></i>
+              </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+<h2 class="ui center aligned icon header">
+    <i class="check circle icon"></i>
+    Completed Orders
+  </h2> 
+  <div class="ui center aligned grid">
+    <div class="row status-index">
+        <div class="three wide column">
+            <a class="ui teal big label">
+                <i class="mail icon"></i> Revenue
+              </a>
+        </div>
+        <div class="four wide column">
+            <a class="ui orange big label">
+                <i class="user icon"></i> Date
+              </a>
+        </div>
+        <div class="four wide column">
+            <a class="ui black big label">
+                <i class="user icon"></i> Name
+              </a>
+        </div>
+    </div>
+  </div>
+<div class="ui centered raised cards orders">
+  <div class="card">
+      <div class="image">
+          <img src="assets/products/southindianthali.jpeg">
+        </div>
+    <div class="content">
+      <div class="header">
+        Jenny Hess
+      </div>
+      <div class="meta">
+        New Member
+      </div>
+      <div class="description">
+        Jenny wants to add you to the group <b>best friends</b>
+      </div>
+    </div>
+    <div class="extra content">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+  </div>
+  <div class="card">
+      <div class="image">
+          <img src="assets/products/englishbreakfast.jpeg">
+        </div>
+    <div class="content">
+      <div class="header">
+        Elliot Fu
+      </div>
+      <div class="meta">
+        Friends of Veronika
+      </div>
+      <div class="description">
+        Elliot requested permission to view your contact details
+      </div>
+    </div>
+    <div class="extra content">
+          <div class="item">
+              <button class="ui positive fluid icon button">
+                 Completed
+                </button>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+      <div class="image">
+          <img src="assets/products/southindianthali.jpeg">
+        </div>
+    <div class="content">
+      <div class="header">
+        Jenny Hess
+      </div>
+      <div class="meta">
+        New Member
+      </div>
+      <div class="description">
+        Jenny wants to add you to the group <b>best friends</b>
+      </div>
+    </div>
+    <div class="extra content">
+        <div class="item">
+            <button class="ui positive fluid icon button">
+               Completed
+              </button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

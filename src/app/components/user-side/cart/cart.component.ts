@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
+import { ProductService } from 'src/app/services/product-service/product.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +10,8 @@ import { CartService } from '../../../services/cart-service/cart.service';
 export class CartComponent implements OnInit {
   clearCartModalShow: boolean = false;
   constructor(
-	public cart: CartService,
+  public cart: CartService,
+  public productService : ProductService,
 	) {}
 
   	ngOnInit() {

@@ -99,11 +99,6 @@ import { AuthInterceptor } from 'src/app/services/api-service/auth.interceptor';
     HttpClientModule,
   ],
   providers: [
-    {
-    provide : HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi   : true,
-    }
   ],
   bootstrap: [AppComponent]
 })

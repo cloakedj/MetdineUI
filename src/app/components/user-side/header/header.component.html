@@ -19,10 +19,11 @@
             <button mat-icon-button aria-label="User Notifications">
            <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">notifications</mat-icon>
            </button>
-           <button mat-icon-button aria-label="Switch to Seller">
+           <a [routerLink]="['/seller-dashboard',1]" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
            <mat-icon class="icon" aria-hidden="false" 
            matTooltip="Switch To Seller" aria-label="Example heart icon">swap_calls</mat-icon>
            </button>
+            </a>
            <button mat-icon-button aria-label="Log Out">
            <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">
             exit_to_app

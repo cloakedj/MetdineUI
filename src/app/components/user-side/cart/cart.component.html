@@ -29,13 +29,14 @@
     <div class="six wide right floated column" *ngIf="cart.getCartLength(); else emptyCart">
     <div class="ui compact center aligned segment">
     <h2 class="ui header">
-        <img src="https://www.cyanidemedia.com/wp-content/uploads/2018/02/influencer-marketing-for-restaurant-1.jpg" class="ui image">
+        <img src="{{productService.sellerLogo}}" class="ui image">
         XYZ Restaurant
       </h2>
       <div class="row" *ngFor="let item of cart.items;">
         <div class="ui relaxed horizontal list">
           <div class="item">
-            <img class="ui avatar image" src="../../../assets/products/{{item.product.photo}}">
+            <p>{{item.product.name}}</p>
+            <img class="ui avatar image" src="{{item.product.logo}}">
           </div>
           <div class="item">
             <h5 class="center aligned header">{{item.product.name}}</h5>
