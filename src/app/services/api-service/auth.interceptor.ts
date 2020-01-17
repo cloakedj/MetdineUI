@@ -1,34 +1,48 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-
-import { ApiService } from './api.service';
+import { Injectable } from "@angular/core";
+import { tap } from "rxjs/operators";
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpResponse,
+  HttpErrorResponse
+} from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import { AuthService } from '../auth-service/auth-service.service';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-    private api : ApiService;
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(this.api.checkUserToken() !== null)
-    {
-            console.log("interceptying");
-    req = req.clone({
-      setHeaders: {
-        'Content-Type' : 'application/json; charset=utf-8',
-        'Accept'       : 'application/json',
-        'Authorization': `${this.api.checkUserToken()}`,
-      },
-    });
-    }
-    else
-    {
-    req = req.clone({
-    setHeaders: {
-        'Content-Type' : 'application/json; charset=utf-8',
-        'Accept'       : 'application/json',
-    },
-    });
-    }
-    return next.handle(req);
-  }
+export class MetdineInterceptor implements HttpInterceptor{
+  constructor(private Auth: AuthService){}
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const authenticatedRequest = this.Auth.Auth_T !== '' ? request.clone({
+      setHeaders : {
+        Authorization : `Token ${this.Auth.Auth_T}`
+      }
+      })
+      : request.clone(request);
+    //logging the updated Parameters to browser's console
+    console.log("Before making api call : ", authenticatedRequest);
+    return next.handle(authenticatedRequest).pipe(
+      tap(
+        event => {
+          //logging the http response to browser's console in case of a success
+          if (event instanceof HttpResponse) {
+            console.log("api call success :", event);
+          }
+        },
+        error => {
+          //logging the http response to browser's console in case of a failuer
+          if (event instanceof HttpResponse) {
+            console.log("api call error :", event);
+          }
+        }
+      )
+    );
+ 
+ }
+
 }

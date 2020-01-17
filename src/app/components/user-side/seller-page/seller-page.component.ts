@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api-service/api.service';
+import { Seller } from 'src/app/entities/seller.entity';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seller-page',
@@ -9,23 +12,14 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./seller-page.component.css'],
 })
 export class SellerPageComponent implements OnInit {
+  sellerDetails$ : Observable<Seller>;
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,
-    private router: Router,
+    private api : ApiService,
   ) { 
     this.product.sellerId = this.aroute.snapshot.paramMap.get('id');
-    this.product.sellers$.subscribe(
-      (data) =>{
-        data.map((elem)=>
-        {
-        if(elem.id == this.product.sellerId)
-        this.product.sellerLogo = elem.logo;
-      })
-      },
-      (err) => console.log(err),
-      () => console.log("Completed")    
-    )
+    this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
   }
 
   ngOnInit() {

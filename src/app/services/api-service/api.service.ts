@@ -15,16 +15,12 @@ import { AuthService } from '../auth-service/auth-service.service';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://83c7e284.ngrok.io';
+  API_URL = 'http://cc6bc0dc.ngrok.io';
   mealId;
   private isUserAuthenticated = this.checkUserToken !== null ? true :false;
-  httpHeaders = new HttpHeaders({
-    'Content-Type':'application/json',
-    'Authorization':`Token ${this.auth.getCredentials()}`
-  });
   constructor(private http: HttpClient,
     private router : Router,
-    private auth: AuthService,
+    private Auth: AuthService
     ) { 
   }
   private handleError(error: HttpErrorResponse) {
@@ -46,11 +42,14 @@ export class ApiService {
   getAllSellers():Observable<Seller[]>{
       return this.http.get<Seller[]>(`${this.API_URL}/api/seller/`);
   }
-  getSellerDetails(): Observable<SellerItem>{
-    return this.http.get<SellerItem>(`${this.API_URL}/api/seller/`)
+  getSellerDetails(id): Observable<Seller>{
+    return this.http.get<Seller>(`${this.API_URL}/api/seller/${id}/`)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
   buyerRegistration(userData : User):Observable<User>{
-    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData,{headers : this.httpHeaders})
+    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData)
     .pipe(
       catchError(this.handleError)
     )
@@ -62,14 +61,10 @@ export class ApiService {
     )
   }
   AddUserTokenHeader(token :string){
-    this.auth.setCredentials(token);
-    if(this.auth.getCredentials() !== '')
+    this.Auth.Auth_T = token;
     this.router.navigate(['/home']);
   }
   checkUserToken():any{
-    if(this.auth.getCredentials() !== '' || this.auth.getCredentials()!== undefined)
-    return this.auth.getCredentials();
-    else return null;
   }
   ensurity(): boolean{ return this.isUserAuthenticated;}
   requestSellerDetails(sellerId):any{
@@ -80,25 +75,14 @@ export class ApiService {
     )
   }
   getSellerQuickData():any{
-    return this.http.get(`${this.API_URL}/api/seller/dashboard/`,{headers : 
-      new HttpHeaders({
-        'Content-Type':'application/json',
-        'Authorization':`Token ${this.auth.getCredentials()}`
-      })
-    })
+    return this.http.get(`${this.API_URL}/api/seller/dashboard/`)
       .pipe(
         catchError(this.handleError)
       )
   }
   addNewOrder(id):any{
     this.mealId.append("meal__id",id);
-    return this.http.post(`${this.API_URL}/api/seller/dashboard/`,{headers : 
-      new HttpHeaders({
-        'Content-Type':'application/json',
-        'Authorization':`Token ${this.auth.getCredentials()}`,
-        params : this.mealId
-      })
-    })
+    return this.http.post(`${this.API_URL}/api/seller/dashboard/`,{params : this.mealId})
       .pipe(
         catchError(this.handleError)
       )

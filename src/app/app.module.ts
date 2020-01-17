@@ -46,8 +46,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
-import { AuthInterceptor } from 'src/app/services/api-service/auth.interceptor';
-
+import { MetdineInterceptor } from './services/api-service/auth.interceptor';
+import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +99,11 @@ import { AuthInterceptor } from 'src/app/services/api-service/auth.interceptor';
     HttpClientModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MetdineInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

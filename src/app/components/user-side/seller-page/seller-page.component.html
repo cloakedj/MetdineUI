@@ -1,16 +1,19 @@
+<ng-container *ngIf="sellerDetails$ | async as seller">
 <div class="ui inverted segment">
     <div class="ui grid">
         <div class="six wide column">
-            <img src="{{this.product.sellerLogo}}">
+        <img src="{{seller.logo}}" #sellerLogo>
+        <ng-template #logoPlaceholder *ngIf="!sellerLogo">
+          Loading Image
+        </ng-template>       
         </div>
         <div class="ten wide column">
-            <h2 class="ui header">Seller XYZ</h2>
+        <h2 class="ui header">{{seller.first_name}} {{seller.last_name}}</h2>
             <h3 class="ui sub header">
-                1st Cross, BTM Layout
+                {{seller.address}}
               </h3>
               <h3 class="ui sub header">
-                <a class="ui red tag label">Fast Food</a>
-                <a class="ui teal tag label">Pizza</a>
+              {{seller.desc}}
               </h3>
               <div class="ui two column very relaxed grid">
                 <div class="column">
@@ -34,3 +37,4 @@
 </div>
 </div>
 <app-product></app-product>
+</ng-container>
