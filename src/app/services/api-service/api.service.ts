@@ -15,7 +15,7 @@ import { AuthService } from '../auth-service/auth-service.service';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://cc6bc0dc.ngrok.io';
+  API_URL = 'http://6bc17f63.ngrok.io';
   mealId;
   private isUserAuthenticated = this.checkUserToken !== null ? true :false;
   constructor(private http: HttpClient,

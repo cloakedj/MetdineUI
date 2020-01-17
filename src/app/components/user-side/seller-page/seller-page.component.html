@@ -1,11 +1,8 @@
-<ng-container *ngIf="sellerDetails$ | async as seller">
+<ng-container *ngIf="sellerDetails$ | async as seller" #sellerPage>
 <div class="ui inverted segment">
     <div class="ui grid">
         <div class="six wide column">
-        <img src="{{seller.logo}}" #sellerLogo>
-        <ng-template #logoPlaceholder *ngIf="!sellerLogo">
-          Loading Image
-        </ng-template>       
+          <img src="{{seller.logo}}" (load)="loaded = true">     
         </div>
         <div class="ten wide column">
         <h2 class="ui header">{{seller.first_name}} {{seller.last_name}}</h2>
@@ -37,4 +34,47 @@
 </div>
 </div>
 <app-product></app-product>
+</ng-container>
+<ng-container *ngIf="!containerLoaded;else sellerPage">
+  <div class="ph-item">
+    <div class="ph-col-4">
+      <div class="ph-picture for-seller-logo"></div>
+    </div> 
+    <div class="ph-col-8">
+          <div class="ph-row">
+            <div class="ph-col-4 big"></div>
+        </div>
+        <!--Address placeholder-->
+        <div class="ph-row">
+          <div class="ph-col-2"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-4"></div>
+        </div>
+        <!--Seller Address placeholder Ends-->
+       <!--Seller description  placeholder-->
+        <div class="ph-row">
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-4"></div>
+        </div>
+        <!--Seller description  placeholder ends-->
+        <!--Seller Additional Data-->
+        <div class="seller-additional-data-ph">
+        <div class="ph-row">
+          <div class="ph-col-2 big"></div>
+          <div class="ph-col-6 empty"></div>
+          <div class="ph-col-2 big"></div>
+        </div>
+      </div>
+        <!--Seller Additional Data ends-->
+    </div>
+</div>
 </ng-container>

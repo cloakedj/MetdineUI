@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit, ɵConsole, AfterViewInit } from '@angular/core';
 import { Product } from '../../../entities/product.entity';
 import { ProductService } from '../../../services/product-service/product.service';
 import { CartComponent } from '../cart/cart.component';
@@ -15,7 +15,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product.component.css'],
   providers: [CartComponent,IncDecCartComponent],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, AfterViewInit {
+  private containerLoaded: boolean = false;
   constructor(
   private productService: ProductService,
   private incdeccart: IncDecCartComponent,
@@ -29,6 +30,9 @@ export class ProductComponent implements OnInit {
   vegNonvegFilter(type : boolean):string{
     if (type) return "Veg";
     return "Non Veg";
+  }
+  ngAfterViewInit(){
+    this.containerLoaded = true;
   }
 
 }

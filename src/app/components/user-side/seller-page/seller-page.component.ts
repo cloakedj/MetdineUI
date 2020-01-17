@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -11,8 +11,9 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './seller-page.component.html',
   styleUrls: ['./seller-page.component.css'],
 })
-export class SellerPageComponent implements OnInit {
+export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerDetails$ : Observable<Seller>;
+  containerLoaded : boolean = false;
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,
@@ -24,5 +25,8 @@ export class SellerPageComponent implements OnInit {
 
   ngOnInit() {
     this.product.getSellerItems(this.product.sellerId);
+  }
+  ngAfterViewInit(){
+    this.containerLoaded = true;
   }
 }

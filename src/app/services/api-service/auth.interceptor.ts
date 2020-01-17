@@ -23,7 +23,7 @@ export class MetdineInterceptor implements HttpInterceptor{
         Authorization : `Token ${this.Auth.Auth_T}`
       }
       })
-      : request.clone(request);
+      : request;
     //logging the updated Parameters to browser's console
     console.log("Before making api call : ", authenticatedRequest);
     return next.handle(authenticatedRequest).pipe(
@@ -37,7 +37,11 @@ export class MetdineInterceptor implements HttpInterceptor{
         error => {
           //logging the http response to browser's console in case of a failuer
           if (event instanceof HttpResponse) {
-            console.log("api call error :", event);
+            if(event.status === 401)
+            console.log("Invalid Credentials")
+            else if(event.status === 404) console.log("user not Found")
+            else if(event.status === 500) console.log("Server Down")  
+            else console.log("error: ",event);    
           }
         }
       )

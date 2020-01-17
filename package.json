@@ -40,6 +40,7 @@
     "moment": "2.24.0",
     "ngx-slick": "^0.2.1",
     "perfect-scrollbar": "1.1.0",
+    "placeholder-loading": "^0.2.4",
     "popper.js": "1.15.0",
     "rxjs": "~6.4.0",
     "rxjs-compat": "6.5.2",
