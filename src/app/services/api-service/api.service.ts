@@ -78,7 +78,6 @@ export class ApiService {
       )
   }
   addNewOrder(mealId : Number, sellerId: Number,quantity : number){
-    console.log(`meal id :${mealId} sellerid ${sellerId}`)
     this.params = new HttpParams().set("meal_id",mealId.toString()).set("seller_id",sellerId.toString());
     return this.http.post(`${this.API_URL}/api/user/cart/add`, {quantity : quantity}, {params : this.params}) 
     .pipe(
@@ -87,6 +86,35 @@ export class ApiService {
   }
   fetchCartDetails(): Observable<any>{
     return this.http.get(`${this.API_URL}/api/user/cart/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Seller Api Functions
+  //Function to Get Payment History of The Seller from the API
+  getSellerPaymentHistory(): Observable<any>{
+    return this.http.get(`${this.API_URL}/api/seller/history/payment/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Function to get the meals offered by the seller for seller dashboard
+  getSellerDashboardMeals():Observable<any>{
+    return this.http.get(`${this.API_URL}/api/seller/meals/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Function to get meals offered by seller for seller dashbaord with mealID
+  getSellerDashboardMealById():Observable<any>{
+    return this.http.get(`${this.API_URL}/api/seller/menu/3/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Function to get All orders completed and active for the seller dashboard
+  getSellerDashboardOrders() : Observable<any>{
+    return this.http.get(`${this.API_URL}/api/seller/orders/`)
     .pipe(
       catchError(this.handleError)
     )

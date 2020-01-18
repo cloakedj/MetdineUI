@@ -48,6 +48,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
 import { MetdineInterceptor } from './services/api-service/auth.interceptor';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
+import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import { AuthService } from 'src/app/services/auth-service/auth-service.service'
     MenuItemComponent,
     SellerDashboardComponent,
     GeolocationComponent,
+    SellerPaymentMenuComponent,
   ],
   imports: [
     BrowserModule,

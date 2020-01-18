@@ -1,5 +1,5 @@
 <div class="ui grid ">
-<!-- <div class="four wide column">
+<div class="four wide column">
 <div class="ui raised segment sidebarmenu">
     <div class="row">
         <div class="item">
@@ -35,21 +35,70 @@
         </div>
     </div>
 </div>
-</div> -->
-<div class="eighteen wide column">
-<div class="ui grid quickoptions">
-    <div class="four wide column" *ngFor="let prop of sellerData">
-        <div class="ui card">
+</div>
+<div class="twelve wide column">
+<div class="ui centered grid quickoptions">
+    <ng-container *ngIf="sellerDashOptions else quickOptionsPlaceholder">
+        <div class="ui three column stackable grid">
+        <div class="column">
+            <div class="ui raised segment">
             <div class="content">
-              <div class="header">{{prop.first_name}}</div>
+              <div class="header">
+                <h3 class="ui centered header">
+                    Meals Completed
+                </h3></div>
+                <div class="ui divider"></div>
               <div class="meta">
-                <span>2 days ago</span>
-                <a>Animals</a>
+                <span>
+                    <h1 class="ui centered header">
+                  {{sellerDashOptions.meals}}
+                  </h1>
+                </span>
               </div>
-              <p></p>
+            </div>
             </div>
           </div>
-    </div>
+          <div class="column">
+              <div class="ui raised segment">
+              <div class="content">
+                <div class="header">
+                    <h3 class="ui centered header">
+                      Orders Completed
+                    </h3>
+                  </div>
+                  <div class="ui divider"></div>
+                <div class="meta">
+                  <span>
+                      <h1 class="ui centered header">
+                        {{sellerDashOptions.orders}}
+                      </h1>
+                  </span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="column">
+                <div class="ui raised segment">
+                <div class="content">
+                  <div class="header">
+                      <h3 class="ui centered header">
+                        Revenue Generated
+                      </h3>
+                    </div>
+                    <div class="ui divider"></div>
+                  <div class="meta">
+                    <span>
+                    <h1 class="ui centered header">
+                      {{sellerDashOptions.revenue}}
+                    </h1>
+                    </span>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            </ng-container>
+
   </div>
   <div class="ui hidden divider"> 
   </div>
@@ -303,76 +352,88 @@
         </div>
     </div>
   </div>
-<div class="ui centered raised cards orders">
-  <div class="card">
-      <div class="image">
-          <img src="assets/products/southindianthali.jpeg">
+<div class="ui link centered cards orders">
+  <ng-container *ngIf="sellerOrders else completedOrdersPlaceholder">
+    <div class="ui card" *ngFor="let order of sellerOrders;">
+        <div class="content">
+          <div class="header">Order Id : {{order.id}}</div>
+          <h4 class="ui sub header">Address : {{order.address}}</h4>
+          <h4 class="ui sub header">Total Revenue : {{order.total}}</h4>
         </div>
-    <div class="content">
-      <div class="header">
-        Jenny Hess
-      </div>
-      <div class="meta">
-        New Member
-      </div>
-      <div class="description">
-        Jenny wants to add you to the group <b>best friends</b>
-      </div>
-    </div>
-    <div class="extra content">
-        <div class="item">
-            <button class="ui positive fluid icon button">
-               Completed
-              </button>
-        </div>
-    </div>
-  </div>
-  <div class="card">
-      <div class="image">
-          <img src="assets/products/englishbreakfast.jpeg">
-        </div>
-    <div class="content">
-      <div class="header">
-        Elliot Fu
-      </div>
-      <div class="meta">
-        Friends of Veronika
-      </div>
-      <div class="description">
-        Elliot requested permission to view your contact details
-      </div>
-    </div>
-    <div class="extra content">
-          <div class="item">
-              <button class="ui positive fluid icon button">
-                 Completed
-                </button>
+        <div class="content">
+          <h3 class="ui sub header">Order Summary</h3>
+          <h4 class="ui sub header">Items : </h4>
+          <div class="ui very relaxed horizontal list">
+              <div class="item">
+                  <div class="content">
+                    <div class="header">Item</div>
+                  </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                      <div class="header">Quantity</div>
+                    </div>
+                  </div>
+          </div>
+          <br>
+          <div class="ui very relaxed horizontal list" *ngFor="let item of order.items">
+              <div class="item">
+                  <img class="ui avatar image" src="{{item.image}}">
+                </div>
+                <div class="item">
+                  <div class="content">
+                    <div class="header">{{item.quantity}}</div>
+                  </div>
+                </div>
           </div>
         </div>
-  </div>
-  <div class="card">
-      <div class="image">
-          <img src="assets/products/southindianthali.jpeg">
+        <div class="extra content">
+          <button class="ui positive floated button">Completed</button>
         </div>
-    <div class="content">
-      <div class="header">
-        Jenny Hess
       </div>
-      <div class="meta">
-        New Member
-      </div>
-      <div class="description">
-        Jenny wants to add you to the group <b>best friends</b>
-      </div>
-    </div>
-    <div class="extra content">
-        <div class="item">
-            <button class="ui positive fluid icon button">
-               Completed
-              </button>
+    </ng-container>
+</div>
+</div>
+</div>
+  <!-- While API is fetching data create placeholders-->
+  <!--
+    Placeholder For Quick Dashboard Data
+  -->
+<ng-template #quickOptionsPlaceholder>
+    <div class="ui three column stackable grid">
+        <div class="column" *ngFor="let ph of [0,1,2]">
+          <div class="ui raised segment">
+            <div class="ui placeholder">
+              <div class="image header">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+              <div class="paragraph">
+                <div class="medium line"></div>
+                <div class="short line"></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+      </div>
+</ng-template>
+    <!--
+      Placeholder For Completed orders
+    -->
+<ng-template #completedOrdersPlaceholder>
+    <div class="ui card plcompletedorders" *ngFor="let pl of [0,1,2,3]">
+      <div class="ph-item">
+        <div class="ph-picture"></div>
+        <div class="ui divider"></div>
+        <div class="ph-picture"></div>
+        <div class="ph-col-12">
+          <div class="ph-row">
+              <div class="ph-col-4 big"></div>
+          </div>
+        </div>
+      </div>
+      <div class="extra content">
+          <div class="ui disabled positive button">Completed</div>
+        </div>
+      </div>
+</ng-template>

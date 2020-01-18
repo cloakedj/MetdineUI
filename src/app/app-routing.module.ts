@@ -15,6 +15,7 @@ import { ProfileOptionsComponent } from './components/seller-side/seller-profile
 import { MenuItemComponent } from './components/seller-side/menu-item/menu-item.component';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
+import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 
 
 const routes: Routes =[
@@ -34,8 +35,9 @@ const routes: Routes =[
   ]},
   { path: 'cart', component: CartComponent},
   { path: 'seller-profile', component: SellerProfileComponent, children:[
-    {path: 'profileOptions', component: ProfileOptionsComponent, outlet:'sellerProfile'},
-    { path:'', redirectTo:'/seller-profile/(sellerProfile:profileOptions)', pathMatch: 'full'},
+    {path: 'profile-options', component: ProfileOptionsComponent, outlet:'sellerProfile'},
+    {path: 'seller-payment-menu', component: SellerPaymentMenuComponent, outlet: 'sellerProfile'},
+    { path:'', redirectTo:'/seller-profile/(sellerProfile:profile-options)', pathMatch: 'full'},
   ]},
   { path:'addItem', component:MenuItemComponent},
   { path:'seller-dashboard/:id', redirectTo:'seller-dashboard'},

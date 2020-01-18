@@ -1,19 +1,8 @@
-.seller-card {
-max-width: 280px;
-}
-
-.seller-card-image {
-background-size: cover;
-}
-.spacer {
-flex: 1 1 auto;
-}
-mat-card-actions
-{
-    display:flex;
-}
 .ui.grid
 {
   margin-right:0 !important;
   margin-left:0 !important;
+}
+.image img{
+  outline: none;
 }
