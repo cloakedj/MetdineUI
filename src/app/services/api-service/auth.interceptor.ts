@@ -18,12 +18,17 @@ export class MetdineInterceptor implements HttpInterceptor{
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const authenticatedRequest = this.Auth.Auth_T !== '' ? request.clone({
+    const authenticatedRequest = this.Auth.Auth_T !== null ? request.clone({
       setHeaders : {
+        "Content-Type" : "application/json",
         Authorization : `Token ${this.Auth.Auth_T}`
       }
       })
-      : request;
+      : request.clone({
+         setHeaders : {
+          "Content-Type" : "application/json"
+         }
+      });
     //logging the updated Parameters to browser's console
     console.log("Before making api call : ", authenticatedRequest);
     return next.handle(authenticatedRequest).pipe(

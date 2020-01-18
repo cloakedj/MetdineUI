@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -13,13 +13,15 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerDetails$ : Observable<Seller>;
-  containerLoaded : boolean = false;
+  private sellerLogo : string;
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,
     private api : ApiService,
   ) { 
-    this.product.sellerId = this.aroute.snapshot.paramMap.get('id');
+    let sid = this.aroute.snapshot.paramMap.get('id');
+    this.product.sellerId = sid;
+    this,product.sellerLogo = this.sellerLogo;
     this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
   }
 
@@ -27,6 +29,5 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
     this.product.getSellerItems(this.product.sellerId);
   }
   ngAfterViewInit(){
-    this.containerLoaded = true;
   }
 }

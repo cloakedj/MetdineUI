@@ -15,8 +15,6 @@ export class CartComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
-      if(localStorage.getItem("cart") != null)
-      this.cart.loadCart();
 	}
 
 }

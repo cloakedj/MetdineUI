@@ -2,21 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Seller } from '../../entities/seller.entity';
-import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { User } from '../../entities/user.entity';
 import { catchError, retry } from 'rxjs/operators';
 import {Router} from "@angular/router";
-import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
-import { error } from 'util';
 import { AuthService } from '../auth-service/auth-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://6bc17f63.ngrok.io';
-  mealId;
+  API_URL = 'http://d6cc25ef.ngrok.io';
+  params : HttpParams;
   private isUserAuthenticated = this.checkUserToken !== null ? true :false;
   constructor(private http: HttpClient,
     private router : Router,
@@ -68,8 +65,8 @@ export class ApiService {
   }
   ensurity(): boolean{ return this.isUserAuthenticated;}
   requestSellerDetails(sellerId):any{
-    this.mealId = new HttpParams().set("seller__id",sellerId);
-    return this.http.get(`${this.API_URL}/api/seller/menu`,{ params : this.mealId})
+    this.params = new HttpParams().set("seller__id",sellerId);
+    return this.http.get(`${this.API_URL}/api/seller/menu`,{ params : this.params})
       .pipe(
       catchError(this.handleError)
     )
@@ -80,11 +77,19 @@ export class ApiService {
         catchError(this.handleError)
       )
   }
-  addNewOrder(id):any{
-    this.mealId.append("meal__id",id);
-    return this.http.post(`${this.API_URL}/api/seller/dashboard/`,{params : this.mealId})
-      .pipe(
-        catchError(this.handleError)
+  addNewOrder(mealId : Number, sellerId: Number,quantity : number){
+    console.log(`meal id :${mealId} sellerid ${sellerId}`)
+    this.params = new HttpParams().set("meal_id",mealId.toString()).set("seller_id",sellerId.toString());
+    return this.http.post(`${this.API_URL}/api/user/cart/add`, {quantity : quantity}, {params : this.params}) 
+    .pipe(
+        catchError(this.handleError),
       )
   }
+  fetchCartDetails(): Observable<any>{
+    return this.http.get(`${this.API_URL}/api/user/cart/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
 }

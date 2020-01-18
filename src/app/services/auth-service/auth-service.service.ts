@@ -7,6 +7,6 @@ export class AuthService {
   private Auth_Token : string = '';
   private UserId : Number;
   constructor() { }
-  get Auth_T() { return this.Auth_Token;}
-  set Auth_T(token) { this.Auth_Token = token; }
+  get Auth_T() { let token = localStorage.getItem("Auth_Token");return token;}
+  set Auth_T(token : string) { localStorage.setItem("Auth_Token",token); }
 }
