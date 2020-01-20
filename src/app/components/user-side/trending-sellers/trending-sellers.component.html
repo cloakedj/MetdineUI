@@ -1,7 +1,7 @@
-<div class="glide">
+-`*<div class="glide">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
-      <li class="glide__slide" *ngFor = "let img of seller_imgs"><img src="{{img.src}}"></li>
+      <li class="glide__slide" *ngFor = "let seller of getTrending;"><img src="{{seller.logo}}"></li>
     </ul>
   </div>
   <div class="glide__arrows" data-glide-el="controls">

@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://192.168.1.104:325';
+  API_URL = 'http://10.4.202.115:325';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken !== null ? true :false;
   constructor(private http: HttpClient,
@@ -63,6 +63,8 @@ export class ApiService {
     this.router.navigate(['/home']);
   }
   checkUserToken():any{
+    if(localStorage.getItem("Auth_Token") !== "null") return true ;
+    return false;
   }
   ensurity(): boolean{ return this.isUserAuthenticated;}
   requestSellerDetails(sellerId):Observable<SellerItem[]>{
@@ -136,7 +138,7 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
-  //Endpoint to etreive cart from API
+  //Endpoint to retrieve cart from API
   getUserCartDetails(){
    return  this.http.get(`${this.API_URL}/api/user/cart/`)
    .pipe(
@@ -172,4 +174,26 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+  //Endpoint to Complete CheckOut
+  checkoutUserCart(id : number,total_amount : number){
+    return this.http.put(`${this.API_URL}/api/user/checkout/${id}/`,{order_id : id,amount : total_amount})
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Get Trending Sellers
+  getTrendingSellers() : Observable<Seller[]>{
+    return this.http.get<Seller[]>(`${this.API_URL}/api/home/trending/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Log User Out
+  logOutUser(){
+    return this.http.get(`${this.API_URL}/api/rest-auth/logout/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
 }

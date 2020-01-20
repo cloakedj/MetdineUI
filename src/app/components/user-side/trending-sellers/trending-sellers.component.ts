@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import Glide from '@glidejs/glide';
+import { Observer } from 'rxjs';
+import { Seller } from 'src/app/entities/seller.entity';
+import { ApiService } from 'src/app/services/api-service/api.service';
 
 @Component({
   selector: 'app-trending-sellers',
@@ -7,28 +10,40 @@ import Glide from '@glidejs/glide';
   styleUrls: ['./trending-sellers.component.css']
 })
 export class TrendingSellersComponent implements OnInit,AfterViewInit {
-  seller_imgs: Array<{src: string}> = [];
-  constructor() { 
-    this.seller_imgs = [
-      {src : "https://media-cdn.tripadvisor.com/media/photo-s/03/f8/10/1b/chefs-restaurants.jpg"},
-      {src : "https://www.dellaadventure.com/images/restaurant-cafe-24-thumb.jpg"},
-      {src : "https://www.fabhotels.com/blog/wp-content/uploads/2018/09/Rooftop-Breeze.jpg"},
-      {src : "https://www.oyorooms.com/travel-guide/wp-content/uploads/2019/05/Checking-out-some-of-Indias-most-incredible-restaurants-Image-2.jpg"},
-    ]
+  getTrendingSellers$ : Observer<Seller[]>;
+  trendingSellers : Seller[];
+  glide :Glide;
+  constructor(private api :ApiService) { 
   }
 
   ngOnInit() {
+    this.trendingSellersFetch();
   }
   ngAfterViewInit()
   {
-    const glide = new Glide('.glide',{
+    console.log("loaded glide");
+    this.glide = new Glide('.glide',{
       type:'slider',
       startAt : 0,
       perView : 3,
       gap: 50,
       bound: true,
     });
-    glide.mount();
+    this.glide.mount();
+  }
+  trendingSellersFetch(){
+    this.getTrendingSellers$ = {
+      next : data => {
+        this.trendingSellers = data
+      },
+      error : err => console.log(err),
+      complete : () => {
+        this.glide.update();
+        console.log(this.trendingSellers);
+        console.log("Request to Trending Sellers Completed and glide reloaded")
+      }
+    }
+    this.api.getTrendingSellers().subscribe(this.getTrendingSellers$);
   }
 
 }

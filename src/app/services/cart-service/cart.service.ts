@@ -32,7 +32,7 @@ loadCart(): void {
     next : (data) => {
       this.items = data.items;
       this.total = data.total;
-      console.log(this.items);
+      this.orderId = data.id;
     },
     error : (err) => console.log(err),
     complete : () => console.log("Request to cart fetch completed")
