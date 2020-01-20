@@ -120,73 +120,60 @@
     </div>
 </div>
 </div>  
-  <div class="ui centered raised cards orders">
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/southindianthali.jpeg">
+  <div class="ui centered linked raised cards orders">
+    <ng-container *ngIf="sellerRequestedOrders else completedOrdersPlaceholder">
+      <div class="ui card" *ngFor="let order of sellerRequestedOrders;">
+          <div class="content">
+            <div class="header">Order Id : {{order.id}}</div>
+            <h4 class="ui sub header">Address : {{order.address}}</h4>
+            <h4 class="ui sub header">Amount : {{order.total}}</h4>
+            <h4 class="ui sub header">Status : {{order.status}}</h4>
           </div>
-      <div class="content">
-        <div class="header">
-          Jenny Hess
-        </div>
-        <div class="meta">
-          New Member
-        </div>
-        <div class="description">
-          Jenny wants to add you to the group <b>best friends</b>
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui two buttons">
-          <div class="ui basic green button">Approve</div>
-          <div class="ui basic red button">Decline</div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/englishbreakfast.jpeg">
+          <div class="content">
+            <h3 class="ui sub header">Order Summary</h3>
+            <h4 class="ui sub header">Items : </h4>
+            <div class="ui very relaxed horizontal list">
+              <div class="item">
+                <div class="content">
+                  <div class="header">S No.</div>
+                </div>
+              </div>
+                <div class="item">
+                    <div class="content">
+                      <div class="header">Item</div>
+                    </div>
+                  </div>
+                  <div class="item">
+                      <div class="content">
+                        <div class="header">Quantity</div>
+                      </div>
+                  </div>
+            </div>
+            <br>
+            <div class="row"  *ngFor="let item of order.items;let i = index">
+            <div class="ui very relaxed horizontal list">
+              <div class="item">
+                <div class="content">
+                  <div class="header">{{i}}</div>
+                </div>
+              </div>
+                <div class="item">
+                    <img class="ui avatar image" src="{{item.image}}">
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">{{item.quantity}}</div>
+                    </div>
+                  </div>
+            </div>
           </div>
-      <div class="content">
-        <div class="header">
-          Elliot Fu
-        </div>
-        <div class="meta">
-          Friends of Veronika
-        </div>
-        <div class="description">
-          Elliot requested permission to view your contact details
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui two buttons">
-            <div class="ui basic green button">Approve</div>
-            <div class="ui basic red button">Decline</div>
+          <div class="extra content">
+            <button class="ui positive left floated button" (click)="updateRequestedOrderStatus(order.id,1)">Accept</button>
+            <button class="ui negative right floated button" (click)="updateRequestedOrderStatus(order.id,6)">Reject</button>
           </div>
-      </div>
-    </div>
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/southindianthali.jpeg">
-          </div>
-      <div class="content">
-        <div class="header">
-          Jenny Hess
-        </div>
-        <div class="meta">
-          New Member
-        </div>
-        <div class="description">
-          Jenny wants to add you to the group <b>best friends</b>
         </div>
       </div>
-      <div class="extra content">
-        <div class="ui two buttons">
-            <div class="ui basic green button">Approve</div>
-            <div class="ui basic red button">Decline</div>
-          </div>
-      </div>
-    </div>
+      </ng-container>
   </div>
   <div class="ui hidden divider"> 
 </div>
@@ -230,103 +217,62 @@
     </div>
 </div>
   </div>
-  <div class="ui centered raised cards orders">
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/southindianthali.jpeg">
+  <div class="ui centered link raised cards orders">
+    <ng-container *ngIf="sellerActiveOrders else completedOrdersPlaceholder">
+      <div class="ui card" *ngFor="let order of sellerActiveOrders;">
+          <div class="content">
+            <div class="header">Order Id : {{order.id}}</div>
+            <h4 class="ui sub header">Address : {{order.address}}</h4>
+            <h4 class="ui sub header">Amount : {{order.total}}</h4>
+            <h4 class="ui sub header">Status : {{order.status}}</h4>
           </div>
-      <div class="content">
-        <div class="header">
-          Jenny Hess
-        </div>
-        <div class="meta">
-          New Member
-        </div>
-        <div class="description">
-          Jenny wants to add you to the group <b>best friends</b>
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui four buttons">
-            <button class="ui teal circular cooking icon button">
-                <i class="facebook icon"></i>
-              </button>
-              <button class="ui orange circular ready icon button">
-                <i class="twitter icon"></i>
-              </button>
-              <button class="ui black circular on-the-way  icon button">
-                <i class="linkedin icon"></i>
-              </button>
-              <button class="ui purple circular delivered icon button">
-                <i class="google plus icon"></i>
-              </button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/englishbreakfast.jpeg">
+          <div class="content">
+            <h3 class="ui sub header">Order Summary</h3>
+            <h4 class="ui sub header">Items : </h4>
+            <div class="ui very relaxed horizontal list">
+              <div class="item">
+                <div class="content">
+                  <div class="header">S No.</div>
+                </div>
+              </div>
+                <div class="item">
+                    <div class="content">
+                      <div class="header">Item</div>
+                    </div>
+                  </div>
+                  <div class="item">
+                      <div class="content">
+                        <div class="header">Quantity</div>
+                      </div>
+                    </div>
+            </div>
+            <br>
+            <div class="row"  *ngFor="let item of order.items;let i = index;">
+            <div class="ui very relaxed horizontal list">
+              <div class="item">
+                <div class="content">
+                  <div class="header">{{i}}</div>
+                </div>
+              </div>
+                <div class="item">
+                    <img class="ui avatar image" src="{{item.image}}">
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">{{item.quantity}}</div>
+                    </div>
+                  </div>
+                  </div>
+            </div>
           </div>
-      <div class="content">
-        <div class="header">
-          Elliot Fu
-        </div>
-        <div class="meta">
-          Friends of Veronika
-        </div>
-        <div class="description">
-          Elliot requested permission to view your contact details
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui four buttons">
-            <button class="ui teal circular cooking icon button">
-                <i class="facebook icon"></i>
-              </button>
-              <button class="ui orange circular ready icon button">
-                <i class="twitter icon"></i>
-              </button>
-              <button class="ui black circular on-the-way  icon button">
-                <i class="linkedin icon"></i>
-              </button>
-              <button class="ui purple circular delivered icon button">
-                <i class="google plus icon"></i>
-              </button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-        <div class="image">
-            <img src="assets/products/southindianthali.jpeg">
+          <div class="extra content">
+            <button class="ui orange left floated button" (click)="updateRequestedOrderStatus(order.id,1)">Cooking</button>
+            <button class="ui teal right floated button" (click)="updateRequestedOrderStatus(order.id,2)">Ready</button>
+            <button class="ui purple right floated button" (click)="updateRequestedOrderStatus(order.id,3)">On The Way</button>
+            <button class="ui positive right floated button" (click)="updateRequestedOrderStatus(order.id,4)">Delivered</button>
           </div>
-      <div class="content">
-        <div class="header">
-          Jenny Hess
         </div>
-        <div class="meta">
-          New Member
-        </div>
-        <div class="description">
-          Jenny wants to add you to the group <b>best friends</b>
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui four buttons">
-            <button class="ui teal circular cooking icon button">
-                <i class="facebook icon"></i>
-              </button>
-              <button class="ui orange circular ready icon button">
-                <i class="twitter icon"></i>
-              </button>
-              <button class="ui black circular on-the-way  icon button">
-                <i class="linkedin icon"></i>
-              </button>
-              <button class="ui purple circular delivered icon button">
-                <i class="google plus icon"></i>
-              </button>
-        </div>
-      </div>
-    </div>
+      </ng-container>
   </div>
   <div class="ui hidden divider"></div>
 <h2 class="ui center aligned icon header">
@@ -353,17 +299,23 @@
     </div>
   </div>
 <div class="ui link centered cards orders">
-  <ng-container *ngIf="sellerOrders else completedOrdersPlaceholder">
-    <div class="ui card" *ngFor="let order of sellerOrders;">
+  <ng-container *ngIf="sellerCompletedOrders else completedOrdersPlaceholder">
+    <div class="ui card" *ngFor="let order of sellerCompletedOrders;">
         <div class="content">
           <div class="header">Order Id : {{order.id}}</div>
           <h4 class="ui sub header">Address : {{order.address}}</h4>
           <h4 class="ui sub header">Total Revenue : {{order.total}}</h4>
+          <h4 class="ui sub header">Status : {{order.status}}</h4>
         </div>
         <div class="content">
           <h3 class="ui sub header">Order Summary</h3>
           <h4 class="ui sub header">Items : </h4>
           <div class="ui very relaxed horizontal list">
+            <div class="item">
+              <div class="content">
+                <div class="header">S No.</div>
+              </div>
+            </div>
               <div class="item">
                   <div class="content">
                     <div class="header">Item</div>
@@ -376,7 +328,13 @@
                   </div>
           </div>
           <br>
-          <div class="ui very relaxed horizontal list" *ngFor="let item of order.items">
+          <div class="row" *ngFor="let item of order.items; let i = index;">
+          <div class="ui very relaxed horizontal list">
+            <div class="item">
+              <div class="content">
+                <div class="header">{{i}}</div>
+              </div>
+            </div>
               <div class="item">
                   <img class="ui avatar image" src="{{item.image}}">
                 </div>
@@ -385,7 +343,8 @@
                     <div class="header">{{item.quantity}}</div>
                   </div>
                 </div>
-          </div>
+              </div>
+        </div>
         </div>
         <div class="extra content">
           <button class="ui positive floated button">Completed</button>
@@ -418,10 +377,10 @@
       </div>
 </ng-template>
     <!--
-      Placeholder For Completed orders
+      Placeholder For Order Cards
     -->
 <ng-template #completedOrdersPlaceholder>
-    <div class="ui card plcompletedorders" *ngFor="let pl of [0,1,2,3]">
+    <div class="ui card plcompletedorders" *ngFor="let pl of [0,1,2]">
       <div class="ph-item">
         <div class="ph-picture"></div>
         <div class="ui divider"></div>
@@ -433,7 +392,7 @@
         </div>
       </div>
       <div class="extra content">
-          <div class="ui disabled positive button">Completed</div>
+          <div class="ui disabled primary button">Options</div>
         </div>
       </div>
 </ng-template>

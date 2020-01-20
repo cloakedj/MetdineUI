@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
     private api: ApiService) { }
 
   ngOnInit() {  
-    if(localStorage.getItem("cart") != null)
     this.cart.loadCart();
   }
 

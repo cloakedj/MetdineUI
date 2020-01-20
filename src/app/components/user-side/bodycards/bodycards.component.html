@@ -2,7 +2,7 @@
   <app-filter-sidebar></app-filter-sidebar>
   <div class="twelve wide column">
     <div class="ui link three cards">
-      <ng-container *ngIf="product.sellers$ else plForSellerCards">
+      <ng-container *ngIf="product.sellers$ | async; else plForSellerCards">
       <div class="ui card" *ngFor="let seller of product.sellers$ | async">
         <div class="content">
           <h4 class="ui header">
@@ -36,7 +36,7 @@
   Create placeholders till API fetches the content
 -->
 <ng-template #plForSellerCards>
-    <div class="ui card" *ngFor="let pl of [0,1,2,3]">
+    <div class="ui card" *ngFor="let pl of [0,1,2,3,4,5]">
         <div class="image">
           <div class="ui placeholder">
             <div class="square image"></div>

@@ -1,8 +1,7 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Item } from '../../entities/item.entity';
 import { ProductService } from '../product-service/product.service';
 import { ApiService } from '../api-service/api.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observer } from 'rxjs';
 import { CartItem } from 'src/app/entities/cart-item.entity';
 
 
@@ -10,137 +9,119 @@ import { CartItem } from 'src/app/entities/cart-item.entity';
   providedIn: 'root'
 })
 export class CartService implements OnDestroy, OnInit{
-  items: Item[] = [];
+  items: CartItem[] = [];
   total: number = 0;
-  cartLength: number = 0;
-  cartUpdateApiSubscription : Subscription;
   existingOrder : CartItem[];
   orderDetailsId : Number;
   orderId : Number;
+  userCartdetaisl$ : Observer<any>;
+  itemExistsQuantity : number;
   constructor(private productService: ProductService,
     private api: ApiService,
   ){ 
   }
 
   ngOnInit(){
-    this.api.fetchCartDetails()
-    .subscribe(
-      (elem) => {
-        if(elem.ordered === true)
-        {
-        this.orderId = elem.id;
-        this.existingOrder = elem.items;
-        console.log(this.existingOrder);
-        }
-      },
-      (err) => console.log(err),
-      () => console.log("Completed request")
-    )
+    this.loadCart();
   }
 
 loadCart(): void {
   this.total = 0;
   this.items = [];
-  if(localStorage.getItem("cart") === null)
-  {
-    localStorage.setItem("cart",JSON.stringify(this.existingOrder))
+  this.userCartdetaisl$ = {
+    next : (data) => {
+      this.items = data.items;
+      this.total = data.total;
+      console.log(this.items);
+    },
+    error : (err) => console.log(err),
+    complete : () => console.log("Request to cart fetch completed")
   }
-  let cart = JSON.parse(localStorage.getItem('cart'));
-  for (var i = 0; i < cart.length; i++) {
-    let item = JSON.parse(cart[i]);
-    this.items.push({
-      product: item.product,
-      quantity: item.quantity
-    });
-    this.cartLength=0;
-    this.items.map(item => this.cartLength+=item.quantity);
-    this.total += item.product.price * item.quantity;
-
-  }
+  this.api.getUserCartDetails().subscribe(this.userCartdetaisl$);
+  
 }
-
-remove(id: Number): void {
-  let cart: any = JSON.parse(localStorage.getItem('cart'));
-  let index: number = -1;
-  for (var i = 0; i < cart.length; i++) {
-    let item: Item = JSON.parse(cart[i]);
-    if (item.product.id == id) {
-      if(item.quantity === 1)
-      cart.splice(i, 1);
-      else
+                    
+getCartLength(): number{
+  return this.items.length === 0 ? 0 : this.items.length; 
+}
+updateCart(id: Number,operation?: string): void{
+    if(this.items === undefined)
+    {
+    this.api.additemtoCart(id,this.productService.sellerId)
+    .subscribe(
+      data => 
       {
-        item.quantity -= 1;
-        cart[i] = JSON.stringify(item);
-      }
-      break;
+        console.log(data);
+        console.log("New item Added To cart")
+      },
+      err => console.log(err),
+      () => console.log("Request to add order Completed")
+    )
+    this.loadCart();
     }
+    else
+    {
+      let existsInCart : boolean = this.items.find(item => item.meal_id === id) ? true : false;
+      let orderItemId;
+    if(existsInCart)
+    {
+      this.items.find(item => {
+        if(item.meal_id === id)
+        {
+        this.itemExistsQuantity = item.quantity;
+        orderItemId = item.id;
+        }
+      });
+      this.updateCartItem(operation,orderItemId);
+    }
+    else
+    {
+    this.api.additemtoCart(id,this.productService.sellerId)
+    .subscribe(
+      data => console.log("New item Added To cart"),
+      err => console.log(err),
+      () => console.log("Request to add order Completed")
+    )
   }
-  localStorage.setItem('cart', JSON.stringify(cart));
   this.loadCart();
 }
-getCartLength(): Number{
-  if(this.items.length === 0)
-  this.cartLength=0;
-  return this.cartLength;
 }
-updateCart(id: Number): void{
-  if (id) {
-    let item: Item = {
-    product: this.productService.getSelectedItem(id),
-    quantity: 1
-    };
-    if (localStorage.getItem("cart") === null || localStorage.getItem("cart") === "[]")
-    {
-    let cart: any = [];
-    cart.push(JSON.stringify(item));
-    localStorage.setItem('cart', JSON.stringify(cart));
-    this.cartUpdateApiSubscription = this.cartUpdateApi(item.product.id , 
-      this.productService.sellerId , item.quantity);
-      this.cartUpdateApiSubscription.unsubscribe();
-    } else {
-    let cart: any = JSON.parse(localStorage.getItem('cart'));
-    let index: number = -1;
-    for (var i = 0; i < cart.length; i++) {
-      let item: Item = JSON.parse(cart[i]);
-      if (item.product.id == id) {
-      index = i;
-      break;
+  clearCart(){
+    this.api.deleteCurrentCart().subscribe(
+      data => console.log(data),
+      err => console.log(err),
+      () => console.log("Completed request to delete current cart")
+    )
+  }
+  updateCartItem(operation?: string, id?: Number)
+  {
+    if(operation === 'a') this.itemExistsQuantity += 1;
+    else if(this.itemExistsQuantity - 1 === 0)  this.deleteItemFromCart(id); 
+    else  this.itemExistsQuantity -=1;
+    this.api.updateOrderItemQuantity(this.items[0].id,this.itemExistsQuantity)
+    .subscribe(
+      (data) => console.log("Cart item Quantity updated"),
+      (err) => console.log(err),
+      () => 
+      {
+        this.loadCart();
+        console.log("request to update quantity completed")
       }
-    }
-    if (index == -1) {
-      cart.push(JSON.stringify(item));
-      this.cartUpdateApiSubscription =  
-      this.cartUpdateApi(item.product.id , this.productService.sellerId , item.quantity) 
-      localStorage.setItem('cart', JSON.stringify(cart));
-    } else {
-      let item: Item = JSON.parse(cart[index]);
-      item.quantity += 1;
-      cart[index] = JSON.stringify(item);
-      this.cartUpdateApiSubscription = 
-      this.cartUpdateApi(item.product.id , this.productService.sellerId , item.quantity);
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-    }
-    this.loadCart();
-  } else {
-    this.loadCart();
+    );
   }
-}
-  clearCart(): void{
-   localStorage.removeItem('cart');
-   this.cartLength = 0;
-   this.items = [];
-   this.total = 0;
-  }
-  cartUpdateApi(pid: Number, sid : Number, q : number): Subscription{
-  return this.api.addNewOrder(pid, sid, q)
-  .subscribe(
-    (elem) => this.orderDetailsId = elem["id"],
-    (err) => console.log(err),
-    () => console.log("Completed")
-  )
+  deleteItemFromCart(id : Number){
+    if(this.getCartLength() - 1 === 0 && this.itemExistsQuantity - 1 === 0 )
+    this.clearCart();
+    else
+    {
+    this.api.deleteOrderItemById(id)
+    .subscribe(
+      elem => console.log("Deleted Item from Cart"),
+      err => console.log(err),
+      () => console.log("request to delete Item Completed Successfully")
+    )
+    }
   }
   ngOnDestroy(){
-    localStorage.removeItem("cart");
   }
 }

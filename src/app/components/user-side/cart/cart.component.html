@@ -26,7 +26,8 @@
   </div>
     </div>
   </div>
-    <div class="six wide right floated column" *ngIf="cart.getCartLength(); else emptyCart">
+  <ng-container *ngIf="cart.getCartLength() else emptyCart">
+    <div class="six wide right floated column">
     <div class="ui compact center aligned segment">
     <h2 class="ui header">
         <img src="{{productService.sellerLogo}}" class="ui image">
@@ -35,15 +36,14 @@
       <div class="row" *ngFor="let item of cart.items;">
         <div class="ui relaxed horizontal list">
           <div class="item">
-            <p>{{item.product.name}}</p>
-            <img class="ui avatar image" src="{{item.product.logo}}">
+            <img class="ui avatar image" src="{{item.image}}">
           </div>
           <div class="item">
-            <h5 class="center aligned header">{{item.product.name}}</h5>
+            <h5 class="center aligned header">{{item.meal_title}}</h5>
         </div>
-        <app-inc-dec-cart [productId] = "item.product.id" class="item"></app-inc-dec-cart>
+        <app-inc-dec-cart [productId] = "item.meal_id" class="item"></app-inc-dec-cart>
         <div class="item">
-            <h5 class="header">{{item.quantity * item.product.price}}</h5>
+            <h5 class="header">{{item.meal_price * item.quantity}}</h5>
         </div>
       </div>
       <div class="ui hidden divider"></div>
@@ -64,6 +64,11 @@
   </div>
 </div>
 </div>
+</ng-container>
+
+<!-- 
+  Placeholder for if cart is empty
+-->
 <ng-template #emptyCart>
   <h2 class="ui center aligned icon header">
     <i class="shopping cart icon"></i>

@@ -35,6 +35,40 @@
   </div>
   <app-product></app-product>
   </ng-container>
+<!--
+  Placeholder For Seller Products
+-->
+<ng-template #plForSellerProducts>
+    <div class="ui card" *ngFor="let pl of [0,1,2,3]">
+        <div class="image">
+          <div class="ui placeholder">
+            <div class="square image"></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ui placeholder">
+            <div class="header">
+              <div class="very short line"></div>
+              <div class="medium line"></div>
+            </div>
+            <div class="paragraph">
+              <div class="short line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui disabled right floated positive button">Add</div>
+        </div>
+      </div>
+</ng-template>
+<!--
+  Placeholder for product image because sometimes images take longer to load than content
+-->
+<ng-template #productimagePlaceholder>
+<div class="ui placeholder">
+    <div class="square image"></div>
+  </div>
+</ng-template>
   <ng-template #sellerPagePlaceholder>
     <div class="ph-item">
       <div class="ph-col-4">

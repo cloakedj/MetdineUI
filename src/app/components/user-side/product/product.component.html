@@ -1,7 +1,7 @@
 <div class="ui four stackable link cards grid container">
-  <ng-container *ngIf="productService.products else plForSellerProducts">
-    <div  class="ui card" *ngFor="let product of productService.products; let i = index">
-      <ng-container *ngIf="product.image else productimagePlaceholder">
+  <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
+    <div  class="ui card" *ngFor="let product of productService.products$ | async">
+      <ng-container *ngIf="product.image  else productimagePlaceholder">
       <div class="image">
         <img src="{{product.image}}">
         </div>
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="extra content">
-            <button class="positive ui button right floated"   (click)="[cart.updateCart(product.id),incdeccart.getId(),api.addNewOrder(product.id)]" *ngIf="incdeccart.onProdZero(product.id)">Add</button>
+            <button class="positive ui button right floated"   (click)="cart.updateCart(product.id)" *ngIf="!cart.getCartLength()">Add</button>
             <app-inc-dec-cart  [productId] = "product.id" class="right floated"></app-inc-dec-cart>
             <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
         </div>

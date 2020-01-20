@@ -1,6 +1,6 @@
-import { SellerItem } from './seller-item.entity';
+import { CartItem } from './cart-item.entity';
 
 export class Item{
-    product: SellerItem;
-    quantity: number;
+    product : CartItem;
+    quantity : Number;
 }

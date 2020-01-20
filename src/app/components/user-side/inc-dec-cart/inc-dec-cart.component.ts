@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Item } from '../../../entities/item.entity';
-import { CartComponent } from '../cart/cart.component';
 import { ProductService } from '../../../services/product-service/product.service';
+import { CartService } from 'src/app/services/cart-service/cart.service';
 
 @Component({
   selector: 'app-inc-dec-cart',
@@ -10,29 +9,19 @@ import { ProductService } from '../../../services/product-service/product.servic
 })
 export class IncDecCartComponent implements OnInit{
   @Input() productId : Number;
-  items: Item[] = [];
   constructor(
-    private cartComp: CartComponent,
-    private prodService: ProductService
+    private cart : CartService
     ) { }
 
   ngOnInit() {
   }
-
-  getId(prodId? : number): number{
-    if(prodId)
-      this.productId = prodId;
-    for(let item of this.cartComp.cart.items){
-    if(item.product.id == this.productId)
-      return item.quantity;
+  getItemQuantity(id :number){
+    let quantity ;
+    this.cart.items.find(item => {
+      if(id === item.meal_id) quantity =  item.quantity;
+    });
+    return quantity;
   }
-}
-onProdZero(prodId? : number): boolean{
-  if(this.getId(prodId) == 0 || this.getId(prodId) == undefined)
-    return true;
-  return false;
-
-}
 
 
 

@@ -9,7 +9,7 @@ import { Seller } from 'src/app/entities/seller.entity';
 })
 export class ProductService implements OnInit,OnDestroy{
   private products : SellerItem[];
-  products$ : Subscription; 
+  products$ : Observable<SellerItem[]>; 
   sellers$: Observable<Seller[]>;
   sellerId : any;
   sellerLogo : any;
@@ -23,18 +23,8 @@ export class ProductService implements OnInit,OnDestroy{
     this.sellers$ = this.api.getAllSellers();
   }
   getSellerItems(id : Number){
-    this.products$ = this.api.requestSellerDetails(id)
-    .subscribe(
-      (elem) => {this.products = elem},
-      (err) => console.log(err),
-      () => console.log("request Completed")
-      );
-  }
- getSelectedItem(id: Number){
-   this.product = this.products.find(elem => elem.id === id);
-   return this.product;
+    this.products$ =   this.api.requestSellerDetails(id);
   } 
   ngOnDestroy(){
-    console.log("service terminated")
   }
 }
