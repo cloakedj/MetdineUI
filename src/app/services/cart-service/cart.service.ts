@@ -47,6 +47,7 @@ getCartLength(): number{
 updateCart(id: Number,operation?: string): void{
     if(this.items === undefined)
     {
+
     this.api.additemtoCart(id,this.productService.sellerId)
     .subscribe(
       data => 
@@ -55,9 +56,12 @@ updateCart(id: Number,operation?: string): void{
         console.log("New item Added To cart")
       },
       err => console.log(err),
-      () => console.log("Request to add order Completed")
+      () => 
+      {
+        this.loadCart();
+        console.log("Request to add order Completed");
+      }
     )
-    this.loadCart();
     }
     else
     {
@@ -80,17 +84,23 @@ updateCart(id: Number,operation?: string): void{
     .subscribe(
       data => console.log("New item Added To cart"),
       err => console.log(err),
-      () => console.log("Request to add order Completed")
+      () => {
+        this.loadCart();
+        console.log("Request to add order Completed");
+      }
     )
   }
-  this.loadCart();
+
 }
 }
   clearCart(){
     this.api.deleteCurrentCart().subscribe(
       data => console.log(data),
       err => console.log(err),
-      () => console.log("Completed request to delete current cart")
+      () => {
+        this.loadCart();
+        console.log("Completed request to delete current cart");
+      }
     )
   }
   updateCartItem(operation?: string, id?: Number)
@@ -98,7 +108,7 @@ updateCart(id: Number,operation?: string): void{
     if(operation === 'a') this.itemExistsQuantity += 1;
     else if(this.itemExistsQuantity - 1 === 0)  this.deleteItemFromCart(id); 
     else  this.itemExistsQuantity -=1;
-    this.api.updateOrderItemQuantity(this.items[0].id,this.itemExistsQuantity)
+    this.api.updateOrderItemQuantity(id,this.itemExistsQuantity)
     .subscribe(
       (data) => console.log("Cart item Quantity updated"),
       (err) => console.log(err),
@@ -118,7 +128,11 @@ updateCart(id: Number,operation?: string): void{
     .subscribe(
       elem => console.log("Deleted Item from Cart"),
       err => console.log(err),
-      () => console.log("request to delete Item Completed Successfully")
+      () => 
+      {
+        this.loadCart();
+        console.log("request to delete Item Completed Successfully");
+      }
     )
     }
   }

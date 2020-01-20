@@ -49,6 +49,7 @@ import { GeolocationComponent } from './components/geolocation/geolocation.compo
 import { MetdineInterceptor } from './services/api-service/auth.interceptor';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
+import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { SellerPaymentMenuComponent } from './components/seller-side/seller-paym
     SellerDashboardComponent,
     GeolocationComponent,
     SellerPaymentMenuComponent,
+    BecomeSellerFormComponent,
   ],
   imports: [
     BrowserModule,

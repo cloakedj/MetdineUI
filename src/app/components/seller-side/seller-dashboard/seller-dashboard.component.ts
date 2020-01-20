@@ -3,6 +3,7 @@ import { Chart } from 'chart.js';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Subscription, Observer } from 'rxjs';
 import { SellerDash } from 'src/app/entities/seller-dash.entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -19,7 +20,8 @@ export class SellerDashboardComponent implements OnInit {
   sellerCompletedOrdersForDashboard$ : Observer<any>;
   sellerRequestedOrdersForDashboard$ : Observer<any>; 
   sellerAcceptedOrdersForDashboard$ : Observer<any>;
-  constructor(private api : ApiService) { 
+  constructor(private api : ApiService,
+    private router : Router) { 
   }
   ngOnInit() {
    this.sellerData$ = {
