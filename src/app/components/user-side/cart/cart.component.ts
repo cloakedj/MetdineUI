@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
 	) {}
 
   	ngOnInit() {
+      this.cart.loadCart();
   }
   checkoutCart(id,total){
     this.api.checkoutUserCart(id,total)

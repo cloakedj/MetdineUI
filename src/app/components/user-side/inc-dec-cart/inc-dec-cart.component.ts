@@ -8,9 +8,9 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
 })
 export class IncDecCartComponent implements OnInit{
   @Input() productId : Number;
-  cartSize  = this.cart.getCartLength();
+  cartSize  = this.cart.getCartLength() === 0 ? 0 : this.cart.getCartLength();
   cartAction = (pid : number,action ?: string) =>{
-    this.cart.updateCartItem(action,pid);
+    this.cart.updateCart(pid,action);
   }
   constructor(
     private cart : CartService

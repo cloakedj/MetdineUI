@@ -7,27 +7,24 @@
               <div class="ui fluid form">
                   <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm">
                     <div class="field">
-                      <input placeholder="First Name"  formControlName="fname" type="text">
-                      <div class="ui pointing red basic label"  *ngIf="fname.invalid && !fname.pristine">
+                      <input placeholder="First Name"  formControlName="first_name" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="first_name.invalid && !first_name.pristine">
                             First Name Is Required
                      </div>
                     </div>
                     <div class="field">
-                      <input placeholder="Last Name" formControlName="lname" type="text">
-                      <div class="ui pointing red basic label"  *ngIf="lname.invalid && !lname.pristine">
+                      <input placeholder="Last Name" formControlName="last_name" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="last_name.invalid && !last_name.pristine">
                             Last Name Is Required
                      </div>
                     </div>
                     <div class="field">
-                      <input placeholder="Distance" formControlName="distance" type="number">
-                    </div>
-                    <div class="field">
-                        <input placeholder="Logo" formControlName="logo" type="file">
+                        <input formControlName="logo" type="file" (change)="onFileChange($event)" placeholder="Upload Seller Logo">
                       </div>
                     <div class="field">
-                      <input placeholder="Phone Number" formControlName="phoneNumber" type="text">
-                      <div class="ui pointing red basic label"  *ngIf="phoneNumber.invalid && !phoneNumber.pristine">
-                        <span *ngIf="phoneNumber.errors?.minlength || phoneNumber.errors?.maxlength ||phoneNumber.errors?.pattern">Enter A Valid Phone Number</span>
+                      <input placeholder="Phone Number" formControlName="phone" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="phone.invalid && !phone.pristine">
+                        <span *ngIf="phone.errors?.minlength || phone.errors?.maxlength ||phone.errors?.pattern">Enter A Valid Phone Number</span>
                     </div>
                     </div>
                     <div class="field">
@@ -36,12 +33,6 @@
                             Address Is Required
                      </div>
                     </div>
-                    <div class="field">
-                    <input placeholder="Latitude" formControlName="latitude" type="number">
-                        </div>
-                        <div class="field">
-                            <input placeholder="Longitude" formControlName="longitude" type="number">
-                                </div>
                         <div class="field">
                           <div class="two ui buttons">
                             <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid" type="Submit" value="Sign Up">

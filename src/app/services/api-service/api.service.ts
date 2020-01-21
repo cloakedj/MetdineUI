@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://192.168.1.107:325';
+  API_URL = 'http://8ac738d5.ngrok.io';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -51,7 +51,13 @@ export class ApiService {
     )
   }
   buyerRegistration(userData : User):Observable<User>{
-    return this.http.post<User>(`${this.API_URL}/api/to_seller/`, userData)
+    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  sellerRegistration(userData : Seller):Observable<Seller>{
+    return this.http.post<Seller>(`${this.API_URL}/api/to_seller/`, userData)
     .pipe(
       catchError(this.handleError)
     )

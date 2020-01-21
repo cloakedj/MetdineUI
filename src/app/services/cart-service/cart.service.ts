@@ -45,6 +45,7 @@ getCartLength(): number{
   return this.items.length === 0 ? 0 : this.items.length; 
 }
 updateCart(id: Number,operation?: string): void{
+  console.log(this.items);  
     if(this.items === undefined)
     {
 
@@ -76,6 +77,7 @@ updateCart(id: Number,operation?: string): void{
         orderItemId = item.id;
         }
       });
+      console.log(orderItemId);
       this.updateCartItem(operation,orderItemId);
     }
     else
