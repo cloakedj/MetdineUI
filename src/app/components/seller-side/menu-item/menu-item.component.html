@@ -5,27 +5,53 @@
         Add A New Item
       </h3>
       <div class="ui hidden divider"></div>
-  <mat-horizontal-stepper>
-    <mat-step label="Details">
+  <mat-horizontal-stepper linear>
+    <mat-step label="Details" [stepControl]="ItemDetailsFormGroup">
         <img class="ui circular centered small image" src="assets/itemplaceholder.jpg">
         <div class="row">
+          <form [formGroup]="ItemDetailsFormGroup">
             <div class="ui form">
+              <div class="field" *ngIf="ItemDetailsFormGroup.invalid && !ItemDetailsFormGroup.pristine ">
+                <div class="ui negative message">
+                  <div class="header">
+                    <h5 class="ui heading">
+                    Please recify The Following Errors before Proceeding Forward : 
+                  </h5>
+                  </div>
+                  <ul class="list">
+                    <li *ngIf="!Item_Name.invalid && !Item_Name.pristine">
+                      Item title Is Required.
+                    </li>
+                  </ul>
+              </div>
+              </div>
                   <div class="field">
-                    <label>Item Title</label>
-                    <input placeholder="Name Of The Dish"  type="text">
+                    <label>Item Title *</label>
+                    <input placeholder="Name Of The Dish"  type="text" formControlName="Item_Name">
+                    <span>
+
+                    </span>
                   </div>
                   <div class="field">
-                    <label>Item pictures</label>
-                    <input placeholder="Images of The Item"  type="file">
+                    <label>Item pictures*</label>
+                    <input placeholder="Images of The Item"  type="file" formControlName="Item_Image">
                   </div>
                   <div class="field">
-                    <label>Item Description</label>
-                    <textarea placeholder="A small Description Of the Item."  type="text"></textarea>
+                    <h5 class="ui right floated header">
+                      <span class="chars-left-in-total" *ngIf="!Item_Desc.pristine">
+                        {{characters_used}} / {{characters_left}}
+                      </span>
+                    </h5>
+                    <h5 class="ui left floated header">
+                      Description*
+                    </h5>
+                    <textarea placeholder="A small Description Of the Item."  type="text" formControlName="Item_Desc"></textarea>
                   </div>
                   <div class="field">
-                    <button class="positive fluid ui button" matStepperNext>Next</button>
+                    <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid" matStepperNext type="button">Next</button>
                   </div>
               </div>
+            </form>
         </div>
     </mat-step>
     <mat-step label="Properties">
@@ -47,8 +73,8 @@
                   </div>
                   <div class="field">
                     <div class="two ui buttons">
-                        <button class="negative ui button" matStepperPrevious>Back</button>
-                    <button class="positive ui button" matStepperNext>Next</button>
+                        <button class="negative ui button" matStepperPrevious type="button">Back</button>
+                    <button class="positive ui button" matStepperNext type="button">Next</button>
                     </div>
                   </div>
               </div>
@@ -70,7 +96,7 @@
                   </div>
                   <div class="field">
                     <div class="two ui buttons">
-                        <button class="negative ui button" matStepperPrevious>Back</button>
+                        <button class="negative ui button" matStepperPrevious type="button">Back</button>
                     <button class="positive ui button" matStepperNext>Finish</button>
                     </div>
                   </div>

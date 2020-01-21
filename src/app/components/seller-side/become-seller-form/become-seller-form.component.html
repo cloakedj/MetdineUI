@@ -2,7 +2,7 @@
     <div class="column">
         <h3 class="ui top attached header center aligned inverted">Become A Seller</h3>
         <div class="ui raised attached segment">
-          <img class="ui circular centered small image" src="../../../assets/molly.png">
+          <img class="ui circular centered small image" src="assets/molly.png">
           <div class="ui divider"></div>
               <div class="ui fluid form">
                   <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm">
@@ -19,7 +19,7 @@
                      </div>
                     </div>
                     <div class="field">
-                      <input placeholder="Distance" formControlName="distance" type="number" [disabled]="true">
+                      <input placeholder="Distance" formControlName="distance" type="number">
                     </div>
                     <div class="field">
                         <input placeholder="Logo" formControlName="logo" type="file">
@@ -37,10 +37,10 @@
                      </div>
                     </div>
                     <div class="field">
-                    <input placeholder="Latitude" formControlName="latitude" type="number" [disabled]="true">
+                    <input placeholder="Latitude" formControlName="latitude" type="number">
                         </div>
                         <div class="field">
-                            <input placeholder="Longitude" formControlName="longitude" type="number" [disabled]="true">
+                            <input placeholder="Longitude" formControlName="longitude" type="number">
                                 </div>
                         <div class="field">
                           <div class="two ui buttons">

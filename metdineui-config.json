@@ -1,0 +1,4 @@
+{
+    "port" : 4200,
+    "baseDir" : { "baseDir" : "./dist/MetdineUI" }
+}

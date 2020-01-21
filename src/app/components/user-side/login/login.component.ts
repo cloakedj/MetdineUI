@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit , OnDestroy{
   onSubmit(Data){
     this.loginSubscription = this.api.loginUser(Data)
     .subscribe(
-      (data) => {this.Auth_Key = data["key"];},
+      (data) => {console.log(data["key"]);this.Auth_Key = data["key"];},
       (err) => console.log(err),
       () =>     this.api.AddUserTokenHeader(this.Auth_Key)
     );

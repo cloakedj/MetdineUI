@@ -18,7 +18,7 @@ export class MetdineInterceptor implements HttpInterceptor{
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const authenticatedRequest = this.Auth.Auth_T !== null ? request.clone({
+    const authenticatedRequest = this.Auth.Auth_T ? request.clone({
       setHeaders : {
         "Content-Type" : "application/json",
         Authorization : `Token ${this.Auth.Auth_T}`
@@ -42,6 +42,7 @@ export class MetdineInterceptor implements HttpInterceptor{
         error => {
           //logging the http response to browser's console in case of a failuer
           if (event instanceof HttpResponse) {
+            console.log(event.status);
             if(event.status === 401)
             console.log("Invalid Credentials")
             else if(event.status === 404) console.log("user not Found")

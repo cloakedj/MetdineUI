@@ -17,5 +17,8 @@ export class BodycardsComponent implements OnInit {
   ngOnInit() {
     this.product.getSellersDetails();
   }
+  getAllSellers() : Observable<any>{
+    return this.product.sellers$;
+  }
 
 }

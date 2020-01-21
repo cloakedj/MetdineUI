@@ -2,7 +2,7 @@
   <div class="ui inverted segment">
       <div class="ui grid">
           <div class="six wide column">
-            <img src="{{seller.logo}}" (load) = "sellerLogo = seller.logo">     
+            <img src="{{seller.logo}}" (onLoad)="sellerLogo = seller.logo">     
           </div>
           <div class="ten wide column">
           <h2 class="ui header">{{seller.first_name}} {{seller.last_name}}</h2>

@@ -1,5 +1,5 @@
-<div class="ui small basic icon buttons"  *ngIf="cart.getCartLength()">
-    <button class="ui negative basic button" (click) = "cart.updateCart(productId)"><i class="minus icon"></i></button>
+<div class="ui small basic icon buttons"  *ngIf="cartSize">
+    <button class="ui negative basic button" (click) = "cartAction(productId)"><i class="minus icon"></i></button>
     <button class="ui button">{{getItemQuantity(productId)}}</button>
-    <button class="ui positive basic button" (click)="cart.updateCart(productId,'a')"><i class="plus icon"></i></button>
+    <button class="ui positive basic button" (click)="cartAction(productId,'a')"><i class="plus icon"></i></button>
 </div>

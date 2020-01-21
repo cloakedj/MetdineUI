@@ -13,9 +13,9 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://10.4.202.115:325';
+  API_URL = 'http://192.168.1.107:325';
   params : HttpParams;
-  private isUserAuthenticated = this.checkUserToken !== null ? true :false;
+  private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
     private router : Router,
     private Auth: AuthService
@@ -38,7 +38,11 @@ export class ApiService {
   };
 
   getAllSellers():Observable<Seller[]>{
-      return this.http.get<Seller[]>(`${this.API_URL}/api/seller/`);
+    this.params = new HttpParams().set("lat","12.088").set("long","13.458");
+      return this.http.get<Seller[]>(`${this.API_URL}/api/seller/`,{params : this.params})
+      .pipe(
+        catchError(this.handleError)
+      )
   }
   getSellerDetails(id): Observable<Seller>{
     return this.http.get<Seller>(`${this.API_URL}/api/seller/${id}/`)
@@ -47,7 +51,7 @@ export class ApiService {
     )
   }
   buyerRegistration(userData : User):Observable<User>{
-    return this.http.post<User>(`${this.API_URL}/rest-auth/registration/`, userData)
+    return this.http.post<User>(`${this.API_URL}/api/to_seller/`, userData)
     .pipe(
       catchError(this.handleError)
     )
@@ -63,7 +67,7 @@ export class ApiService {
     this.router.navigate(['/home']);
   }
   checkUserToken():any{
-    if(localStorage.getItem("Auth_Token") !== "null") return true ;
+    if(localStorage.getItem("Auth_Token")) return true ;
     return false;
   }
   ensurity(): boolean{ return this.isUserAuthenticated;}
@@ -188,9 +192,16 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+  //Check if the buyer has a seller account
+  checkIfSeller(){
+    return this.http.get(`${this.API_URL}/api/user/is_seller`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
   //Log User Out
   logOutUser(){
-    return this.http.get(`${this.API_URL}/api/rest-auth/logout/`)
+    return this.http.post(`${this.API_URL}/rest-auth/logout/`,'')
     .pipe(
       catchError(this.handleError)
     )

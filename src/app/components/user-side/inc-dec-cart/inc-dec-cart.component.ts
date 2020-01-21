@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { ProductService } from '../../../services/product-service/product.service';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 
 @Component({
@@ -9,6 +8,10 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
 })
 export class IncDecCartComponent implements OnInit{
   @Input() productId : Number;
+  cartSize  = this.cart.getCartLength();
+  cartAction = (pid : number,action ?: string) =>{
+    this.cart.updateCartItem(action,pid);
+  }
   constructor(
     private cart : CartService
     ) { }

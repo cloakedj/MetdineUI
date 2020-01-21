@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
 })
 export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerDetails$ : Observable<Seller>;
-  private sellerLogo : string;
+  sellerLogo : string;
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,

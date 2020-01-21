@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
@@ -13,11 +13,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 })
-export class MenuItemComponent implements OnInit  {
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  animalControl = new FormControl('', [Validators.required]);
-  selectFormControl = new FormControl('', Validators.required);
+export class MenuItemComponent implements OnInit {
+  ItemDetailsFormGroup : FormGroup;
+  characters_used : number = 0;
+  characters_left: number = 60;
   categories = [
     {name:'Indian'},
     {name:'Western'},
@@ -33,11 +32,22 @@ export class MenuItemComponent implements OnInit  {
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.ItemDetailsFormGroup = this._formBuilder.group({
+      Item_Name : ['',[
+        Validators.required,
+        Validators.pattern(/[A-Za-z]/gi)
+      ]],
+      Item_Image : ['',[
+        Validators.required
+      ]],
+      Item_Desc :['',[
+        Validators.required,
+        Validators.minLength(30),
+        Validators.maxLength(60)
+      ]],
     });
   }
+  get Item_Name() { return this.ItemDetailsFormGroup.get("Item_Name");}
+  get Item_Image() { return this.ItemDetailsFormGroup.get("Item_Image");}
+  get Item_Desc() { return this.ItemDetailsFormGroup.get("Item_Desc");}
 }

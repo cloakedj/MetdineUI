@@ -17,13 +17,14 @@ import { SellerDashboardComponent } from './components/seller-side/seller-dashbo
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
 import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 
 const routes: Routes =[
   { path: 'seller-page/:id', component: SellerPageComponent},
   { path: 'seller-page/cart', redirectTo:'cart'},
   { path: 'seller-page/cart/:id', redirectTo:'cart/:id'},
-  { path: 'home', component: HomepageComponent},
+  { path: 'home', component: HomepageComponent, canActivate: [AuthGuardService]},
   { path: 'profile', component: BuyerProfileComponent, children:[
     { path: 'profileOptions', component: UserProfileComponent, outlet: 'userProfile' },
     { path: 'favouriteOrders', component: FavouriteOrdersComponent, outlet: 'userProfile'},
@@ -42,7 +43,6 @@ const routes: Routes =[
   ]},
   { path:'addItem', component:MenuItemComponent},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
-  { path:'seller-dashboard/:id', redirectTo:'seller-dashboard'},
   { path:'seller-dashboard' ,component: SellerDashboardComponent},
   { path:'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
@@ -51,6 +51,9 @@ const routes: Routes =[
 @NgModule({
   imports: [RouterModule.forRoot(routes
     ,{ enableTracing: false})],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    AuthGuardService
+  ]
 })
 export class AppRoutingModule { }

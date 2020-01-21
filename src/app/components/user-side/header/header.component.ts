@@ -10,13 +10,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  userLoggedIn : boolean = false;
   constructor(public cart: CartService,
     private api: ApiService,
     private router : Router) { }
+    itemsInCart : number = 0;
 
   ngOnInit() {  
-    this.cart.loadCart();
+    this.ensureuser();
+        if(this.userLoggedIn) {
+      this.itemsInCart = this.cart.getCartLength();
+      this.cart.loadCart();
+        }
   }
+  // getlengthIfLoggedIn(){
+  //   if(this.userLoggedIn) {
+  //     this.itemsInCart = this.cart.getCartLength();
+  //     this.cart.loadCart();
+  //   }
+  ensureuser(){this.userLoggedIn  = this.api.ensurity(); }
   logUserOut(){
     this.api.logOutUser()
     .subscribe(
@@ -24,11 +36,11 @@ export class HeaderComponent implements OnInit {
       err => console.log(err),
       () => 
       {
-        localStorage.setItem("Auth_Token","null");
+        localStorage.removeItem("Auth_Token");
         this.router.navigate(['/']);
         console.log("Logged out Successfully!");
       }
     )
-  }
+    }
 
 }

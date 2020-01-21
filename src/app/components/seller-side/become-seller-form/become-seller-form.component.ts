@@ -12,7 +12,7 @@ export class BecomeSellerFormComponent implements OnInit {
   becomeSellerForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
-    distance: [''],
+    distance: [{value : '', disabled : true}],
     desc:['',[
       Validators.maxLength(200)
     ]
@@ -24,8 +24,8 @@ export class BecomeSellerFormComponent implements OnInit {
       Validators.required
     ]],
     address:['',Validators.required],
-    latitude:[''],
-    longitude:['']
+    latitude:[{value : '', disabled : true}],
+    longitude:[{value : '', disabled : true}]
   });
   constructor(private formBuilder: FormBuilder,
     private api : ApiService) {
