@@ -17,7 +17,7 @@ export class BecomeSellerFormComponent implements OnInit {
       Validators.maxLength(200)
     ]
     ],
-    logo:[null],
+    logo:[''],
     phone:['',[
       Validators.minLength(10),
       Validators.maxLength(10),
@@ -35,7 +35,7 @@ export class BecomeSellerFormComponent implements OnInit {
   }
   ngOnInit() {
   }
-  onFileChange(event) {
+  onLogoUpload(event) {
     const reader = new FileReader();
  
     if(event.target.files && event.target.files.length) {

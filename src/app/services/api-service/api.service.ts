@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://8ac738d5.ngrok.io';
+  API_URL = 'http://fa43d485.ngrok.io';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -164,7 +164,7 @@ export class ApiService {
   }
   //Endpoint to delete item from cart
   deleteOrderItemById(id : Number){
-    return this.http.delete(`${this.API_URL}/api/user/order/${id}/`)
+    return this.http.delete(`${this.API_URL}/api/user/order/remove/${id}/`)
     .pipe(
       catchError(this.handleError)
     )

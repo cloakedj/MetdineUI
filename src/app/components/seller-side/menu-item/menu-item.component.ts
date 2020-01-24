@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { SellerItem } from 'src/app/entities/seller-item.entity';
 
 /**
  * @title Stepper label bottom position
@@ -15,8 +16,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 })
 export class MenuItemComponent implements OnInit {
   ItemDetailsFormGroup : FormGroup;
+  ItemPropertiesFormGroup : FormGroup;
   characters_used : number = 0;
   characters_left: number = 60;
+  newSellerItemObject : SellerItem;
   categories = [
     {name:'Indian'},
     {name:'Western'},
@@ -35,7 +38,7 @@ export class MenuItemComponent implements OnInit {
     this.ItemDetailsFormGroup = this._formBuilder.group({
       Item_Name : ['',[
         Validators.required,
-        Validators.pattern(/[A-Za-z]/gi)
+        Validators.pattern(/^[a-zA-Z\s]+$/i)
       ]],
       Item_Image : ['',[
         Validators.required
@@ -46,6 +49,18 @@ export class MenuItemComponent implements OnInit {
         Validators.maxLength(60)
       ]],
     });
+    this.ItemPropertiesFormGroup = this._formBuilder.group({
+      Item_Category : ['',[
+        Validators.required
+      ]],
+      Item_VegorNonveg:['',[
+        Validators.required
+      ]],
+    });
+  }
+  addToFormObject(data){
+    let ItemObjtoPush = [];
+    ItemObjtoPush.push(data)
   }
   get Item_Name() { return this.ItemDetailsFormGroup.get("Item_Name");}
   get Item_Image() { return this.ItemDetailsFormGroup.get("Item_Image");}

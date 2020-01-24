@@ -20,7 +20,6 @@ export class MetdineInterceptor implements HttpInterceptor{
   ): Observable<HttpEvent<any>> {
     const authenticatedRequest = this.Auth.Auth_T ? request.clone({
       setHeaders : {
-        "Content-Type" : "application/json",
         Authorization : `Token ${this.Auth.Auth_T}`
       }
       })

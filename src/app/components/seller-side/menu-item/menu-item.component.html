@@ -15,12 +15,21 @@
                 <div class="ui negative message">
                   <div class="header">
                     <h5 class="ui heading">
-                    Please recify The Following Errors before Proceeding Forward : 
+                    Please rectify The Following Errors before Proceeding Forward : 
                   </h5>
                   </div>
                   <ul class="list">
-                    <li *ngIf="!Item_Name.invalid && !Item_Name.pristine">
+                    <li *ngIf="Item_Name.errors?.required">
                       Item title Is Required.
+                    </li>
+                    <li *ngIf="Item_Name.errors?.pattern">
+                      Item title Can Only Be Alphabetic Letters.
+                    </li>
+                    <li *ngIf="Item_Image.invalid">
+                      Please Upload An Image Of The Product.
+                    </li>
+                    <li *ngIf="Item_Desc.invalid">
+                      Please Describe Your Item In  30 - 60 letters.
                     </li>
                   </ul>
               </div>
@@ -48,13 +57,13 @@
                     <textarea placeholder="A small Description Of the Item."  type="text" formControlName="Item_Desc"></textarea>
                   </div>
                   <div class="field">
-                    <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid" matStepperNext type="button">Next</button>
+                    <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid" matStepperNext type="button" (click)="addToFormObject(ItemDetailsFormGroup.value)">Next</button>
                   </div>
               </div>
             </form>
         </div>
     </mat-step>
-    <mat-step label="Properties">
+    <mat-step label="Properties" [stepControl]>
         <img class="ui circular centered small image" src="assets/itemcategoryplaceholder.png">
         <div class="row">
             <div class="ui form">

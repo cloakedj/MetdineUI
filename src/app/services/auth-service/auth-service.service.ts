@@ -8,5 +8,5 @@ export class AuthService {
   private UserId : Number;
   constructor() { }
   get Auth_T() { let token = localStorage.getItem("Auth_Token");return token;}
-  set Auth_T(token : string) { localStorage.setItem("Auth_Token",token); }
+  set Auth_T(token : string) {localStorage.setItem("Auth_Token",token); }
 }

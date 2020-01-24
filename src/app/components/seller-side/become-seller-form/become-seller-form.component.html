@@ -5,7 +5,7 @@
           <img class="ui circular centered small image" src="assets/molly.png">
           <div class="ui divider"></div>
               <div class="ui fluid form">
-                  <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm">
+                  <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm" enctype="multipart/form-data" autocomplete>
                     <div class="field">
                       <input placeholder="First Name"  formControlName="first_name" type="text">
                       <div class="ui pointing red basic label"  *ngIf="first_name.invalid && !first_name.pristine">
@@ -19,7 +19,7 @@
                      </div>
                     </div>
                     <div class="field">
-                        <input formControlName="logo" type="file" (change)="onFileChange($event)" placeholder="Upload Seller Logo">
+                        <input type="file" (change)="onLogoUpload($event)" placeholder="Upload Seller Logo">
                       </div>
                     <div class="field">
                       <input placeholder="Phone Number" formControlName="phone" type="text">
