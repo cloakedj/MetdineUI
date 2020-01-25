@@ -1,7 +1,8 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl, Form} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
+import { ApiService } from 'src/app/services/api-service/api.service';
 
 /**
  * @title Stepper label bottom position
@@ -22,6 +23,7 @@ export class MenuItemComponent implements OnInit {
   characters_left: number = 60;
   newSellerItemObject : SellerItem;
   itemIsVeg : boolean = true;
+  ItemObjtoPush = [];
   categories = [
     {name:'Indian'},
     {name:'Western'},
@@ -34,10 +36,11 @@ export class MenuItemComponent implements OnInit {
     {value:'90 minutes'},
     {value: '120 minutes'},
   ]
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder,
+    private api: ApiService,
+    private cd : ChangeDetectorRef) {}
 
   ngOnInit() {
-    console.log(this.itemIsVeg);
     this.ItemDetailsFormGroup = this._formBuilder.group({
       Item_Name : ['',[
         Validators.required,
@@ -69,9 +72,22 @@ export class MenuItemComponent implements OnInit {
     })
   }
   addToFormObject(data){
-    let ItemObjtoPush = [];
-    ItemObjtoPush.push(data);
-    console.log(ItemObjtoPush);
+    this.ItemObjtoPush.push(data);
+    console.log(this.ItemObjtoPush);
+  }
+  onLogoUpload(event) {
+    const reader = new FileReader();
+ 
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.ItemDetailsFormGroup.patchValue({
+          Item_Image: reader.result
+       });
+        this.cd.markForCheck();
+      };
+    }
   }
   getVegNonVegValue(){
     this.itemIsVeg = !this.itemIsVeg;

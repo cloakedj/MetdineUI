@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
       () => 
       {
         localStorage.removeItem("Auth_Token");
+        localStorage.removeItem("is_seller");
         this.router.navigate(['/']);
         console.log("Logged out Successfully!");
       }

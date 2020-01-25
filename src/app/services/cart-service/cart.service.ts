@@ -16,6 +16,7 @@ export class CartService implements OnDestroy, OnInit{
   orderId : Number;
   userCartdetaisl$ : Observer<any>;
   itemExistsQuantity : number;
+  cartSize = this.items.length === 0 ? 0 : this.items.length; 
   constructor(private productService: ProductService,
     private api: ApiService,
   ){ 
@@ -42,7 +43,8 @@ loadCart(): void {
 }
                     
 getCartLength(): number{
-  return this.items.length === 0 ? 0 : this.items.length; 
+  console.log(this.items.length)
+ return this.cartSize;
 }
 updateCart(id: Number,operation?: string): void{
   console.log(this.items);  

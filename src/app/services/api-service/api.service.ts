@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/
 import { Observable, throwError } from 'rxjs';
 import { Seller } from '../../entities/seller.entity';
 import { User } from '../../entities/user.entity';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import {Router} from "@angular/router";
 import 'rxjs/add/operator/catch';
 import { AuthService } from '../auth-service/auth-service.service';
@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://fa43d485.ngrok.io';
+  API_URL = 'http://192.168.1.107:325';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -70,7 +70,15 @@ export class ApiService {
   }
   AddUserTokenHeader(token :string){
     this.Auth.Auth_T = token;
+    this.SetSellerAccountStatus()
     this.router.navigate(['/home']);
+  }
+  SetSellerAccountStatus(){
+    this.checkIfSeller().subscribe(
+      (data) => localStorage.setItem("is_seller",data["is_seller"]),
+      (err) => console.log(err),
+      () => console.log("hecked if seller")
+    )
   }
   checkUserToken():any{
     if(localStorage.getItem("Auth_Token")) return true ;
@@ -199,8 +207,15 @@ export class ApiService {
     )
   }
   //Check if the buyer has a seller account
-  checkIfSeller(){
-    return this.http.get(`${this.API_URL}/api/user/is_seller`)
+  checkIfSeller():Observable<any>{
+    return this.http.get(`${this.API_URL}/api/user/is_seller/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Add A new Item From Seller Side
+  addNewItemFromSellerDashboard(sellerItem : SellerItem){
+    return this.http.post(`${this.API_URL}/api/seller/meals`,sellerItem)
     .pipe(
       catchError(this.handleError)
     )

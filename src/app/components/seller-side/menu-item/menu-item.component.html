@@ -43,7 +43,7 @@
                   </div>
                   <div class="field">
                     <label>Item pictures*</label>
-                    <input placeholder="Images of The Item"  type="file" formControlName="Item_Image">
+                   <app-file-upload></app-file-upload>
                   </div>
                   <div class="field">
                     <h5 class="ui right floated header">
@@ -86,7 +86,7 @@
                 </div>
               </div>
                 <div class="field">
-                    <label>Select Categories</label>
+                    <label>Select Category</label>
                     <mat-radio-group aria-label="Select an option" formControlName="Item_Category">
                         <mat-radio-button *ngFor="let category of categories;index as i" value="{{i}}" name="item-category"><a class="ui red horizontal label">{{category.name}}</a></mat-radio-button>
                       </mat-radio-group>

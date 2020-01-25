@@ -50,6 +50,8 @@ import { MetdineInterceptor } from './services/api-service/auth.interceptor';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
+import { FileUploadComponent } from './components/user-side/file-upload/file-upload.component';
+import { FileUploadDirective } from './Directives/file-upload.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +80,8 @@ import { BecomeSellerFormComponent } from './components/seller-side/become-selle
     GeolocationComponent,
     SellerPaymentMenuComponent,
     BecomeSellerFormComponent,
+    FileUploadComponent,
+    FileUploadDirective
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ import { GeolocationComponent } from './components/geolocation/geolocation.compo
 import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardIsSellerService } from './services/auth-guard/auth-guard-is-seller.service';
 
 
 const routes: Routes =[
@@ -43,7 +44,7 @@ const routes: Routes =[
   ]},
   { path:'addItem', component:MenuItemComponent},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
-  { path:'seller-dashboard' ,component: SellerDashboardComponent},
+  { path:'seller-dashboard' ,component: SellerDashboardComponent, canActivate:[AuthGuardIsSellerService]},
   { path:'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent} 

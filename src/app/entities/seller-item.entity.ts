@@ -1,7 +1,7 @@
 export class SellerItem{
     id: Number;
     title: String;
-    logo :String;
+    logo :File;
     short_description : String;
     price :Number;
     seller_id : Number;
