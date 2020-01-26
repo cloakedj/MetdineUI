@@ -1,31 +1,32 @@
 <div class="ui grid">
   <app-filter-sidebar></app-filter-sidebar>
   <div class="twelve wide column">
-    <div class="ui link three cards">
+    <h1 class="ui centered header">
+      Seller's Near You
+    </h1>
+    <div class="ui centered cards">
       <ng-container *ngIf="getAllSellers() | async; else plForSellerCards">
       <div class="ui card" *ngFor="let seller of getAllSellers() | async">
-        <div class="content">
-          <h4 class="ui header">
-            {{seller.first_name}} {{seller.last_name}}
-          </h4>
-        </div>
         <ng-container *ngIf="seller.logo else plForSellerLogo">
         <div class="image">
               <img src="{{seller.logo}}" alt="Seller Picture" [routerLink]="['/seller-page',seller.id]" routerLinkActive="active">
         </div>
       </ng-container>
-        <div class="content">
-          <h5 class="ui header">
-            {{seller.address}}
-          </h5>
-          <div class="ui divider"></div>
-        <div class="extra content">
-            <i class="map signs icon"></i>
-            <h4 class="right floated ui header">
-              {{seller.distance/100 | number : '1.0-2'}} km
-            </h4>
-        </div>
-       </div>
+      <div class="ui raised segment">
+        <a class="ui violet label">
+          {{getCategory(seller.category)}}
+        </a>
+        <a class="ui black label">
+          <i class="map icon"></i>
+          {{seller.distance/100 | number : '1.0-2'}} km
+        </a>
+        <h3 class="ui header">
+          {{seller.first_name}} {{seller.last_name}}
+        </h3>
+        <p class="ui sub header">
+          {{seller.address | contentLength : 30}}
+        </p>
+      </div>
     </div>
      </ng-container>
     </div>

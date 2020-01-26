@@ -1,4 +1,25 @@
+@import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
 .plcardForSellerProduct
 {
     margin-bottom:  0 !important;
+}
+.card{
+    box-shadow: none !important;
+}
+.card .image img{
+    border-radius: 10px !important;
+    min-height: 200px;
+}
+.header{
+    font-family: 'Righteous', cursive !important;
+}
+.sub.header{
+    color:#ffffff;
+}
+.desc{
+    text-align: justify !important;
+}
+.label{
+    color:#ffffff;
+    font-family: 'Righteous', cursive !important;
 }

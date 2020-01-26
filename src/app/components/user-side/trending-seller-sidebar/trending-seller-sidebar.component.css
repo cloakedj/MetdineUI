@@ -1,4 +1,7 @@
 @import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
-.quant{
+.header,.label{
     font-family: 'Righteous', cursive;
+}
+.content{
+    margin-left: 5%;
 }

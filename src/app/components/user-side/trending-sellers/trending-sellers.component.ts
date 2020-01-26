@@ -3,6 +3,7 @@ import Glide from '@glidejs/glide';
 import { Observer } from 'rxjs';
 import { Seller } from 'src/app/entities/seller.entity';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { ProductService } from 'src/app/services/product-service/product.service';
 
 @Component({
   selector: 'app-trending-sellers',
@@ -11,9 +12,9 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 })
 export class TrendingSellersComponent implements OnInit,AfterViewInit {
   getTrendingSellers$ : Observer<Seller[]>;
-  trendingSellers : Seller[];
   glide :Glide;
-  constructor(private api :ApiService) { 
+  constructor(private api :ApiService,
+    private product : ProductService) { 
   }
 
   ngOnInit() {
@@ -34,12 +35,11 @@ export class TrendingSellersComponent implements OnInit,AfterViewInit {
   trendingSellersFetch(){
     this.getTrendingSellers$ = {
       next : data => {
-        this.trendingSellers = data
+        this.product.trendingSellers = data;
       },
       error : err => console.log(err),
       complete : () => {
         this.glide.update();
-        console.log(this.trendingSellers);
         console.log("Request to Trending Sellers Completed and glide reloaded")
       }
     }

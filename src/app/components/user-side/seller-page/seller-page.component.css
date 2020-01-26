@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
+
 .ui.inverted.segment
 {
     border-radius: 0 !important;
@@ -8,10 +10,6 @@
 }
 .six.wide.column img{
     height:250px;
-}
-.header
-{
-    color:#fff;
 }
 .two.column .column{
     width:auto;
@@ -35,4 +33,18 @@
 .seller-additional-data-ph
 {
     width:40%;
+}
+.ui.header{
+    color:black;
+    font-family: 'Righteous', cursive;
+    margin-bottom: 0% !important;
+}
+.address,.map.marker{
+    color: tomato;
+}
+.image{
+    margin-top:5% !important;
+}
+.justified{
+    text-align: justify;
 }

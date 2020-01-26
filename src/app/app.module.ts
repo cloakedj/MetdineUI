@@ -52,6 +52,9 @@ import { SellerPaymentMenuComponent } from './components/seller-side/seller-paym
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 import { FileUploadComponent } from './components/user-side/file-upload/file-upload.component';
 import { FileUploadDirective } from './Directives/file-upload.directive';
+import { ContentLengthPipe } from './pipes/content-length.pipe';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TrendingSellerSidebarComponent } from './components/user-side/trending-seller-sidebar/trending-seller-sidebar.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +84,9 @@ import { FileUploadDirective } from './Directives/file-upload.directive';
     SellerPaymentMenuComponent,
     BecomeSellerFormComponent,
     FileUploadComponent,
-    FileUploadDirective
+    FileUploadDirective,
+    ContentLengthPipe,
+    TrendingSellerSidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +110,7 @@ import { FileUploadDirective } from './Directives/file-upload.directive';
     MatRadioModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatCheckboxModule
   ],
   providers: [
     {

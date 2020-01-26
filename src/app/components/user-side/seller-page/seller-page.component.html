@@ -1,40 +1,56 @@
-<ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
-  <div class="ui inverted segment">
-      <div class="ui grid">
-          <div class="six wide column">
-            <img src="{{seller.logo}}" (onLoad)="sellerLogo = seller.logo">     
-          </div>
-          <div class="ten wide column">
-          <h2 class="ui header">{{seller.first_name}} {{seller.last_name}}</h2>
-              <h3 class="ui sub header">
-                  {{seller.address}}
-                </h3>
-                <h3 class="ui sub header">
-                {{seller.desc}}
-                </h3>
-                <div class="ui two column very relaxed grid">
-                  <div class="column">
-                          <i class="star icon"></i> 3.6
-                  </div>
-                  <div class="left floated column">
-                      400+ Ratings
-                  </div>
-                </div>
-                <div class="field">
-                      <div class="ui toggle checkbox">
-                        <input type="checkbox" name="gift" tabindex="0" class="hidden">
-                        <label>Veg Only</label>
-                      </div>
-                  </div>
-              <div class="ui inverted transparent icon input">
-                      <input type="text" placeholder="Search...">
-                      <i class="search icon"></i>
-              </div>
+<div class="ui three column  grid container">
+  <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
+    <div class="column">
+    <div class="image">
+      <img class="ui centered medium rounded image" src="{{seller.logo}}">
+    </div>
+    <h2 class="ui centered header">
+      {{seller.first_name}} {{seller.last_name}}
+    </h2>
+    <div class="ui hidden divider"></div>
+      <div class="ui column centered grid">
+    <h5 class="ui justified header">
+      {{seller.desc}}
+    </h5>
+    <div class="ui centered header">
+      <a class="ui violet label">
+        {{getCategory(seller.category)}}
+      </a>
+      <a class="ui black label">
+        <i class="map icon"></i>
+        {{seller.distance/100 | number : '1.0-2'}} km
+      </a>
+    </div>
+    <h5 class="ui header">
+      <i class="map marker alternate icon"></i>
+      <div class="content address">
+        {{seller.address}}
       </div>
+    </h5>
+    <ul class="ui horizontal list">
+      <li class="item">
+        <mat-checkbox>
+          <h4 class="ui header">Veg Only</h4>
+        </mat-checkbox>
+      </li>
+      <li class="item">
+        <div class="ui category search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search Dishes...">
+            <i class="search icon"></i>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
-  </div>
-  <app-product></app-product>
+</div>
   </ng-container>
+  <div class="column">
+    <app-trending-seller-sidebar></app-trending-seller-sidebar>
+  </div>
+  </div>
+  <div class="ui hidden divider"></div>
+  <app-product></app-product>
 <!--
   Placeholder For Seller Products
 -->

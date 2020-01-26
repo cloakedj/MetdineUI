@@ -7,26 +7,26 @@
         </div>
       </ng-container>  
         <div class="content">
-        <a class="header">{{product.title}}</a>
+        <a class="ui centered header">{{product.title}}</a>
           <div class="description">
-            <p>
-              {{product.short_description}}
-            </p>
             <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
               {{vegNonvegFilter(product.is_veg)}}
             </div>
             <div class="ui  teal horizontal label">
-              {{product.category}}
+              {{getCategory(product.category)}}
             </div>
-            <div class="ui oreange horizontal label">
-              {{product.time_to_prepare}}
-            </div>
+              <a class="ui orange label">
+                <i class="clock icon"></i>{{product.time_to_prepare}}
+              </a>
+            <h5 class="ui header desc">
+              {{product.short_description}}
+            </h5>
           </div>
         </div>
         <div class="extra content">
-            <button class="positive ui button right floated"   (click)="cart.updateCart(product.id)" *ngIf="!cart.getCartLength()">Add</button>
+            <button class="positive ui button right floated"   (click)="cart.updateCart(product.id)" *ngIf="!cart.getCartLength()"><h3 class="ui sub header">Add</h3></button>
             <app-inc-dec-cart  [productId] = "product.id" class="right floated"></app-inc-dec-cart>
-            <div class="ui orange ribbon label"><i class="rupee sign icon"></i> {{product.price}}</div>
+            <h4 class="ui header left floated"> {{product.price | currency: 'INR'}}</h4>
         </div>
       </div>
     </ng-container>

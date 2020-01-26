@@ -4,6 +4,7 @@ import { CartComponent } from '../cart/cart.component';
 import { IncDecCartComponent } from '../inc-dec-cart/inc-dec-cart.component';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ProductComponent implements OnInit{
   private incdeccart: IncDecCartComponent,
   private cart: CartService,
   private api : ApiService,
+  private gc : GetCategoryService
   ) 
   { }
 
@@ -27,6 +29,9 @@ export class ProductComponent implements OnInit{
   vegNonvegFilter(type : boolean):string{
     if (type) return "Veg";
     return "Non Veg";
+  }
+  getCategory(id: any){
+    return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
   }
 
 }

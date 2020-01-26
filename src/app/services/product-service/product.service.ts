@@ -11,6 +11,7 @@ export class ProductService implements OnInit,OnDestroy{
   private products : SellerItem[];
   products$ : Observable<SellerItem[]>; 
   sellers$: Observable<Seller[]>;
+  trendingSellers : Seller[];
   sellerId : any;
   sellerLogo : any;
   product : SellerItem;

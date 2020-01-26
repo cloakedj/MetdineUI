@@ -14,7 +14,8 @@ export class IncDecCartComponent implements OnInit{
   }
   constructor(
     private cart : CartService
-    ) { }
+    ) { 
+    }
 
   ngOnInit() {
   }

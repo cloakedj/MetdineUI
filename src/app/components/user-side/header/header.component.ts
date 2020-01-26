@@ -23,11 +23,12 @@ export class HeaderComponent implements OnInit {
       this.cart.loadCart();
         }
   }
-  // getlengthIfLoggedIn(){
-  //   if(this.userLoggedIn) {
-  //     this.itemsInCart = this.cart.getCartLength();
-  //     this.cart.loadCart();
-  //   }
+  getlengthIfLoggedIn(){
+    if(this.api.checkUserToken()) {
+      this.itemsInCart = this.cart.getCartLength();
+      this.cart.loadCart();
+    }
+  }
   ensureuser(){this.userLoggedIn  = this.api.ensurity(); }
   logUserOut(){
     this.api.logOutUser()
