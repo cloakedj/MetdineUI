@@ -4,6 +4,7 @@ import { Seller } from 'src/app/entities/seller.entity';
 import { Observer } from 'rxjs';
 import { TrendingSellersComponent } from '../trending-sellers/trending-sellers.component';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 
 @Component({
   selector: 'app-trending-seller-sidebar',
@@ -15,7 +16,8 @@ export class TrendingSellerSidebarComponent implements OnInit {
   trendingSellersFeed$ : Observer<Seller[]>;
   trendingSellers : Seller[];
   constructor(private product : ProductService,
-    private api : ApiService) { }
+    private api : ApiService,
+    private gc  : GetCategoryService) { }
 
   ngOnInit() {
     this.trendingSellersFeed$  = {

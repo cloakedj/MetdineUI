@@ -55,6 +55,10 @@ import { FileUploadDirective } from './Directives/file-upload.directive';
 import { ContentLengthPipe } from './pipes/content-length.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TrendingSellerSidebarComponent } from './components/user-side/trending-seller-sidebar/trending-seller-sidebar.component'
+import { AgmCoreModule } from '@agm/core';
+  import { from } from 'rxjs';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AddressAutocompleteDirective } from './Directives/address-autocomplete.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +91,7 @@ import { TrendingSellerSidebarComponent } from './components/user-side/trending-
     FileUploadDirective,
     ContentLengthPipe,
     TrendingSellerSidebarComponent,
+    AddressAutocompleteDirective,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +115,13 @@ import { TrendingSellerSidebarComponent } from './components/user-side/trending-
     MatRadioModule,
     MatSlideToggleModule,
     HttpClientModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AgmCoreModule.forRoot({
+      apiKey : "AIzaSyDGrvkwyBGySVwb9XgrbImc0LaaF8bMyM4",
+      libraries : ['places']
+    }),
+    MatGoogleMapsAutocompleteModule,
+    AgmCoreModule.forRoot()
   ],
   providers: [
     {
