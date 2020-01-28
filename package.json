@@ -42,6 +42,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
     "moment": "2.24.0",
+    "ngx-google-places-autocomplete": "^2.0.4",
     "ngx-slick": "^0.2.1",
     "perfect-scrollbar": "1.1.0",
     "placeholder-loading": "^0.2.4",

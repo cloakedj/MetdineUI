@@ -10,11 +10,11 @@ import { Seller } from 'src/app/entities/seller.entity';
 export class ProductService implements OnInit,OnDestroy{
   private products : SellerItem[];
   products$ : Observable<SellerItem[]>; 
+  productsArr : SellerItem[];
   sellers$: Observable<Seller[]>;
   trendingSellers : Seller[];
   sellerId : any;
   sellerLogo : any;
-  product : SellerItem;
   constructor(private api : ApiService) {
     this.getSellersDetails();
   }
@@ -25,6 +25,11 @@ export class ProductService implements OnInit,OnDestroy{
   }
   getSellerItems(id : Number){
     this.products$ =   this.api.requestSellerDetails(id);
+    this.products$.subscribe(
+      data => this.productsArr = data,
+      err => console.log(err),
+      () => console.log("Products Fetched To Cart")
+    )
   } 
   ngOnDestroy(){
   }

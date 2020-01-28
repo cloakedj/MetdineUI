@@ -7,6 +7,7 @@ import { Seller } from 'src/app/entities/seller.entity';
 import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
+import { SellerItem } from 'src/app/entities/seller-item.entity';
 
 @Component({
   selector: 'app-seller-page',
@@ -16,6 +17,7 @@ import { GetCategoryService } from 'src/app/services/get-category/get-category.s
 export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerDetails$ : Observable<Seller>;
   sellerLogo : string;
+  backUpProducts : SellerItem[];
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,
@@ -36,5 +38,18 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   }
   getCategory(id: any){
     return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
+  }
+  filterByVegItems(){
+    console.log(this.backUpProducts);
+    if(!this.backUpProducts)
+    {
+    this.backUpProducts = this.product.productsArr;
+    console.log(this.backUpProducts);
+    this.product.productsArr = this.product.productsArr.filter(elem => elem.is_veg);
+    }
+    else {
+      this.product.productsArr = this.backUpProducts;
+      this.backUpProducts = undefined;
+    }
   }
 }

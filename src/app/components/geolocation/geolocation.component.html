@@ -2,7 +2,7 @@
  
     <h1>Angular Google Maps with Places Search Example</h1>
 
-   
+   <input type="autocomplete" #search>
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
       <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
         (dragEnd)="markerDragEnd($event)"></agm-marker>
@@ -11,11 +11,4 @@
     <h5>Address: {{address}}</h5>
     <div>Latitude: {{latitude}}</div>
     <div>Longitude: {{longitude}}</div>
-    <div fxFlex fxFlexAlign="center"
-    class="autocomplete-container">
- <mat-google-maps-autocomplete (onAutocompleteSelected)="onAutocompleteSelected($event)"
-                               (onLocationSelected)="markerDragEnd($event)"
-                               (onGermanAddressMapped)="onGermanAddressMapped($event)">
- </mat-google-maps-autocomplete>
-</div>
   </div>

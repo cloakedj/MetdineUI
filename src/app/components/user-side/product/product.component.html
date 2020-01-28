@@ -1,6 +1,6 @@
 <div class="ui four stackable link cards grid container">
   <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
-    <div  class="ui card" *ngFor="let product of productService.products$ | async">
+    <div  class="ui card" *ngFor="let product of productService.productsArr">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
       <div class="image">
         <img src="{{product.image}}">

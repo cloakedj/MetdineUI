@@ -57,7 +57,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TrendingSellerSidebarComponent } from './components/user-side/trending-seller-sidebar/trending-seller-sidebar.component'
 import { AgmCoreModule } from '@agm/core';
   import { from } from 'rxjs';
-import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AddressAutocompleteDirective } from './Directives/address-autocomplete.directive';
 @NgModule({
   declarations: [
@@ -120,8 +119,6 @@ import { AddressAutocompleteDirective } from './Directives/address-autocomplete.
       apiKey : "AIzaSyDGrvkwyBGySVwb9XgrbImc0LaaF8bMyM4",
       libraries : ['places']
     }),
-    MatGoogleMapsAutocompleteModule,
-    AgmCoreModule.forRoot()
   ],
   providers: [
     {

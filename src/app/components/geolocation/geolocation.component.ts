@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation  } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
-import {Location, Appearance, GermanAddress} from '@angular-material-extensions/google-maps-autocomplete';
 
 @Component({
   selector: 'app-geolocation',
@@ -15,9 +14,8 @@ export class GeolocationComponent implements OnInit{
   zoom:number;
   address: string;
   private geoCoder;
-  public appearance = Appearance;
   public selectedAddress: PlaceResult;
-
+  @(ViewChild)('search',{static:true}) autocompletesearch : any;
   constructor(
     private mapsAPILoader : MapsAPILoader,
     private ngZone : NgZone
@@ -27,25 +25,25 @@ export class GeolocationComponent implements OnInit{
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
  
-      // let autocomplete = new google.maps.places.Autocomplete(, {
-      //   types: ["address"]
-      // });
-      // autocomplete.addListener("place_changed", () => {
-      //   this.ngZone.run(() => {
-      //     //get the place result
-      //     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      const autocomplete = new google.maps.places.Autocomplete(this.autocompletesearch.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
  
-      //     //verify result
-      //     if (place.geometry === undefined || place.geometry === null) {
-      //       return;
-      //     }
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
  
-      //     //set latitude, longitude and zoom
-      //     this.latitude = place.geometry.location.lat();
-      //     this.longitude = place.geometry.location.lng();
-      //     this.zoom = 12;
-      //   });
-      // });
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
     });
   }
   private setCurrentLocation() {
@@ -58,13 +56,6 @@ export class GeolocationComponent implements OnInit{
       });
     }
   }
-  onAutocompleteSelected(result: PlaceResult) {
-    console.log('onAutocompleteSelected: ', result);
-  }
-  
- onGermanAddressMapped($event: GermanAddress) {
-  console.log('onGermanAddressMapped', $event);
-}
   markerDragEnd($event: any) {
     console.log($event);
     this.latitude = $event.coords.lat;

@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'https://5a4191f2.ngrok.io';
+  API_URL = 'http://322225e8.ngrok.io';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -193,8 +193,8 @@ export class ApiService {
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(id : number,total_amount : number){
-    return this.http.put(`${this.API_URL}/api/user/checkout/${id}/`,{order_id : id,amount : total_amount})
+  checkoutUserCart(){
+    return this.http.post(`${this.API_URL}/api/user/checkout/`,'')
     .pipe(
       catchError(this.handleError)
     )
