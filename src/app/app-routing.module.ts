@@ -45,9 +45,9 @@ const routes: Routes =[
   { path:'addItem', component:MenuItemComponent},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path:'seller-dashboard' ,component: SellerDashboardComponent, canActivate:[AuthGuardIsSellerService]},
-  { path:'map', component:GeolocationComponent},
+  { path: 'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
-  { path: '**', component: PagenotfoundComponent} 
+  { path: '**', component: PagenotfoundComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes

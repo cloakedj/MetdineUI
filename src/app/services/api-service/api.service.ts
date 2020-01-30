@@ -13,13 +13,13 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://93d9b15c.ngrok.io';
+  API_URL = 'http://localhost';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
     private router : Router,
     private Auth: AuthService
-    ) { 
+    ) {
   }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -100,7 +100,7 @@ export class ApiService {
   }
   addNewOrder(mealId : Number, sellerId: Number,quantity : number){
     this.params = new HttpParams().set("meal_id",mealId.toString()).set("seller_id",sellerId.toString());
-    return this.http.post(`${this.API_URL}/api/user/cart/add/`, {quantity : quantity}, {params : this.params}) 
+    return this.http.post(`${this.API_URL}/api/user/cart/add/`, {quantity : quantity}, {params : this.params})
     .pipe(
         catchError(this.handleError),
       )
@@ -181,7 +181,7 @@ export class ApiService {
   additemtoCart(meal_id : Number,seller_id : number){
     this.params = new HttpParams().set("meal_id",meal_id.toString()).set("seller_id",seller_id.toString());
     return this.http.post(`${this.API_URL}/api/user/cart/add/`,{ quantity : 1},{params : this.params})
-    .pipe(         
+    .pipe(
       catchError(this.handleError)
     )
   }

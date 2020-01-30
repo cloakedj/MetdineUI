@@ -1,10 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Molle:400i&display=swap');
 .icon {
     cursor: pointer;
   }
-  
+
 .spacer {
 flex: 1 1 auto;
 }
 .ui.horizontal.list .item{
   margin-left:0 !important;
+}
+.logo_text
+{
+  font-family: 'Molle', cursive;
+  color: #ac2d5c;
+  font-weight: bolder;
+  font-size: 3rem;
 }

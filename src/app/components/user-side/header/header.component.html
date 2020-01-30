@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="userLoggedIn">
     <mat-toolbar-row>
-           <a routerLink='/home'><span>Metdine</span></a>
+           <a routerLink='/home' class ="logo_text"><span>Metdine</span></a>
            <span class="spacer"></span>
            <div class="ui horizontal list">
             <div class="item">
@@ -20,7 +20,7 @@
            <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">notifications</mat-icon>
            </button>
            <a [routerLink]="['/seller-dashboard']" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
-           <mat-icon class="icon" aria-hidden="false" 
+           <mat-icon class="icon" aria-hidden="false"
            matTooltip="Switch To Seller" aria-label="Example heart icon">swap_calls</mat-icon>
            </button>
             </a>
