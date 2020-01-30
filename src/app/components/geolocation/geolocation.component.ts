@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation  } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-geolocation',
@@ -15,24 +16,51 @@ export class GeolocationComponent implements OnInit{
   address: string;
   private geoCoder;
   public selectedAddress: PlaceResult;
-  @(ViewChild)('search',{static:true}) autocompletesearch : any;
+  @(ViewChild)('search',{static:true}) autocompletesearch : ElementRef;
+  public searchControl : FormControl = new FormControl();
+  public locationIcon = {
+    url : 'https://image.flaticon.com/icons/png/512/1176/1176403.png',
+    label: {
+      color : 'black',
+      text : 'You'
+    },
+    labelOrigin:{
+      x: 20,
+      y: -10
+    },
+    scaledSize:{
+      height : 40,
+      width: 40
+    }
+  };
+  labelProps = {
+    color : 'black',
+    text : 'You',
+    fontWeight : 'bolder',
+    fontSize : '16px',
+    fontFamily: 'Righteous, cursive',
+  }
   constructor(
     private mapsAPILoader : MapsAPILoader,
     private ngZone : NgZone
   ) { }
   ngOnInit(){
+    this.GetLocation();
+  }
+  GetLocation(){
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
- 
+      
       const autocomplete = new google.maps.places.Autocomplete(this.autocompletesearch.nativeElement, {
-        types: ["address"]
+        types: [],
+        componentRestrictions : { 'country' : 'IN'}
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
+          console.log(place);
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -41,7 +69,9 @@ export class GeolocationComponent implements OnInit{
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 18;
+          this.getAddress(this.latitude,this.longitude)
+          this.searchControl.reset();
         });
       });
     });
@@ -51,13 +81,12 @@ export class GeolocationComponent implements OnInit{
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.zoom = 10;
+        this.zoom = 18;
         this.getAddress(this.latitude, this.longitude);
       });
     }
   }
   markerDragEnd($event: any) {
-    console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
@@ -65,11 +94,9 @@ export class GeolocationComponent implements OnInit{
  
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 12;
+          this.zoom = 18;
           this.address = results[0].formatted_address;
         } else {
           window.alert('No results found');

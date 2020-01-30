@@ -5,10 +5,10 @@
         <img class="ui circular centered small image" src="../../../assets/molly.png">
         <div class="ui divider"></div>
             <div class="ui fluid form">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" (ngForm)="loginUser">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" (ngForm)="loginForm">
                   <div class="field">
                     <input placeholder="Username"  formControlName="username" type="text">
-                    <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine && !userName.errors?.required">                      
+                    <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine && !username.errors?.required">                      
                       Enter A Valid Username
                    </div>
                    <div class="ui pointing red basic label"  *ngIf="username.errors?.required && !username.pristine">                      

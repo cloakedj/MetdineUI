@@ -1,14 +1,31 @@
-<div class="container">
- 
-    <h1>Angular Google Maps with Places Search Example</h1>
-
-   <input type="autocomplete" #search>
-    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-        (dragEnd)="markerDragEnd($event)"></agm-marker>
-    </agm-map>
-   
-    <h5>Address: {{address}}</h5>
-    <div>Latitude: {{latitude}}</div>
-    <div>Longitude: {{longitude}}</div>
+<div class="ui container">
+  <div class="ui grid">
+    <div class="six wide column">
+      <div class="ui centered raised segment">
+        <h3 class="ui header">
+          Add Your Address
+        </h3>
+        <div class="ui divider"></div>
+        <div class="ui fluid icon input">
+          <input type="text" [formControl] = "searchControl" #search autocomplete="off" autocapitalize="off" spellcheck="false">
+          <i class="search icon"></i>
+        </div>
+        <h5>Address: {{address}}</h5>
+        <div>Latitude: {{latitude}}</div>
+        <div>Longitude: {{longitude}}</div>
+      </div>
+    </div>
+    <div class="ten wide column">
+      <div class="ui centered raised segment">
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true">
+        <agm-marker
+        [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          (dragEnd)="markerDragEnd($event)"
+          [iconUrl]="locationIcon"
+          [label]="labelProps"
+          [animation]="'DROP'"></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+  </div>
   </div>
