@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="userLoggedIn">
+<mat-toolbar *ngIf="userLoggedIn && !auth.S_mode">
     <mat-toolbar-row>
            <a routerLink='/home' class ="logo_text"><span>Metdine</span></a>
            <span class="spacer"></span>
@@ -19,7 +19,7 @@
             <button mat-icon-button aria-label="User Notifications">
            <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">notifications</mat-icon>
            </button>
-           <a [routerLink]="['/seller-dashboard']" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
+           <a routerLink="/seller-side" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
            <mat-icon class="icon" aria-hidden="false"
            matTooltip="Switch To Seller" aria-label="Example heart icon">swap_calls</mat-icon>
            </button>

@@ -5,16 +5,6 @@
 .status-index .four.wide.column{
     width:16% !important;
 }
-.sidebarmenu
-{
-    height:100%;
-    position: fixed;
-    width:20%;
-}
-.sidebarmenu .item
-{
-    margin-bottom:10%;
-}
 .plcompletedorders .ph-item
 {
     margin-bottom:  0 !important;

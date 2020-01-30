@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class HeaderComponent implements OnInit {
   userLoggedIn : boolean = false;
   constructor(public cart: CartService,
     private api: ApiService,
+    public auth : AuthService,
     private router : Router) { }
     itemsInCart : number = 0;
 

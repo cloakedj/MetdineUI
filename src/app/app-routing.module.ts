@@ -19,6 +19,9 @@ import { SellerPaymentMenuComponent } from './components/seller-side/seller-paym
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AuthGuardIsSellerService } from './services/auth-guard/auth-guard-is-seller.service';
+import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
+import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
+import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
 
 
 const routes: Routes =[
@@ -37,14 +40,19 @@ const routes: Routes =[
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},
   { path: 'cart', component: CartComponent},
-  { path: 'seller-profile', component: SellerProfileComponent, children:[
-    {path: 'profile-options', component: ProfileOptionsComponent, outlet:'sellerProfile'},
-    {path: 'seller-payment-menu', component: SellerPaymentMenuComponent, outlet: 'sellerProfile'},
-    { path:'', redirectTo:'/seller-profile/(sellerProfile:profile-options)', pathMatch: 'full'},
+  { path: 'seller-side', component: SellerSideComponent, canActivate:[AuthGuardIsSellerService],children: [
+    { path:'addItem', component:MenuItemComponent, outlet:'sellerRouterOutlet'},
+    { path:'seller-dashboard' ,component: SellerDashboardComponent,outlet:'sellerRouterOutlet'},
+    { path : 'completed-orders', component : CompletedOrdersComponent, outlet : 'sellerRouterOutlet'},
+    {path : 'seller-stats', component : SellerStatsComponent, outlet : 'sellerRouterOutlet'},
+    {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
-  { path:'addItem', component:MenuItemComponent},
+  // { path: 'seller-profile', component: SellerProfileComponent, children:[
+  //   {path: 'profile-options', component: ProfileOptionsComponent, outlet:'sellerProfile'},
+  //   {path: 'seller-payment-menu', component: SellerPaymentMenuComponent, outlet: 'sellerProfile'},
+  //   { path:'', redirectTo:'/seller-profile/(sellerProfile:profile-options)', pathMatch: 'full'},
+  // ]},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
-  { path:'seller-dashboard' ,component: SellerDashboardComponent, canActivate:[AuthGuardIsSellerService]},
   { path: 'map', component:GeolocationComponent},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}

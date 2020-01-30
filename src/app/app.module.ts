@@ -58,6 +58,10 @@ import { TrendingSellerSidebarComponent } from './components/user-side/trending-
 import { AgmCoreModule } from '@agm/core';
   import { from } from 'rxjs';
 import { AddressAutocompleteDirective } from './Directives/address-autocomplete.directive';
+import { SellerSidebarComponent } from './components/seller-side/seller-sidebar/seller-sidebar.component';
+import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
+import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
+import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +95,10 @@ import { AddressAutocompleteDirective } from './Directives/address-autocomplete.
     ContentLengthPipe,
     TrendingSellerSidebarComponent,
     AddressAutocompleteDirective,
+    SellerSidebarComponent,
+    CompletedOrdersComponent,
+    SellerSideComponent,
+    SellerStatsComponent,
   ],
   imports: [
     BrowserModule,

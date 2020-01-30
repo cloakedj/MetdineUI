@@ -1,18 +1,13 @@
-<div class="ui three column  grid container">
+<div class="ui two column  grid container">
   <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
-    <div class="column">
+    <div class="ten wide column">
     <div class="image">
       <img class="ui centered medium rounded image" src="{{seller.logo}}">
     </div>
     <h2 class="ui centered header">
       {{seller.first_name}} {{seller.last_name}}
     </h2>
-    <div class="ui hidden divider"></div>
-      <div class="ui column centered grid">
-    <h5 class="ui justified header">
-      {{seller.desc}}
-    </h5>
-    <div class="ui centered header">
+        <div class="ui centered header">
       <a class="ui violet label">
         {{getCategory(seller.category)}}
       </a>
@@ -21,12 +16,19 @@
         {{seller.distance/100 | number : '1.0-2'}} km
       </a>
     </div>
-    <h5 class="ui header">
+    <div class="ui hidden divider"></div>
+      <div class="ui column centered grid">
+    <h5 class="ui justified header">
+      {{seller.desc}}
+    </h5>
+    <div class="row">
+    <h5 class="ui address centered header">
       <i class="map marker alternate icon"></i>
-      <div class="content address">
+      <div class="content address-text">
         {{seller.address}}
       </div>
     </h5>
+    </div>
     <ul class="ui horizontal list">
       <li class="item">
         <mat-checkbox (change)="filterByVegItems()">
@@ -45,7 +47,7 @@
   </div>
 </div>
   </ng-container>
-  <div class="column">
+  <div class="six wide column">
     <app-trending-seller-sidebar></app-trending-seller-sidebar>
   </div>
   </div>

@@ -11,9 +11,6 @@
 .six.wide.column img{
     height:250px;
 }
-.two.column .column{
-    width:auto;
-}
 .two.column .left.floated
 {
     padding-left:0%;
@@ -39,7 +36,7 @@
     font-family: 'Righteous', cursive;
     margin-bottom: 0% !important;
 }
-.address,.map.marker{
+.address-text,.map.marker{
     color: tomato;
 }
 .image{
@@ -47,4 +44,5 @@
 }
 .justified{
     text-align: justify;
+    width:80%;
 }
