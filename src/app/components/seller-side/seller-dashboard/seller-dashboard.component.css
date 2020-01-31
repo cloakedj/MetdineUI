@@ -9,3 +9,22 @@
 {
     margin-bottom:  0 !important;
 }
+.orderid
+{
+    padding: 8% 0% 8% 0% !important;
+    border-radius:3px;
+    background-color: black;
+    text-align: center;
+}
+.orderid h1{
+    color:#fff;
+}
+.rorders{
+    padding: 0% 5% 0% 5%;
+}
+.eight.wide.column{
+    padding: 0%  0% 0% 3% !important;
+}
+.actions{
+    padding:7% 0% 7% 3% !important;
+}

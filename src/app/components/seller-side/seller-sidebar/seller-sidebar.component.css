@@ -4,6 +4,7 @@
     position: fixed;
     overflow-x: hidden;
     background-color: black;
+    width:23%;
 }
 .ui.segment
 {
