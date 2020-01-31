@@ -126,6 +126,45 @@
     <h2 class="ui center aligned icon  header">
       <i class="circular tasks icon"></i> Active Orders
     </h2>
+    <div class="column" *ngFor="let order of sellerActiveOrders;">
+      <div class="orderid centered row">
+        <h1 class="ui header">#{{order.id}}</h1>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+          <a class="ui black label">
+            {{order.total | currency:'INR'}}
+          </a>
+        </div>
+        <div class="three column row">
+          <div class="column"></div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+          <table class="ui single line table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th class="center aligned"><h4 class="ui header"><i class="stopwatch icon"></i></h4></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.items;let i = index;">
+                 <td> <h4 class="ui image header">
+                    {{item.meal_title}}
+                </h4></td>
+                <td>
+                  {{item.quantity}}
+                </td>
+                <td>
+                  <a class="ui label yellow">120</a>
+                </td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
   </div>
 </div>
 </div>  

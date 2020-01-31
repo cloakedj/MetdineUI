@@ -2,17 +2,18 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Seller } from 'src/app/entities/seller.entity';
-import { FileUploadDirective } from 'src/app/Directives/file-upload.directive';
 import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
+import { Router } from '@angular/router';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-become-seller-form',
   templateUrl: './become-seller-form.component.html',
   styleUrls: ['./become-seller-form.component.css'],
-  providers: [FileUploadDirective]
 })
 export class BecomeSellerFormComponent implements OnInit {
   becomeSellerData : Seller;
+  Obs$ : Observer<any>;
   File : File;
   becomeSellerForm: FormGroup = this.formBuilder.group({
     first_name:['',Validators.required],
@@ -33,12 +34,17 @@ export class BecomeSellerFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private api : ApiService,
     private cd : ChangeDetectorRef,
-    private uploadfile : FileUploadDirective,
-    private files : KeepFilesService) {
+    private files : KeepFilesService,
+    private router : Router) {
   }
   onSubmit(data){
     data.logo = this.files.File;
-    this.api.sellerRegistration(data).subscribe();
+    this.Obs$ = {
+      next : data => console.log("Sent"),
+      error : err => console.log(err),
+      complete : () => this.router.navigateByUrl("/seller-side/(sellerRouterOutlet:seller-dashboard)")
+    }
+    this.api.sellerRegistration(data).subscribe(this.Obs$);
     this.becomeSellerForm.reset();
   }
   ngOnInit() {

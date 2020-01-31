@@ -35,7 +35,7 @@ export class FileUploadDirective {
     this.background = '#f5fcff'
     this.opacity = '1'
     this.border = '2px solid black'
-    let files = evt.dataTransfer.files;
+    let files = evt.target.files[0];
     this.files.getUploadFile(files);
     if (files.length > 0) {
       this.onFileDropped.emit(files)

@@ -4,10 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class KeepFilesService {
-  File : File;
+  File : any;
   constructor() { }
-  getUploadFile(file : File){
-    console.log(file);
+  getUploadFile(file){
     this.File = file;
   }
 }

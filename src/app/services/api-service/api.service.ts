@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://localhost';
+  API_URL = 'https://b658248a.ngrok.io';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -214,8 +214,9 @@ export class ApiService {
     )
   }
   //Add A new Item From Seller Side
-  addNewItemFromSellerDashboard(sellerItem : SellerItem){
-    return this.http.post(`${this.API_URL}/api/seller/meals`,sellerItem)
+  addNewItemFromSellerDashboard(item : any){
+    console.log(item);
+    return this.http.post(`${this.API_URL}/api/seller/meals/`,item)
     .pipe(
       catchError(this.handleError)
     )
