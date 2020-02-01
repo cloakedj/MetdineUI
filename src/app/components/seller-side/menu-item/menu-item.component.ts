@@ -75,7 +75,7 @@ export class MenuItemComponent implements OnInit {
     }
   }
   apiToAddNewSellerItem(){ 
-    this.ItemObjtoPush.append("image",this.keepFile.File);
+    this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
     this.addNewSellerItemObs$ = {
       next : data => data,
       error : err => console.log(err),

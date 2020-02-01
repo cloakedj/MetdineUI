@@ -28,3 +28,10 @@
 .actions{
     padding:7% 0% 7% 3% !important;
 }
+.blurred{
+    filter : blur(3px);
+}
+.norequestedOrdersMessage{
+    margin-top:50%;
+    transform: translateY(-50%);
+}

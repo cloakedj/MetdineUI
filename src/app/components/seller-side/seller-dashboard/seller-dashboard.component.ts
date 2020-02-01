@@ -20,6 +20,13 @@ export class SellerDashboardComponent implements OnInit {
   sellerCompletedOrdersForDashboard$: Observer<any>;
   sellerRequestedOrdersForDashboard$: Observer<any>;
   sellerAcceptedOrdersForDashboard$: Observer<any>;
+  orderStatusFilter = [
+    { key: 1, value: 'Cooking' },
+    { key: 2, value: 'Ready' },
+    { key: 3, value: 'On The Way' },
+    { key: 4, value: 'Completed' }
+  ];
+  completedStep = false;
   constructor(private api: ApiService,
     private router: Router) {
   }
@@ -106,12 +113,32 @@ export class SellerDashboardComponent implements OnInit {
         }
       );
     }
-    else this.sellerDashboardorderAction(orderId, status);
+    else {
+      this.sellerDashboardorderAction(orderId, status);
+      if(status === 2){
+        this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet' :['active-order',orderId]}}])
+      }
+    }
   }
   getRemainingItems(id: Number) {
-    let order : any;
-    for(order of this.sellerRequestedOrders){
-      if(order.id === id) return order.items.length - 2; 
+    let order: any;
+    for (order of this.sellerRequestedOrders) {
+      if (order.id === id) return order.items.length - 2;
     }
+  }
+  getOrderStatus(id: number): any {
+    let status;
+    this.orderStatusFilter.forEach((kvp) => {
+      if (id == kvp.key) status = kvp.value;
+    });
+    return status;
+  }
+  requestedOrdersCount() {
+    if (this.sellerRequestedOrders === undefined || 
+      this.sellerRequestedOrders.length === 0) return false;
+      return true;
+  }
+  toInt(status : string):number{
+    return parseInt(status);
   }
 }

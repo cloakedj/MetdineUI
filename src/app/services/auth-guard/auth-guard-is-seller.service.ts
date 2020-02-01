@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; 
+import { Observable } from 'rxjs'; 
 import { AuthService } from '../auth-service/auth-service.service';
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class AuthGuardIsSellerService {
   canActivate(route :ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
     this.auth.S_mode = "true";
     if(localStorage.getItem("is_seller") === "true") return true;
-    this.router.navigateByUrl("/becomeSeller");
+    this.router.navigate(['/becomeSeller']);
     return false;
-  }
+}
 }

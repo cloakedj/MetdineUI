@@ -10,11 +10,11 @@ export class FileUploadComponent implements OnInit {
   files: any = [];
 
   uploadFile(event,byInput ?: string) {
-  for (let index = 0; index < event.length; index++) {
-  const element = event[index];
+  for (let index = 0; index < event.target.files.length; index++) {
+  const element = event.target.files[index];
   const reader = new FileReader();
   if(byInput){
-      reader.readAsDataURL(event[index]);
+      reader.readAsDataURL(event.target.files[index]);
       reader.onload = () => {
         this.filesUpload.getUploadFile(reader.result);
         this.cd.markForCheck();

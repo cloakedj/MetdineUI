@@ -62,6 +62,8 @@ import { SellerSidebarComponent } from './components/seller-side/seller-sidebar/
 import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
 import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
+import { ActiveOrdersComponent } from './components/seller-side/active-orders/active-orders.component';
+import { ConfirmOrderPicsComponent } from './components/seller-side/confirm-order-pics/confirm-order-pics.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +101,8 @@ import { SellerStatsComponent } from './components/seller-side/seller-stats/sell
     CompletedOrdersComponent,
     SellerSideComponent,
     SellerStatsComponent,
+    ActiveOrdersComponent,
+    ConfirmOrderPicsComponent,
   ],
   imports: [
     BrowserModule,

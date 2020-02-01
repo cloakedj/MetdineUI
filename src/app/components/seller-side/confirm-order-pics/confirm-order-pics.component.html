@@ -1,0 +1,77 @@
+      <div class="column maincontainer">
+        <h2 class="ui top center aligned attached header">
+            Send Pictures to User
+          </h2>
+          <div class="ui attached padded segment" [ngClass]="{
+              'loading' : !orderDetails || loading
+          }">
+        <ng-container *ngIf="orderDetails">
+        <div class="ui stackable grid">
+        <div class="three wide column">
+            <h1 class="ui header">Order Id : #{{orderDetails.id}}</h1>
+        </div>
+        <div class="two wide column">
+            <a class="ui teal label">Status | Ready</a>
+        </div>
+        <div class="three wide column">
+            <h3 class="ui header">
+              Revenue : 
+              {{orderDetails.total | currency:'INR'}}
+          </h3>
+          </div>
+        <div class="eight wide column">
+          <h3 class="ui header">
+            Delivery To:
+            {{orderDetails.address}}
+          </h3>
+        </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+          <table class="ui single line table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>
+                  <h4 class="ui header"><i class="stopwatch icon"></i></h4>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderDetails.items;let i = index;">
+                <td>
+                  <h4 class="ui image header">
+                    {{item.meal_title}}
+                  </h4>
+                </td>
+                <td>
+                  {{item.quantity}}
+                </td>
+                <td>
+                  <a class="ui label yellow">120</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+
+        </div>
+        <div class="ui hidden divider">
+        </div>
+        <h3 class="ui center aligned header">
+            Add 5 Images To Send
+        </h3>
+        <div class="center aligned row">
+            <app-file-upload></app-file-upload>
+        </div>
+        <div class="row centeraligned">
+        <button class="ui positive button" (click)="uploadOrderImages();loading = true">
+            Submit
+        </button>
+    </div>          
+    </ng-container>
+      </div>
+    </div>

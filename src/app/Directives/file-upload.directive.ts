@@ -30,12 +30,13 @@ export class FileUploadDirective {
 	
   //Drop listener
   @HostListener('drop', ['$event']) public ondrop(evt) {
+    console.log(evt.target);
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff'
     this.opacity = '1'
     this.border = '2px solid black'
-    let files = evt.target.files[0];
+    let files = evt.target.files;
     this.files.getUploadFile(files);
     if (files.length > 0) {
       this.onFileDropped.emit(files)

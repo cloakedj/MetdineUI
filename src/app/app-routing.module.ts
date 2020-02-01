@@ -22,6 +22,7 @@ import { AuthGuardIsSellerService } from './services/auth-guard/auth-guard-is-se
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
 import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
 import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
+import { ConfirmOrderPicsComponent } from './components/seller-side/confirm-order-pics/confirm-order-pics.component';
 
 
 const routes: Routes =[
@@ -45,6 +46,7 @@ const routes: Routes =[
     { path:'seller-dashboard' ,component: SellerDashboardComponent,outlet:'sellerRouterOutlet'},
     { path : 'completed-orders', component : CompletedOrdersComponent, outlet : 'sellerRouterOutlet'},
     {path : 'seller-stats', component : SellerStatsComponent, outlet : 'sellerRouterOutlet'},
+    {path : 'active-order/:id', component : ConfirmOrderPicsComponent, outlet: 'sellerRouterOutlet'},
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
   // { path: 'seller-profile', component: SellerProfileComponent, children:[

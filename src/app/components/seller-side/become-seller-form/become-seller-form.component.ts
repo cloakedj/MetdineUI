@@ -5,6 +5,7 @@ import { Seller } from 'src/app/entities/seller.entity';
 import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
 import { Router } from '@angular/router';
 import { Observer } from 'rxjs';
+import { AuthGuardIsSellerService } from 'src/app/services/auth-guard/auth-guard-is-seller.service';
 
 @Component({
   selector: 'app-become-seller-form',
@@ -38,11 +39,11 @@ export class BecomeSellerFormComponent implements OnInit {
     private router : Router) {
   }
   onSubmit(data){
-    data.logo = this.files.File;
+    data.logo = this.files.Files[0];
     this.Obs$ = {
-      next : data => console.log("Sent"),
+      next : data => this.api.SetSellerAccountStatus(),
       error : err => console.log(err),
-      complete : () => this.router.navigateByUrl("/seller-side/(sellerRouterOutlet:seller-dashboard)")
+      complete : () => {console.log("completed request")}
     }
     this.api.sellerRegistration(data).subscribe(this.Obs$);
     this.becomeSellerForm.reset();

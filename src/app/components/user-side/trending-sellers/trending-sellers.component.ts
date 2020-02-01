@@ -10,27 +10,18 @@ import { ProductService } from 'src/app/services/product-service/product.service
   templateUrl: './trending-sellers.component.html',
   styleUrls: ['./trending-sellers.component.css']
 })
-export class TrendingSellersComponent implements OnInit,AfterViewInit {
+export class TrendingSellersComponent implements OnInit,AfterViewInit{
   getTrendingSellers$ : Observer<Seller[]>;
-  glide :Glide;
+  glide : Glide;
   constructor(private api :ApiService,
-    private product : ProductService) { 
+    public product : ProductService) { 
+      this.trendingSellersFetch();
   }
 
   ngOnInit() {
-    this.trendingSellersFetch();
   }
-  ngAfterViewInit()
-  {
-    console.log("loaded glide");
-    this.glide = new Glide('.glide',{
-      type:'slider',
-      startAt : 0,
-      perView : 3,
-      gap: 50,
-      bound: true,
-    });
-    this.glide.mount();
+  ngAfterViewInit(){
+    this.mountGlide();
   }
   trendingSellersFetch(){
     this.getTrendingSellers$ = {
@@ -39,11 +30,19 @@ export class TrendingSellersComponent implements OnInit,AfterViewInit {
       },
       error : err => console.log(err),
       complete : () => {
-        this.glide.update();
         console.log("Request to Trending Sellers Completed and glide reloaded")
       }
     }
     this.api.getTrendingSellers().subscribe(this.getTrendingSellers$);
+  }
+  mountGlide(){
+    this.glide = new Glide('.glide',{
+      type:'slider',
+      startAt : 0,
+      perView : 3,
+      gap: 50,
+    });
+    this.glide.mount();
   }
 
 }

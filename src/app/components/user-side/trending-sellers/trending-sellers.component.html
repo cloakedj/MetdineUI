@@ -2,7 +2,7 @@
   <div class="glide__track" data-glide-el="track">
     <ng-container *ngIf="getTrendingSellers$ else plForTendingSellers">
     <ul class="glide__slides">
-      <li class="glide__slide" *ngFor = "let seller of trendingSeller"><img src="{{seller.logo}}"></li>
+      <li class="glide__slide" *ngFor = "let seller of this.product.trendingSellers"><img src="{{seller.logo}}"></li>
     </ul>
   </ng-container>
   </div>

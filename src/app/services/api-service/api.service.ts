@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'https://b658248a.ngrok.io';
+  API_URL = 'http://localhost';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -70,14 +70,14 @@ export class ApiService {
   }
   AddUserTokenHeader(token :string){
     this.Auth.Auth_T = token;
-    this.SetSellerAccountStatus()
+    this.SetSellerAccountStatus();
     this.router.navigate(['/home']);
   }
-  SetSellerAccountStatus(){
+  SetSellerAccountStatus():any {
     this.checkIfSeller().subscribe(
-      (data) => localStorage.setItem("is_seller",data["is_seller"]),
+      (data) =>  localStorage.setItem("is_seller",data["is_seller"].toString()),
       (err) => console.log(err),
-      () => console.log("hecked if seller")
+      () => console.log("checked if seller")
     )
   }
   checkUserToken():any{
@@ -177,6 +177,13 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+  //Endpoint to get order details
+  getOrderDetails(orderId : string){
+    return this.http.get(`${this.API_URL}/api/seller/order_details/${orderId}`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
   //Endpoint to add new item into cart
   additemtoCart(meal_id : Number,seller_id : number){
     this.params = new HttpParams().set("meal_id",meal_id.toString()).set("seller_id",seller_id.toString());
@@ -215,8 +222,17 @@ export class ApiService {
   }
   //Add A new Item From Seller Side
   addNewItemFromSellerDashboard(item : any){
-    console.log(item);
     return this.http.post(`${this.API_URL}/api/seller/meals/`,item)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Endpoint to Send pictures to buyer
+  sendImagesToSeller(images : any,id: string){
+    this.params = new HttpParams().set("order_id",id);
+    return this.http.post(`${this.API_URL}/api/seller/confirm_images/`,images,{
+      params : this.params
+    })
     .pipe(
       catchError(this.handleError)
     )
