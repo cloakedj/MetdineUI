@@ -85,7 +85,7 @@
                 <div class="field">
                     <label>Select Category</label>
                     <mat-radio-group aria-label="Select an option" formControlName="category">
-                        <mat-radio-button *ngFor="let category of categories;index as i" value="{{i+1}}" name="item-category"><a class="ui red horizontal label">{{category.name}}</a></mat-radio-button>
+                        <mat-radio-button *ngFor="let category of categories;index as i;" value="{{i+1}}" name="item-category"><a class="ui red horizontal label">{{category.name}}</a></mat-radio-button>
                       </mat-radio-group>
                 </div>
                   <div class="field">

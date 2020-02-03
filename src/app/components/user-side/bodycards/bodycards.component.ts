@@ -23,6 +23,6 @@ export class BodycardsComponent implements OnInit {
     return this.product.sellers$;
   }
   getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
+    return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
   }
 }

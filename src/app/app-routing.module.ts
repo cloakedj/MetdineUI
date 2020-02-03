@@ -21,8 +21,12 @@ import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AuthGuardIsSellerService } from './services/auth-guard/auth-guard-is-seller.service';
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
 import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
-import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
 import { ConfirmOrderPicsComponent } from './components/seller-side/confirm-order-pics/confirm-order-pics.component';
+import { ActiveOrdersComponent } from './components/seller-side/active-orders/active-orders.component';
+import { SellerItemsComponent } from './components/seller-side/seller-items/seller-items.component';
+import { EditItemComponent } from './components/seller-side/edit-item/edit-item.component';
+import { SellerProfileDataComponent } from './components/seller-side/seller-profile-data/seller-profile-data.component';
+import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
 
 
 const routes: Routes =[
@@ -35,6 +39,7 @@ const routes: Routes =[
     { path: 'favouriteOrders', component: FavouriteOrdersComponent, outlet: 'userProfile'},
     { path: '', redirectTo: '/profile/(userProfile:profileOptions)', pathMatch: 'full'},
   ]},
+  { path: 'active-order',component: ActiveOrderComponent},
   { path: 'userGateway', component: UserGatewayComponent, children:[
     { path: 'login', component:LoginComponent, outlet: 'userGatewayRouter'},
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
@@ -45,8 +50,11 @@ const routes: Routes =[
     { path:'addItem', component:MenuItemComponent, outlet:'sellerRouterOutlet'},
     { path:'seller-dashboard' ,component: SellerDashboardComponent,outlet:'sellerRouterOutlet'},
     { path : 'completed-orders', component : CompletedOrdersComponent, outlet : 'sellerRouterOutlet'},
-    {path : 'seller-stats', component : SellerStatsComponent, outlet : 'sellerRouterOutlet'},
+    {path : 'seller-items', component : SellerItemsComponent, outlet : 'sellerRouterOutlet'},
+    {path : 'seller-profile', component : SellerProfileDataComponent, outlet: 'sellerRouterOutlet'},
     {path : 'active-order/:id', component : ConfirmOrderPicsComponent, outlet: 'sellerRouterOutlet'},
+    {path : 'active-orders', component: ActiveOrdersComponent, outlet : 'sellerRouterOutlet'},
+    {path : 'edit-item/:id',component: EditItemComponent, outlet : 'sellerRouterOutlet'},
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
   // { path: 'seller-profile', component: SellerProfileComponent, children:[
@@ -61,7 +69,8 @@ const routes: Routes =[
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes
-    ,{ enableTracing: false})],
+    ,{ enableTracing: false
+    })],
   exports: [RouterModule],
   providers: [
     AuthGuardService

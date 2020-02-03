@@ -1,0 +1,44 @@
+@import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
+.plcardForSellerProduct
+{
+    margin-bottom:  0 !important;
+}
+.header{
+    font-family: 'Righteous', cursive !important;
+}
+.sub.header{
+    color:#ffffff;
+}
+.desc{
+    text-align: justify !important;
+}
+.label{
+    color:#ffffff;
+    font-family: 'Righteous', cursive !important;
+}
+.container{
+    margin-top: 5%;
+}
+.title
+{
+    margin-top:3% !important;
+}
+.image{
+    min-height:200px;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+.removeshadow{
+    box-shadow: none !important;
+}
+.newItemButton{
+    margin-top:50% !important;
+    transform: translateY(-50%);
+}
+.newItem{
+    transform: 0.3s all;
+}
+.newItem:hover{
+    background-color: linen !important;
+}

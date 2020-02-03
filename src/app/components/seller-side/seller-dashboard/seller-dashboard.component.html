@@ -78,8 +78,8 @@
             <a class="ui orange label">
               Waiting
             </a>
-            <a class="ui teal label" *ngIf="getRemainingItems(order.id) > 0">
-              Contains {{getRemainingItems(order.id)}} More Items.
+            <a class="ui teal label">
+              Contains {{getTableItems(order.id)}} More Items.
             </a>
           </div>
           <div class="orderid four wide column">
@@ -128,55 +128,10 @@
   <div class="five wide stretched column">
     <div class="ui raised segment">
       <h2 class="ui center aligned icon  header">
-        <i class="circular tasks icon"></i> Active Orders
+        <i class="circular tasks icon"></i>Currently Active Order
       </h2>
       <div class="column" *ngFor="let order of sellerActiveOrders;">
-        <div class="orderid centered row">
-          <h1 class="ui header">#{{order.id}}</h1>
-        </div>
-        <div class="ui hidden divider"></div>
-        <div class="row">
-          <a class="ui black label">
-            {{order.total | currency:'INR'}}
-          </a>
-          <a class="ui label" [ngClass]="{
-            'green' : order.status === 1,
-            'teal' : order.status === 2,
-            'yellow' : order.status === 3
-          }">{{getOrderStatus(order.status)}}</a>
-        </div>
-        <div class="three column row">
-          <div class="column"></div>
-        </div>
-        <div class="ui hidden divider"></div>
-        <div class="row">
-          <table class="ui single line table">
-            <thead>
-              <tr>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th class="center aligned">
-                  <h4 class="ui header"><i class="stopwatch icon"></i></h4>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of order.items;let i = index;">
-                <td>
-                  <h4 class="ui image header">
-                    {{item.meal_title}}
-                  </h4>
-                </td>
-                <td>
-                  {{item.quantity}}
-                </td>
-                <td>
-                  <a class="ui label yellow">120</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <app-order-card [order]="order"></app-order-card>
         <div class="ui hidden divider"></div>
         <div class="row">
           <h4 class="ui sub header">
@@ -207,88 +162,34 @@
         </div>
         <div class="ui hidden divider"></div>
       </div>
+      <div class="ui hidden divider"></div>
+      <div class="row">
+        <button class="ui fluid positive button" 
+        matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}} 
+        more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
+          View All Orders
+        </button>
+      </div>
     </div>
   </div>
 </div>
 <div class="ui hidden divider">
 </div>
 <div class="ui hidden divider"></div>
-<h2 class="ui center aligned icon header">
-  <i class="check circle icon"></i>
-  Completed Orders
-</h2>
-<div class="ui center aligned grid">
-  <div class="row status-index">
-    <div class="three wide column">
-      <a class="ui teal big label">
-        <i class="mail icon"></i> Revenue
-      </a>
-    </div>
-    <div class="four wide column">
-      <a class="ui orange big label">
-        <i class="user icon"></i> Date
-      </a>
-    </div>
-    <div class="four wide column">
-      <a class="ui black big label">
-        <i class="user icon"></i> Name
-      </a>
+<div class="ui grid completedOrders">
+<div class="sixteen wide column">
+  <div class="ui raised segment">
+    <h2 class="ui center aligned icon header">
+      <i class="check circle icon"></i>
+      Previously Completed Orders
+    </h2>
+    <div class="ui hidden divider"></div>
+    <div class="ui center aligned stackable grid">
+      <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
+          <app-order-card [order]="order"></app-order-card>
+      </div>
     </div>
   </div>
-</div>
-<div class="ui link centered cards orders">
-  <ng-container *ngIf="sellerCompletedOrders else completedOrdersPlaceholder">
-    <div class="ui card" *ngFor="let order of sellerCompletedOrders;">
-      <div class="content">
-        <div class="header">Order Id : {{order.id}}</div>
-        <h4 class="ui sub header">Address : {{order.address}}</h4>
-        <h4 class="ui sub header">Total Revenue : {{order.total}}</h4>
-        <h4 class="ui sub header">Status : {{order.status}}</h4>
-      </div>
-      <div class="content">
-        <h3 class="ui sub header">Order Summary</h3>
-        <h4 class="ui sub header">Items : </h4>
-        <div class="ui very relaxed horizontal list">
-          <div class="item">
-            <div class="content">
-              <div class="header">S No.</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="content">
-              <div class="header">Item</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="content">
-              <div class="header">Quantity</div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="row" *ngFor="let item of order.items; let i = index;">
-          <div class="ui very relaxed horizontal list">
-            <div class="item">
-              <div class="content">
-                <div class="header">{{i}}</div>
-              </div>
-            </div>
-            <div class="item">
-              <img class="ui avatar image" src="{{item.image}}">
-            </div>
-            <div class="item">
-              <div class="content">
-                <div class="header">{{item.quantity}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="extra content">
-        <button class="ui positive floated button">Completed</button>
-      </div>
-    </div>
-  </ng-container>
 </div>
 <!-- While API is fetching data create placeholders-->
 <!--
@@ -319,24 +220,4 @@
      No Requested Orders At The Moment.
    </h2>
  </div>
-</ng-template>
-<!--
-      Placeholder For Order Cards
-    -->
-<ng-template #completedOrdersPlaceholder>
-  <div class="ui card plcompletedorders" *ngFor="let pl of [0,1,2]">
-    <div class="ph-item">
-      <div class="ph-picture"></div>
-      <div class="ui divider"></div>
-      <div class="ph-picture"></div>
-      <div class="ph-col-12">
-        <div class="ph-row">
-          <div class="ph-col-4 big"></div>
-        </div>
-      </div>
-    </div>
-    <div class="extra content">
-      <div class="ui disabled primary button">Options</div>
-    </div>
-  </div>
 </ng-template>

@@ -25,14 +25,15 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
     private cart : CartService,
     private gc : GetCategoryService
   ) { 
-    let sid = this.aroute.snapshot.paramMap.get('id');
-    this.product.sellerId = sid;
+    this.aroute.params.subscribe(routeParams =>{
+      this.product.sellerId = routeParams.id;
+      this.product.getSellerItems(this.product.sellerId);
+      this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
+    })
     this.product.sellerLogo = this.sellerLogo;
-    this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
   }
 
   ngOnInit() {
-    this.product.getSellerItems(this.product.sellerId);
   }
   ngAfterViewInit(){
   }

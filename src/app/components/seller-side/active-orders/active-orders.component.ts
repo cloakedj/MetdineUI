@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-active-orders',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./active-orders.component.css']
 })
 export class ActiveOrdersComponent implements OnInit {
+  allActiveOrders: any[];
+  constructor(private orders: SellerDashboardService) { 
+   
+  }
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() { 
+    console.log(this.orders.sellerActiveOrders);
   }
 
 }

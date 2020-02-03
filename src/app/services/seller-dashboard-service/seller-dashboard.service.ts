@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class SellerDashboardService implements OnInit{
 
   sellerData$ : Observer<any>;
+  sellerId : number;
   sellerDashOptions : SellerDash; 
   sellerCompletedOrders : [];
   sellerRequestedOrders : [];
@@ -22,11 +23,6 @@ export class SellerDashboardService implements OnInit{
     private router : Router) { 
   }
   ngOnInit() {
-   this.sellerData$ = {
-     next : (data) => this.sellerDashOptions = data,
-     error : (err) => console.log(err),
-     complete : () => console.log("Request completed")
-   };
    this.sellerCompletedOrdersForDashboard$ = {
      next : (data) => this.sellerCompletedOrders = data,
      error: (err) => console.log(err),
@@ -38,7 +34,7 @@ export class SellerDashboardService implements OnInit{
      complete : () => console.log("Request for requested orders completed")
    }
    this.sellerAcceptedOrdersForDashboard$  = {
-    next : (data) => this.sellerActiveOrders = data,
+    next : (data) =>this.sellerActiveOrders = data,
     error : (err) => console.log(err),
     complete : () => console.log("Request for active orders completed")
   }
@@ -65,7 +61,7 @@ export class SellerDashboardService implements OnInit{
   sellerDashboardRequestedOrders(){
     this.api.getSellerDashboardOrders(true,false,5).subscribe(this.sellerRequestedOrdersForDashboard$);
   }
-  sellerDashboardActiveOrders(){
+  sellerDashboardActiveOrders(){                 
     this.api.getSellerDashboardOrders(true,true).subscribe(this.sellerAcceptedOrdersForDashboard$);
   }
   sellerDashboardCompletedOrders()
@@ -111,5 +107,8 @@ export class SellerDashboardService implements OnInit{
       );
     }
     else this.sellerDashboardorderAction(orderId,status);
+  }
+  setSellerId(id){
+    localStorage.setItem("seller__id",id);
   }
 }

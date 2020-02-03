@@ -227,6 +227,20 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+  //Endpoint to get single meal details
+  getMealItemDetail(id : any){
+    return this.http.get(`${this.API_URL}/api/seller/menu/${id}/`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Endpoint To Patch Meal details
+  patchMealDataById(id : any,data : any){
+    return this.http.patch(`${this.API_URL}/api/seller/menu/${id}/`,data)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
   //Endpoint to Send pictures to buyer
   sendImagesToSeller(images : any,id: string){
     this.params = new HttpParams().set("order_id",id);
@@ -237,6 +251,35 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+  //Get Active Order Details For Buyer
+  getActiveOrderDetailsForBuyer(){
+    return this.http.get(`${this.API_URL}/api/user/orders/active`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //get images for confirmation to buyer
+  getConfirmationImages(id : number){
+    this.params = new HttpParams().set("order_id",id.toString());
+  return this.http.get(`${this.API_URL}/api/user/confirmation_images/`,{params : this.params})
+  .pipe(
+    catchError(this.handleError)
+  )
+  }
+  //Reject Seller Images
+  rejectSellerImages(id : any){
+    return this.http.post(`${this.API_URL}/api/user/confirmation/reject/${id}/`,'')
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+    //Accept Seller Images
+    acceptSellerImages(id : any){
+      return this.http.post(`${this.API_URL}/api/user/confirmation/confirm/${id}/`,'')
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
   //Log User Out
   logOutUser(){
     return this.http.post(`${this.API_URL}/rest-auth/logout/`,'')

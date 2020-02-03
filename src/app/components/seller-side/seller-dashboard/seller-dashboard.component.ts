@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Subscription, Observer } from 'rxjs';
 import { SellerDash } from 'src/app/entities/seller-dash.entity';
 import { Router } from '@angular/router';
+import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -28,11 +29,15 @@ export class SellerDashboardComponent implements OnInit {
   ];
   completedStep = false;
   constructor(private api: ApiService,
-    private router: Router) {
+    private router: Router,
+    private seller : SellerDashboardService) {
   }
   ngOnInit() {
     this.sellerData$ = {
-      next: (data) => this.sellerDashOptions = data,
+      next: (data) => {
+        this.sellerDashOptions = data;
+        this.seller.setSellerId(data["id"]);
+      },
       error: (err) => console.log(err),
       complete: () => console.log("Request completed")
     };
@@ -42,7 +47,7 @@ export class SellerDashboardComponent implements OnInit {
       complete: () => console.log("Request for seller orders completed")
     }
     this.sellerRequestedOrdersForDashboard$ = {
-      next: (data) => { this.sellerRequestedOrders = data; console.log(this.sellerRequestedOrders); },
+      next: (data) => { this.sellerRequestedOrders = data; },
       error: (err) => console.log(err),
       complete: () => console.log("Request for requested orders completed")
     }
@@ -120,10 +125,12 @@ export class SellerDashboardComponent implements OnInit {
       }
     }
   }
-  getRemainingItems(id: Number) {
-    let order: any;
-    for (order of this.sellerRequestedOrders) {
-      if (order.id === id) return order.items.length - 2;
+  getRemainingItems(size : number) {
+    return size - 1;
+  }
+  getTableItems(id : any){
+    for(const order in this.sellerRequestedOrders){
+    console.log(order)
     }
   }
   getOrderStatus(id: number): any {

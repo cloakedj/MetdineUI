@@ -56,14 +56,17 @@ import { ContentLengthPipe } from './pipes/content-length.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TrendingSellerSidebarComponent } from './components/user-side/trending-seller-sidebar/trending-seller-sidebar.component'
 import { AgmCoreModule } from '@agm/core';
-  import { from } from 'rxjs';
 import { AddressAutocompleteDirective } from './Directives/address-autocomplete.directive';
 import { SellerSidebarComponent } from './components/seller-side/seller-sidebar/seller-sidebar.component';
 import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
-import { SellerStatsComponent } from './components/seller-side/seller-stats/seller-stats.component';
 import { ActiveOrdersComponent } from './components/seller-side/active-orders/active-orders.component';
 import { ConfirmOrderPicsComponent } from './components/seller-side/confirm-order-pics/confirm-order-pics.component';
+import { OrderCardComponent } from './components/seller-side/order-card/order-card.component';
+import { SellerItemsComponent } from './components/seller-side/seller-items/seller-items.component';
+import { EditItemComponent } from './components/seller-side/edit-item/edit-item.component';
+import { SellerProfileDataComponent } from './components/seller-side/seller-profile-data/seller-profile-data.component';
+import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,9 +103,13 @@ import { ConfirmOrderPicsComponent } from './components/seller-side/confirm-orde
     SellerSidebarComponent,
     CompletedOrdersComponent,
     SellerSideComponent,
-    SellerStatsComponent,
     ActiveOrdersComponent,
     ConfirmOrderPicsComponent,
+    OrderCardComponent,
+    SellerItemsComponent,
+    EditItemComponent,
+    SellerProfileDataComponent,
+    ActiveOrderComponent,
   ],
   imports: [
     BrowserModule,
