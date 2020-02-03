@@ -1,5 +1,5 @@
-<div class="ui centered grid container">
-    <div class="twelve wide column">
+<div class="ui stackable grid">
+    <div class="ten wide column">
     <div class="ui raised segment" *ngFor="let data of activeOrderData">
         <h1 class="ui header">
             Order Id : #{{data.id}}
@@ -66,6 +66,43 @@
                 Reject
             </button>
         </ng-container>
+    </div>
+</div>
+<div class="six wide column">
+    <div class="ui segment">
+        <h2 class="ui center aligned header">
+            Order Details
+        </h2>
+        <div class="ui divider"></div>
+        <div class="row">
+            <table class="ui single line table" *ngFor="let data of activeOrderData;">
+            <thead>
+                <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>
+                    <h4 class="ui header"><i class="stopwatch icon"></i></h4>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.items;let i = index;">
+                <td>
+                    <h4 class="ui image header">
+                    {{item.meal_title}}
+                    </h4>
+                </td>
+                <td>
+                    {{item.quantity}}
+                </td>
+                <td>
+                    <a class="ui label yellow">120</a>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="ui dieendivider"></div>
     </div>
 </div>
 </div>

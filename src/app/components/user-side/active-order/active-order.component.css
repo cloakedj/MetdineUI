@@ -27,3 +27,6 @@
     top : 50%;
     transform: translate(-50%,-50%);
 }
+.grid{
+    padding : 5% !important;
+}

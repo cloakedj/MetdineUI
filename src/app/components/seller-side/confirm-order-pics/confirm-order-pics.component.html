@@ -1,4 +1,31 @@
-      <div class="column maincontainer">
+     <div class="column maincontainer">
+      <div class="ui error message" *ngIf="imagesStatus == 'Refused'">
+        <i class="close icon"></i>
+        <div class="header">
+         Seller rejected Images.
+        </div>
+        <ul class="list">
+          <li>Unfortunately Buyer Rejected the Images. kindly Send Them Again</li>
+        </ul>
+      </div>
+      <div class="ui positive message" *ngIf="imagesStatus == 'Confirmed'">
+        <i class="close icon"></i>
+        <div class="header">
+         Seller Accepted Images.
+        </div>
+        <ul class="list">
+          <li>Congrats. Buyer Accepted the Images. You Can Now Start the Delivery</li>
+        </ul>
+      </div>
+      <div class="ui primary message" *ngIf="imagesStatus == 'Sent'">
+        <i class="close icon"></i>
+        <div class="header">
+         Sent Images To Seller.
+        </div>
+        <ul class="list">
+          <li>Images Sent To Seller. Pending Verification.</li>
+        </ul>
+      </div>
         <h2 class="ui top center aligned attached header">
             Send Pictures to User
           </h2>

@@ -14,6 +14,7 @@ export class ConfirmOrderPicsComponent implements OnInit {
   orderDetails$: Observer<any>;
   orderDetails: any;
   uploadImagesObs$ : Observer<any>;
+  imagesStatus : any;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -59,6 +60,13 @@ export class ConfirmOrderPicsComponent implements OnInit {
     this.uploadFiles.append(`image${i+1}`,this.keepFiles.Files[i]);
   }
   this.api.sendImagesToSeller(this.uploadFiles,this.orderId).subscribe(this.uploadImagesObs$);
+  }
+  getConfirmationImagesStatus(id : any){
+    this.api.getConfirmationImages(id).subscribe(
+      (data) => this.imagesStatus = data["status"],
+      (err) => console.log(err),
+      () => console.log("getting status")
+    )
   }
 
 }
