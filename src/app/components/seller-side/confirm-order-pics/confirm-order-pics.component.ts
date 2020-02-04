@@ -14,7 +14,7 @@ export class ConfirmOrderPicsComponent implements OnInit {
   orderDetails$: Observer<any>;
   orderDetails: any;
   uploadImagesObs$ : Observer<any>;
-  imagesStatus : any;
+  imagesSent : any;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -32,6 +32,7 @@ export class ConfirmOrderPicsComponent implements OnInit {
   ngOnInit() {
     this.orderId = this.aroute.snapshot.paramMap.get('id');
     this.orderDetailsAPI();
+    this.getConfirmationImagesStatus(this.orderId);
   }
   orderDetailsAPI() {
     this.orderDetails$ = {
@@ -63,7 +64,7 @@ export class ConfirmOrderPicsComponent implements OnInit {
   }
   getConfirmationImagesStatus(id : any){
     this.api.getConfirmationImages(id).subscribe(
-      (data) => this.imagesStatus = data["status"],
+      (data) => this.imagesSent = data,
       (err) => console.log(err),
       () => console.log("getting status")
     )

@@ -148,4 +148,7 @@ export class SellerDashboardComponent implements OnInit {
   toInt(status : string):number{
     return parseInt(status);
   }
+  routeToOrderImages(id : any){
+    this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet': ['active-order',id]}}])
+  }
 }

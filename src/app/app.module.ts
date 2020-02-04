@@ -135,7 +135,7 @@ import { ActiveOrderComponent } from './components/user-side/active-order/active
     HttpClientModule,
     MatCheckboxModule,
     AgmCoreModule.forRoot({
-      apiKey : "AIzaSyDGrvkwyBGySVwb9XgrbImc0LaaF8bMyM4",
+      apiKey : "AIzaSyBeZektVlME9dVBSY8W2cGL7kTPyO6SRUk",
       libraries : ['places']
     }),
   ],

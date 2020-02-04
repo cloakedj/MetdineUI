@@ -41,7 +41,7 @@
           <div class="item">
             <h5 class="center aligned header">{{item.meal_title}}</h5>
         </div>
-        <app-inc-dec-cart [productId] = "item.meal_id" class="item"></app-inc-dec-cart>
+        <app-inc-dec-cart [productId] = "item.meal_id" [toggle]="true" class="item"></app-inc-dec-cart>
         <div class="item">
             <h5 class="header">{{item.meal_price * item.quantity}}</h5>
         </div>

@@ -1,4 +1,5 @@
 <div class="ui stackable grid">
+    <ng-container *ngIf="activeOrderData">
     <div class="ten wide column">
     <div class="ui raised segment" *ngFor="let data of activeOrderData">
         <h1 class="ui header">
@@ -9,7 +10,9 @@
                 'yellow' : data.status === 1,
                 'orange' : data.status === 2,
                 'purple' : data.status === 3,
-                'pink' : data.status === 4
+                'pink' : data.status === 4,
+                'brown' : data.status === 5,
+                'red' : data.status === 6
             }">{{getStatus(data.status)}}
             </a>
         </h3>
@@ -21,8 +24,7 @@
         <h3 class="ui header">
             Address : {{data.address}}
         </h3>
-        <ng-container *ngIf="sellerHasSentImages">
-            <ng-container  *ngIf="sentImages[0].status != 'Sent'">
+        <ng-container *ngIf="data.status == 2 && sentImages[0].status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
@@ -65,7 +67,6 @@
             (click)="rejectImages(sentImages[0].id)">
                 Reject
             </button>
-        </ng-container>
     </div>
 </div>
 <div class="six wide column">
@@ -105,4 +106,5 @@
         <div class="ui dieendivider"></div>
     </div>
 </div>
+</ng-container>
 </div>

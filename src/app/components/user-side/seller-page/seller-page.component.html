@@ -1,6 +1,6 @@
 <div class="ui two column  grid container">
   <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
-    <div class="ten wide column">
+    <div class="ten wide computer seven wide tablet sixteen wide stackable device column">
     <div class="image">
       <img class="ui centered medium rounded image" src="{{seller.logo}}">
     </div>
@@ -47,7 +47,7 @@
   </div>
 </div>
   </ng-container>
-  <div class="six wide column">
+  <div class="six wide computer only nine wide tablet only column">
     <app-trending-seller-sidebar></app-trending-seller-sidebar>
   </div>
   </div>

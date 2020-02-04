@@ -1,23 +1,24 @@
      <div class="column maincontainer">
-      <div class="ui error message" *ngIf="imagesStatus == 'Refused'">
+      <ng-container *ngIf="imagesSent[0].status">
+      <div class="ui error message" *ngIf="imagesSent[0].status == 'Refused'">
         <i class="close icon"></i>
         <div class="header">
-         Seller rejected Images.
+         Buyer rejected Images.
         </div>
         <ul class="list">
           <li>Unfortunately Buyer Rejected the Images. kindly Send Them Again</li>
         </ul>
       </div>
-      <div class="ui positive message" *ngIf="imagesStatus == 'Confirmed'">
+      <div class="ui positive message" *ngIf="imagesSent[0].status == 'Confirmed'">
         <i class="close icon"></i>
         <div class="header">
-         Seller Accepted Images.
+         Buyer Accepted Images.
         </div>
         <ul class="list">
           <li>Congrats. Buyer Accepted the Images. You Can Now Start the Delivery</li>
         </ul>
       </div>
-      <div class="ui primary message" *ngIf="imagesStatus == 'Sent'">
+      <div class="ui primary message" *ngIf="imagesSent[0].status == 'Sent'">
         <i class="close icon"></i>
         <div class="header">
          Sent Images To Seller.
@@ -26,10 +27,23 @@
           <li>Images Sent To Seller. Pending Verification.</li>
         </ul>
       </div>
+      <h1 class="ui center aligned header">Sent Images</h1>
+      <div class="ui three column stackable centered grid row">
+          <div class="column">
+          <img src="{{imagesSent[0].image1}}" class="ui rounded medium image">
+          </div>
+          <div class="column">
+              <img src="{{imagesSent[0].image2}}" class="ui rounded medium image">
+          </div>
+      <div class="column">
+          <img src="{{imagesSent[0].image3}}" class="ui rounded medium image">
+      </div>
+      </div>
+      </ng-container>
         <h2 class="ui top center aligned attached header">
             Send Pictures to User
           </h2>
-          <div class="ui attached padded segment" [ngClass]="{
+          <div class="ui attached padded sendImages segment" [ngClass]="{
               'loading' : !orderDetails || loading
           }">
         <ng-container *ngIf="orderDetails">
@@ -38,7 +52,7 @@
             <h1 class="ui header">Order Id : #{{orderDetails.id}}</h1>
         </div>
         <div class="two wide column">
-            <a class="ui teal label">Status | Ready</a>
+            <a class="ui teal label">Ready</a>
         </div>
         <div class="three wide column">
             <h3 class="ui header">
@@ -88,6 +102,17 @@
         </div>
         <div class="ui hidden divider">
         </div>
+        <div class="row">
+          <ng-container  *ngIf="imagesSent[0].status == 'Confirmed'">
+            <div class="confirmedMask">
+            <div class="lock notice">
+                <h4 class="ui center aligned icon header">
+                    <i class="lock icon"></i>
+                <p class="lock-text">Buyer Has {{imagesSent[0].status}} The Images</p>
+                </h4>
+            </div>
+            </div>
+        </ng-container>
         <h3 class="ui center aligned header">
             Add 5 Images To Send
         </h3>
@@ -98,6 +123,7 @@
         <button class="ui positive button" (click)="uploadOrderImages();loading = true">
             Submit
         </button>
+        </div>
     </div>          
     </ng-container>
       </div>

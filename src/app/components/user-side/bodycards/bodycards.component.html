@@ -1,11 +1,11 @@
 <div class="ui grid">
   <app-filter-sidebar></app-filter-sidebar>
-  <div class="twelve wide column">
+  <div class="twelve wide computer sixteen wide device  ten wide doubling tablet column">
     <h1 class="ui centered header">
       Seller's Near You
     </h1>
     <div class="ui centered cards">
-      <ng-container *ngIf="getAllSellers() | async; else plForSellerCards">
+      <ng-container *ngIf="getAllSellers() | async; else plForSellerCards;">
       <div class="ui card" *ngFor="let seller of getAllSellers() | async">
         <ng-container *ngIf="seller.logo else plForSellerLogo">
         <div class="image">

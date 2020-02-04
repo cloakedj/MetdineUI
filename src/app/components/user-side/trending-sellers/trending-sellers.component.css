@@ -1,17 +1,25 @@
-.glide--swipeable
-{
-    height:280px;
-    background:black;
-}
-.glide__slides
-{
-    height:250px;
-    padding-left:5%;
-    padding-right:5%;
-}
-.glide__slide{
-    background:#fff;
-}
-.glide{
-    margin-bottom:5%;
-}
+.swiper-container {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -150px;
+  }
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+  }
+  html, body {
+    position: relative;
+    height: 100%;
+  }
+  body {
+    background: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color:#000;
+    margin: 0;
+    padding: 0;
+  }

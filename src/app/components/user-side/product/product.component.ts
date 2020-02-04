@@ -14,7 +14,7 @@ import { GetCategoryService } from 'src/app/services/get-category/get-category.s
   providers: [CartComponent,IncDecCartComponent],
 })
 export class ProductComponent implements OnInit{
-  private containerLoaded: boolean = false;
+  cartHItems: boolean = false;
   constructor(
   private productService: ProductService,
   private incdeccart: IncDecCartComponent,
@@ -32,6 +32,12 @@ export class ProductComponent implements OnInit{
   }
   getCategory(id: any){
     return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
+  }
+  cartHasItems(){
+    this.cartHItems = true;
+  }
+  onSwitch(event){
+    this.cartHItems = event;
   }
 
 }

@@ -7,3 +7,32 @@
 .centeraligned{
     text-align: center;
 }
+.confirmedMask{
+    background:hsla(0, 0%, 0%, 0.795);
+    height:100%;
+    position: absolute;
+    width:100%;
+    left:0;
+    z-index: 999;
+    transition: 0.4s all;
+}
+.confirmedMask:hover{
+    background:hsla(0, 0%, 0%, 0.695);
+}
+.sendImages{
+    overflow: hidden;
+}
+.lock.icon{
+    color : #fff !important;
+    top:20%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+.lock-text{
+    color:#fff !important;
+    position : absolute;
+    left: 50%;
+    top : 30%;
+    transform: translate(-50%,-50%);
+}

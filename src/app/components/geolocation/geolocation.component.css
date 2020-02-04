@@ -1,6 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Righteous&display=swap";
 agm-map {
-    height: 90vh;
+    height: 100vh;
 }
 .ui.grid .column
 {
@@ -17,8 +17,4 @@ agm-map {
 }
 .ten.wide.column{
     padding:2% !important;
-}
-.six.wide.column .segment
-{
-    height: 90vh;
 }

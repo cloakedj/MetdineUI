@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEn
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api-service/api.service';
 
 @Component({
   selector: 'app-geolocation',
@@ -18,6 +20,8 @@ export class GeolocationComponent implements OnInit{
   public selectedAddress: PlaceResult;
   @(ViewChild)('search',{static:true}) autocompletesearch : ElementRef;
   public searchControl : FormControl = new FormControl();
+  public isOnCheckoutMode;
+  public locationBtnTitle;
   public locationIcon = {
     url : 'https://image.flaticon.com/icons/png/512/1176/1176403.png',
     label: {
@@ -42,10 +46,18 @@ export class GeolocationComponent implements OnInit{
   }
   constructor(
     private mapsAPILoader : MapsAPILoader,
-    private ngZone : NgZone
-  ) { }
+    private ngZone : NgZone,
+    private aroute : ActivatedRoute,
+    private api : ApiService
+  ) { 
+   this.aroute.queryParams.subscribe(params =>{
+    this.isOnCheckoutMode = params['checkout'];
+    });
+  }
   ngOnInit(){
     this.GetLocation();
+    this.locationBtnTitle = this.isOnCheckoutMode ? "Use This Address And Checkout"
+    : "Save New Address";
   }
   GetLocation(){
     this.mapsAPILoader.load().then(() => {
@@ -79,12 +91,16 @@ export class GeolocationComponent implements OnInit{
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 18;
         this.getAddress(this.latitude, this.longitude);
       });
     }
+  }
+  getLocationCurrent(){
+    this.setCurrentLocation();
   }
   markerDragEnd($event: any) {
     this.latitude = $event.coords.lat;
@@ -106,6 +122,20 @@ export class GeolocationComponent implements OnInit{
       }
  
     });
+  }
+  onAddressBtnClick(){
+    if(this.isOnCheckoutMode){
+      let redirecturl;
+      this.api.checkoutUserCart(this.address)
+      .subscribe(
+        data => redirecturl = data["redirect_url"],
+        err => console.log(err),
+        () =>{
+          location.href = redirecturl
+          console.log("Completed Checkout");
+        } 
+      )
+    }
   }
 
 }

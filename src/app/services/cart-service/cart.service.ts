@@ -45,7 +45,6 @@ getCartLength(): number{
  return this.items.length === 0 ? 0 : this.items.length;
 }
 updateCart(id: Number,operation?: string): void{ 
-  console.log(this.items);
     if(this.items === undefined)
     {
 

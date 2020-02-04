@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 })
 export class SellerSidebarComponent implements OnInit {
   sellerData$ : Observer<any>;
-  sellerData : any[];
+  sellerData : any;
   constructor(private api : ApiService) { }
 
   ngOnInit() {

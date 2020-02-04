@@ -15,9 +15,10 @@ export class ActiveOrderComponent implements OnInit {
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
     { key: 3, value: 'On The Way' },
-    { key: 4, value: 'Completed' }
+    { key: 4, value: 'Completed' },
+    { key: 5, value : 'Waiting'},
+    { key : 6, value : 'Cancelled'}
   ];
-  sellerHasSentImages = false;
   sentImagesObs$ : Observer<any>;
   statusimagesObs$ : Observer<any>;
   sentImages : any;
@@ -39,7 +40,7 @@ export class ActiveOrderComponent implements OnInit {
     this.sentImagesObs$ = {
       next : (data) => this.sentImages = data,
       error : (err) => console.log(err),
-      complete : () => this.sellerHasSentImages = true
+      complete : () => console.log("Request comleted")
     }
     this.api.getActiveOrderDetailsForBuyer().subscribe(this.activeOrderData$);
   }

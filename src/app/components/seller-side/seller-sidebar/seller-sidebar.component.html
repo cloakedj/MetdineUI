@@ -1,35 +1,46 @@
-<div class="ui segment computer only sidebarmenu">
-     <img src="{{sellerData.logo}}" class="ui centered tiny rounded image">
-    <div class="row">
-    <h4 class="ui centered header">{{sellerData.first_name}} {{sellerData.last_name}}</h4>
-    </div>
-    <div class="ui hidden divider"></div>
-    <div class="ui link list">
-    <a class="item" 
-    [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-dashboard']}}]" routerLinkActive="active"
-    ><h4 class="ui header"><i class="rocket icon"></i>Dashboard</h4></a>
-    <a class="item" 
-    [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-items']}}]" routerLinkActive="active"
-    ><h4 class="ui header"><i class="list icon"></i>Menu Items</h4></a>
-    <a class="item" 
-    [routerLink]="[{ outlets: { sellerRouterOutlet: ['completed-orders']}}]" routerLinkActive="active"
-    ><h4 class="ui header"><i class="check circle outline icon"></i>Completed Orders
-    </h4></a>
-    <a class="item"
-    [routerLink]="[{ outlets: { sellerRouterOutlet: ['active-orders']}}]" routerLinkActive="active"
-    ><h4 class="ui header"><i class="clipboard list icon"></i>
-    Active Orders</h4></a>
-    <a class="item"
-    [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-profile']}}]" routerLinkActive="active"
-    ><h4 class="ui header"><i class="user icon"></i>Profile</h4></a>
-    <a class="item"><h4 class="ui header"><i class="money bill alternate outline icon"></i>
-    Payment Details</h4></a>
-    </div>
-    <div class="two ui buttons">
-    <button class="ui teal fluid button" routerLink="/home" routerLinkActive="active">Switch To Buyer</button>
-    <button class="ui negative fluid button">Log Out</button>
-    </div>
-    <div class="ui sub header">
-        Made With <i class="heart icon icon-center"></i> in India.
-    </div>
+<div class="ui segment sidebarmenu">
+    <ng-container *ngIf="sellerData else sellerDataPlaceholder;">
+    <img src="{{sellerData.logo}}" class="ui centered tiny rounded image">
+   <div class="row">
+   <h4 class="ui centered header">{{sellerData.first_name}} {{sellerData.last_name}}</h4>
+   </div>
+</ng-container>
+   <div class="ui hidden divider"></div>
+   <div class="ui link list">
+   <a class="item" 
+   [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-dashboard']}}]" routerLinkActive="active"
+   ><h4 class="ui header"><i class="rocket icon"></i>Dashboard</h4></a>
+   <a class="item" 
+   [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-items']}}]" routerLinkActive="active"
+   ><h4 class="ui header"><i class="list icon"></i>Menu Items</h4></a>
+   <a class="item" 
+   [routerLink]="[{ outlets: { sellerRouterOutlet: ['completed-orders']}}]" routerLinkActive="active"
+   ><h4 class="ui header"><i class="check circle outline icon"></i>Completed Orders
+   </h4></a>
+   <a class="item"
+   [routerLink]="[{ outlets: { sellerRouterOutlet: ['active-orders']}}]" routerLinkActive="active"
+   ><h4 class="ui header"><i class="clipboard list icon"></i>
+   Active Orders</h4></a>
+   <a class="item"
+   [routerLink]="[{ outlets: { sellerRouterOutlet: ['seller-profile']}}]" routerLinkActive="active"
+   ><h4 class="ui header"><i class="user icon"></i>Profile</h4></a>
+   <a class="item"><h4 class="ui header"><i class="money bill alternate outline icon"></i>
+   Payment Details</h4></a>
+   </div>
+   <div class="two ui buttons">
+   <button class="ui teal fluid button" routerLink="/home" routerLinkActive="active">Switch To Buyer</button>
+   <button class="ui negative fluid button">Log Out</button>
+   </div>
+   <div class="ui sub header">
+       Made With <i class="heart icon icon-center"></i> in India.
+   </div>
 </div>
+<ng-template #sellerDataPlaceholder>
+    <div class="ui placeholder">
+        <div class="image header"></div>
+        <div class="paragraph">
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>  
+    </div>
+</ng-template>

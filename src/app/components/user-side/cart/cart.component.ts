@@ -16,20 +16,13 @@ export class CartComponent implements OnInit {
   private cart: CartService,
   private productService : ProductService,
   private api : ApiService,
+  private router : Router
 	) {}
 
-  	ngOnInit() {
-      this.cart.loadCart();
+  ngOnInit() {
+    this.cart.loadCart();
   }
   checkoutCart(){
-    this.api.checkoutUserCart()
-    .subscribe(
-      data => this.redirectUrl = data["redirect_url"],
-      err => console.log(err),
-      () =>{
-        location.href = this.redirectUrl;
-        console.log("Completed Checkout");
-      } 
-    )
+    this.router.navigate(['/map'],{queryParams : {checkout : true}})
   }
 }

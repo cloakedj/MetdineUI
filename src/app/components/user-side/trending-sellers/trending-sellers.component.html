@@ -1,20 +1,11 @@
-<div class="glide">
-  <div class="glide__track" data-glide-el="track">
-    <ng-container *ngIf="getTrendingSellers$ else plForTendingSellers">
-    <ul class="glide__slides">
-      <li class="glide__slide" *ngFor = "let seller of this.product.trendingSellers"><img src="{{seller.logo}}"></li>
-    </ul>
-  </ng-container>
+<swiper [config]="prop">
+<div class="swiper-container" *ngIf="getTrendingSellers$">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" 
+    *ngFor="let seller of this.product.trendingSellers;" 
+    [ngStyle]="{'background' : 'url(' + seller.logo + ')'}">
   </div>
-  <div class="glide__arrows" data-glide-el="controls">
-      <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-      <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
-    </div>
-    <ng-template #plForTendingSellers>
-      <ul class="glide__slides">
-        <li class="glide__slide" *ngFor="let pl of [0,1,2,3]">
-          Loading
-        </li>
-      </ul>
-    </ng-template>
+  </div>
+  <div class="swiper-pagination"></div>
 </div>
+</swiper>

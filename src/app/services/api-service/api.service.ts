@@ -172,7 +172,7 @@ export class ApiService {
   }
   //Endpoint to delete item from cart
   deleteOrderItemById(id : Number){
-    return this.http.delete(`${this.API_URL}/api/user/order/remove/${id}/`)
+    return this.http.delete(`${this.API_URL}/api/user/order/remove/${id}`)
     .pipe(
       catchError(this.handleError)
     )
@@ -194,14 +194,14 @@ export class ApiService {
   }
   //Endpoint to delete current cart
   deleteCurrentCart(){
-    return this.http.delete(`${this.API_URL}/api/user/cart/`)
+    return this.http.delete(`${this.API_URL}/api/user/clear_cart/`)
     .pipe(
       catchError(this.handleError)
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(){
-    return this.http.post(`${this.API_URL}/api/user/checkout/`,'')
+  checkoutUserCart(address : any){
+    return this.http.post(`${this.API_URL}/api/user/checkout/`,{address : address})
     .pipe(
       catchError(this.handleError)
     )
