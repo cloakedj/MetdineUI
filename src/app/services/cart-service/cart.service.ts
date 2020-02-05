@@ -12,8 +12,8 @@ export class CartService implements OnDestroy, OnInit{
   items: CartItem[] = [];
   total: number = 0;
   existingOrder : CartItem[];
-  orderDetailsId : Number;
-  orderId : Number;
+  orderDetailsId : number;
+  orderId : number;
   userCartdetaisl$ : Observer<any>;
   itemExistsQuantity : number;
   constructor(private productService: ProductService,
@@ -44,7 +44,7 @@ loadCart(): void {
 getCartLength(): number{
  return this.items.length === 0 ? 0 : this.items.length;
 }
-updateCart(id: Number,operation?: string): void{ 
+updateCart(id: number,operation?: string): void{ 
     if(this.items === undefined)
     {
 
@@ -104,7 +104,7 @@ updateCart(id: Number,operation?: string): void{
       }
     )
   }
-  updateCartItem(operation?: string, id?: Number)
+  updateCartItem(operation?: string, id?: number)
   {
     if(operation === 'a') this.itemExistsQuantity += 1;
     else if(this.itemExistsQuantity - 1 === 0)  this.deleteItemFromCart(id); 
@@ -120,7 +120,7 @@ updateCart(id: Number,operation?: string): void{
       }
     );
   }
-  deleteItemFromCart(id : Number){
+  deleteItemFromCart(id : number){
     if(this.getCartLength() - 1 === 0 && this.itemExistsQuantity - 1 === 0 )
     this.clearCart();
     else

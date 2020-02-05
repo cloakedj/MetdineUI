@@ -8,9 +8,9 @@ export class FileUploadDirective {
   constructor(private files : KeepFilesService) {}
   @Output() onFileDropped = new EventEmitter<any>();
 	
-  @HostBinding('style.background-color') private background = '#f5fcff'
-  @HostBinding('style.opacity') private opacity = '1'
-  @HostBinding('style.border') private border = '2px dashed black'
+  @HostBinding('style.background-color') public background = '#f5fcff'
+  @HostBinding('style.opacity') public opacity = '1'
+  @HostBinding('style.border') public border = '2px dashed black'
 	
   //Dragover listener
   @HostListener('dragover', ['$event']) onDragOver(evt) {

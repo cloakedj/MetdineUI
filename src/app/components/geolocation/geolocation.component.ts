@@ -177,7 +177,7 @@ export class GeolocationComponent implements OnInit{
         next : (data) => console.log("Saved Address"),
         error : err => console.log(err),
         complete : () => {
-          this.router.navigate['/home'];
+          this.router.navigate(['/user',{outlets : { 'userRouterOutlet' : ['/home']}}]);
           console.log("Request to add addres completed")
         }
       }

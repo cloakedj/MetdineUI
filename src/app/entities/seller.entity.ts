@@ -1,5 +1,5 @@
 export class Seller{
-    id: Number;
+    id: number;
     url: string;
     distance : number;
     category : string;
@@ -9,5 +9,5 @@ export class Seller{
     logo:string;
     phone:string;
     address: string;
-    user_id: Number;
+    user_id: number;
 }

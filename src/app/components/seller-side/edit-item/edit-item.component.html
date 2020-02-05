@@ -52,7 +52,7 @@
         <div class="ui segment" *ngIf="editDetails">
         <h1 class="ui header">Edit Data for Item : #{{productDetails.id}}</h1>
             <div class="ui form">
-                <form [formGroup]="updateItemData" (ngSubmit)="updateItem(updatedFormData)">
+                <form [formGroup]="updateItemData" (ngSubmit)="updateItem()">
                 <div class="two fields">
                 <div class="field">
                     <label>Item Name</label>

@@ -22,7 +22,7 @@ export class ActiveOrderComponent implements OnInit {
   sentImagesObs$ : Observer<any>;
   statusimagesObs$ : Observer<any>;
   sentImages : any;
-  hideMessage : false;
+  hideMessage = false;
   imageStatusObs$ : Observer<any>;
   statusCompleted = false;
   constructor(private api : ApiService,

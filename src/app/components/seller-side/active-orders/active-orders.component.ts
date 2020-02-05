@@ -9,7 +9,7 @@ import { Observer } from 'rxjs';
 })
 export class ActiveOrdersComponent implements OnInit {
   allActiveOrders: any[];
-  constructor(private orders: SellerDashboardService) { 
+  constructor(public orders: SellerDashboardService) { 
    
   }
 

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit , OnDestroy{
     .subscribe(
       (data) => {this.Auth_Key = data["key"];},
       (err) => console.log(err),
-      () =>     this.api.AddUserTokenHeader(this.Auth_Key)
+      () =>   this.api.AddUserTokenHeader(this.Auth_Key)
     );
   }
   get username(){ return this.loginForm.get('username');}

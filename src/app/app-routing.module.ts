@@ -27,25 +27,22 @@ import { SellerItemsComponent } from './components/seller-side/seller-items/sell
 import { EditItemComponent } from './components/seller-side/edit-item/edit-item.component';
 import { SellerProfileDataComponent } from './components/seller-side/seller-profile-data/seller-profile-data.component';
 import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
+import { BuyerComponent } from './components/user-side/buyer/buyer.component';
 
 
 const routes: Routes =[
-  { path: 'seller-page/:id', component: SellerPageComponent},
-  { path: 'seller-page/cart', redirectTo:'cart'},
-  { path: 'seller-page/cart/:id', redirectTo:'cart/:id'},
-  { path: 'home', component: HomepageComponent, canActivate: [AuthGuardService]},
-  { path: 'profile', component: BuyerProfileComponent, children:[
-    { path: 'profileOptions', component: UserProfileComponent, outlet: 'userProfile' },
-    { path: 'favouriteOrders', component: FavouriteOrdersComponent, outlet: 'userProfile'},
-    { path: '', redirectTo: '/profile/(userProfile:profileOptions)', pathMatch: 'full'},
+  {path : 'user', component: BuyerComponent, canActivate: [AuthGuardService], children: [
+  { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
+  { path: 'home', component: HomepageComponent, outlet:'userRouterOutlet'},
+  { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
+  { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
+  { path :'', redirectTo : '/user/(userRouterOutlet:home)', pathMatch: 'full'}
   ]},
-  { path: 'active-order',component: ActiveOrderComponent},
-  { path: 'userGateway', component: UserGatewayComponent, children:[
-    { path: 'login', component:LoginComponent, outlet: 'userGatewayRouter'},
-    { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
-    { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
-  ]},
-  { path: 'cart', component: CartComponent},
+    // { path: 'profile', component: BuyerProfileComponent, children:[
+  //   { path: 'profileOptions', component: UserProfileComponent, outlet: 'userProfile' },
+  //   { path: 'favouriteOrders', component: FavouriteOrdersComponent, outlet: 'userProfile'},
+  //   { path: '', redirectTo: '/profile/(userProfile:profileOptions)', pathMatch: 'full'},
+  // ]},
   { path: 'seller-side', component: SellerSideComponent, canActivate:[AuthGuardIsSellerService],children: [
     { path:'addItem', component:MenuItemComponent, outlet:'sellerRouterOutlet'},
     { path:'seller-dashboard' ,component: SellerDashboardComponent,outlet:'sellerRouterOutlet'},
@@ -57,23 +54,24 @@ const routes: Routes =[
     {path : 'edit-item/:id',component: EditItemComponent, outlet : 'sellerRouterOutlet'},
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
-  // { path: 'seller-profile', component: SellerProfileComponent, children:[
-  //   {path: 'profile-options', component: ProfileOptionsComponent, outlet:'sellerProfile'},
-  //   {path: 'seller-payment-menu', component: SellerPaymentMenuComponent, outlet: 'sellerProfile'},
-  //   { path:'', redirectTo:'/seller-profile/(sellerProfile:profile-options)', pathMatch: 'full'},
-  // ]},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path: 'map', component:GeolocationComponent},
+  { path: 'userGateway', component: UserGatewayComponent,children:[
+    { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
+    { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
+    { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
+  ]},
   { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes
-    ,{ enableTracing: false
+    ,{ enableTracing: true
     })],
   exports: [RouterModule],
   providers: [
-    AuthGuardService
+    AuthGuardService,
+    AuthGuardIsSellerService
   ]
 })
 export class AppRoutingModule { }

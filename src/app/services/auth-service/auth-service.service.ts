@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private UserId : Number;
+  private UserId : number;
   constructor() { }
   get S_mode(){ return localStorage.getItem("seller_mode_active");}
   set S_mode(status : string){ localStorage.setItem("seller_mode_active",status)}

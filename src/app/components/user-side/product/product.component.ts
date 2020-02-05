@@ -18,9 +18,9 @@ export class ProductComponent implements OnInit{
   cartHItems: boolean = false;
   products : any;
   constructor(
-  private productService: ProductService,
+  public productService: ProductService,
   private incdeccart: IncDecCartComponent,
-  private cart: CartService,
+  public cart: CartService,
   private api : ApiService,
   private gc : GetCategoryService
   ) 

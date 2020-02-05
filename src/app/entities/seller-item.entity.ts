@@ -1,11 +1,11 @@
 export class SellerItem{
-    id: Number;
+    id: number;
     title: String;
     logo :File;
     short_description : String;
-    price :Number;
-    seller_id : Number;
+    price :number;
+    seller_id : number;
     category : String;
-    time_to_prepare : Number;
+    time_to_prepare : number;
     is_veg: boolean;
 }

@@ -13,8 +13,8 @@ export class CartComponent implements OnInit {
   clearCartModalShow: boolean = false;
   redirectUrl: string;
   constructor(
-  private cart: CartService,
-  private productService : ProductService,
+  public cart: CartService,
+  public productService : ProductService,
   private api : ApiService,
   private router : Router
 	) {}

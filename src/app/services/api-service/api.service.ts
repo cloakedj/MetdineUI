@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://192.168.1.101';
+  API_URL = 'http://10.4.192.5';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -71,7 +71,7 @@ export class ApiService {
   AddUserTokenHeader(token :string){
     this.Auth.Auth_T = token;
     this.SetSellerAccountStatus();
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/user');
   }
   SetSellerAccountStatus():any {
     this.checkIfSeller().subscribe(
@@ -98,7 +98,7 @@ export class ApiService {
         catchError(this.handleError)
       )
   }
-  addNewOrder(mealId : Number, sellerId: Number,quantity : number){
+  addNewOrder(mealId : number, sellerId: number,quantity : number){
     this.params = new HttpParams().set("meal_id",mealId.toString()).set("seller_id",sellerId.toString());
     return this.http.post(`${this.API_URL}/api/user/cart/add/`, {quantity : quantity}, {params : this.params})
     .pipe(
@@ -164,14 +164,14 @@ export class ApiService {
    )
   }
   //Endpoint to update order quantity
-  updateOrderItemQuantity(id : Number,quantity : number){
+  updateOrderItemQuantity(id : number,quantity : number){
     return this.http.patch(`${this.API_URL}/api/user/order/${id}/`, {quantity : quantity})
     .pipe(
       catchError(this.handleError)
     )
   }
   //Endpoint to delete item from cart
-  deleteOrderItemById(id : Number){
+  deleteOrderItemById(id : number){
     return this.http.delete(`${this.API_URL}/api/user/order/remove/${id}`)
     .pipe(
       catchError(this.handleError)
@@ -185,7 +185,7 @@ export class ApiService {
     )
   }
   //Endpoint to add new item into cart
-  additemtoCart(meal_id : Number,seller_id : number){
+  additemtoCart(meal_id : number,seller_id : number){
     this.params = new HttpParams().set("meal_id",meal_id.toString()).set("seller_id",seller_id.toString());
     return this.http.post(`${this.API_URL}/api/user/cart/add/`,{ quantity : 1},{params : this.params})
     .pipe(
@@ -290,6 +290,13 @@ export class ApiService {
     //Get Buyer Addresses
     getBuyerAddress(){
       return this.http.get(`${this.API_URL}/api/user/address/`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Get If Buyer Has Active Order
+    checkIfActiveOrder(){
+      return this.http.get(`${this.API_URL}/api/user/active_order`)
       .pipe(
         catchError(this.handleError)
       )

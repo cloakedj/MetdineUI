@@ -1,8 +1,8 @@
 export class CartItem{
-    id: Number;
-    meal_id : Number;
+    id: number;
+    meal_id : number;
     meal_title :  String;
-    meal_price : Number;
+    meal_price : number;
     quantity : number;
     image : String;
 }

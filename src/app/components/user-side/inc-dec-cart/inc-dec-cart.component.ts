@@ -7,7 +7,7 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
   styleUrls: ['./inc-dec-cart.component.css'],
 })
 export class IncDecCartComponent implements OnInit{
-  @Input() productId : Number;
+  @Input() productId : number;
   @Input() toggle : boolean;
   @Output() switch : EventEmitter<boolean> = new EventEmitter();
   cartSize  = this.cart.getCartLength();
@@ -28,7 +28,7 @@ export class IncDecCartComponent implements OnInit{
 
   ngOnInit() {
   }
-  getItemQuantity(id :number){
+  getItemQuantity(id :Number){
     let quantity ;
     this.cart.items.find(item => {
       if(id === item.meal_id) quantity =  item.quantity;

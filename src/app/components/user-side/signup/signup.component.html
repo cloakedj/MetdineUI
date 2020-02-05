@@ -5,7 +5,7 @@
               <img class="ui circular centered small image" src="../../../assets/molly.png">
               <div class="ui divider"></div>
                   <div class="ui fluid form">
-                      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)" (ngForm)="signUpUser">
+                      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
                         <div class="field">
                           <input placeholder="First Name"  formControlName="fname" type="text">
                           <div class="ui pointing red basic label"  *ngIf="fname.invalid && !fname.pristine">

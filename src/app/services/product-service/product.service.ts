@@ -7,8 +7,7 @@ import { Seller } from 'src/app/entities/seller.entity';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService implements OnInit,OnDestroy{
-  private products : SellerItem[];
+export class ProductService implements OnInit{
   products$ : Observable<SellerItem[]>; 
   productsArr : SellerItem[];
   sellers$: Observable<Seller[]>;
@@ -23,7 +22,7 @@ export class ProductService implements OnInit,OnDestroy{
   getSellersDetails():void{
     this.sellers$ = this.api.getAllSellers();
   }
-  getSellerItems(id : Number){
+  getSellerItems(id : number){
     this.products$ =   this.api.requestSellerDetails(id);
     this.products$.subscribe(
       data => this.productsArr = data,
@@ -31,6 +30,4 @@ export class ProductService implements OnInit,OnDestroy{
       () => console.log("Products Fetched To Cart")
     )
   } 
-  ngOnDestroy(){
-  }
 }
