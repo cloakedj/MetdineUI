@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://localhost';
+  API_URL = 'http://192.168.1.101';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -276,6 +276,20 @@ export class ApiService {
     //Accept Seller Images
     acceptSellerImages(id : any){
       return this.http.post(`${this.API_URL}/api/user/confirmation/confirm/${id}/`,'')
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Save Buyer Addresses
+    saveBuyerAddress(addressData : any){
+      return this.http.post(`${this.API_URL}/api/user/address/`,addressData)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Get Buyer Addresses
+    getBuyerAddress(){
+      return this.http.get(`${this.API_URL}/api/user/address/`)
       .pipe(
         catchError(this.handleError)
       )

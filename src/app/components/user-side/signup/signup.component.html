@@ -1,7 +1,7 @@
 <div class="ui four column centered grid">
         <div class=" column">
             <h3 class="ui top attached header center aligned inverted">Sign Up To Metdine</h3>
-            <div class="ui raised attached segment">
+            <div class="ui raised attached segment" [ngClass]="{'loading' : loading}">
               <img class="ui circular centered small image" src="../../../assets/molly.png">
               <div class="ui divider"></div>
                   <div class="ui fluid form">

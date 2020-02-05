@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../../../entities/user.entity';
-import { PassMatcher } from '../../../validators/pass-matcher';
 import { ApiService } from 'src/app/services/api-service/api.service';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
+  loading = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -22,13 +21,22 @@ export class SignupComponent implements OnInit, OnDestroy {
     password2:['',Validators.required],
   });
   constructor(private formBuilder: FormBuilder,
-    private api : ApiService) {
+    private api : ApiService,
+    private router : Router) {
   }
 
   ngOnInit() {
   }
   onSubmit(data){
-    this.api.buyerRegistration(data).subscribe();
+    this.loading = true;
+    this.api.buyerRegistration(data).subscribe(
+      (data) => localStorage.setItem("Auth_Token",data["key"]),
+      (err) => console.log(err),
+      () => {
+        this.loading = false;
+        this.router.navigate(['/map'],{queryParams : {signup : true}});
+      }
+    );
     this.signUpForm.reset();
   }
   ngOnDestroy(){

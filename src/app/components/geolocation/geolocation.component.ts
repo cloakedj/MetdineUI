@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation  } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-geolocation',
@@ -22,6 +23,7 @@ export class GeolocationComponent implements OnInit{
   public searchControl : FormControl = new FormControl();
   public isOnCheckoutMode;
   public locationBtnTitle;
+  saveNewAddress$ : Observer<any>;
   public locationIcon = {
     url : 'https://image.flaticon.com/icons/png/512/1176/1176403.png',
     label: {
@@ -44,20 +46,46 @@ export class GeolocationComponent implements OnInit{
     fontSize : '16px',
     fontFamily: 'Righteous, cursive',
   }
+  zipCode : any;
+  isSigningUp : boolean;
+  savedAddressesObs$ : Observer<any>;
+  savedAddresses : any;
+  newAddressForm : FormGroup;
+  loading = false;
   constructor(
     private mapsAPILoader : MapsAPILoader,
     private ngZone : NgZone,
     private aroute : ActivatedRoute,
-    private api : ApiService
+    private api : ApiService,
+    private _fb : FormBuilder,
+    private router : Router
   ) { 
    this.aroute.queryParams.subscribe(params =>{
     this.isOnCheckoutMode = params['checkout'];
+    this.isSigningUp = params['signup'];
     });
+    if(!this.isSigningUp)
+    {
+    this.savedAddressesObs$ = {
+      next: (data) => this.savedAddresses = data,
+      error: (err) => console.log(err),
+      complete: () => console.log("Completed request")
+    }
+    this.api.getBuyerAddress().subscribe(this.savedAddressesObs$);
+  }
   }
   ngOnInit(){
     this.GetLocation();
     this.locationBtnTitle = this.isOnCheckoutMode ? "Use This Address And Checkout"
     : "Save New Address";
+    this.newAddressForm = this._fb.group({
+      street_address : ['',[Validators.required]],
+      apartment_address : ['',[Validators.required]],
+      name : ['',[Validators.required,Validators.minLength(4),Validators.maxLength(20)]],
+      zip : [],
+      latitude: [],
+      longitude: []
+    });
   }
   GetLocation(){
     this.mapsAPILoader.load().then(() => {
@@ -72,13 +100,13 @@ export class GeolocationComponent implements OnInit{
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log(place);
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
  
           //set latitude, longitude and zoom
+          this.zipCode = place.address_components[place.address_components.length - 1].long_name;
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 18;
@@ -91,7 +119,6 @@ export class GeolocationComponent implements OnInit{
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 18;
@@ -113,7 +140,9 @@ export class GeolocationComponent implements OnInit{
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
+          console.log(results[0])
           this.address = results[0].formatted_address;
+          this.zipCode = results[0].address_components[results[0].address_components.length - 1].long_name;
         } else {
           window.alert('No results found');
         }
@@ -124,6 +153,7 @@ export class GeolocationComponent implements OnInit{
     });
   }
   onAddressBtnClick(){
+    this.loading = true;
     if(this.isOnCheckoutMode){
       let redirecturl;
       this.api.checkoutUserCart(this.address)
@@ -131,10 +161,27 @@ export class GeolocationComponent implements OnInit{
         data => redirecturl = data["redirect_url"],
         err => console.log(err),
         () =>{
+          this.loading = false;
           location.href = redirecturl
           console.log("Completed Checkout");
         } 
       )
+    }
+    else{
+      this.newAddressForm.patchValue({
+        zip : this.zipCode,
+        latitude : this.latitude,
+        longitude : this.longitude
+      })
+      this.saveNewAddress$ = {
+        next : (data) => console.log("Saved Address"),
+        error : err => console.log(err),
+        complete : () => {
+          this.router.navigate['/home'];
+          console.log("Request to add addres completed")
+        }
+      }
+      this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);
     }
   }
 

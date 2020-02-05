@@ -16,3 +16,18 @@ flex: 1 1 auto;
   font-weight: bolder;
   font-size: 3rem;
 }
+.mobileNav{
+  position: fixed;
+    z-index: 999;
+    background: #fff;
+    width: 105%;
+    bottom: 0%;
+}
+a{ 
+  color : purple;
+}
+.device.only .column h3{
+  margin-left: 50%;
+  margin-top: 50%;
+  transform: translate(-50%,-100%);
+}

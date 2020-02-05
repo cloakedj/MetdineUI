@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth-service/auth-service.service'
 })
 export class HeaderComponent implements OnInit {
   userLoggedIn : boolean = false;
+  readonly screenSize = window.screen.width;
   constructor(public cart: CartService,
     private api: ApiService,
     public auth : AuthService,

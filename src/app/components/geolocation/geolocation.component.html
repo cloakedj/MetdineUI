@@ -1,7 +1,9 @@
 <div class="ui container">
   <div class="ui stackable grid">
     <div class="six wide stretched column">
-      <div class="ui centered raised segment">
+      <div class="ui centered raised segment" [ngClass]="{
+       'loading' : loading 
+      }">
         <h3 class="ui header">
           Add Your Address
         </h3>
@@ -25,38 +27,52 @@
         <h4 class="ui header">
           {{address}}
         </h4>
-        <label>latitude</label>
-        {{latitude}}
-        <label>longitude</label>
-        {{longitude}}
       </div>
       <div class="ui hidden divider"></div>
-      <button class="ui positive fluid button" (click)="onAddressBtnClick()">
+      <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode">
+        <div class="ui form">
+          <div class="field">
+            <label>Street Address</label>
+            <input type="text" formControlName="street_address">
+          </div>
+          <div class="field">
+            <label>Apartment Name</label>
+            <input type="text"  formControlName="apartment_address">
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label>ZipCode(Auto Fill)</label>
+          <input type="text" value="{{zipCode}}" formControlName="zip">
+          </div>
+          <div class="field">
+            <label>Name For The Address</label>
+          <input type="text" formControlName="name">
+        </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+        <input type="hidden" value="{{latitude}}" formControlName="latitude">
+        </div>
+        <div class="field">
+        <input type="hidden" value="{{longitude}}" formControlName="longitude">
+      </div>
+      </div>
+      </div>
+        </form>
+      <button class="ui positive fluid button" (click)="onAddressBtnClick()"
+       [disabled]="newAddressForm.pristine || newAddressForm.invalid">
         {{locationBtnTitle}}
       </button>
-      <ng-container *ngIf="isOnCheckoutMode">
+      <ng-container *ngIf="savedAddressesObs$">
       <h3 class="ui center aligned header">Previously Saved Addresses</h3>
       <div class="ui divider"></div>
       <div class="ui divided list">
         <div class="item">
           <i class="map marker icon"></i>
           <div class="content">
-            <a class="header">Home</a>
-            <div class="description">An excellent polish restaurant, quick delivery and hearty, filling meals.</div>
-          </div>
-        </div>
-        <div class="item">
-          <i class="map marker icon"></i>
-          <div class="content">
-            <a class="header">Work</a>
-            <div class="description">A taste of Shaanxi's delicious culinary traditions, with delights like spicy cold noodles and lamb burgers.</div>
-          </div>
-        </div>
-        <div class="item">
-          <i class="map marker icon"></i>
-          <div class="content">
-            <a class="header">Friend's House</a>
-            <div class="description">Greenpoint's best choice for quick and delicious sushi.</div>
+            <a class="header">{{savedAddresses[0].name}}</a>
+            <div class="description">{{savedAddresses[0].apartment_address}}, {{
+              savedAddresses[0].street_address}}</div>
           </div>
         </div>
       </div>
