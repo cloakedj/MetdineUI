@@ -1,7 +1,7 @@
 <div class="ui four stackable device 
 two doubling tablet link cards grid container">
-  <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
-    <div  class="ui card" *ngFor="let product of productService.productsArr">
+  <ng-container *ngIf="products$ | async;else plForSellerProducts">
+    <div  class="ui card" *ngFor="let product of products">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
       <div class="image">
         <img src="{{product.image}}">
@@ -26,7 +26,7 @@ two doubling tablet link cards grid container">
         </div>
         <div class="extra content">
             <button class="positive ui button right floated"   
-            (click)="[cart.updateCart(product.id),cartHasItems()]" 
+            (click)="[updateCart(product.id),cartHasItems()]" 
             *ngIf="!cartHItems" (switch)="onSwitch($event)">
             <h3 class="ui sub header">Add</h3></button>
             <app-inc-dec-cart  [productId] = "product.id" [toggle]="cartHItems" class="right floated"></app-inc-dec-cart>

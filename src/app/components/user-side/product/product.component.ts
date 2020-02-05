@@ -5,6 +5,7 @@ import { IncDecCartComponent } from '../inc-dec-cart/inc-dec-cart.component';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { GetCategoryService } from 'src/app/services/get-category/get-category.s
 })
 export class ProductComponent implements OnInit{
   cartHItems: boolean = false;
+  products : any;
   constructor(
   private productService: ProductService,
   private incdeccart: IncDecCartComponent,
@@ -22,7 +24,9 @@ export class ProductComponent implements OnInit{
   private api : ApiService,
   private gc : GetCategoryService
   ) 
-  { }
+  { 
+    this.products = this.productService.productsArr;
+  }
 
   ngOnInit() {
   }
@@ -38,6 +42,9 @@ export class ProductComponent implements OnInit{
   }
   onSwitch(event){
     this.cartHItems = event;
+  }
+  updateCart(id :any){
+    this.cart.updateCart(id);
   }
 
 }
