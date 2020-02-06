@@ -41,3 +41,8 @@
   margin-bottom: 0%;
   color: tomato;
 }
+@media (max-width: 500px){
+  .ui.card{
+    margin-bottom:25% !important;
+  }
+}

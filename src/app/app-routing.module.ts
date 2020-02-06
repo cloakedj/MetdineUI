@@ -58,7 +58,7 @@ const routes: Routes =[
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path: 'map', component:GeolocationComponent},
   { path: 'userGateway', component: UserGatewayComponent,children:[
-    { path: 'login', component:LoginComponent,canActivate : [AuthGuardService],outlet: 'userGatewayRouter'},
+    { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},

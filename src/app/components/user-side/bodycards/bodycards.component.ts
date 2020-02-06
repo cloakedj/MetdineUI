@@ -11,6 +11,7 @@ import { GetCategoryService } from 'src/app/services/get-category/get-category.s
   styleUrls: ['./bodycards.component.css']
 })
 export class BodycardsComponent implements OnInit {
+  private sellers : any;
   constructor(private api:ApiService,
     private product : ProductService,
     private gc : GetCategoryService
@@ -18,9 +19,11 @@ export class BodycardsComponent implements OnInit {
 
   ngOnInit() {
     this.product.getSellersDetails();
-  }
-  getAllSellers() : Observable<any>{
-    return this.product.sellers$;
+    this.product.sellers$.subscribe(
+      (data) => this.sellers = data,
+      (err) => console.log(err),
+      () => console.log("Completed")
+    )
   }
   getCategory(id: any){
     return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';

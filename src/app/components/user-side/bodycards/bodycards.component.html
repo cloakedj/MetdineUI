@@ -5,8 +5,8 @@
       Seller's Near You
     </h1>
     <div class="ui centered cards">
-      <ng-container *ngIf="getAllSellers() | async; else plForSellerCards;">
-      <div class="ui card" *ngFor="let seller of getAllSellers() | async">
+      <ng-container *ngIf="sellers; else plForSellerCards;">
+      <div class="ui card" *ngFor="let seller of sellers">
         <ng-container *ngIf="seller.logo else plForSellerLogo">
         <div class="image">
               <img src="{{seller.logo}}" alt="Seller Picture" 
