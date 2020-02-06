@@ -35,3 +35,15 @@
     margin-top:50%;
     transform: translateY(-50%);
 }
+.nocompletedOrdersMessage{
+    margin-top:10%;
+}
+.completedOrders .segment{
+    padding-bottom : 4%;
+}
+@media (max-width: 780px){
+    .ui.grid.quickoptions
+    {
+        margin-top:10%;
+    }
+}

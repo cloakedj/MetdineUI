@@ -13,7 +13,6 @@ export class AuthGuardIsSellerService {
     private auth : AuthService
   ) { }
   canActivate(route :ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
-    this.auth.S_mode = "true";
     if(localStorage.getItem("is_seller") === "true") return true;
     this.router.navigate(['/becomeSeller']);
     return false;

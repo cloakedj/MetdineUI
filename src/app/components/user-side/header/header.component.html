@@ -1,14 +1,14 @@
 <div class="ui computer only column grid">
-<mat-toolbar *ngIf="userLoggedIn && !auth.S_mode">
+<mat-toolbar *ngIf="userLoggedIn">
     <mat-toolbar-row>
-           <a [routerLink]="['user',{ outlets : {'userRouterOutlet' :['home']}}]" class ="logo_text"><span>Metdine</span></a>
+           <a [routerLink]="['/user']" class ="logo_text"><span>Metdine</span></a>
            <span class="spacer"></span>
            <div class="ui horizontal list">
             <div class="item">
                     <a class="ui black circular label" *ngIf="itemsInCart">{{itemsInCart}}</a>
             </div>
             <div class="item">
-           <a [routerLink]="['user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Shopping Cart">
+           <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Shopping Cart">
            <mat-icon class="icon" aria-hidden="false" aria-label="cart icon">shopping_cart
             </mat-icon>
             </button></a>
@@ -37,7 +37,7 @@
     Navbar for mobile and tablet
 -->
 <div class="ui mobile tablet only centered mobileNav grid">
-    <ng-container *ngIf="userLoggedIn && !auth.S_mode">
+    <ng-container *ngIf="userLoggedIn">
             <div class="four wide center aligned column">
                 <a [routerLink]="['user',{ outlets : {'userRouterOutlet' :['home']}}]"
                  routerLinkActive="active">

@@ -2,7 +2,7 @@
 <div class="ui ten wide stretched column">
 <div class="ui centered grid quickoptions">
   <ng-container *ngIf="sellerDashOptions else quickOptionsPlaceholder">
-    <div class="ui three column stackable grid">
+    <div class="ui two column stackable grid">
       <div class="column">
         <div class="ui raised segment">
           <div class="content">
@@ -60,6 +60,18 @@
           </div>
         </div>
       </div>
+      <div class="center aligned column settings">   
+        <div class="ui center aligned row">
+          <button class="circular ui primary icon button">
+            <i class="cog icon"></i>
+            </button>
+        </div>
+        <div class="ui center aligned row">
+          <h4 class="ui header">
+            Edit Profile
+          </h4>
+        </div>
+      </div>
     </div>
   </ng-container>
 </div>
@@ -89,14 +101,17 @@
     </div>
     <div class="ui hidden divider"></div>
     <div class="row">
-      <h4 class="ui center aligned header">
+      <a href = "https://www.google.com/maps/search/?api=1&query={{sellerDashOptions.latitude}}
+      {{sellerDashOptions.longitude}}">
+      <h4 class="ui center aligned header locationtext" data-tooltip="Open In Map" data-inverted="" data-position="bottom center">
         <i class="map pin icon"></i> {{sellerDashOptions.address}}
       </h4>
+    </a>
     </div>
   </ng-container>
 </div>
 </div>
-<div class="six wide column">
+<div class="six wide stretched column">
   <div class="ui segment" [ngClass]="{
     'loading' : !sellerCompletedOrders
   }">
@@ -104,6 +119,7 @@
       Previously Completed Orders
     </h2>
     <div class="ui center aligned divider"></div>
+    <ng-container *ngIf="getItemsLength() else completedorderspl">
     <div class="column" *ngFor="let order of sellerCompletedOrders">
       <app-order-card [order]="order"></app-order-card>
       <div class=" ui hidden divider">
@@ -113,13 +129,14 @@
     <button class="ui positive fluid button">
       View All Orders
     </button>
+  </ng-container>
   </div>
 </div>
 </div>
 <div class="sixteen wide column">
   <div class="hidden divider"></div>
   <div class=" ui segment">
-    <app-seller-items></app-seller-items >
+    <app-seller-items [showCount]="2"></app-seller-items>
   </div>
 </div>
 
@@ -144,3 +161,10 @@
     </div>
   </div>
 </ng-template>
+<ng-template #completedorderspl>
+  <div class="nocompletedOrdersMessage">
+    <h4 class="ui centered header">
+      0 Orders Completed.
+    </h4>
+  </div>
+ </ng-template>

@@ -42,7 +42,7 @@ export class SellerDashboardComponent implements OnInit {
       complete: () => console.log("Request completed")
     };
     this.sellerCompletedOrdersForDashboard$ = {
-      next: (data) => this.sellerCompletedOrders = data,
+      next: (data) => this.sellerCompletedOrders = data.splice(0,4),
       error: (err) => console.log(err),
       complete: () => console.log("Request for seller orders completed")
     }
@@ -140,10 +140,14 @@ export class SellerDashboardComponent implements OnInit {
     });
     return status;
   }
-  requestedOrdersCount() {
-    if (this.sellerRequestedOrders === undefined || 
-      this.sellerRequestedOrders.length === 0) return false;
-      return true;
+  requestedOrdersCount(code? : number) {
+    let returnArr;
+    if(code === 1) returnArr = this.sellerRequestedOrders;
+    else if(code === 2) returnArr = this.sellerActiveOrders;
+    else returnArr = this.sellerCompletedOrders;
+    if ( returnArr === undefined || 
+    returnArr.length === 0) return false;
+    return true;
   }
   toInt(status : string):number{
     return parseInt(status);

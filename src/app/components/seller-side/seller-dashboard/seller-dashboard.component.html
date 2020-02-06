@@ -62,14 +62,14 @@
   </ng-container>
 
 </div>
-<div class="ui stackable grid">
+<div class="ui centered stackable grid">
   <div class="ten wide stretched  column">
     <div class="ui very relaxed raised segment">
       <h2 class="ui center aligned icon  header">
         <i class="circular clipboard list icon"></i> Requested Orders
       </h2>
       <div class="ui hidden divider"></div>
-      <ng-container *ngIf="requestedOrdersCount() else requestorderspl;">
+      <ng-container *ngIf="requestedOrdersCount(1) else requestorderspl;">
         <div class="ui grid rorders" *ngFor="let order of sellerRequestedOrders;">
           <div class="row">
             <a class="ui black label">
@@ -130,6 +130,7 @@
       <h2 class="ui center aligned icon  header">
         <i class="circular tasks icon"></i>Currently Active Order
       </h2>
+      <ng-container *ngIf="requestedOrdersCount(2) else activeorderspl;">
       <div class="column" *ngFor="let order of sellerActiveOrders;">
         <app-order-card [order]="order"></app-order-card>
         <div class="ui hidden divider"></div>
@@ -167,21 +168,22 @@
         <div class="ui hidden divider"></div>
       </div>
       <div class="ui hidden divider"></div>
-      <div class="row">
+      <div class="row" *ngIf="sellerActiveOrders">
         <button class="ui fluid positive button" 
         matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}} 
         more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
           View All Orders
         </button>
       </div>
+    </ng-container>
     </div>
   </div>
 </div>
 <div class="ui hidden divider">
 </div>
 <div class="ui hidden divider"></div>
-<div class="ui grid completedOrders">
-<div class="sixteen wide column">
+<div class="ui centered grid completedOrders">
+<div class="fifteen wide column">
   <div class="ui raised segment">
     <h2 class="ui center aligned icon header">
       <i class="check circle icon"></i>
@@ -189,9 +191,11 @@
     </h2>
     <div class="ui hidden divider"></div>
     <div class="ui center aligned stackable grid">
+      <ng-container  *ngIf="requestedOrdersCount(3) else completedorderspl;">
       <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
           <app-order-card [order]="order"></app-order-card>
       </div>
+    </ng-container>
     </div>
   </div>
 </div>
@@ -225,3 +229,17 @@
    </h2>
  </div>
 </ng-template>
+<ng-template #activeorderspl>
+  <div class="norequestedOrdersMessage">
+    <h4 class="ui centered header">
+      No Active Order At The Moment.
+    </h4>
+  </div>
+ </ng-template>
+ <ng-template #completedorderspl>
+  <div class="nocompletedOrdersMessage">
+    <h2 class="ui centered header">
+      0 Orders Completed.
+    </h2>
+  </div>
+ </ng-template>

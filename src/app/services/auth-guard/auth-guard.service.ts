@@ -16,19 +16,11 @@ export class AuthGuardService implements CanActivate{
     private router : Router
   ) { }
   canActivate(route :ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean{
-    if (localStorage.getItem("seller_mode_active")) localStorage.removeItem("seller_mode_active");
-    return  this.api.checkIfActiveOrder().pipe(
-      map((data) => {
-        return data["detail"]
-      })
-    )
     if(this.api.checkUserToken()) {
       this.router.navigate(['/user'])
       return true;
-    }
-    else { 
-      this.router.navigateByUrl("/userGateway/(userGatewayRouter:login)");
-    }
+    } 
+    this.router.navigateByUrl("/userGateway/(userGatewayRouter:login)");
     return false;
   }
 }

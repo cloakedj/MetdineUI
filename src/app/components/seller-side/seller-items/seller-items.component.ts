@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
-import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { Router } from '@angular/router';
@@ -13,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SellerItemsComponent implements OnInit {
   @Input() skipItem : any;
+  @Input() showCount : any;
   title = "Menu Items";
   itemsObs$ : Observer<any[]>;
   menuItems : any[];
@@ -21,7 +21,12 @@ export class SellerItemsComponent implements OnInit {
     private gc : GetCategoryService,
     private seller : SellerDashboardService) { 
     this.itemsObs$ ={
-      next : data => this.menuItems = data,
+      next : data => {
+        if(this.showCount)
+        this.menuItems = data.splice(0,this.showCount);
+        else
+        this.menuItems = data;
+      },
       error : err => console.log(err),
       complete : () => console.log("Fetched Seller meals for dashboard")
     }

@@ -1,1 +1,17 @@
-<p>completed-orders works!</p>
+<div class="ui centered grid" *ngIf="ItemsSold">
+    <div class="fifteen wide column">
+      <div class="ui raised segment" [ngClass]="{
+          'loading' : loading
+      }">
+        <h2 class="ui center aligned icon header">
+          <i class="check circle icon"></i>
+          Previously Completed Orders
+        </h2>
+        <div class="ui hidden divider"></div>
+        <div class="ui center aligned stackable grid">
+          <div class="five wide column" *ngFor="let order of ItemsSold">
+              <app-order-card [order]="order"></app-order-card>
+          </div>
+        </div>
+      </div>
+    </div>

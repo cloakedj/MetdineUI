@@ -22,5 +22,8 @@ export class SellerSidebarComponent implements OnInit {
     };
     this.api.getSellerQuickData().subscribe(this.sellerData$);
   }
+  removeCookie(){
+    if (localStorage.getItem("seller_mode_active")) localStorage.removeItem("seller_mode_active");
+  }
 
 }

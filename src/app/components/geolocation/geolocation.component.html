@@ -60,10 +60,10 @@
       </div>
         </form>
       <button class="ui positive fluid button" (click)="onAddressBtnClick()"
-       [disabled]="newAddressForm.pristine || newAddressForm.invalid">
+       [disabled]="newAddressForm.value === undefined && (newAddressForm.pristine || newAddressForm.invalid)">
         {{locationBtnTitle}}
       </button>
-      <ng-container *ngIf="savedAddressesObs$">
+      <ng-container *ngIf="savedAddresses">
       <h3 class="ui center aligned header">Previously Saved Addresses</h3>
       <div class="ui divider"></div>
       <div class="ui divided list">

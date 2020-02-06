@@ -13,7 +13,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = 'http://10.4.192.5';
+  API_URL = 'http://192.168.1.100';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,

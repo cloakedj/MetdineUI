@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
-
 @Component({
   selector: 'app-order-card',
   templateUrl: './order-card.component.html',

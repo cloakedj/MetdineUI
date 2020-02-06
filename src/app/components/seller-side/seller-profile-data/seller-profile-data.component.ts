@@ -32,5 +32,10 @@ export class SellerProfileDataComponent implements OnInit {
     this.api.getSellerDashboardOrders(false, false, 4)
     .subscribe(this.sellerCompletedOrdersForDashboard$);
   }
+  getItemsLength(){
+    if ( this.sellerCompletedOrders === undefined || 
+      this.sellerCompletedOrders.length === 0) return false;
+      return true;
+  }
 
 }

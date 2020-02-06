@@ -1,4 +1,12 @@
-<!-- <div class="column" *ngFor="let order of allActiveOrders;">
+<div class="ui centered grid activeOrders" *ngIf="allActiveOrders">
+<div class="fifteen wide column">
+<div class="ui raised stretched segment" [ngClass]="{
+    'loading' : loading
+}">
+<h2 class="ui center aligned icon  header">
+    <i class="circular tasks icon"></i>Active Orders
+</h2>
+<div class="five wide column" *ngFor="let order of allActiveOrders;" >
 <app-order-card [order]="order"></app-order-card>
 <div class="ui hidden divider"></div>
 <div class="row">
@@ -15,7 +23,7 @@
     'teal' : status.key == 2,
     'yellow' : status.key == 3,
     'black' : status.key == 4
-    }" (click)="orders.updateRequestedOrderStatus(order.id,status.key);"
+    }" (click)="updateOrderStatus(order.id,status.key);"
     [disabled]="order.status >= status.key || toInt(status.key) - order.status != 1"
     >
         <i class="hourglass icon" [ngClass]="{
@@ -28,11 +36,7 @@
     </div>
 </div>
 <div class="ui hidden divider"></div>
-<div class="row">
-    <button class="ui fluid positive button" 
-    matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}} 
-    more Orders.">
-    View All Orders
-    </button>
 </div>
-</div> -->
+</div>
+</div>
+</div>

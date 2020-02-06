@@ -28,12 +28,13 @@ import { EditItemComponent } from './components/seller-side/edit-item/edit-item.
 import { SellerProfileDataComponent } from './components/seller-side/seller-profile-data/seller-profile-data.component';
 import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
 import { BuyerComponent } from './components/user-side/buyer/buyer.component';
+import { ActiveOrderGuardService } from './services/Active-order/active-order-guard.service';
 
 
 const routes: Routes =[
-  {path : 'user', component: BuyerComponent, canActivate: [AuthGuardService], children: [
+  {path : 'user', component: BuyerComponent, children: [
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
-  { path: 'home', component: HomepageComponent, outlet:'userRouterOutlet'},
+  { path: 'home', component: HomepageComponent,outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path :'', redirectTo : '/user/(userRouterOutlet:home)', pathMatch: 'full'}
@@ -57,7 +58,7 @@ const routes: Routes =[
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path: 'map', component:GeolocationComponent},
   { path: 'userGateway', component: UserGatewayComponent,children:[
-    { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
+    { path: 'login', component:LoginComponent,canActivate : [AuthGuardService],outlet: 'userGatewayRouter'},
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},
@@ -66,12 +67,12 @@ const routes: Routes =[
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes
-    ,{ enableTracing: true
+    ,{ enableTracing: false
     })],
   exports: [RouterModule],
   providers: [
     AuthGuardService,
-    AuthGuardIsSellerService
+    AuthGuardIsSellerService,
   ]
 })
 export class AppRoutingModule { }

@@ -5,3 +5,19 @@
 .sixteen.wide.column{
     padding-right: 2% !important;
 }
+.ui.stackable.grid{
+    margin-top: 5%;
+}
+.nocompletedOrdersMessage{
+    margin-top:50%;
+    transform:translateY(-50%);
+}
+.settings{
+    padding:5% !important;
+}
+.settings .row .button{
+    margin-bottom: 3% ;
+}
+.locationtext:hover{
+    color : blue;
+}
