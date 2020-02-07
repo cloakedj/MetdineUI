@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Molle:400i&display=swap');
+.icon {
+    cursor: pointer;
+  }
+
+.spacer {
+flex: 1 1 auto;
+}
+.ui.horizontal.list .item{
+  margin-left:0 !important;
+}
+.logo_text
+{
+  font-family: 'Molle', cursive;
+  color: #ac2d5c;
+  font-weight: bolder;
+  font-size: 3rem;
+}
+.mobileNav{
+  position: fixed;
+    z-index: 999;
+    background: #fff;
+    width: 105%;
+    bottom: 0%;
+}
+a{ 
+  color : purple;
+}
+.device.only .column h3{
+  margin-left: 50%;
+  margin-top: 50%;
+  transform: translate(-50%,-100%);
+}

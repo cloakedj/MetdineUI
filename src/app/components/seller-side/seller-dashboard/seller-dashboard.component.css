@@ -1,0 +1,49 @@
+.ui.grid.quickoptions
+{
+    padding:5%;
+}
+.status-index .four.wide.column{
+    width:16% !important;
+}
+.plcompletedorders .ph-item
+{
+    margin-bottom:  0 !important;
+}
+.orderid
+{
+    padding: 8% 0% 8% 0% !important;
+    border-radius:3px;
+    background-color: black;
+    text-align: center;
+}
+.orderid h1{
+    color:#fff;
+}
+.rorders{
+    padding: 0% 5% 0% 5%;
+}
+.eight.wide.column{
+    padding: 0%  0% 0% 3% !important;
+}
+.actions{
+    padding:7% 0% 7% 3% !important;
+}
+.blurred{
+    filter : blur(3px);
+}
+.norequestedOrdersMessage{
+    margin-top:50%;
+    transform: translateY(-50%);
+}
+.nocompletedOrdersMessage{
+    margin-top:10%;
+}
+.completedOrders .segment{
+    padding-bottom : 4%;
+}
+@media (max-width: 780px){
+    .ui.grid.quickoptions
+    {
+        margin-top:10%;
+    }
+}

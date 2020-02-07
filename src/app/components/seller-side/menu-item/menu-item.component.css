@@ -1,0 +1,12 @@
+.three.column.grid
+{
+    margin-top:5%;
+}
+mat-radio-group
+{
+    display: grid !important;
+}
+mat-radio-button
+{
+    margin-bottom:4%;
+}

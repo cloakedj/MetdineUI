@@ -1,0 +1,48 @@
+@import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
+
+.ui.inverted.segment
+{
+    border-radius: 0 !important;
+}
+.column 
+{
+    padding:2%;
+}
+.six.wide.column img{
+    height:250px;
+}
+.two.column .left.floated
+{
+    padding-left:0%;
+}
+.icon.input
+{
+    margin-top:3%;
+}
+.field label
+{
+    color:#fff !important;
+}
+.for-seller-logo
+{
+    height:250px;
+}
+.seller-additional-data-ph
+{
+    width:40%;
+}
+.ui.header{
+    color:black;
+    font-family: 'Righteous', cursive;
+    margin-bottom: 0% !important;
+}
+.address-text,.map.marker{
+    color: tomato;
+}
+.image{
+    margin-top:5% !important;
+}
+.justified{
+    text-align: justify;
+    width:80%;
+}

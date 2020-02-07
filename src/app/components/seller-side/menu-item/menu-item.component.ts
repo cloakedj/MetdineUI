@@ -1,0 +1,96 @@
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl, Form} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { ApiService } from 'src/app/services/api-service/api.service';
+import { Observer } from 'rxjs';
+import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
+import { FileUploadComponent } from '../../user-side/file-upload/file-upload.component';
+
+@Component({
+  selector: 'app-menu-item',
+  templateUrl: './menu-item.component.html',
+  styleUrls: ['./menu-item.component.css'],
+  providers: [
+    {
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false},
+  }]
+})
+export class MenuItemComponent implements OnInit {
+  ItemDetailsFormGroup : FormGroup;
+  ItemPropertiesFormGroup : FormGroup;
+  ItemPriceTimeFormGroup : FormGroup;
+  characters_used : number = 0;
+  characters_left: number = 60;
+  itemIsVeg : boolean = true;
+  ItemObjtoPush = new FormData();
+  addNewSellerItemObs$ :Observer<any>;
+  categories = [
+    {name:'Indian'},
+    {name:'Western'},
+    {name:'Asian'},
+    {name:'Mediterranian'},
+  ]
+  prepTimeList = [
+    {value:'30 minutes'},
+    {value:'60 minutes'},
+    {value:'90 minutes'},
+    {value: '120 minutes'},
+  ]
+  constructor(private _formBuilder: FormBuilder,
+    private api: ApiService,
+    private keepFile : KeepFilesService,
+    private cd : ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.ItemDetailsFormGroup = this._formBuilder.group({
+      title : ['',[
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z\s]+$/i)
+      ]],
+      short_description :['',[
+        Validators.required,
+        Validators.minLength(30),
+        Validators.maxLength(60)
+      ]],
+    });
+    this.ItemPropertiesFormGroup = this._formBuilder.group({
+      category : ['',[
+        Validators.required
+      ]],
+      is_veg:[''],
+    });
+    this.ItemPriceTimeFormGroup = this._formBuilder.group({
+      price:['',[
+        Validators.required,
+        Validators.pattern(/^[0-9.]+$/)
+      ]],
+      time_to_prepare:['',[
+        Validators.required
+      ]]
+    })
+  }
+  addToFormObject(data){
+    for(const key in data){
+      this.ItemObjtoPush.append(key,data[key]);
+    }
+  }
+  apiToAddNewSellerItem(){ 
+    this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
+    this.addNewSellerItemObs$ = {
+      next : data => data,
+      error : err => console.log(err),
+      complete :() => console.log("Request To Add new Item Completed")
+    }
+    this.api.addNewItemFromSellerDashboard(this.ItemObjtoPush).subscribe(this.addNewSellerItemObs$);
+    this.ItemPriceTimeFormGroup.reset();
+  }
+  getVegNonVegValue(){
+    this.itemIsVeg = !this.itemIsVeg;
+  }
+  get title() { return this.ItemDetailsFormGroup.get("title");}
+  get short_description() { return this.ItemDetailsFormGroup.get("short_description");}
+  get category(){ return this.ItemPropertiesFormGroup.get("category");}
+  get is_veg(){ return this.ItemPropertiesFormGroup.get("this.is_veg");}
+  get price(){ return this.ItemPriceTimeFormGroup.get("price");}
+  get time_to_prepare(){ return this.ItemPriceTimeFormGroup.get("time_to_prepare");}
+}

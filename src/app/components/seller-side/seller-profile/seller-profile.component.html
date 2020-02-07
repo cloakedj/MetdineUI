@@ -1,0 +1,11 @@
+<div class="ui column centered grid">
+    <div class="column">
+        <div class="ui two item menu">
+            <a class="item" [routerLink]="[{ outlets: { sellerProfile : ['profile-options']}}]" routerLinkActive="active">Profile</a>
+            <a class="item" [routerLink]="[{ outlets: { sellerProfile : ['seller-payment-menu']}}]" routerLinkActive="active">Payment</a>
+          </div>
+    </div>
+</div>
+<div class="row">
+    <router-outlet name="sellerProfile"></router-outlet>
+</div>

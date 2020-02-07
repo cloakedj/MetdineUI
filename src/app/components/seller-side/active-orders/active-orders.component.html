@@ -1,0 +1,42 @@
+<div class="ui centered grid activeOrders" *ngIf="allActiveOrders">
+<div class="fifteen wide column">
+<div class="ui raised stretched segment" [ngClass]="{
+    'loading' : loading
+}">
+<h2 class="ui center aligned icon  header">
+    <i class="circular tasks icon"></i>Active Orders
+</h2>
+<div class="five wide column" *ngFor="let order of allActiveOrders;" >
+<app-order-card [order]="order"></app-order-card>
+<div class="ui hidden divider"></div>
+<div class="row">
+    <h4 class="ui sub header">
+    Delivery To:
+    {{order.address}}
+    </h4>
+</div>
+<div class="ui hidden divider"></div>
+<div class="four column ui grid">
+    <div class="center aligned column" *ngFor="let status of orderStatusFilter">
+    <button class="circular ui icon button" matTooltip="{{status.value}}" matTooltipPosition="above" [ngClass]="{
+    'green' : status.key == 1,
+    'teal' : status.key == 2,
+    'yellow' : status.key == 3,
+    'black' : status.key == 4
+    }" (click)="updateOrderStatus(order.id,status.key);"
+    [disabled]="order.status >= status.key || toInt(status.key) - order.status != 1"
+    >
+        <i class="hourglass icon" [ngClass]="{
+    'outline' : status.key == 1,
+    'start' : status.key == 2,
+    'half' : status.key == 3,
+    'end' : status.key == 4
+    }"></i>
+    </button>
+    </div>
+</div>
+<div class="ui hidden divider"></div>
+</div>
+</div>
+</div>
+</div>

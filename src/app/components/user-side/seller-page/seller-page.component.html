@@ -1,0 +1,132 @@
+<div class="ui two column  grid container">
+  <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
+    <div class="ten wide computer seven wide tablet sixteen wide stackable device column">
+    <div class="image">
+      <img class="ui centered medium rounded image" src="{{seller.logo}}">
+    </div>
+    <h2 class="ui centered header">
+      {{seller.first_name}} {{seller.last_name}}
+    </h2>
+        <div class="ui centered header">
+      <a class="ui violet label">
+        {{getCategory(seller.category)}}
+      </a>
+      <a class="ui black label">
+        <i class="map icon"></i>
+        {{seller.distance/100 | number : '1.0-2'}} km
+      </a>
+    </div>
+    <div class="ui hidden divider"></div>
+      <div class="ui column centered grid">
+    <h5 class="ui justified header">
+      {{seller.desc}}
+    </h5>
+    <div class="row">
+    <h5 class="ui address centered header">
+      <i class="map marker alternate icon"></i>
+      <div class="content address-text">
+        {{seller.address}}
+      </div>
+    </h5>
+    </div>
+    <ul class="ui horizontal list">
+      <li class="item">
+        <mat-checkbox (change)="filterByVegItems()">
+          <h4 class="ui header">Veg Only</h4>
+        </mat-checkbox>
+      </li>
+      <li class="item">
+        <div class="ui category search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search Dishes...">
+            <i class="search icon"></i>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+  </ng-container>
+  <div class="six wide computer only nine wide tablet only column">
+    <app-trending-seller-sidebar></app-trending-seller-sidebar>
+  </div>
+  </div>
+  <div class="ui hidden divider"></div>
+  <app-product></app-product>
+<!--
+  Placeholder For Seller Products
+-->
+<ng-template #plForSellerProducts>
+    <div class="ui card" *ngFor="let pl of [0,1,2,3]">
+        <div class="image">
+          <div class="ui placeholder">
+            <div class="square image"></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ui placeholder">
+            <div class="header">
+              <div class="very short line"></div>
+              <div class="medium line"></div>
+            </div>
+            <div class="paragraph">
+              <div class="short line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui disabled right floated positive button">Add</div>
+        </div>
+      </div>
+</ng-template>
+<!--
+  Placeholder for product image because sometimes images take longer to load than content
+-->
+<ng-template #productimagePlaceholder>
+<div class="ui placeholder">
+    <div class="square image"></div>
+  </div>
+</ng-template>
+  <ng-template #sellerPagePlaceholder>
+    <div class="ph-item">
+      <div class="ph-col-4">
+        <div class="ph-picture for-seller-logo"></div>
+      </div> 
+      <div class="ph-col-8">
+            <div class="ph-row">
+              <div class="ph-col-4 big"></div>
+          </div>
+          <!--Address placeholder-->
+          <div class="ph-row">
+            <div class="ph-col-2"></div>
+          </div>
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+          </div>
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+          </div>
+          <!--Seller Address placeholder Ends-->
+         <!--Seller description  placeholder-->
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+          </div>
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+          </div>
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+          </div>
+          <!--Seller description  placeholder ends-->
+          <!--Seller Additional Data-->
+          <div class="seller-additional-data-ph">
+          <div class="ph-row">
+            <div class="ph-col-2 big"></div>
+            <div class="ph-col-6 empty"></div>
+            <div class="ph-col-2 big"></div>
+          </div>
+        </div>
+          <!--Seller Additional Data ends-->
+      </div>
+  </div>
+  </ng-template>

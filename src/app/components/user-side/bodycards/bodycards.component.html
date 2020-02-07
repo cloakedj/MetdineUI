@@ -1,0 +1,68 @@
+<div class="ui grid">
+  <app-filter-sidebar></app-filter-sidebar>
+  <div class="twelve wide computer sixteen wide device  ten wide doubling tablet centered column">
+    <h1 class="ui centered header">
+      Seller's Near You
+    </h1>
+    <div class="ui centered cards">
+      <ng-container *ngIf="sellers; else plForSellerCards;">
+      <div class="ui card" *ngFor="let seller of sellers">
+        <ng-container *ngIf="seller.logo else plForSellerLogo">
+        <div class="image">
+              <img src="{{seller.logo}}" alt="Seller Picture" 
+              [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]" 
+              routerLinkActive="active">
+        </div>
+      </ng-container>
+      <div class="ui raised segment">
+        <a class="ui violet label">
+          {{getCategory(seller.category)}}
+        </a>
+        <a class="ui black label">
+          <i class="map icon"></i>
+          {{seller.distance/100 | number : '1.0-2'}} km
+        </a>
+        <h3 class="ui header">
+          {{seller.first_name}} {{seller.last_name}}
+        </h3>
+        <p class="ui sub header">
+          {{seller.address | contentLength : 30}}
+        </p>
+      </div>
+    </div>
+     </ng-container>
+    </div>
+  </div>
+</div>
+
+<!--
+  Create placeholders till API fetches the content
+-->
+<ng-template #plForSellerCards>
+    <div class="ui card" *ngFor="let pl of [0,1,2,3,4,5]">
+        <div class="image">
+          <div class="ui placeholder">
+            <div class="square image"></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ui placeholder">
+            <div class="header">
+              <div class="very short line"></div>
+              <div class="medium line"></div>
+            </div>
+            <div class="paragraph">
+              <div class="short line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui disabled right floated positive button">Add</div>
+        </div>
+      </div>
+</ng-template>
+<ng-template #plForSellerLogo>
+    <div class="ui placeholder">
+        <div class="square image"></div>
+      </div>
+</ng-template>

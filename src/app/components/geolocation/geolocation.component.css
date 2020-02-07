@@ -1,0 +1,20 @@
+@import "https://fonts.googleapis.com/css?family=Righteous&display=swap";
+agm-map {
+    height: 100vh;
+}
+.ui.grid .column
+{
+    padding : 0 !important;
+}
+.container{
+    width : 100% !important;
+    background-color: linen;
+}
+.six.wide.column
+{
+    padding:2% 0% 2% 4% !important;
+        
+}
+.ten.wide.column{
+    padding:2% !important;
+}

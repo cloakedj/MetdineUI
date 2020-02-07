@@ -1,0 +1,60 @@
+<div class="ui four column centered grid">
+        <div class="fifteen wide mobile four wide computer column">
+            <h3 class="ui top attached header center aligned inverted">Sign Up To Metdine</h3>
+            <div class="ui raised attached segment" [ngClass]="{'loading' : loading}">
+              <img class="ui circular centered small image" src="../../../assets/molly.png">
+              <div class="ui divider"></div>
+                  <div class="ui fluid form">
+                      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
+                        <div class="field">
+                          <input placeholder="First Name"  formControlName="fname" type="text">
+                          <div class="ui pointing red basic label"  *ngIf="fname.invalid && !fname.pristine">
+                                First Name Is Required
+                         </div>
+                        </div>
+                        <div class="field">
+                          <input placeholder="Last Name" formControlName="lname" type="text">
+                          <div class="ui pointing red basic label"  *ngIf="lname.invalid && !lname.pristine">
+                                Last Name Is Required
+                         </div>
+                        </div>
+                        <div class="field">
+                          <input placeholder="Username" formControlName="username" type="text">
+                          <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine">
+                                <span *ngIf="username.errors?.required">Phone Number Is required</span>
+                                <!-- <span *ngIf="phoneNumber.errors?.minlength || phoneNumber.errors?.maxlength ||phoneNumber.errors?.pattern">Enter A Valid Phone Number</span> -->
+                         </div>
+                        </div>
+                        <div class="field">
+                          <input placeholder="Email" formControlName="email" type="text">
+                          <div class="ui pointing red basic label"  *ngIf="email.invalid && !email.pristine">
+                            Enter A Valid Email
+                        </div>
+                        </div>
+                        <div class="field">
+                                <input placeholder="Password" formControlName="password1" type="password">
+                        <div class="ui pointing red basic label"  *ngIf="password1.errors?.required && !password1.pristine">
+                                Password Is Required
+                         </div>
+                        </div>
+                        <div class="field">
+                        <input placeholder="Confirm Passwo
+                        rd" formControlName="password2" type="password">
+                        <!-- <div class="ui pointing red basic label"  *ngIf="signUpForm.controls['confirmPassword'].hasError('NoPassswordMatch') && !confirmPassword.pristine">
+                         Password and Confirm Password Should Match
+                        </div> -->
+                            </div>
+                            <div class="field">
+                              <div class="two ui buttons">
+                                <input class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid" type="Submit" value="Sign Up">
+                                <button class="ui negative button" [disabled]="signUpForm.pristine" (click)="signUpForm.reset();">Reset</button>
+                              </div>
+                            </div>
+                    </form>
+                    </div>
+              </div>
+              <h5 class="ui bottom attached center aligned inverted header">
+                Already A User? Sign In <a [routerLink]="['/userGateway',{ outlets: { userGatewayRouter : ['login']}}]" routerLinkActive="active">Here.</a>
+              </h5>
+            </div>
+      </div>

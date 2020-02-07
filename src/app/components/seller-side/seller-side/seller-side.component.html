@@ -1,0 +1,19 @@
+<div class="ui grid ">
+<div class=" ui mobile only column toggleMenuClass " *ngIf="deviceActive === 'smaller'">
+    <button  (click)="toggleMenuBtn()" [style.color]="toggleMenu ? '#fff' : 'black'">
+        <i class="icon" [ngClass]="{
+            'bars' : !toggleMenu,
+            'close' : toggleMenu
+        }"></i>
+    </button>
+</div>
+<div class="four wide column sideBar" [ngClass]="{
+    'computer only' : deviceActive === 'computer',
+    'tablet mobile' : deviceActive === 'smaller'
+    }" id="toggleDisplay">
+<app-seller-sidebar></app-seller-sidebar>
+</div>
+<div class="ui sixteen wide mobile twelve wide tablet twelve wide computer centered column">
+<router-outlet name="sellerRouterOutlet"></router-outlet>
+</div>
+</div>

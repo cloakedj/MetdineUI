@@ -1,0 +1,21 @@
+<div class="column" *ngIf="trendingSellersFeed$">
+    <div class="ui grid" >
+        <div class="column row" *ngFor="let seller of trendingSellers">
+            <div class="image">
+                <a 
+                [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]" 
+                 routerLinkActive="active">
+                    <img class="ui centered small rounded image" src="{{seller.logo}}">
+                </a>
+              </div>
+            <div class="content">
+                <h3 class="ui header">
+                    {{seller.first_name}} {{seller.last_name}}
+                </h3>
+                <a class="ui violet label">
+                    {{getCategory(seller.category)}}
+                  </a>
+            </div>
+        </div>
+    </div>
+</div>

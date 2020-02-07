@@ -1,0 +1,20 @@
+.ui.grid{
+    padding-top:2%;
+}
+.ui.basic.modal{
+    display: block !important;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    top:0;
+    left:0;
+    background-color: rgb(0,0,0,0.85);
+    color:#fff;
+}
+.content p{
+    color:black;
+    font-weight: bold;
+}
+.clcartmodal{
+    top:50%;
+}

@@ -1,0 +1,44 @@
+<div class="orderid centered row">
+    <h1 class="ui header">#{{order.id}}</h1>
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui left aligned row">
+    <a class="ui black label">
+    {{order.total | currency : 'INR'}}
+    </a>
+<a class="ui label" [ngClass]="{
+    'green' : order.status === 1,
+    'teal' : order.status === 2,
+    'yellow' : order.status === 3,
+    'red' : order.status === 4
+    }">{{getOrderStatus(order.status)}}</a>
+</div>
+<div class="ui hidden divider"></div>
+<div class="row">
+    <table class="ui unstackable single line table">
+    <thead>
+        <tr>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th class="center aligned">
+            <h4 class="ui header"><i class="stopwatch icon"></i></h4>
+        </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of order.items;let i = index;">
+        <td>
+            <h4 class="ui image header">
+            {{item.meal_title}}
+            </h4>
+        </td>
+        <td>
+            {{item.quantity}}
+        </td>
+        <td>
+            <a class="ui label yellow">120</a>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+</div>

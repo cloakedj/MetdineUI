@@ -1,0 +1,9 @@
+@import '../node_modules/swiper/css/swiper.min.css';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*
+Gloabal style definition for card images se that all cards are equal height
+*/

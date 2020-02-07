@@ -1,0 +1,22 @@
+.toggleMenuClass button{
+    background: none;
+    border: 0;
+    font-size:1.7rem;
+    outline: none;
+    transition : 0.3s all;
+}
+@media (max-width: 780px){
+    .sideBar{
+        position : fixed;
+        z-index : 999;
+    }
+    .toggleMenuClass{
+        position :fixed !important;
+        top : 1%;
+        z-index: 9999;
+        left:-2%;
+    }
+    #toggleDisplay{
+    display:none
+    }
+}

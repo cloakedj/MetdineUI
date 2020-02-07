@@ -1,0 +1,46 @@
+<div class="ui two column centered grid">
+    <div class="column">
+        <h3 class="ui top attached header center aligned inverted">Become A Seller</h3>
+        <div class="ui raised attached segment">
+          <img class="ui circular centered small image" src="assets/molly.png">
+          <div class="ui divider"></div>
+              <div class="ui fluid form">
+                  <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm" enctype="multipart/form-data" autocomplete="on">
+                    <div class="field">
+                      <input placeholder="First Name"  formControlName="first_name" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="first_name.invalid && !first_name.pristine">
+                            First Name Is Required
+                     </div>
+                    </div>
+                    <div class="field">
+                      <input placeholder="Last Name" formControlName="last_name" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="last_name.invalid && !last_name.pristine">
+                            Last Name Is Required
+                     </div>
+                    </div>
+                    <div class="field">
+                      <app-file-upload></app-file-upload>
+                      </div>
+                    <div class="field">
+                      <input placeholder="Phone Number" formControlName="phone" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="phone.invalid && !phone.pristine">
+                        <span *ngIf="phone.errors?.minlength || phone.errors?.maxlength ||phone.errors?.pattern">Enter A Valid Phone Number</span>
+                    </div>
+                    </div>
+                    <div class="field">
+                            <textarea placeholder="Address" formControlName="address"></textarea>
+                    <div class="ui pointing red basic label"  *ngIf="address.errors?.required && !address.pristine">
+                            Address Is Required
+                     </div>
+                    </div>
+                        <div class="field">
+                          <div class="two ui buttons">
+                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid" type="Submit" value="Sign Up">
+                            <button class="ui negative button" [disabled]="becomeSellerForm.pristine" (click)="becomeSellerForm.reset();">Reset</button>
+                          </div>
+                        </div>
+                </form>
+                </div>
+          </div>
+        </div>
+  </div>

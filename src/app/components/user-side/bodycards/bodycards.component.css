@@ -1,0 +1,48 @@
+@import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
+
+.ui.grid
+{
+  margin-right:0 !important;
+  margin-left:0 !important;
+}
+.image img{
+  outline: none;
+  min-height:200px;
+  max-height: 200px;
+  border-radius:9px !important;
+}
+.card{
+  box-shadow: none !important;
+  margin-bottom: 10% !important;
+}
+.segment{
+    position: absolute;
+    top: 70%;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.ui.card>:last-child, .ui.cards>.card>:last-child
+{
+  border-radius: 10px !important;
+}
+.ui.label{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.segment .ui.header{
+  margin-top: 3%;
+  font-family: 'Righteous', cursive;
+  margin-bottom: 0%;
+}
+.ui.sub.header
+{
+  margin-top: 3%;
+  font-family: 'Righteous', cursive;
+  margin-bottom: 0%;
+  color: tomato;
+}
+@media (max-width: 500px){
+  .ui.card{
+    margin-bottom:25% !important;
+  }
+}

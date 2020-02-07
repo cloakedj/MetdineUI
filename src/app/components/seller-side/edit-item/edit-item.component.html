@@ -1,0 +1,140 @@
+<div class="ui stackable grid">
+<div class="ten wide column">
+<div class="ui raised segment" [ngClass]="{
+    'loading' : !productDetails
+}">
+    <ng-container *ngIf="productDetails">
+    <h1 class="ui header">
+        Product Id : {{productDetails.id}}
+    </h1>
+    <h3 class="ui header">
+        Item Title : {{productDetails.title}}
+    </h3>
+    <h3 class="ui header">
+        Item Description : {{productDetails.short_description}}
+    </h3>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <a class="ui black label">
+        Price | {{productDetails.price | currency : 'INR'}}
+    </a>
+    <a class="ui label" [ngClass]="{
+        'yellow' : productDetails.category == 1,
+        'orange' : productDetails.category == 2,
+        'purple' : productDetails.category == 3,
+        'pink' : productDetails.category == 4
+    }">
+        Category | {{getCategory(productDetails.category)}}
+    </a>
+    <a class="ui label" [ngClass]="{
+        'teal' : productDetails.time_to_prepare == 1,
+        'violet' : productDetails.time_to_prepare == 2,
+        'blue' : productDetails.time_to_prepare == 3,
+        'olive' : productDetails.time_to_prepare == 4
+    }">
+        Time To Prepare | {{getTime(productDetails.time_to_prepare)}}
+    </a>
+    <a class="ui label" [ngClass]="{
+        'green' : productDetails.is_veg,
+        'red' : !productDetails.is_veg
+    }">
+        {{vegNonvegFilter(productDetails.is_veg)}}
+    </a>
+    <div class="ui hidden divider"></div>
+    <img class="ui medium rounded image" src="{{productDetails.image}}">
+    <div class="ui hidden divider"></div>
+    <button class="ui positive button" (click)="editDetails = true">
+        Edit Details
+    </button>
+    <button class="ui negative button" *ngIf="editDetails" (click)="editDetails = false">
+        Close
+    </button>
+        <div class="ui segment" *ngIf="editDetails">
+        <h1 class="ui header">Edit Data for Item : #{{productDetails.id}}</h1>
+            <div class="ui form">
+                <form [formGroup]="updateItemData" (ngSubmit)="updateItem()">
+                <div class="two fields">
+                <div class="field">
+                    <label>Item Name</label>
+                <input type="text" formControlName="title" value="{{productDetails.title}}">
+                </div>
+                <div class="field">
+                    <label>Item Price</label>
+                    <input type="number" formControlName="price" value="{{productDetails.price}}">
+                    </div>  
+                </div>
+                <div class="field">
+                    <label>Item Description</label>
+                <textarea rows="4" formControlName="short_description" value="{{productDetails.short_description}}"></textarea>
+                </div>
+                <div class="field">
+                    <label>Current Category : 
+                        <a class="ui red label">{{getCategory(productDetails.category)}}</a>
+                    </label>
+                    <div class="ui hidden divider"></div>
+                    <label>Select Category</label>
+                    <mat-radio-group aria-label="Select Category" formControlName="category">
+                    <mat-radio-button *ngFor="let category of categories;index as i;" 
+                    value="{{i+1}}" [checked]="productDetails.category-1 == i" name="item-category">
+                    <a class="ui red horizontal label">{{category.name}}</a>
+                    </mat-radio-button>
+                      </mat-radio-group>
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="field">
+                    <label>Current Time To Prepare : 
+                        <a class="ui orange label">{{getTime(productDetails.time_to_prepare)}}</a>
+                    </label>
+                    <div class="ui hidden divider"></div>
+                    <label>Select Time To Prepare</label>
+                    <mat-radio-group aria-label="Select Time To Prepare" formControlName="time_to_prepare">
+                    <mat-radio-button *ngFor="let time of prepTimeList;index as i;" 
+                    value="{{i+1}}" [checked]="productDetails.category-1 == i" name="item-category">
+                    <a class="ui orange horizontal label">{{time.value}}</a>
+                    </mat-radio-button>
+                      </mat-radio-group>
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="field">
+                    <label>Current Item Description :
+                    <a class="ui label" [ngClass]="{
+                        'green' : productDetails.is_veg,
+                        'red' : !productDetails.is_veg
+                    }">{{vegNonvegFilter(productDetails.is_veg)}}
+                    </a>
+                    </label>
+                    <div class="ui hidden divider"></div>
+                    <label>Select Item Description</label>
+                    <h5 class="ui header">
+                        <mat-slide-toggle [checked]="!productDetails.is_veg" formControlName="is_veg"
+                        (change)="getVegNonVegValue()">The Item Is Non Veg</mat-slide-toggle></h5>
+                    <div class="ui compact negative message">
+                        <h5 class="ui header">Note: In case the item is veg, leave this Option</h5>
+                      </div>
+                  </div>
+                  <div class="ui hidden divider"></div>
+                  <div class="field">
+                      <label> Current Image: 
+                        <img class="ui tiny rounded image" src="{{productDetails.image}}">
+                      </label>
+                      <label>Upload Item Image</label>
+                      <app-file-upload (change)="imageChanged()"></app-file-upload>
+                  </div>
+                  <div class="field">
+                    <button class="ui positive button" [disabled]="updateItemData.pristine && !imageUpdated || updateItemData.invalid">
+                        Update
+                    </button>
+                    <button class="ui negative button">
+                        Reset
+                    </button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>
+</div>
+<div class="six wide column">
+    <app-seller-items [skipItem]="productId"></app-seller-items>
+</div>
+</div>

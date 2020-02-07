@@ -1,0 +1,5 @@
+<div class="ui small basic icon buttons"  *ngIf="toggle">
+    <button class="ui inverted red button"  (click) = "cartAction(productId)"><i class="minus icon"></i></button>
+    <button class="ui button quant">{{getItemQuantity(productId)}}</button>
+    <button class="ui inverted green button" (click)="cartAction(productId,'a')"><i class="plus icon"></i></button>
+</div>

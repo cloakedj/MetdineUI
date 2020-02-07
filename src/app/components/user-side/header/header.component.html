@@ -1,0 +1,80 @@
+<div class="ui computer only column grid">
+<mat-toolbar *ngIf="userLoggedIn">
+    <mat-toolbar-row>
+           <a href="/user" class ="logo_text"><span>Metdine</span></a>
+           <span class="spacer"></span>
+           <div class="ui horizontal list">
+            <!-- <div class="item">
+                    <a class="ui black circular label" *ngIf="itemsInCart">{{itemsInCart}}</a>
+            </div> -->
+            <div class="item">
+           <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Shopping Cart">
+           <mat-icon class="icon" aria-hidden="false" aria-label="cart icon">shopping_cart
+            </mat-icon>
+            </button></a>
+            </div>
+            </div>
+            <a href="/profile"><button mat-icon-button aria-label="User's Profile">
+           <mat-icon class="icon" aria-hidden="false" aria-label="Example heart icon">person</mat-icon>
+            </button></a>
+            <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['previous-orders']}}]" routerLinkActive="active">
+            <button mat-icon-button aria-label="User Previous Orders">
+           <mat-icon  matTooltip="Previous Orders" class="icon" aria-hidden="false" aria-label="Previous orders  icon">shopping_basket</mat-icon>
+           </button>
+            </a>
+           <a routerLink="/seller-side" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
+           <mat-icon class="icon" aria-hidden="false"
+           matTooltip="Switch To Seller" aria-label="Example heart icon">swap_calls</mat-icon>
+           </button>
+            </a>
+           <button mat-icon-button aria-label="Log Out" (click)="logUserOut()">
+           <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">
+            exit_to_app
+            </mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+</div>
+<!--
+    Navbar for mobile and tablet
+-->
+<div class="ui mobile tablet only centered mobileNav grid">
+    <ng-container *ngIf="userLoggedIn">
+            <div class="four wide center aligned column">
+                <a [routerLink]="['user',{ outlets : {'userRouterOutlet' :['home']}}]"
+                 routerLinkActive="active">
+                <h6 class="ui center aligned icon header">
+                    <i class="home icon"></i>
+                    Home
+                </h6>
+                </a>
+            </div>
+            <div class="four wide column">
+                <a [routerLink]="['/profile']" routerLinkActive="active">
+                <h6 class="ui center aligned icon header">
+                    <i class="user circle outline icon"></i>
+                    Profile
+                </h6>
+                </a>
+            </div>
+            <div class="four wide column">
+                <a [routerLink]="['/seller-side']" routerLinkActive="active">
+                <h6 class="ui center aligned icon header">
+                    <i class="exchange icon"></i>
+                    Seller Mode
+                </h6>
+            </a>
+            </div>
+            <div class="four wide column">
+                <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active">
+                <h6 class="ui center aligned icon header">
+                    <i class="shopping cart icon"></i>
+                    Cart
+                </h6>
+                </a>
+            </div>
+    </ng-container>
+
+</div>
+
+

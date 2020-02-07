@@ -1,0 +1,13 @@
+<div class="ui column centered grid">
+    <div class="column">
+        <div class="ui four item menu">
+            <a class="item" [routerLink]="[{ outlets: { userProfile : ['profileOptions']}}]" routerLinkActive="active">Profile</a>
+            <a class="item" [routerLink]="[{ outlets: { userProfile : ['favouriteOrders']}}]" routerLinkActive="active">Favourites</a>
+            <a class="item">Recent Orders</a>
+            <a class="item">Payment Options</a>
+          </div>
+    </div>
+</div>
+<main class="row" [@routeAnimations]="outlet">
+    <router-outlet name="userProfile" #outlet="outlet"></router-outlet>
+</main>

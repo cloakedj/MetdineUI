@@ -1,0 +1,71 @@
+<div class="ui four stackable device 
+two doubling tablet link cards grid container">
+  <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
+    <div  class="ui card" *ngFor="let product of productService.productsArr">
+      <ng-container *ngIf="product.image  else productimagePlaceholder">
+      <div class="image">
+        <img src="{{product.image}}">
+        </div>
+      </ng-container>  
+        <div class="content">
+        <a class="ui centered header">{{product.title}}</a>
+          <div class="description">
+            <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
+              {{vegNonvegFilter(product.is_veg)}}
+            </div>
+            <div class="ui  teal horizontal label">
+              {{getCategory(product.category)}}
+            </div>
+              <a class="ui orange label">
+                <i class="clock icon"></i>{{product.time_to_prepare}}
+              </a>
+            <h5 class="ui header desc">
+              {{product.short_description}}
+            </h5>
+          </div>
+        </div>
+        <div class="extra content">
+            <button class="positive ui button right floated"   
+            (click)="[cart.updateCart(product.id),cartHasItems()]" 
+            *ngIf="!cartHItems" (switch)="onSwitch($event)">
+            <h3 class="ui sub header">Add</h3></button>
+            <app-inc-dec-cart  [productId] = "product.id" [toggle]="cartHItems" class="right floated"></app-inc-dec-cart>
+            <h4 class="ui header left floated"> {{product.price | currency: 'INR'}}</h4>
+        </div>
+      </div>
+    </ng-container>
+</div>
+<!--
+  Placeholder For Seller Products
+-->
+<ng-template #plForSellerProducts>
+    <div class="ui card" *ngFor="let pl of [0,1,2,3]">
+        <div class="image">
+          <div class="ui placeholder">
+            <div class="square image"></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ui placeholder">
+            <div class="header">
+              <div class="very short line"></div>
+              <div class="medium line"></div>
+            </div>
+            <div class="paragraph">
+              <div class="short line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui disabled right floated positive button">Add</div>
+        </div>
+      </div>
+</ng-template>
+<!--
+  Placeholder for product image because sometimes images take longer to load than content
+-->
+<ng-template #productimagePlaceholder>
+<div class="ui placeholder">
+    <div class="square image"></div>
+  </div>
+</ng-template>

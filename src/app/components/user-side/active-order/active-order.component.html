@@ -1,0 +1,110 @@
+<div class="ui stackable grid">
+    <ng-container *ngIf="activeOrderData">
+    <div class="ten wide column">
+    <div class="ui raised segment" *ngFor="let data of activeOrderData">
+        <h1 class="ui header">
+            Order Id : #{{data.id}}
+        </h1>
+        <h3 class="ui header">
+            Status :  <a class="ui label" [ngClass]="{
+                'yellow' : data.status === 1,
+                'orange' : data.status === 2,
+                'purple' : data.status === 3,
+                'pink' : data.status === 4,
+                'brown' : data.status === 5,
+                'red' : data.status === 6
+            }">{{getStatus(data.status)}}
+            </a>
+        </h3>
+        <h3 class="ui header">
+            Amount : <a class="ui black label">
+                {{data.total | currency : 'INR'}}
+            </a>
+        </h3>
+        <h3 class="ui header">
+            Address : {{data.address}}
+        </h3>
+        <ng-container *ngIf="data.status == 2 && sentImages[0].status != 'Sent'">
+                <div class="confirmedMask">
+                <div class="lock notice">
+                    <h4 class="ui center aligned icon header">
+                        <i class="lock icon"></i>
+                    <p class="lock-text">You Have {{sentImages[0].status}} The Images</p>
+                    </h4>
+                </div>
+                </div>
+            </ng-container>
+        <h3 class="ui center aligned header">
+            Confirm Seller Pictures
+        </h3>
+        <div class="ui negative message" *ngIf="!hideMessage && sentImages[0].status == 'Sent'">
+            <i class="close icon" (click)="hideMessage = true"></i>
+            <div class="header">
+              Kindly Confirm Images.
+            </div>
+            <p>Please take a look at the seller pictures and confirm the status.
+                In Case You Reject The Images the Seller Will Send you New Images.
+          </p>
+        </div>
+        <div class="ui center aligned divider"></div>
+        <div class="ui three column stackable grid row">
+            <div class="column">
+            <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
+            </div>
+            <div class="column">
+                <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
+            </div>
+        <div class="column">
+            <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
+        </div>
+        </div>
+        <div class="ui center aligned divider"></div>
+            <button class="ui  positive button" [disabled]="sentImages[0].status != 'Sent'"
+             (click)="acceptImages(sentImages[0].id)">
+                Accept
+            </button>
+            <button class="ui right floated negative button" [disabled]="sentImages[0].status != 'Sent'"
+            (click)="rejectImages(sentImages[0].id)">
+                Reject
+            </button>
+    </div>
+</div>
+<div class="six wide column">
+    <div class="ui segment">
+        <h2 class="ui center aligned header">
+            Order Details
+        </h2>
+        <div class="ui divider"></div>
+        <div class="row">
+            <table class="ui single line table" *ngFor="let data of activeOrderData;">
+            <thead>
+                <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>
+                    <h4 class="ui header"><i class="stopwatch icon"></i></h4>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.items;let i = index;">
+                <td>
+                    <h4 class="ui image header">
+                    {{item.meal_title}}
+                    </h4>
+                </td>
+                <td>
+                    {{item.quantity}}
+                </td>
+                <td>
+                    <a class="ui label yellow">120</a>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="ui dieendivider"></div>
+    </div>
+</div>
+</ng-container>
+</div>

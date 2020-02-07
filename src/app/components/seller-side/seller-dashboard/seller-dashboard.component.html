@@ -1,0 +1,245 @@
+<div class="ui centered grid quickoptions">
+  <ng-container *ngIf="sellerDashOptions else quickOptionsPlaceholder">
+    <div class="ui three column stackable grid">
+      <div class="column">
+        <div class="ui raised segment">
+          <div class="content">
+            <div class="header">
+              <h3 class="ui centered header">
+                Meals Completed
+              </h3>
+            </div>
+            <div class="ui divider"></div>
+            <div class="meta">
+              <span>
+                <h1 class="ui centered header">
+                  {{sellerDashOptions.meals}}
+                </h1>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui raised segment">
+          <div class="content">
+            <div class="header">
+              <h3 class="ui centered header">
+                Orders Completed
+              </h3>
+            </div>
+            <div class="ui divider"></div>
+            <div class="meta">
+              <span>
+                <h1 class="ui centered header">
+                  {{sellerDashOptions.orders}}
+                </h1>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui raised segment">
+          <div class="content">
+            <div class="header">
+              <h3 class="ui centered header">
+                Revenue Generated
+              </h3>
+            </div>
+            <div class="ui divider"></div>
+            <div class="meta">
+              <span>
+                <h1 class="ui centered header">
+                  {{sellerDashOptions.revenue}}
+                </h1>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+<div class="ui centered stackable grid">
+  <div class="ten wide stretched  column">
+    <div class="ui very relaxed raised segment">
+      <h2 class="ui center aligned icon  header">
+        <i class="circular clipboard list icon"></i> Requested Orders
+      </h2>
+      <div class="ui hidden divider"></div>
+      <ng-container *ngIf="requestedOrdersCount(1) else requestorderspl;">
+        <div class="ui grid rorders" *ngFor="let order of sellerRequestedOrders;">
+          <div class="row">
+            <a class="ui black label">
+              {{order.total | currency:'INR'}}
+            </a>
+            <a class="ui orange label">
+              Waiting
+            </a>
+            <a class="ui teal label">
+              Contains {{getTableItems(order.id)}} More Items.
+            </a>
+          </div>
+          <div class="orderid four wide column">
+            <h1 class="ui header">#{{order.id}}</h1>
+          </div>
+          <div class="eight wide column">
+            <table class="ui single line table">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of order.items;let i = index;">
+                  <td>
+                    <h4 class="ui image header">
+                      {{item.meal_title}}
+                    </h4>
+                  </td>
+                  <td>
+                    {{item.quantity}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="four wide column actions">
+            <button class="circular positive ui icon button" (click)="updateRequestedOrderStatus(order.id,1)">
+              <i class="check icon"></i>
+            </button>
+            <button class="circular negative ui icon button" (click)="updateRequestedOrderStatus(order.id,6)">
+              <i class="close icon"></i>
+            </button>
+          </div>
+          <div class="row">
+            <h4 class="ui sub header">
+              Delivery To : {{order.address}}
+            </h4>
+          </div>
+          <div class="ui hidden divider"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="five wide stretched column">
+    <div class="ui raised segment">
+      <h2 class="ui center aligned icon  header">
+        <i class="circular tasks icon"></i>Currently Active Order
+      </h2>
+      <ng-container *ngIf="requestedOrdersCount(2) else activeorderspl;">
+      <div class="column" *ngFor="let order of sellerActiveOrders;">
+        <app-order-card [order]="order"></app-order-card>
+        <div class="ui hidden divider"></div>
+        <button class="ui primary fluid button" (click)="routeToOrderImages(order.id)">
+          View Order Images
+        </button>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+          <h4 class="ui sub header">
+            Delivery To:
+            {{order.address}}
+          </h4>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="four column ui grid">
+          <div class="center aligned column" *ngFor="let status of orderStatusFilter">
+            <button class="circular ui icon button" matTooltip="{{status.value}}" matTooltipPosition="above" [ngClass]="{
+            'green' : status.key == 1,
+            'teal' : status.key == 2,
+            'yellow' : status.key == 3,
+            'black' : status.key == 4
+          }" (click)="updateRequestedOrderStatus(order.id,status.key);"
+          [disabled]="order.status >= status.key || toInt(status.key) - order.status != 1"
+          >
+          <!-- [disabled]="order.status >= status.key" -->
+              <i class="hourglass icon" [ngClass]="{
+            'outline' : status.key == 1,
+            'start' : status.key == 2,
+            'half' : status.key == 3,
+            'end' : status.key == 4
+            }"></i>
+            </button>
+          </div>
+        </div>
+        <div class="ui hidden divider"></div>
+      </div>
+      <div class="ui hidden divider"></div>
+      <div class="row" *ngIf="sellerActiveOrders">
+        <button class="ui fluid positive button" 
+        matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}} 
+        more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
+          View All Orders
+        </button>
+      </div>
+    </ng-container>
+    </div>
+  </div>
+</div>
+<div class="ui hidden divider">
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui centered grid completedOrders">
+<div class="fifteen wide column">
+  <div class="ui raised segment">
+    <h2 class="ui center aligned icon header">
+      <i class="check circle icon"></i>
+      Previously Completed Orders
+    </h2>
+    <div class="ui hidden divider"></div>
+    <div class="ui center aligned stackable grid">
+      <ng-container  *ngIf="requestedOrdersCount(3) else completedorderspl;">
+      <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
+          <app-order-card [order]="order"></app-order-card>
+      </div>
+    </ng-container>
+    </div>
+  </div>
+</div>
+<!-- While API is fetching data create placeholders-->
+<!--
+    Placeholder For Quick Dashboard Data
+  -->
+<ng-template #quickOptionsPlaceholder>
+  <div class="ui three column stackable grid">
+    <div class="column" *ngFor="let ph of [0,1,2]">
+      <div class="ui raised segment">
+        <div class="ui placeholder">
+          <div class="image header">
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+          <div class="paragraph">
+            <div class="medium line"></div>
+            <div class="short line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!--Placeholder for requested cards empty segment-->
+<ng-template #requestorderspl>
+ <div class="norequestedOrdersMessage">
+   <h2 class="ui centered header">
+     No Requested Orders At The Moment.
+   </h2>
+ </div>
+</ng-template>
+<ng-template #activeorderspl>
+  <div class="norequestedOrdersMessage">
+    <h4 class="ui centered header">
+      No Active Order At The Moment.
+    </h4>
+  </div>
+ </ng-template>
+ <ng-template #completedorderspl>
+  <div class="nocompletedOrdersMessage">
+    <h2 class="ui centered header">
+      0 Orders Completed.
+    </h2>
+  </div>
+ </ng-template>
