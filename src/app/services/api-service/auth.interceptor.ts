@@ -21,7 +21,6 @@ export class MetdineInterceptor implements HttpInterceptor{
     const authenticatedRequest = this.Auth.Auth_T ? request.clone({
       setHeaders : {
         Authorization : `Token ${this.Auth.Auth_T}`,
-        "Access-Control-Allow-Origin" : '*',
       }
       })
       : request.clone({
