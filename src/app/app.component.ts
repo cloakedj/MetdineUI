@@ -6,5 +6,10 @@ import { Component, OnDestroy } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  title = 'Metdine-ui';
+  // constructor(private _snackBar : MatSnackBar,
+  //   public auth : MetdineInterceptor){}
+  // showErrorSnackbar(){
+  //   this._snackBar.open(this.auth.errorMessage);
+  //   this.auth.errorMessage = '';
+  // }
 }

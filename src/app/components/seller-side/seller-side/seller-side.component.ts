@@ -6,6 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class SellerSideComponent implements OnInit {
   toggleMenu = false;
+  winwidth = window.screen.width;
   deviceActive = (window.screen.width) < 780 || this.toggleMenu ? 'smaller' : 'computer';
   constructor() { 
   }

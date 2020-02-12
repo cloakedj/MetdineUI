@@ -1,6 +1,6 @@
-<div class="ui grid">
+<div class="ui grid container">
   <div class="ui basic modal" *ngIf="clearCartModalShow">
-    <div class="ui two column centered grid">
+    <div class="ui two column computer column mobile centered grid">
       <div class="row">
     <div class="ui compact center aligned segment clcartmodal">
     <div class="ui icon header">
@@ -27,15 +27,17 @@
     </div>
   </div>
   <ng-container *ngIf="cart.getCartLength() else emptyCart">
-    <div class="six wide right floated column">
-    <div class="ui compact center aligned segment">
+    <div class="six wide computer sixteen wide mobile twelve wide tablet right floated column">
+    <div class="ui center aligned segment" [ngClass]="{
+      'compact' : winWidth > 500
+    }">
     <h2 class="ui header">
         <img src="{{productService.sellerLogo}}" class="ui image">
         XYZ Restaurant
       </h2>
       <div class="row" *ngFor="let item of cart.items;">
-        <div class="ui relaxed horizontal list">
-          <div class="item">
+        <div class="ui horizontal list">
+          <div class="item" *ngIf="winWidth > 500">
             <img class="ui avatar image" src="{{item.image}}">
           </div>
           <div class="item">
@@ -70,7 +72,7 @@
   Placeholder for if cart is empty
 -->
 <ng-template #emptyCart>
-  <h2 class="ui center aligned icon header">
+  <h2 class="ui center aligned icon header" id="empty-cart">
     <i class="shopping cart icon"></i>
     Your Cart Is Empty
   </h2>

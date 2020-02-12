@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ContentLengthPipe implements PipeTransform {
 
   transform(value: string, length?: number): any {
-    return value.slice(0, length);
+    return value.slice(0, length) + '...';
   }
 
 }

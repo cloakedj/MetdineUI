@@ -1,0 +1,62 @@
+<div class="container">
+<div class="ui grid">
+    <div class="ui centered six wide computer fifteen wide mobile twelve wide tablet column">
+    <div class="ui form">
+            <div class="ui column grid">
+            <div class="sixteen wide column">
+            <input type="text" [formControl]="searchBar" placeholder="Type Something..." 
+            class="search-bar" autofocus>
+            </div>
+            <div class="two wide column loader-wrapper" *ngIf="loading">
+            <div class="ui active inline loader"></div>
+            </div>
+            </div>
+    </div>
+    </div>
+    </div>
+    <div class="ui grid">
+        <div class="six wide computer fifteen wide mobile twelve wide tablet 
+        centered column search-results">
+        <ng-container *ngIf="searchBar.value != null else searchPlaceholder">
+        <div class="ui very relaxed list">
+            <div class="item" *ngFor="let result of queryResults;">
+            <img class="ui image rounded left floated " src="{{result.logo}}"
+            [ngClass]="{
+              'tiny' : windowWidth < 500,
+              'small' : windowWidth > 500
+            }">
+                <div class="content">
+                    <a class="header" (click)="sellerPage(result.id)">
+                        <h4 class="ui header">
+                        {{result.first_name}} {{result.last_name}}
+                        </h4>
+                    </a>
+                    <div class="description">
+                    <a class="ui label" [ngClass]="{
+                        'green' : result.category == 0,
+                        'teal' : result.category == 1,
+                        'yellow' : result.category == 2,
+                        'black' : result.category == 3
+                    }">
+                        {{getCategory(result.category)}}
+                    </a>
+                    <p *ngIf="windowWidth > 500">
+                        {{result.desc | contentLength : '50'}}
+                    </p>
+                </div>
+                </div>
+                <div class="ui divider" *ngIf="windowWidth < 500"></div>
+            </div>
+        </div>
+    </ng-container>
+        </div>
+    </div>
+</div>  
+<!--
+    Placeholder in case nothing is searched or no results found
+-->
+<ng-template #searchPlaceholder>
+    <div class="centered column">
+        {{plText}}
+    </div>
+</ng-template>

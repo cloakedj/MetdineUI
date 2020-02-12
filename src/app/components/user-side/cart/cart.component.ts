@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   clearCartModalShow: boolean = false;
   redirectUrl: string;
+  winWidth : number;
   constructor(
   public cart: CartService,
   public productService : ProductService,
@@ -20,6 +21,7 @@ export class CartComponent implements OnInit {
 	) {}
 
   ngOnInit() {
+    this.winWidth = window.innerWidth;
     this.cart.loadCart();
   }
   checkoutCart(){

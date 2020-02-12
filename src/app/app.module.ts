@@ -68,6 +68,8 @@ import { EditItemComponent } from './components/seller-side/edit-item/edit-item.
 import { SellerProfileDataComponent } from './components/seller-side/seller-profile-data/seller-profile-data.component';
 import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
 import { PreviousOrdersComponent } from './components/user-side/previous-orders/previous-orders.component';
+import { SearchMaskComponent } from './components/user-side/search-mask/search-mask.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +114,7 @@ import { PreviousOrdersComponent } from './components/user-side/previous-orders/
     SellerProfileDataComponent,
     ActiveOrderComponent,
     PreviousOrdersComponent,
+    SearchMaskComponent,
   ],
   imports: [
     BrowserModule,

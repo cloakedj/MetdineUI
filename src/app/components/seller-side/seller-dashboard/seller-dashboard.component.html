@@ -183,14 +183,14 @@
 </div>
 <div class="ui hidden divider"></div>
 <div class="ui centered grid completedOrders">
-<div class="fifteen wide column">
+<div class="sixteen wide column">
   <div class="ui raised segment">
     <h2 class="ui center aligned icon header">
       <i class="check circle icon"></i>
       Previously Completed Orders
     </h2>
     <div class="ui hidden divider"></div>
-    <div class="ui center aligned stackable grid">
+    <div class="ui center aligned stackable mobile doubling tablet grid">
       <ng-container  *ngIf="requestedOrdersCount(3) else completedorderspl;">
       <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
           <app-order-card [order]="order"></app-order-card>

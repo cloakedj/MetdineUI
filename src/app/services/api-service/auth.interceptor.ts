@@ -13,6 +13,8 @@ import { AuthService } from '../auth-service/auth-service.service';
 
 @Injectable()
 export class MetdineInterceptor implements HttpInterceptor{
+  errorMessage : any;
+  errorStatus : any;
   constructor(private Auth: AuthService){}
   intercept(
     request: HttpRequest<any>,
@@ -28,24 +30,16 @@ export class MetdineInterceptor implements HttpInterceptor{
           "Content-Type" : "application/json"
          }
       });
-    //logging the updated Parameters to browser's console
-    console.log("Before making api call : ", authenticatedRequest);
     return next.handle(authenticatedRequest).pipe(
       tap(
         event => {
-          //logging the http response to browser's console in case of a success
           if (event instanceof HttpResponse) {
             console.log("api call success :", event);
           }
         },
         error => {
-          //logging the http response to browser's console in case of a failure
-          console.log(error.status);
-            if(error.status === 401)
-            console.log("Invalid Credentials")
-            else if(error.status === 404) console.log("user not Found")
-            else if(error.status === 500) console.log("Server Down")  
-            else console.log("error: ",event);    
+            this.errorStatus = error.status;
+            this.errorMessage = error.statusText;
         },
       )
     );

@@ -18,3 +18,12 @@
 .clcartmodal{
     top:50%;
 }
+#empty-cart{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+.grid.container{
+    height: 100%;
+}

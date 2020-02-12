@@ -15,7 +15,7 @@
             </div>
             </div>
             <a href="/profile"><button mat-icon-button aria-label="User's Profile">
-           <mat-icon class="icon" aria-hidden="false" aria-label="Example heart icon">person</mat-icon>
+           <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
             </button></a>
             <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['previous-orders']}}]" routerLinkActive="active">
             <button mat-icon-button aria-label="User Previous Orders">
@@ -24,11 +24,16 @@
             </a>
            <a routerLink="/seller-side" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
            <mat-icon class="icon" aria-hidden="false"
-           matTooltip="Switch To Seller" aria-label="Example heart icon">swap_calls</mat-icon>
+           matTooltip="Switch To Seller" aria-label="Metdine heart icon">swap_calls</mat-icon>
            </button>
             </a>
+            <button mat-icon-button aria-label="Search" (click)="searchOn = true;">
+                <mat-icon class="icon" aria-hidden="false" aria-label="Metdine search icon">
+                 search
+                 </mat-icon>
+             </button>
            <button mat-icon-button aria-label="Log Out" (click)="logUserOut()">
-           <mat-icon class="icon" aria-hidden="false" aria-label="Example delete icon">
+           <mat-icon class="icon" aria-hidden="false" aria-label="Metdine delete icon">
             exit_to_app
             </mat-icon>
         </button>
@@ -41,7 +46,7 @@
 <div class="ui mobile tablet only centered mobileNav grid">
     <ng-container *ngIf="userLoggedIn">
             <div class="four wide center aligned column">
-                <a [routerLink]="['user',{ outlets : {'userRouterOutlet' :['home']}}]"
+                <a [routerLink]="[{ outlets : {'userRouterOutlet' :['home']}}]"
                  routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
                     <i class="home icon"></i>
@@ -49,13 +54,11 @@
                 </h6>
                 </a>
             </div>
-            <div class="four wide column">
-                <a [routerLink]="['/profile']" routerLinkActive="active">
+            <div class="four wide column" (click)="searchOn = true;">
                 <h6 class="ui center aligned icon header">
-                    <i class="user circle outline icon"></i>
-                    Profile
+                    <i class="search icon"></i>
+                    Search
                 </h6>
-                </a>
             </div>
             <div class="four wide column">
                 <a [routerLink]="['/seller-side']" routerLinkActive="active">
@@ -77,4 +80,12 @@
 
 </div>
 
-
+<!--
+    Search Mask
+-->
+<app-search-mask *ngIf="searchOn"></app-search-mask>
+<div class="closeSearch" *ngIf="searchOn">
+<h1 class="ui header" (click)="searchOn = false">
+    X
+</h1>
+</div>

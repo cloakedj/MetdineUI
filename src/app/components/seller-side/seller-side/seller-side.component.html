@@ -1,4 +1,4 @@
-<div class="ui grid ">
+<div class="ui grid" [ngClass]="{'container' : winwidth < 500}">
 <div class=" ui mobile only column toggleMenuClass " *ngIf="deviceActive === 'smaller'">
     <button  (click)="toggleMenuBtn()" [style.color]="toggleMenu ? '#fff' : 'black'">
         <i class="icon" [ngClass]="{
@@ -9,7 +9,7 @@
 </div>
 <div class="four wide column sideBar" [ngClass]="{
     'computer only' : deviceActive === 'computer',
-    'tablet mobile' : deviceActive === 'smaller'
+    'mobile tablet' : deviceActive === 'smaller'
     }" id="toggleDisplay">
 <app-seller-sidebar></app-seller-sidebar>
 </div>

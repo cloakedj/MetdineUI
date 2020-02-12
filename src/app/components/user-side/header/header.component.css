@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Molle:400i&display=swap');
+@import 'https://fonts.googleapis.com/css?family=Molle:400i&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap';
+
 .icon {
     cursor: pointer;
   }
@@ -30,4 +32,20 @@ a{
   margin-left: 50%;
   margin-top: 50%;
   transform: translate(-50%,-100%);
+}
+.closeSearch{
+  position : fixed;
+   z-index: 99999;
+   right : 2%;
+}
+.closeSearch .header{
+  font-family: 'Permanent Marker', cursive;
+  color : #fff;
+  cursor: pointer;
+}
+@media (max-width : 780px){
+  .closeSearch{
+    top : 2% !important;
+    right:  3%;
+  }
 }

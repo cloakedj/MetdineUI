@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth-service/auth-service.service'
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  searchOn = false;
   userLoggedIn : boolean = false;
   readonly screenSize = window.screen.width;
   constructor(public cart: CartService,
