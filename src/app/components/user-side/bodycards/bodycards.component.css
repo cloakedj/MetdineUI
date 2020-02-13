@@ -1,6 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
 
-.ui.grid
+.ui.grid.container
 {
   min-height: 100%;
   padding-top:4%;
