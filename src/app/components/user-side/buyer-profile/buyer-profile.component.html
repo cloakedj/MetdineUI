@@ -1,13 +1,22 @@
-<div class="ui column centered grid">
-    <div class="column">
-        <div class="ui four item menu">
-            <a class="item" [routerLink]="[{ outlets: { userProfile : ['profileOptions']}}]" routerLinkActive="active">Profile</a>
-            <a class="item" [routerLink]="[{ outlets: { userProfile : ['favouriteOrders']}}]" routerLinkActive="active">Favourites</a>
-            <a class="item">Recent Orders</a>
-            <a class="item">Payment Options</a>
-          </div>
+<div class="ui column grid">
+    <div class="ui raised segment">
+        <h2 class="ui center aligned icon header">
+            <i class="circular user icon"></i>
+            Profile
+        </h2>
+        <div class="ui divider"></div>
+        <ng-container *ngIf="userProfileData">
+        <div class="row">
+        <h3 class="ui header">
+            <i class="user circle icon"></i>  {{userProfileData.username}}
+        </h3>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+            <h3 class="ui header">
+            <i class="address card icon"></i>{{userProfileData.email}}
+            </h3>
+        </div>
+    </ng-container>
     </div>
 </div>
-<main class="row" [@routeAnimations]="outlet">
-    <router-outlet name="userProfile" #outlet="outlet"></router-outlet>
-</main>
