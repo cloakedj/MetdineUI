@@ -16,11 +16,11 @@ export class AuthGuardService implements CanActivate{
     private router : Router
   ) { }
   canActivate(route :ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean{
-    if(this.api.checkUserToken()) {
-      this.router.navigate(['/user'])
-      return true;
-    } 
+    if(!localStorage.getItem('Auth_Token')) 
+    {
     this.router.navigateByUrl("/userGateway/(userGatewayRouter:login)");
     return false;
+    }
+    return true;
   }
 }

@@ -39,27 +39,10 @@
   Create placeholders till API fetches the content
 -->
 <ng-template #plForSellerCards>
-    <div class="ui card" *ngFor="let pl of [0,1,2,3,4,5]">
-        <div class="image">
-          <div class="ui placeholder">
-            <div class="square image"></div>
-          </div>
-        </div>
-        <div class="content">
-          <div class="ui placeholder">
-            <div class="header">
-              <div class="very short line"></div>
-              <div class="medium line"></div>
-            </div>
-            <div class="paragraph">
-              <div class="short line"></div>
-            </div>
-          </div>
-        </div>
-        <div class="extra content">
-          <div class="ui disabled right floated positive button">Add</div>
-        </div>
-      </div>
+<div class="getting-sellers-mask">
+  <div class="loader"></div>
+  <div class="loading-message"></div>
+</div>
 </ng-template>
 <ng-template #plForSellerLogo>
     <div class="ui placeholder">

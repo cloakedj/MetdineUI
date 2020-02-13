@@ -33,9 +33,9 @@ import { PreviousOrdersComponent } from './components/user-side/previous-orders/
 
 
 const routes: Routes =[
-  {path : 'user', component: BuyerComponent, children: [
+  {path : 'user', component: BuyerComponent,children: [
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
-  { path: 'home', component: HomepageComponent,outlet:'userRouterOutlet'},
+  { path: 'home', component: HomepageComponent,canActivate :[AuthGuardService],outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path: 'profile', component : UserProfileComponent, outlet : 'userRouterOutlet'},
@@ -60,12 +60,14 @@ const routes: Routes =[
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},
-  { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'},
+  { path: '', redirectTo: '/user/(userRouterOutlet:home)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes
-    ,{ enableTracing: false
+    ,{ enableTracing: false,
+      useHash : true,
+      scrollPositionRestoration: "enabled",
     })],
   exports: [RouterModule],
   providers: [

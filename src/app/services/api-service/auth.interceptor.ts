@@ -30,6 +30,7 @@ export class MetdineInterceptor implements HttpInterceptor{
           "Content-Type" : "application/json"
          }
       });
+      console.log("before making request",authenticatedRequest);
     return next.handle(authenticatedRequest).pipe(
       tap(
         event => {
@@ -38,6 +39,7 @@ export class MetdineInterceptor implements HttpInterceptor{
           }
         },
         error => {
+          console.log(event);
             this.errorStatus = error.status;
             this.errorMessage = error.statusText;
         },

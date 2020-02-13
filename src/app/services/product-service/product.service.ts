@@ -3,6 +3,7 @@ import { Observable, throwError, Observer, Subscription } from 'rxjs';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { ApiService } from '../api-service/api.service';
 import { Seller } from 'src/app/entities/seller.entity';
+import { MapsAPILoader } from '@agm/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,46 @@ export class ProductService implements OnInit{
   trendingSellers : Seller[];
   sellerId : any;
   sellerLogo : any;
-  constructor(private api : ApiService) {
-    this.getSellersDetails();
+  latitude: number;
+  longitude: number;
+  address : string;
+  private geoCoder;
+  constructor(
+    private api : ApiService,
+    private maps : MapsAPILoader) {
+      this.GetLocation();
   }
   ngOnInit(){
   }
-  getSellersDetails():void{
-    this.sellers$ = this.api.getAllSellers();
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.sellers$ = this.api.getAllSellers(this.latitude,this.longitude);
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+ 
+    });
+  }
+  GetLocation(){
+    this.maps.load().then(() => {
+      this.geoCoder  = new google.maps.Geocoder;
+      this.setCurrentLocation();
+    });
   }
   getSellerItems(id : number){
     this.products$ =   this.api.requestSellerDetails(id);

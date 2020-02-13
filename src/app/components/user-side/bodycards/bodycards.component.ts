@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Seller } from '../../../entities/seller.entity';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
@@ -18,12 +18,6 @@ export class BodycardsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.product.getSellersDetails();
-    this.product.sellers$.subscribe(
-      (data) => this.sellers = data,
-      (err) => console.log(err),
-      () => console.log("Completed")
-    )
   }
   getCategory(id: any){
     return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';

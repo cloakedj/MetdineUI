@@ -61,7 +61,7 @@
                 </h6>
             </div>
             <div class="four wide column">
-                <a [routerLink]="['/seller-side']" routerLinkActive="active">
+                <a [routerLink]="['/seller-side']" routerLinkActive="active" (click)="userLoggedIn = false">
                 <h6 class="ui center aligned icon header">
                     <i class="exchange icon"></i>
                     Seller Mode

@@ -14,7 +14,7 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://192.168.1.1/api';
+  API_URL = 'http://localhost/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -34,8 +34,8 @@ export class ApiService {
       'Something bad happened; please try again later.');
   };
 
-  getAllSellers():Observable<Seller[]>{
-    this.params = new HttpParams().set("lat","12.088").set("long","13.458");
+  getAllSellers(lat : any,long: any):Observable<Seller[]>{
+    this.params = new HttpParams().set("lat",lat.toString()).set("long",long.toString());
       return this.http.get<Seller[]>(`${this.API_URL}/seller/`,{params : this.params})
       .pipe(
         catchError(this.handleError)
@@ -300,6 +300,13 @@ export class ApiService {
     //Get If Buyer Has Active Order
     checkIfActiveOrder(){
       return this.http.get(`${this.API_URL}/user/active_order`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Get User Navbar Details
+    getBuyerNavbarDetails(){
+      return this.http.get(`${this.API_URL}/user/buyer_details`)
       .pipe(
         catchError(this.handleError)
       )

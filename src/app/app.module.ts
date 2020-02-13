@@ -69,6 +69,7 @@ import { SellerProfileDataComponent } from './components/seller-side/seller-prof
 import { ActiveOrderComponent } from './components/user-side/active-order/active-order.component';
 import { PreviousOrdersComponent } from './components/user-side/previous-orders/previous-orders.component';
 import { SearchMaskComponent } from './components/user-side/search-mask/search-mask.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -139,6 +140,7 @@ import { SearchMaskComponent } from './components/user-side/search-mask/search-m
     MatSlideToggleModule,
     HttpClientModule,
     MatCheckboxModule,
+    NgxUiLoaderModule,
     AgmCoreModule.forRoot({
       apiKey : "AIzaSyBeZektVlME9dVBSY8W2cGL7kTPyO6SRUk",
       libraries : ['places']

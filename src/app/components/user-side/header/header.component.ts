@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
       this.cart.loadCart();
     }
   }
-  ensureuser(){this.userLoggedIn  = this.api.ensurity(); }
+  ensureuser(){this.userLoggedIn  = localStorage.getItem("Auth_Token") ? true : false  }
   logUserOut(){
     this.api.logOutUser()
     .subscribe(
@@ -41,9 +41,8 @@ export class HeaderComponent implements OnInit {
       err => console.log(err),
       () => 
       {
-        localStorage.removeItem("Auth_Token");
-        localStorage.removeItem("is_seller");
-        this.router.navigate(['/']);
+        localStorage.clear();
+        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');
         console.log("Logged out Successfully!");
       }
     )
