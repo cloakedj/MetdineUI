@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  loading = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -28,12 +27,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   onSubmit(data){
-    this.loading = true;
     this.api.buyerRegistration(data).subscribe(
       (data) => localStorage.setItem("Auth_Token",data["key"]),
       (err) => console.log(err),
       () => {
-        this.loading = false;
         this.router.navigate(['/map'],{queryParams : {signup : true}});
       }
     );

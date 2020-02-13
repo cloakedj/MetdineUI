@@ -8,30 +8,33 @@ import {Router} from "@angular/router";
 import 'rxjs/add/operator/catch';
 import { AuthService } from '../auth-service/auth-service.service';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://localhost/api';
+  API_URL = 'http://192.168.1.100/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
     private router : Router,
-    private Auth: AuthService
+    private Auth: AuthService,
+    private toastr : ToastrService
     ) {
   }
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+  private handleError(err: HttpErrorResponse) {
+    if (err.error instanceof ErrorEvent) {
+      console.error('An error occurred:', err.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Backend returned code ${err.status}, ` +
+        `body was: ${err.error}`);
     }
     return throwError(
-      'Something bad happened; please try again later.');
+      'Something Bad Happened. Try Later'
+    );
   };
 
   getAllSellers(lat : any,long: any):Observable<Seller[]>{
@@ -305,8 +308,22 @@ export class ApiService {
       )
     }
     //Get User Navbar Details
-    getBuyerNavbarDetails(){
-      return this.http.get(`${this.API_URL}/user/buyer_details`)
+    getUserProfileInfo(){
+      return this.http.get(`${this.API_URL}/user/profile/`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Update Seller profile information
+    updateSellerProfile(data :any,id :number){
+      return this.http.patch(`${this.API_URL}/seller/${id}/`,data)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Update Seller Address Via MapsAPILoader
+    saveSellerAddress(lat : any, long : any,address :any){
+      return this.http.post(`${this.API_URL}/seller/address/`,{lat: lat,long : long,address: address})
       .pipe(
         catchError(this.handleError)
       )

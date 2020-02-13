@@ -29,7 +29,7 @@
         </h4>
       </div>
       <div class="ui hidden divider"></div>
-      <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode">
+      <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode && !isSellerSide">
         <div class="ui form">
           <div class="field">
             <label>Street Address</label>
@@ -60,7 +60,7 @@
       </div>
         </form>
       <button class="ui positive fluid button" (click)="onAddressBtnClick()"
-       [disabled]="newAddressForm.value === undefined && (newAddressForm.pristine || newAddressForm.invalid)">
+       [disabled]="!isOnCheckoutMode &&  !isSellerSide && (newAddressForm.pristine || newAddressForm.invalid)">
         {{locationBtnTitle}}
       </button>
       <ng-container *ngIf="savedAddresses">

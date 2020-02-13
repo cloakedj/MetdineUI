@@ -11,7 +11,7 @@ import { MapsAPILoader } from '@agm/core';
 export class ProductService implements OnInit{
   products$ : Observable<SellerItem[]>; 
   productsArr : SellerItem[];
-  sellers$: Observable<Seller[]>;
+  sellers: Seller[];
   trendingSellers : Seller[];
   sellerId : any;
   sellerLogo : any;
@@ -31,7 +31,12 @@ export class ProductService implements OnInit{
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.sellers$ = this.api.getAllSellers(this.latitude,this.longitude);
+        this.api.getAllSellers(this.latitude,this.longitude)
+        .subscribe(
+          data => this.sellers = data,
+          err => console.log(err),
+          () => console.log("Fetched sellers")
+        )
         this.getAddress(this.latitude, this.longitude);
       });
     }

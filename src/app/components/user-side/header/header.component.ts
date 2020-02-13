@@ -3,6 +3,7 @@ import { CartService } from '../../../services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
+import { ProductService } from 'src/app/services/product-service/product.service';
 
 
 @Component({
@@ -14,15 +15,22 @@ export class HeaderComponent implements OnInit {
   searchOn = false;
   userLoggedIn : boolean = false;
   readonly screenSize = window.screen.width;
+  username: string;
   constructor(public cart: CartService,
     private api: ApiService,
     public auth : AuthService,
-    private router : Router) { }
+    private router : Router,
+    public product : ProductService) { }
     itemsInCart : number = 0;
 
   ngOnInit() {  
     this.ensureuser();
         if(this.userLoggedIn) {
+          this.api.getUserProfileInfo().subscribe(
+            data => this.username = data["username"],
+            err => console.log(err),
+            () => console.log("completed")
+          );
       this.itemsInCart = this.cart.getCartLength();
       this.cart.loadCart();
         }

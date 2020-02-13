@@ -1,3 +1,66 @@
+<!--
+  Edit seller details
+-->
+<div class="ui grid editDetails" *ngIf="editDetailsShow">
+  <app-geolocation *ngIf="editAddress" [isSellerSide]="true"></app-geolocation>
+<div class="ui modal">
+  <i class="close icon" (click)="editDetailsShow = false;"></i>
+  <div class="header">
+   Edit Details
+  </div>
+  <div class="image content">
+    <div class="ui image" [ngClass]="{
+      'large' : windowWidth > 500,
+      'small' : windowWidth < 500
+    }">
+      <img src="{{sellerDashOptions.logo}}">
+    </div>
+    <div class="description">
+      <div class="ui form">
+        <form [formGroup]="sellerDetails">
+      <div class="two fields">
+        <div class="field">
+          <label>First name</label>
+          <input type="text" formControlName="first_name" placeholder="First Name" value="{{sellerDashOptions.first_name}}">
+        </div>
+        <div class="field">
+          <label>Last name</label>
+          <input type="text" formControlName="last_name" placeholder="Last Name"  value="{{sellerDashOptions.last_name}}">
+        </div>
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="text" formControlName="phone" placeholder="Phone Number"  value="{{sellerDashOptions.phone}}">
+      </div>
+      <div class="two fields">
+        <div class="field">
+        <label>Address</label>
+        <input type="text" formControlName="phone" placeholder="Phone Number"  value="{{sellerDashOptions.address}}">
+      </div>
+        <div class="field">
+          <label>Edit Address On map</label>
+        <div class="ui red right labeled icon button" (click)="editAddress = true">
+          Open Map
+          <i class="map pin icon"></i>
+        </div>
+      </div>
+      </div>
+    </form>
+    </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black right labeled icon button" (click)="editDetailsShow = false">
+      Reset
+      <i class="close icon"></i>
+    </div>
+    <div class="ui positive right labeled icon button" (click)="updateSellerDetails()">
+      Submit
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+</div>
 <div class="ui stackable grid">
 <div class="ui ten wide stretched column">
 <div class="ui centered grid quickoptions">
@@ -62,7 +125,7 @@
       </div>
       <div class="center aligned column settings">   
         <div class="ui center aligned row">
-          <button class="circular ui primary icon button">
+          <button class="circular ui primary icon button" (click)="editDetailsShow = true">
             <i class="cog icon"></i>
             </button>
         </div>
@@ -139,7 +202,6 @@
     <app-seller-items [showCount]="2"></app-seller-items>
   </div>
 </div>
-
 <!--
     Placeholder For Quick Dashboard Data
   -->

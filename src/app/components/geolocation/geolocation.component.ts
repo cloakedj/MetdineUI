@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation, Input  } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -52,6 +52,7 @@ export class GeolocationComponent implements OnInit{
   savedAddresses : any;
   newAddressForm : FormGroup;
   loading = false;
+  @Input() isSellerSide : boolean;
   constructor(
     private mapsAPILoader : MapsAPILoader,
     private ngZone : NgZone,
@@ -167,7 +168,11 @@ export class GeolocationComponent implements OnInit{
         } 
       )
     }
-    else{
+    else if(this.isSellerSide){
+      this.api.saveSellerAddress(this.latitude,this.longitude,this.address).subscribe(this.saveNewAddress$);
+    }
+    else
+    {
       this.newAddressForm.patchValue({
         zip : this.zipCode,
         latitude : this.latitude,
@@ -177,8 +182,7 @@ export class GeolocationComponent implements OnInit{
         next : (data) => console.log("Saved Address"),
         error : err => console.log(err),
         complete : () => {
-          this.router.navigate(['/user',{outlets : { 'userRouterOutlet' : ['/home']}}]);
-          console.log("Request to add addres completed")
+          this.router.navigateByUrl('/user/userRouterOutlet:home)');
         }
       }
       this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);

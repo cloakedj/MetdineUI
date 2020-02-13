@@ -31,15 +31,13 @@ import { BuyerComponent } from './components/user-side/buyer/buyer.component';
 import { ActiveOrderGuardService } from './services/Active-order/active-order-guard.service';
 import { PreviousOrdersComponent } from './components/user-side/previous-orders/previous-orders.component';
 
-
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,children: [
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
   { path: 'home', component: HomepageComponent,canActivate :[AuthGuardService],outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
-  { path: 'profile', component : UserProfileComponent, outlet : 'userRouterOutlet'},
-  { path: 'previous-orders', component : PreviousOrdersComponent, outlet : 'userRouterOutlet'},
+  { path: 'profile', component : BuyerProfileComponent, outlet : 'userRouterOutlet'},
   { path : '', redirectTo : '/user/(userRouterOutlet:home)', pathMatch:'full'}, 
 ]},
   { path: 'seller-side', component: SellerSideComponent, canActivate:[AuthGuardIsSellerService],children: [

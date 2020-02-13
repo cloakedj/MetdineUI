@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { LoaderService } from './services/loader/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,6 @@ export class AppComponent{
   //   this._snackBar.open(this.auth.errorMessage);
   //   this.auth.errorMessage = '';
   // }
+  constructor(private loader : LoaderService){
+  }
 }

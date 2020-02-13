@@ -2,7 +2,17 @@
 <mat-toolbar *ngIf="userLoggedIn">
     <mat-toolbar-row>
            <a href="/user" class ="logo_text"><span>Metdine</span></a>
+           <ng-container *ngIf="product.address">
+           <a routerLink="/map">
+            <label class="address">{{product.address | contentLength : 30}}</label>
+            </a>
+            </ng-container>
            <span class="spacer"></span>
+           <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['profile']}}]"><button mat-icon-button aria-label="User's Profile">
+            <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
+             </button>
+            </a>
+            <label *ngIf="username">{{username}}</label>
            <div class="ui horizontal list">
             <!-- <div class="item">
                     <a class="ui black circular label" *ngIf="itemsInCart">{{itemsInCart}}</a>
@@ -11,32 +21,29 @@
            <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Shopping Cart">
            <mat-icon class="icon" aria-hidden="false" aria-label="cart icon">shopping_cart
             </mat-icon>
-            </button></a>
-            </div>
-            </div>
-            <a href="/profile"><button mat-icon-button aria-label="User's Profile">
-           <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
-            </button></a>
-            <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['previous-orders']}}]" routerLinkActive="active">
-            <button mat-icon-button aria-label="User Previous Orders">
-           <mat-icon  matTooltip="Previous Orders" class="icon" aria-hidden="false" aria-label="Previous orders  icon">shopping_basket</mat-icon>
-           </button>
+            </button>
             </a>
+            </div>
+            </div>
+            <label>Cart</label>
            <a routerLink="/seller-side" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
            <mat-icon class="icon" aria-hidden="false"
            matTooltip="Switch To Seller" aria-label="Metdine heart icon">swap_calls</mat-icon>
            </button>
             </a>
+            <label>Seller Side</label>
             <button mat-icon-button aria-label="Search" (click)="searchOn = true;">
                 <mat-icon class="icon" aria-hidden="false" aria-label="Metdine search icon">
                  search
                  </mat-icon>
              </button>
+             <label>Search</label>
            <button mat-icon-button aria-label="Log Out" (click)="logUserOut()">
            <mat-icon class="icon" aria-hidden="false" aria-label="Metdine delete icon">
             exit_to_app
             </mat-icon>
         </button>
+        <label>Log Out</label>
     </mat-toolbar-row>
 </mat-toolbar>
 </div>

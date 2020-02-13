@@ -1,11 +1,22 @@
-<div class="ui grid">
-  <div class="twelve wide computer sixteen wide device  ten wide doubling tablet centered column">
+<div class="fifteen wide centered column row container mobile only">
+<div class="ui raised segment">
+  <h3 class="ui header">
+    Current Location
+  </h3>
+  <div class="ui divider"></div>
+    <h4 class="ui header">
+      {{product.address | contentLength : 60}}
+    </h4>
+  </div>
+</div>
+<div class="ui grid container">
+  <div class="sixteen wide computer sixteen wide device  ten wide doubling tablet centered column">
     <h1 class="ui centered header">
       Seller's Near You
     </h1>
     <div class="ui centered cards">
-      <ng-container *ngIf="sellers; else plForSellerCards;">
-      <div class="ui card" *ngFor="let seller of sellers">
+      <ng-container *ngIf="product.sellers; else plForSellerCards;">
+      <div class="ui card" *ngFor="let seller of product.sellers">
         <ng-container *ngIf="seller.logo else plForSellerLogo">
         <div class="image">
               <img src="{{seller.logo}}" alt="Seller Picture" 
@@ -32,16 +43,14 @@
      </ng-container>
     </div>
   </div>
-    <app-filter-sidebar></app-filter-sidebar>
 </div>
 
 <!--
   Create placeholders till API fetches the content
 -->
 <ng-template #plForSellerCards>
-<div class="getting-sellers-mask">
-  <div class="loader"></div>
-  <div class="loading-message"></div>
+<div class="Message">
+  Preparing The App For You
 </div>
 </ng-template>
 <ng-template #plForSellerLogo>

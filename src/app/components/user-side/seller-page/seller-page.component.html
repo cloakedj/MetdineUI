@@ -1,6 +1,10 @@
 <div class="ui two column  grid container">
-  <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
     <div class="ten wide computer seven wide tablet sixteen wide stackable device column">
+      <h2 class="ui centered header">
+        Seller Details
+      </h2>
+      <div class="ui divider"></div>
+      <ng-container *ngIf="sellerDetails$ | async as seller; else sellerPagePlaceholder" >
     <div class="image">
       <img class="ui centered medium rounded image" src="{{seller.logo}}">
     </div>
@@ -45,8 +49,8 @@
       </li>
     </ul>
   </div>
+</ng-container>
 </div>
-  </ng-container>
   <div class="six wide computer only nine wide tablet only column">
     <app-trending-seller-sidebar></app-trending-seller-sidebar>
   </div>

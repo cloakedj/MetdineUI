@@ -1,5 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Molle:400i&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Fondamento&display=swap';
 
 .icon {
     cursor: pointer;
@@ -10,6 +11,21 @@ flex: 1 1 auto;
 }
 .ui.horizontal.list .item{
   margin-left:0 !important;
+}
+.address{
+   margin-left: 5%;
+   color : black;
+   cursor: pointer;
+  }
+  .address:hover{
+    text-decoration:underline;
+  }
+.mat-toolbar-row{
+  padding-top: 3%;
+  padding-bottom: 2%;
+}
+.mat-icon{
+  color : black;
 }
 .logo_text
 {
@@ -42,6 +58,11 @@ a{
   font-family: 'Permanent Marker', cursive;
   color : #fff;
   cursor: pointer;
+}
+label{
+  font-family: 'Fondamento', cursive;
+  font-size:1.3rem;
+  margin-right:1%;
 }
 @media (max-width : 780px){
   .closeSearch{

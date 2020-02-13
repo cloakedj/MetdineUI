@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fader } from 'src/app/animations/route-animation';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buyer-profile',
@@ -14,7 +15,8 @@ import { Observer } from 'rxjs';
 export class BuyerProfileComponent implements OnInit {
   userDetailsObs$ : Observer<any>;
   userProfileData : any;
-  constructor(private api : ApiService) {
+  constructor(private api : ApiService,
+    private router : Router) {
     this.userDetailsObs$ = {
       next : (data) => this.userProfileData = data,
       error : err => console.log(err),
@@ -25,5 +27,18 @@ export class BuyerProfileComponent implements OnInit {
 
   ngOnInit() {
   }
+  logUserOut(){
+    this.api.logOutUser()
+    .subscribe(
+      data => console.log("Logged Out"),
+      err => console.log(err),
+      () => 
+      {
+        localStorage.clear();
+        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');
+        console.log("Logged out Successfully!");
+      }
+    )
+    }
 
 }

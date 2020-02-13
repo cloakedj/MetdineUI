@@ -1,5 +1,5 @@
 <div class="ui segment sidebarmenu">
-    <ng-container *ngIf="sellerData else sellerDataPlaceholder;">
+    <ng-container *ngIf="sellerData">
     <img src="{{sellerData.logo}}" class="ui centered tiny rounded image">
    <div class="row">
    <h4 class="ui centered header">{{sellerData.first_name}} {{sellerData.last_name}}</h4>
@@ -35,12 +35,3 @@
        Made With <i class="heart icon icon-center"></i> in India.
    </div>
 </div>
-<ng-template #sellerDataPlaceholder>
-    <div class="ui placeholder">
-        <div class="image header"></div>
-        <div class="paragraph">
-            <div class="line"></div>
-            <div class="line"></div>
-          </div>  
-    </div>
-</ng-template>

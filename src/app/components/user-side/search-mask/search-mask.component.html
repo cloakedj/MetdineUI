@@ -20,7 +20,7 @@
         <ng-container *ngIf="searchBar.value != null else searchPlaceholder">
         <div class="ui very relaxed list">
             <div class="item" *ngFor="let result of queryResults;">
-            <img class="ui image rounded left floated " src="{{result.logo}}"
+            <img class="ui image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
             [ngClass]="{
               'tiny' : windowWidth < 500,
               'small' : windowWidth > 500

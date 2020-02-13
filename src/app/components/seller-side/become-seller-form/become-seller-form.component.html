@@ -1,5 +1,5 @@
 <div class="ui two column centered grid">
-    <div class="column">
+    <div class="fifteen wide mobile ten wide computer column">
         <h3 class="ui top attached header center aligned inverted">Become A Seller</h3>
         <div class="ui raised attached segment">
           <img class="ui circular centered small image" src="assets/molly.png">
@@ -28,7 +28,10 @@
                     </div>
                     </div>
                     <div class="field">
-                            <textarea placeholder="Address" formControlName="address"></textarea>
+                      <div class="ui fluid icon input">
+                        <input type="text" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
+                        <i class="search icon"></i>
+                      </div>
                     <div class="ui pointing red basic label"  *ngIf="address.errors?.required && !address.pristine">
                             Address Is Required
                      </div>

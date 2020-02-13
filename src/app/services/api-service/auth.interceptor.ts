@@ -10,12 +10,12 @@ import {
 } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { AuthService } from '../auth-service/auth-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class MetdineInterceptor implements HttpInterceptor{
-  errorMessage : any;
-  errorStatus : any;
-  constructor(private Auth: AuthService){}
+  constructor(private Auth: AuthService,
+    private toastr : ToastrService){}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -35,13 +35,15 @@ export class MetdineInterceptor implements HttpInterceptor{
       tap(
         event => {
           if (event instanceof HttpResponse) {
+            console.log(event.body);
             console.log("api call success :", event);
           }
         },
         error => {
-          console.log(event);
-            this.errorStatus = error.status;
-            this.errorMessage = error.statusText;
+          let errorm = error.error.non_field_errors ? error.error.non_field_errors : error.error.password1[0] ;
+          if(error.status >= 500)
+            errorm = "Something Went Wrong. Try Again later";
+            this.toastr.error(errorm);
         },
       )
     );

@@ -2,8 +2,8 @@
 
 .ui.grid
 {
-  margin-right:0 !important;
-  margin-left:0 !important;
+  min-height: 100%;
+  padding-top:4%;
 }
 .image img{
   outline: none;
@@ -15,7 +15,7 @@
   box-shadow: none !important;
   margin-bottom: 10% !important;
 }
-.segment{
+.ui.centered.cards .segment{
     position: absolute;
     top: 70%;
     width: 90%;
@@ -40,6 +40,9 @@
   font-family: 'Righteous', cursive;
   margin-bottom: 0%;
   color: tomato;
+}
+.fifteen.wide.column.mobile.only{
+  margin-bottom: 5%;;
 }
 @media (max-width: 500px){
   .ui.card{
