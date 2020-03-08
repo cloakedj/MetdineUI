@@ -20,17 +20,8 @@
 .ui.link.list .item{
     height: 20%;
     width:100%;
-    padding:5%;
+    margin-bottom:5%;
     transition: all .2s;
-}
-.icon-center
-{
-    margin:2%;
-    color : red;
-}
-.ui.sub.header{
-    text-align: center;
-    font-weight: bold;
 }
 .ui.two.buttons{
     padding:0% 2% 0% 2%;

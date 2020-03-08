@@ -15,4 +15,10 @@ export class SearchService {
       params : param
     });
   }
+  searchDish(query : any){
+    let param = new HttpParams().set("query",query);
+    return this.http.get(`${this.API.API_URL}/meal/search/`,{
+      params : param
+    })
+  }
 }

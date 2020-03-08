@@ -1,15 +1,51 @@
+@import 'https://fonts.googleapis.com/css?family=Molle:400i&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Monoton&display=swap';
 footer
 {
-    width:100%;
+    min-width:100%;
     height:auto;
     padding:2%;
     background:black;
     margin-top:5%;
 }
-.footer-message
+.logo_text
 {
-    width:100%;
-    height:100%;
-    text-align: center;
-    color:#fff;
+  font-family: 'Molle', cursive;
+  color: #ac2d5c;
+  font-weight: bolder;
+  font-size: 3rem;
+}
+.header{
+    color: #fff !important;
+}
+.contact-us{
+    font-family: 'Monoton', cursive !important;
+}
+.icon-center
+{
+    margin:2%;
+    color : red;
+}
+.ui.sub.header{
+    font-weight: bold;
+}
+
+@media (min-width: 1024px){
+footer
+{
+    margin-top: 5%;
+    margin-left: -4%;
+    margin-bottom: -5%;
+}
+}
+@media (max-width: 500px)
+{
+    footer{
+        margin-top:10%;
+        margin-bottom:0% !important;
+        padding : 4% 1% 4% 1%
+    }
+    #contact-section{
+        margin-bottom:20% !important;
+    }
 }

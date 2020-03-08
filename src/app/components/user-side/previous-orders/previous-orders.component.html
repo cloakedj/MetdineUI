@@ -4,10 +4,15 @@
             <i class="circular angellist icon"></i>
             Previous Orders
         </h2>
-        <ng-container *ngIf="sellerPreviousOrders">
+        <ng-container *ngIf="sellerPreviousOrders && sellerPreviousOrders.length > 0 else noOrdersMade">
             <div class="three wide column" *ngFor="let order of sellerPreviousOrders">
                 <app-order-card [order]="order"></app-order-card>
             </div>
         </ng-container>
     </div>
     </div>
+    <ng-template #noOrdersMade>
+        <h3 class="ui header noOrders">
+            You Haven't Made Any Orders Yet!
+        </h3>
+    </ng-template>

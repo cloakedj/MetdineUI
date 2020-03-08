@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-seller-page',
@@ -18,6 +19,7 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerDetails$ : Observable<Seller>;
   sellerLogo : string;
   backUpProducts : SellerItem[];
+  searchDish = new FormControl();
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,

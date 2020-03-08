@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SearchService } from 'src/app/services/search-filter/search.service';
 import 'rxjs/add/operator/debounceTime';
@@ -6,7 +6,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { Router } from '@angular/router';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-search-mask',
@@ -19,6 +18,8 @@ export class SearchMaskComponent implements OnInit {
   searchBar : FormControl = new FormControl();
   plText = 'Search From our List';
   loading = false;
+  searchItem = false;
+  @Output() hideSearchMask = new EventEmitter<boolean>();
   constructor(
     private _search : SearchService,
     private gc : GetCategoryService,
@@ -37,6 +38,8 @@ export class SearchMaskComponent implements OnInit {
       this.plText = 'Search From Our Collection';
       this.searchBar.reset();
       }
+      if (this.searchItem)
+      return this._search.searchDish(query)
       return this._search.search(query)
     })
     .subscribe((results : any) => {
@@ -53,6 +56,10 @@ export class SearchMaskComponent implements OnInit {
     return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
   }
   sellerPage(id : number){
-    this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${id})`)
+    this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${id})`);
+    this.hideSearchMask.emit(false);
+  }
+  getsearchByItemFilter(){
+    this.searchItem = !this.searchItem;
   }
 }

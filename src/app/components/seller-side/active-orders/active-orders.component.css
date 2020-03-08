@@ -1,3 +1,9 @@
 .activeOrders{
     margin-top:5%;
+    min-height: 100%;
+}
+.messagepl{
+    margin-left: 50%;
+    margin-top:20%;
+    transform: translateX(-50%);
 }

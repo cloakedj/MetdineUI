@@ -1,4 +1,4 @@
-<div class="ui centered grid" *ngIf="ItemsSold">
+<div class="ui centered grid">
     <div class="fifteen wide column">
       <div class="ui raised segment" [ngClass]="{
           'loading' : loading
@@ -8,10 +8,15 @@
           Previously Completed Orders
         </h2>
         <div class="ui hidden divider"></div>
-        <div class="ui center aligned stackable grid">
+        <div class="ui center aligned stackable grid" *ngIf="ItemsSold && ItemsSold.length > 0 else noItemsSold">
           <div class="five wide column" *ngFor="let order of ItemsSold">
               <app-order-card [order]="order"></app-order-card>
           </div>
         </div>
       </div>
     </div>
+    <ng-template #noItemsSold>
+      <h2 class="ui centered header messagepl">
+        No Items Sold Yet.
+      </h2>
+    </ng-template>

@@ -42,7 +42,7 @@
       <li class="item">
         <div class="ui category search">
           <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Search Dishes...">
+            <input class="prompt" [formControl]="searchDish" type="text" (searchBar)="searchDish.value" placeholder="Search Dishes...">
             <i class="search icon"></i>
           </div>
         </div>

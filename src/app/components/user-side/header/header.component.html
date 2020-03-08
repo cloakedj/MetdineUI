@@ -90,7 +90,7 @@
 <!--
     Search Mask
 -->
-<app-search-mask *ngIf="searchOn"></app-search-mask>
+<app-search-mask *ngIf="searchOn" (hideSearchMask)="turnSearchOff($event)"></app-search-mask>
 <div class="closeSearch" *ngIf="searchOn">
 <h1 class="ui header" (click)="searchOn = false">
     X

@@ -27,6 +27,9 @@
     animation-fill-mode: forwards;
     animation-duration: 0.3s;
 }
+.searchItem{
+    color : #fff !important;
+}
 @keyframes fadeInMoveUp{
     0%{
         opacity : 0;

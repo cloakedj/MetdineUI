@@ -1,4 +1,4 @@
-<div class="ui centered grid activeOrders" *ngIf="allActiveOrders">
+<div class="ui centered grid activeOrders">
 <div class="fifteen wide column">
 <div class="ui raised stretched segment" [ngClass]="{
     'loading' : loading
@@ -6,6 +6,7 @@
 <h2 class="ui center aligned icon  header">
     <i class="circular tasks icon"></i>Active Orders
 </h2>
+<ng-container  *ngIf="allActiveOrders && allActiveOrders.length > 0 else noActiveOrders">
 <div class="five wide column" *ngFor="let order of allActiveOrders;" >
 <app-order-card [order]="order"></app-order-card>
 <div class="ui hidden divider"></div>
@@ -37,6 +38,12 @@
 </div>
 <div class="ui hidden divider"></div>
 </div>
+</ng-container>
 </div>
 </div>
 </div>
+<ng-template #noActiveOrders>
+    <h1 class="ui centered header messagepl">
+        No Active Order At The Moment.
+    </h1>
+</ng-template>

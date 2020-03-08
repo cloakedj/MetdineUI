@@ -55,5 +55,8 @@ export class HeaderComponent implements OnInit {
       }
     )
     }
+    turnSearchOff(event){
+      this.searchOn = event;
+    }
 
 }
