@@ -141,7 +141,6 @@ export class GeolocationComponent implements OnInit{
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
-          console.log(results[0])
           this.address = results[0].formatted_address;
           this.zipCode = results[0].address_components[results[0].address_components.length - 1].long_name;
         } else {
@@ -182,7 +181,7 @@ export class GeolocationComponent implements OnInit{
         next : (data) => console.log("Saved Address"),
         error : err => console.log(err),
         complete : () => {
-          this.router.navigateByUrl('/user/userRouterOutlet:home)');
+          this.router.navigateByUrl('/user/(userRouterOutlet:home)');
         }
       }
       this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);

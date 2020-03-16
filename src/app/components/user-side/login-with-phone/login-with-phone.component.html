@@ -1,0 +1,41 @@
+<div class="ui four column centered grid">
+    <div class="fifteen wide mobile four wide computer column">
+        <h3 class="ui top attached header center aligned inverted">Log In To Metdine</h3>
+        <div class="ui raised attached segment">
+          <img class="ui circular centered small image" src="../../../assets/molly.png">
+          <div class="ui divider"></div>
+              <div class="ui fluid form">
+                  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" (ngForm)="loginForm">
+                    <div class="field">
+                      <input placeholder="Phone Number"  formControlName="phone" type="text">
+                      <div class="ui pointing red basic label"  *ngIf="phone.invalid && !phone.pristine && !phone.errors?.required">                      
+                        Enter A Valid Phone Number
+                     </div>
+                     <div class="ui pointing red basic label"  *ngIf="phone.errors?.required && !phone.pristine">                      
+                      Phone Number is required
+                   </div>
+                    </div>
+                    <div class="field">
+                      <input placeholder="Password" formControlName="password" type="password">
+                      <div class="ui pointing red basic label"  *ngIf="password.errors?.required && !password.pristine">
+                            Password Is Required
+                     </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui  positive fluid button" [disabled]="loginForm.pristine || loginForm.invalid" type="submit">Login</button>
+                        </div>
+                </form>
+                </div>
+                <div class="ui horizontal divider">
+                    OR
+                  </div>
+                  <div class="field">
+                    <button class="ui  blue fluid button" (click)="loginWithEmail()">Login With Username</button>
+                </div>
+          </div>
+          <h5 class="ui bottom attached center aligned inverted header">
+            Don't Have An Account? Sign Up <a [routerLink]="['/userGateway',{ outlets: { userGatewayRouter : ['signup']}}]" routerLinkActive="active">Here.</a>
+          </h5>
+        </div>
+  </div>
+  

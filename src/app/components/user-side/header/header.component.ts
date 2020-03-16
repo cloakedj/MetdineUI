@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
     public auth : AuthService,
     private router : Router,
     public product : ProductService) { }
-    itemsInCart : number = 0;
 
   ngOnInit() {  
     this.ensureuser();
@@ -31,13 +30,11 @@ export class HeaderComponent implements OnInit {
             err => console.log(err),
             () => console.log("completed")
           );
-      this.itemsInCart = this.cart.getCartLength();
       this.cart.loadCart();
         }
   }
   getlengthIfLoggedIn(){
     if(this.api.checkUserToken()) {
-      this.itemsInCart = this.cart.getCartLength();
       this.cart.loadCart();
     }
   }

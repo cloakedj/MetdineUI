@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://192.168.1.101/api';
+  API_URL = 'http://b120105f.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -64,6 +64,12 @@ export class ApiService {
   }
   loginUser(credentials){
     return this.http.post(`${this.API_URL}/rest-auth/login/`, credentials)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  loginUserWithPhone(credentials){
+    return this.http.post(`${this.API_URL}/api/user/phone/`, credentials)
     .pipe(
       catchError(this.handleError)
     )
@@ -324,6 +330,13 @@ export class ApiService {
     //Update Seller Address Via MapsAPILoader
     saveSellerAddress(lat : any, long : any,address :any){
       return this.http.post(`${this.API_URL}/seller/address/`,{lat: lat,long : long,address: address})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Check if phone number is verified
+    checkPhoneNumberVerStatus(){
+      return this.http.get(`${this.API_URL}/user/phone/status`)
       .pipe(
         catchError(this.handleError)
       )

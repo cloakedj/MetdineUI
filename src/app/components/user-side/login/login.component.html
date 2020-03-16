@@ -26,10 +26,15 @@
                       </div>
               </form>
               </div>
+              <div class="ui horizontal divider">
+                OR
+              </div>
+              <div class="field">
+                <button class="ui  blue fluid button" (click)="loginWithPhone()">Login With Phone Number</button>
+            </div>
         </div>
         <h5 class="ui bottom attached center aligned inverted header">
           Don't Have An Account? Sign Up <a [routerLink]="['/userGateway',{ outlets: { userGatewayRouter : ['signup']}}]" routerLinkActive="active">Here.</a>
         </h5>
       </div>
 </div>
-<app-footer></app-footer>

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit, Input } from '@angular/core';
 import { ProductService } from '../product-service/product.service';
 import { ApiService } from '../api-service/api.service';
 import { Subscription, Observer } from 'rxjs';
@@ -9,11 +9,12 @@ import { CartItem } from 'src/app/entities/cart-item.entity';
   providedIn: 'root'
 })
 export class CartService implements OnDestroy, OnInit{
-  items: CartItem[] = [];
-  total: number = 0;
+  @Input()items: CartItem[] = [];
+  @Input() delivery_charge: any;
+  @Input() total: number = 0;
   existingOrder : CartItem[];
   orderDetailsId : number;
-  orderId : number;
+  @Input() orderId : number;
   userCartdetaisl$ : Observer<any>;
   itemExistsQuantity : number;
   constructor(private productService: ProductService,
@@ -33,6 +34,10 @@ loadCart(): void {
       this.items = data.items;
       this.total = data.total;
       this.orderId = data.id;
+      this.delivery_charge = data.delivery_charge;
+      console.log("login");
+      if(!localStorage.getItem("seller__id"))
+      localStorage.setItem("seller__id",`${data.seller_id}`)
     },
     error : (err) => console.log(err),
     complete : () => console.log("Request to cart fetch completed")
@@ -41,8 +46,9 @@ loadCart(): void {
   
 }
                     
-getCartLength(): number{
- return this.items.length == 0 ? 0 : this.items.length;
+getCartLength(){
+   localStorage.setItem("cartSize",`${this.items.length}`);
+ return parseInt(localStorage.getItem("cartSize"));
 }
 updateCart(id: number,operation?: string): void{ 
     if(this.items === undefined)
@@ -96,7 +102,10 @@ updateCart(id: number,operation?: string): void{
 }
   clearCart(){
     this.api.deleteCurrentCart().subscribe(
-      data => console.log(data),
+      data => {
+        console.log(data);
+        localStorage.removeItem("cartSize");
+      },
       err => console.log(err),
       () => {
         this.loadCart();

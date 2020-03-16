@@ -20,9 +20,9 @@
         centered column search-results">
         <ng-container *ngIf="searchBar.value != null else searchPlaceholder">
         <div class="ui very relaxed list">
-            <ng-container *ngIf="searchItem else searchPlace">
+            <ng-container *ngIf="queryResults || searchItem">
                 <div class="item" *ngFor="let result of queryResults;">
-                    <img class="ui image rounded left floated " src="{{result.image}}"
+                    <img class="ui image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
                     [ngClass]="{
                       'tiny' : windowWidth < 500,
                       'small' : windowWidth > 500
@@ -30,18 +30,20 @@
                         <div class="content">
                             <a class="header" (click)="sellerPage(result.id)">
                                 <h4 class="ui header">
-                                {{result.title}}
+                                {{result.first_name}} {{result.last_name}}
                                 </h4>
                             </a>
                             <div class="description">
                             <a class="ui label" [ngClass]="{
-                                'green' : result.is_veg == true,
-                                'red' : result.is_veg == false
+                                'green' : result.category == 0,
+                                'teal' : result.category == 1,
+                                'yellow' : result.category == 2,
+                                'black' : result.category == 3
                             }">
-                                {{result.is_veg}}
+                                {{getCategory(result.category)}}
                             </a>
                             <p *ngIf="windowWidth > 500">
-                                {{result.short_description | contentLength : 30}}
+                                {{result.desc | contentLength : 30}}
                             </p>
                         </div>
                         </div>
@@ -59,35 +61,5 @@
 <ng-template #searchPlaceholder>
     <div class="centered column">
         {{plText}}
-    </div>
-</ng-template>
-<ng-template #searchPlace>
-    <div class="item" *ngFor="let result of queryResults;">
-        <img class="ui image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
-        [ngClass]="{
-          'tiny' : windowWidth < 500,
-          'small' : windowWidth > 500
-        }">
-            <div class="content">
-                <a class="header" (click)="sellerPage(result.id)">
-                    <h4 class="ui header">
-                    {{result.first_name}} {{result.last_name}}
-                    </h4>
-                </a>
-                <div class="description">
-                <a class="ui label" [ngClass]="{
-                    'green' : result.category == 0,
-                    'teal' : result.category == 1,
-                    'yellow' : result.category == 2,
-                    'black' : result.category == 3
-                }">
-                    {{getCategory(result.category)}}
-                </a>
-                <p *ngIf="windowWidth > 500">
-                    {{result.desc | contentLength : 30}}
-                </p>
-            </div>
-            </div>
-        <div class="ui divider" *ngIf="windowWidth < 500"></div>
     </div>
 </ng-template>

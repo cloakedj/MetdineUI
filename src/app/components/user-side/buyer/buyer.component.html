@@ -1,3 +1,10 @@
 <app-header></app-header>
+<div class="ui centered six wide column grid" *ngIf="messageVisible && !numberVerified">
+    <div class="ui centered error message">
+        <i class="close icon" (click)="switchMessage()"></i>
+        Your Phone Number Is Not Verified.
+        <button class="ui negative button" (click)="verifyPhone()">Verify Phone</button>
+    </div>
+    </div>
 <router-outlet name="userRouterOutlet"></router-outlet>
 <app-footer></app-footer>

@@ -5,4 +5,5 @@ export class CartItem{
     meal_price : number;
     quantity : number;
     image : String;
+    delivery_charge : any;
 }

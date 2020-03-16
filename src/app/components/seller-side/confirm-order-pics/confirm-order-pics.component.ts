@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
@@ -12,7 +12,7 @@ import { KeepFilesService } from 'src/app/services/upload-files/keep-files.servi
 export class ConfirmOrderPicsComponent implements OnInit {
   orderId: string;
   orderDetails$: Observer<any>;
-  orderDetails: any;
+  @Input() orderDetails: any;
   uploadImagesObs$ : Observer<any>;
   imagesSent : any;
   orderStatusFilter = [

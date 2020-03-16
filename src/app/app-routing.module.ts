@@ -30,6 +30,8 @@ import { ActiveOrderComponent } from './components/user-side/active-order/active
 import { BuyerComponent } from './components/user-side/buyer/buyer.component';
 import { ActiveOrderGuardService } from './services/Active-order/active-order-guard.service';
 import { PreviousOrdersComponent } from './components/user-side/previous-orders/previous-orders.component';
+import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
+import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,children: [
@@ -55,6 +57,8 @@ const routes: Routes =[
   { path: 'map', component:GeolocationComponent},
   { path: 'userGateway', component: UserGatewayComponent,children:[
     { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
+    { path: 'login-with-phone', component:LoginWithPhoneComponent,outlet: 'userGatewayRouter'},
+    { path : 'verify-phone', component:VerifyPhoneComponent,outlet: 'userGatewayRouter'},
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},

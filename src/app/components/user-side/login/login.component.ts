@@ -3,6 +3,8 @@ import { FormGroup, FormControl, NgForm, FormGroupDirective, Validators, FormBui
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CartService } from '../../../services/cart-service/cart.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,14 +18,16 @@ export class LoginComponent implements OnInit , OnDestroy{
     password:['',Validators.required],
   });
   constructor(private formbuilder: FormBuilder,
-    private api : ApiService) {}
+    private api : ApiService,
+    private cart : CartService,
+    private router : Router) {}
 
   ngOnInit() {
   }
   onSubmit(Data){
     this.loginSubscription = this.api.loginUser(Data)
     .subscribe(
-      (data) => {this.Auth_Key = data["key"];},
+      (data) => {this.Auth_Key = data["key"];this.cart.loadCart()},
       (err) => console.log(err),
       () =>   this.api.AddUserTokenHeader(this.Auth_Key)
     );
@@ -31,6 +35,9 @@ export class LoginComponent implements OnInit , OnDestroy{
   get username(){ return this.loginForm.get('username');}
   get password(){ return this.loginForm.get('password');}
   ngOnDestroy(){
+  }
+  loginWithPhone(){
+    this.router.navigateByUrl(`/userGateway/(userGatewayRouter:login-with-phone)`);
   }
 
 }

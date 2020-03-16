@@ -2,13 +2,12 @@
 agm-map {
     height: 100vh;
 }
-.ui.grid .column
+.mapColumn
 {
     padding : 0 !important;
 }
 .container{
     width : 100% !important;
-    background-color: linen;
 }
 .six.wide.column
 {

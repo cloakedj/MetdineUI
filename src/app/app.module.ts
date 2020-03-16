@@ -71,6 +71,8 @@ import { PreviousOrdersComponent } from './components/user-side/previous-orders/
 import { SearchMaskComponent } from './components/user-side/search-mask/search-mask.component';
 import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule} from 'ngx-ui-loader';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
+import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +119,8 @@ import { ToastrModule } from 'ngx-toastr';
     ActiveOrderComponent,
     PreviousOrdersComponent,
     SearchMaskComponent,
+    LoginWithPhoneComponent,
+    VerifyPhoneComponent,
   ],
   imports: [
     BrowserModule,
