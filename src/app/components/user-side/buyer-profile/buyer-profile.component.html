@@ -18,6 +18,12 @@
                 <i class="address card icon"></i>{{userProfileData.email}}
                 </h3>
             </div>
+            <div class="ui hidden divider"></div>
+            <div class="row">
+                <h3 class="ui header">
+                <i class="phone icon"></i>{{userProfileData.phone}}
+                </h3>
+            </div>
         </ng-container>
         <div class="ui divider"></div>
         <button class="ui negative fluid button" (click)="logUserOut()">
@@ -25,7 +31,7 @@
         </button>
         <div class="ui hidden divider"></div>
         <button class="ui blue fluid button" *ngIf="!numberVerified" (click)="verifyPhone()">
-            Verify Phone Number
+            Update A Phone Number
         </button>
         </div>
     </div>

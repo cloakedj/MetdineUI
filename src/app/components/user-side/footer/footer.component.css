@@ -48,4 +48,7 @@ footer
     #contact-section{
         margin-bottom:20% !important;
     }
+    .ui.grid{
+        margin: 0 !important;
+    }
 }

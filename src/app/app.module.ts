@@ -73,7 +73,7 @@ import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule} from 
 import { ToastrModule } from 'ngx-toastr';
 import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
-import { OtpViewDirective } from './Directives/otp-view.directive';
+import { DisableInputDirective } from './Directives/disable-input.directive';
 
 @NgModule({
   declarations: [
@@ -122,7 +122,7 @@ import { OtpViewDirective } from './Directives/otp-view.directive';
     SearchMaskComponent,
     LoginWithPhoneComponent,
     VerifyPhoneComponent,
-    OtpViewDirective,
+    DisableInputDirective,
   ],
   imports: [
     BrowserModule,

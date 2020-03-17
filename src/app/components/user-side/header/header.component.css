@@ -36,10 +36,13 @@ flex: 1 1 auto;
 }
 .mobileNav{
   position: fixed;
-    z-index: 999;
-    background: #fff;
-    width: 105%;
-    bottom: 0%;
+  z-index: 999;
+  background: #fff;
+  width: 100%;
+  bottom: -3%;
+}
+.mobileNav.grid{
+  margin:0 !important;
 }
 a{ 
   color : purple;

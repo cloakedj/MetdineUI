@@ -52,7 +52,7 @@
 -->
 <div class="ui mobile tablet only centered mobileNav grid">
     <ng-container *ngIf="userLoggedIn">
-            <div class="four wide center aligned column">
+            <div class="three wide center aligned column">
                 <a [routerLink]="[{ outlets : {'userRouterOutlet' :['home']}}]"
                  routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
@@ -61,13 +61,21 @@
                 </h6>
                 </a>
             </div>
-            <div class="four wide column" (click)="searchOn = true;">
+            <div class="three wide column" (click)="searchOn = true;">
                 <h6 class="ui center aligned icon header">
                     <i class="search icon"></i>
                     Search
                 </h6>
             </div>
-            <div class="four wide column">
+            <div class="three wide column">
+                <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['profile']}}]">
+                <h6 class="ui center aligned icon header">
+                    <i class="user icon"></i>
+                    Profile
+                </h6>
+                </a>
+            </div>
+            <div class="three wide column">
                 <a [routerLink]="['/seller-side']" routerLinkActive="active" (click)="userLoggedIn = false">
                 <h6 class="ui center aligned icon header">
                     <i class="exchange icon"></i>
@@ -75,7 +83,7 @@
                 </h6>
             </a>
             </div>
-            <div class="four wide column">
+            <div class="three wide column">
                 <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
                     <i class="shopping cart icon"></i>

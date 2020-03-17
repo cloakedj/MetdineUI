@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-with-phone',
@@ -20,15 +21,17 @@ export class LoginWithPhoneComponent implements OnInit {
 constructor(private formbuilder: FormBuilder,
   private api : ApiService,
   private cart : CartService,
-  private router : Router) {}
+  private router : Router,
+  private toastr : ToastrService) {}
 
 ngOnInit() {
 }
 onSubmit(Data){
   this.loginSubscription = this.api.loginUserWithPhone(Data)
   .subscribe(
-    (data) => {this.Auth_Key = data["key"];this.cart.loadCart()},
-    (err) => console.log(err),
+    (data) => {this.Auth_Key = data["key"];
+    this.cart.loadCart()},
+    (err) => this.toastr.error("Something Went Wrong. Try Later!"),
     () =>   this.api.AddUserTokenHeader(this.Auth_Key)
   );
 }

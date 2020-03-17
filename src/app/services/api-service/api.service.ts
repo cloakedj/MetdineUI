@@ -341,6 +341,21 @@ export class ApiService {
         catchError(this.handleError)
       )
     }
+    //User get request Id
+    getRequestidForOtpVerification(phoneNumber){
+      return this.http.post(`${this.API_URL}/user/phone/confirm/`,{phone :phoneNumber})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Otp Verification
+    getOtpForVerification(data,rid){
+      this.params = new HttpParams().set("request_id",rid)
+      return this.http.post(`${this.API_URL}/user/phone/verify/`,data,{params : this.params})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
   //Log User Out
   logOutUser(){
     return this.http.post(`${this.API_URL}/rest-auth/logout/`,'')

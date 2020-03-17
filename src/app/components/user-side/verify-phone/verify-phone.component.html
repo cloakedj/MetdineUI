@@ -2,36 +2,47 @@
     <div class="fifteen wide mobile four wide computer column">
         <h3 class="ui top attached header center aligned inverted">Verify Your Phone Number</h3>
         <div class="ui raised attached segment">
-            <div class="ui message">
+            <div class="ui message" *ngIf="enteredPhone">
                 <h4 class="ui header">
-                    A Six Digit OTP Has Been Sent To ***799
+                    A Six Digit OTP Has Been Sent To {{phone.value}}
                 </h4>
             </div>
           <div class="ui divider"></div>
               <div class="ui fluid form">
-                  <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone">
+                <div class="field">
+                  <input placeholder="Phone Number" [formControl]="phone" type="text">
+                  <div class="ui pointing red basic label"  *ngIf="
+                  phone.errors?.minlength || phone.errors?.maxlength||
+                  phone.errors?.pattern && !phone.pristine">
+                    Enter A Valid Phone Number
+                </div>
+                <div class="ui pointing red basic label"  *ngIf="
+                  phone.errors?.required && !phone.pristine">
+                    Phone Number Is Required
+                </div>
+                <div class="ui hidden divider"></div>
+                <button class="ui positive fluid button" (click)="requestOtp()" *ngIf="!enteredPhone">Request OTP</button>
+                </div>
+                  <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone" *ngIf="enteredPhone">
                     <div class="ui centered header">
-                    <div class="ui red basic label"  *ngIf="verifyPhone.invalid && !verifyPhone.pristine">                      
+                    <div class="ui red basic label"  *ngIf="otp.invalid && !otp.pristine">                      
                         The Otp Should Be Six Digit
                         </div>
                     </div>
                     <div class="field">
-                      <input formControlName="otpval1" type="number" id="digit-1" data-next="digit-2">
-                      <input formControlName="otpval2" type="number" id="digit-2" data-next="digit-3" data-previous="digit-1">
-                      <input formControlName="otpval3" type="number" id="digit-3" data-next="digit-4" data-previous="digit-2">
-                      <input formControlName="otpval4" type="number" id="digit-4" data-next="digit-5" data-previous="digit-3">
-                      <input formControlName="otpval5" type="number" id="digit-5" data-next="digit-6" data-previous="digit-4">
-                      <input formControlName="otpval6" type="number" id="digit-6" data-previous="digit-5">
+                      <input placeholder="Enter The Otp" formControlName="otp" type="number">
                     </div>
                         <div class="field">
-                            <button class="ui  positive fluid button" [disabled]="verifyPhone.pristine || verifyPhone.invalid" type="submit">Login</button>
+                            <button class="ui  positive fluid button" [disabled]="verifyPhone.pristine || verifyPhone.invalid" type="submit">Submit OTP</button>
                         </div>
                 </form>
                 </div>
           </div>
+          <ng-container>
           <h5 class="ui bottom attached center aligned inverted header">
             Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
           </h5>
+        </ng-container>
         </div>
   </div>
   

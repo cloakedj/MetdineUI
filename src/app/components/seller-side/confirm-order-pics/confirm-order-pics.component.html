@@ -43,6 +43,15 @@
         <h2 class="ui top center aligned attached header">
             Send Pictures to User
           </h2>
+          <div class="ui error message">
+            <div class="header">
+              Please Keep These Points In Mind Before Uploading The Image.
+            </div>
+            <ul class="list">
+              <li>You must include both a upper and lower case letters in your password.</li>
+              <li>You need to select your home country.</li>
+            </ul>
+          </div>
           <div class="ui attached padded sendImages segment" [ngClass]="{
               'loading' : !orderDetails || loading
           }">

@@ -1,9 +1,6 @@
 @import "../login/login.component.css";
 
 input{
-    margin-left:1.5% !important;
-    margin-right:1.5% !important;
-    width:13% !important;
     -moz-appearance: textfield;
 }
 input[type=number]::-webkit-inner-spin-button, 

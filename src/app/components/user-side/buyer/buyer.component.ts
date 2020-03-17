@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class BuyerComponent implements OnInit {
   numberVerified : any;
-  messageVisible = true;
+  messageVisible = false;
   constructor(
     private api : ApiService,
     private toastr : ToastrService,
@@ -20,8 +20,9 @@ export class BuyerComponent implements OnInit {
   ngOnInit() {
     this.api.checkPhoneNumberVerStatus().subscribe(
       data => {
-        console.log(data);
         this.numberVerified = data;
+        if(this.numberVerified)
+        this.messageVisible = true;
       },
       err => this.toastr.error("Something Went Wrong. Please Try Again.")
     )

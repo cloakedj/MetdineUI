@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -21,18 +22,19 @@ export class SignupComponent implements OnInit, OnDestroy {
   });
   constructor(private formBuilder: FormBuilder,
     private api : ApiService,
-    private router : Router) {
+    private router : Router,
+    private toastr : ToastrService) {
   }
 
   ngOnInit() {
   }
   onSubmit(data){
     this.api.buyerRegistration(data).subscribe(
-      (data) => localStorage.setItem("Auth_Token",data["key"]),
-      (err) => console.log(err),
-      () => {
-        this.router.navigate(['/map'],{queryParams : {signup : true}});
-      }
+      (data) => {
+        localStorage.setItem("Auth_Token",data["key"]);
+        this.router.navigate(['/home']);
+       },
+      (err) => this.toastr.error(err),
     );
     this.signUpForm.reset();
   }
@@ -42,6 +44,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   get lname(){ return this.signUpForm.get('lname');}
   get username(){ return this.signUpForm.get('username');}
   get email(){ return this.signUpForm.get("email");}
+  get phone(){ return this.signUpForm.get("phone");}
   get password1(){ return this.signUpForm.get("password1");}
   get password2(){ return this.signUpForm.get("password2");}
 }
