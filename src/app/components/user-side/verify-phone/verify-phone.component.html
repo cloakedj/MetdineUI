@@ -16,12 +16,12 @@
                         </div>
                     </div>
                     <div class="field">
-                      <input formControlName="otpval1" type="number">
-                      <input formControlName="otpval2" type="number">
-                      <input formControlName="otpval3" type="number">
-                      <input formControlName="otpval4" type="number">
-                      <input formControlName="otpval5" type="number">
-                      <input formControlName="otpval6" type="number">
+                      <input formControlName="otpval1" type="number" id="digit-1" data-next="digit-2">
+                      <input formControlName="otpval2" type="number" id="digit-2" data-next="digit-3" data-previous="digit-1">
+                      <input formControlName="otpval3" type="number" id="digit-3" data-next="digit-4" data-previous="digit-2">
+                      <input formControlName="otpval4" type="number" id="digit-4" data-next="digit-5" data-previous="digit-3">
+                      <input formControlName="otpval5" type="number" id="digit-5" data-next="digit-6" data-previous="digit-4">
+                      <input formControlName="otpval6" type="number" id="digit-6" data-previous="digit-5">
                     </div>
                         <div class="field">
                             <button class="ui  positive fluid button" [disabled]="verifyPhone.pristine || verifyPhone.invalid" type="submit">Login</button>

@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+export enum KEYS{
+  BACKSPACE = 8,
+  DELETE = 46,
+  RANGEUP = 48,
+  RANGEDOWN = 57,
+  NUMUP = 97,
+  NUMDOWN = 105
+}
+
 @Component({
   selector: 'app-verify-phone',
   templateUrl: './verify-phone.component.html',
   styleUrls: ['./verify-phone.component.css']
 })
+
 export class VerifyPhoneComponent implements OnInit {
   Auth_Key = '';
   loginSubscription : Subscription;
@@ -27,6 +37,10 @@ constructor(private formbuilder: FormBuilder,
   private router : Router) {}
 
 ngOnInit() {
+}
+@HostListener('window:keyup',['$event'])
+keyEvent(event : KeyboardEvent){
+
 }
 onSubmit(Data){
   this.loginSubscription = this.api.loginUser(Data)
@@ -46,6 +60,12 @@ ngOnDestroy(){
 }
 loginWithPhone(){
   this.router.navigateByUrl(`/userGateway/(userGatewayRouter:login-with-phone)`);
+}
+moveToNextBox(event){ 
+
+}
+moveToPrevBox(){ 
+  
 }
 
 }
