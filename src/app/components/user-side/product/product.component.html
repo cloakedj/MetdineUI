@@ -17,7 +17,7 @@ two doubling tablet link cards grid container">
               {{getCategory(product.category)}}
             </div>
               <a class="ui orange label">
-                <i class="clock icon"></i>{{product.time_to_prepare}}
+                <i class="clock icon"></i>{{getTime(product.time_to_prepare)}}
               </a>
             <h5 class="ui header desc">
               {{product.short_description}}
@@ -26,7 +26,7 @@ two doubling tablet link cards grid container">
         </div>
         <div class="extra content">
             <button class="positive ui button right floated"   
-            (click)="[cart.updateCart(product.id),cartHasItems()]" 
+            (click)="[cartUpdation(product.id),cartHasItems()]" 
             *ngIf="!cartHItems" (switch)="onSwitch($event)">
             <h3 class="ui sub header">Add</h3></button>
             <app-inc-dec-cart  [productId] = "product.id" [toggle]="cartHItems" class="right floated"></app-inc-dec-cart>

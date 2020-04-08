@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://f8aeb451.ngrok.io/api';
+  API_URL = 'http://a6c79ce9.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -69,7 +69,7 @@ export class ApiService {
     )
   }
   loginUserWithPhone(credentials){
-    return this.http.post(`${this.API_URL}/api/user/phone/`, credentials)
+    return this.http.post(`${this.API_URL}/user/phone/`, credentials)
     .pipe(
       catchError(this.handleError)
     )
@@ -243,6 +243,13 @@ export class ApiService {
   //Endpoint To Patch Meal details
   patchMealDataById(id : any,data : any){
     return this.http.patch(`${this.API_URL}/seller/menu/${id}/`,data)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Endpoint to Delete Menu Item By Id
+  deleteMenuItemById(id : any){
+    return this.http.delete(`${this.API_URL}/seller/menu/${id}/`)
     .pipe(
       catchError(this.handleError)
     )

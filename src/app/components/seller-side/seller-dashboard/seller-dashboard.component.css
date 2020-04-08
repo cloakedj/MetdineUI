@@ -39,7 +39,7 @@
     margin-top:10%;
 }
 .completedOrders .segment{
-    padding-bottom : 4%;
+    padding-bottom : 10%;
 }
 @media (max-width: 780px){
     .ui.grid.quickoptions

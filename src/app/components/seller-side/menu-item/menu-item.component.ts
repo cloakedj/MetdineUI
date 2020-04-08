@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl, Form} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
@@ -39,7 +41,9 @@ export class MenuItemComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     private api: ApiService,
     private keepFile : KeepFilesService,
-    private cd : ChangeDetectorRef) {}
+    private cd : ChangeDetectorRef,
+    private toastr : ToastrService,
+    private router : Router) {}
 
   ngOnInit() {
     this.ItemDetailsFormGroup = this._formBuilder.group({
@@ -77,9 +81,12 @@ export class MenuItemComponent implements OnInit {
   apiToAddNewSellerItem(){ 
     this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
     this.addNewSellerItemObs$ = {
-      next : data => data,
-      error : err => console.log(err),
-      complete :() => console.log("Request To Add new Item Completed")
+      next : data => {
+        this.toastr.success("Sucessfully Added A New Item! Redirecting....");
+        this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)/`);
+      },
+      error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+      complete : () => console.log()
     }
     this.api.addNewItemFromSellerDashboard(this.ItemObjtoPush).subscribe(this.addNewSellerItemObs$);
     this.ItemPriceTimeFormGroup.reset();

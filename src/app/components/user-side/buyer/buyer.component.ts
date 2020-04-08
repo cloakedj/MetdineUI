@@ -21,7 +21,7 @@ export class BuyerComponent implements OnInit {
     this.api.checkPhoneNumberVerStatus().subscribe(
       data => {
         this.numberVerified = data;
-        if(this.numberVerified)
+        if(!this.numberVerified)
         this.messageVisible = true;
       },
       err => this.toastr.error("Something Went Wrong. Please Try Again.")

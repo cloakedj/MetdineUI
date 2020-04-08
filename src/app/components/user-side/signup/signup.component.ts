@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.api.buyerRegistration(data).subscribe(
       (data) => {
         localStorage.setItem("Auth_Token",data["key"]);
-        this.router.navigate(['/home']);
+        this.router.navigateByUrl(`/user/(userRouterOutlet:home)`);
        },
       (err) => this.toastr.error(err),
     );

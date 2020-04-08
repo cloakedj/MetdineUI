@@ -19,20 +19,21 @@
                 </h3>
             </div>
             <div class="ui hidden divider"></div>
-            <div class="row">
+            <div class="row" *ngIf="userProfileData.phone !== ''">
                 <h3 class="ui header">
                 <i class="phone icon"></i>{{userProfileData.phone}}
                 </h3>
             </div>
         </ng-container>
         <div class="ui divider"></div>
-        <button class="ui negative fluid button" (click)="logUserOut()">
+        <div class="two ui buttons">
+        <button class="ui negative button" (click)="logUserOut()">
             Log Out
         </button>
-        <div class="ui hidden divider"></div>
-        <button class="ui blue fluid button" *ngIf="!numberVerified" (click)="verifyPhone()">
-            Update A Phone Number
+        <button class="ui blue button" *ngIf="!numberVerified" (click)="verifyPhone()">
+            Update Phone Number
         </button>
+        </div>
         </div>
     </div>
     <div class="ui ten wide column">

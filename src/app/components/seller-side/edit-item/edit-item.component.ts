@@ -1,5 +1,6 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
@@ -37,7 +38,9 @@ export class EditItemComponent implements OnInit {
     private api : ApiService,
     private gc : GetCategoryService,
     private _fb : FormBuilder,
-    private keepFiles : KeepFilesService) {
+    private keepFiles : KeepFilesService,
+    private router : Router,
+    private toastr : ToastrService) {
       this.aroute.params.subscribe(routeParams => {
         this.productId = routeParams.id;
         this.api.getMealItemDetail(this.productId).subscribe(this.product$);
@@ -94,6 +97,15 @@ export class EditItemComponent implements OnInit {
       complete : () => console.log("Patch Completed")
     }
     this.api.patchMealDataById(this.productId,this.updatedFormData).subscribe(this.patchObs$);
+  }
+  removeMenuItem(){
+    this.api.deleteMenuItemById(this.productId).subscribe(
+      data => {
+        this.toastr.success("Menu Item Deleted Successfully!");
+        this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)`)
+      },
+      err => this.toastr.error("Something Went Wrong. Try Again!")
+    )
   }
 
 }

@@ -108,6 +108,7 @@ updateCart(id: number,operation?: string): void{
       },
       err => console.log(err),
       () => {
+        localStorage.removeItem("seller__id");
         this.loadCart();
         console.log("Completed request to delete current cart");
       }

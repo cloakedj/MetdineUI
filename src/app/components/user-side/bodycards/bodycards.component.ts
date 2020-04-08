@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Seller } from '../../../entities/seller.entity';
 import { Observable, Subscription } from 'rxjs';
@@ -14,12 +15,16 @@ export class BodycardsComponent implements OnInit {
   public sellers : any;
   constructor(private api:ApiService,
     public product : ProductService,
-    private gc : GetCategoryService
+    private gc : GetCategoryService,
+    private router : Router
     ) { }
 
   ngOnInit() {
   }
   getCategory(id: any){
     return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
+  }
+  openMap(){
+    this.router.navigateByUrl('/map');
   }
 }

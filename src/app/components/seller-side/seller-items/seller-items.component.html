@@ -2,12 +2,15 @@
     {{title}}
 </h1>
 <div class="ui center aligned divider"></div>
+<div class="ui centered five wide column grid">
+<button class="ui negative button" *ngIf="menuItems && !isSubSection" (click)="changeRemoveMode()">{{RemoveModeText}}</button>
+</div>
     <div class="ui stackable mobile doubling tablet link cards grid container" [ngClass]="{
       'three' : !skipItem,
       'center aligned' : skipItem
     }">
 <ng-container *ngIf="menuItems;else plForSellerProducts">
-    <div class="ui card" *ngFor="let product of menuItems;index as i;">
+    <div class="ui card" *ngFor="let product of menuItems;index as i;" [ngClass]="{'vibrate': removeItemsMode === true}">
       <ng-container *ngIf="(product.id != skipItem)">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
       <div class="image" [ngStyle]="{'background': 'url(' + product.image + ')'}">
@@ -31,9 +34,19 @@
           </div>
         </div>
         <div class="extra content">
-            <button class="ui fluid negative button" (click)="editItem(product.id)">
+            <button class="ui fluid blue button" (click)="editItem(product.id)">
                 Edit
             </button>
+            <ng-container *ngIf="removeItemsMode">
+            <div class="ui hidden divider">
+            </div>
+            <div class="ui centered five wide column grid">
+            <button class="circular ui icon negative huge button" (click)="removeMenuItem(product.id)"
+            data-tooltip="Remove This Item" data-inverted="" data-position="bottom center">
+              <i class="close icon"></i>
+            </button>
+          </div>
+            </ng-container>
         </div>
       </ng-container>
       </div>

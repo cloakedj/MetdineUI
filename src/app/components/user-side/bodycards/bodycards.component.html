@@ -1,15 +1,15 @@
-<div class="ui fourteen wide mobile only column grid">
+<div class="ui fourteen wide mobile only column grid container">
 <div class="ui raised segment">
   <h3 class="ui header">
     Current Location
   </h3>
   <div class="ui divider"></div>
-    <h4 class="ui header">
+    <h4 class="ui header" *ngIf="product.address else gettingAddress">
       {{product.address | contentLength : 60}}
     </h4>
   </div>
 </div>
-<div class="ui grid container">
+<div class="ui grid container sellers">
   <div class="sixteen wide computer sixteen wide mobile  ten wide doubling tablet centered column">
     <h1 class="ui centered header">
       Seller's Near You
@@ -57,4 +57,10 @@
     <div class="ui placeholder">
         <div class="square image"></div>
       </div>
+</ng-template>
+<ng-template #gettingAddress>
+  <div class="ui centered header">
+    Getting Your Location...
+    <div class="ui active inline loader"></div>
+  </div>
 </ng-template>

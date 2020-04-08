@@ -21,9 +21,8 @@
                         <div class="field">
                           <input placeholder="Username" formControlName="username" type="text">
                           <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine">
-                                <span *ngIf="username.errors?.required">Phone Number Is required</span>
-                                <!-- <span *ngIf="phoneNumber.errors?.minlength || phoneNumber.errors?.maxlength ||phoneNumber.errors?.pattern">Enter A Valid Phone Number</span> -->
-                         </div>
+                                <span *ngIf="username.errors?.required">Username Is required</span>
+                           </div>
                         </div>
                         <div class="field">
                           <input placeholder="Email" formControlName="email" type="text">

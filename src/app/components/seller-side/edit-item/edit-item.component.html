@@ -15,24 +15,27 @@
     </h3>
     <div class="ui hidden divider"></div>
     <div class="ui hidden divider"></div>
-    <a class="ui black label">
-        Price | {{productDetails.price | currency : 'INR'}}
-    </a>
-    <a class="ui label" [ngClass]="{
+    <div class="ui  black image label">
+        Price
+        <a class="detail">{{productDetails.price | currency : 'INR'}}</a>
+      </div>
+    <a class="ui image label" [ngClass]="{
         'yellow' : productDetails.category == 1,
         'orange' : productDetails.category == 2,
         'purple' : productDetails.category == 3,
         'pink' : productDetails.category == 4
     }">
-        Category | {{getCategory(productDetails.category)}}
+        Category
+        <a class="detail">{{getCategory(productDetails.category)}}</a>
     </a>
-    <a class="ui label" [ngClass]="{
+    <a class="ui image label" [ngClass]="{
         'teal' : productDetails.time_to_prepare == 1,
         'violet' : productDetails.time_to_prepare == 2,
         'blue' : productDetails.time_to_prepare == 3,
         'olive' : productDetails.time_to_prepare == 4
     }">
-        Time To Prepare | {{getTime(productDetails.time_to_prepare)}}
+        Time To Prepare
+        <a class="detail">{{getTime(productDetails.time_to_prepare)}}</a>
     </a>
     <a class="ui label" [ngClass]="{
         'green' : productDetails.is_veg,
@@ -45,6 +48,9 @@
     <div class="ui hidden divider"></div>
     <button class="ui positive button" (click)="editDetails = true">
         Edit Details
+    </button>
+    <button class="ui negative button" (click)="removeMenuItem()">
+        Remove This Item
     </button>
     <button class="ui negative button" *ngIf="editDetails" (click)="editDetails = false">
         Close
@@ -135,6 +141,6 @@
 </div>
 </div>
 <div class="six wide column">
-    <app-seller-items [skipItem]="productId" [showCount]="3"></app-seller-items>
+    <app-seller-items [skipItem]="productId" [showCount]="3" [isSubSection]="true"></app-seller-items>
 </div>
 </div>

@@ -1,6 +1,6 @@
 <app-header></app-header>
-<div class="ui two column centered grid">
-    <div class="fifteen wide mobile ten wide computer column">
+<div class="ui two column centered grid container">
+    <div class="sixteen wide mobile ten wide computer column">
         <h3 class="ui top attached header center aligned inverted">Become A Seller</h3>
         <div class="ui raised attached segment">
           <img class="ui circular centered small image" src="assets/molly.png">
@@ -46,6 +46,9 @@
                 </form>
                 </div>
           </div>
+          <h5 class="ui bottom attached center aligned inverted header">
+            Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
+          </h5>
         </div>
   </div>
   <app-footer></app-footer>

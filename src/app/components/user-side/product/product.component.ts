@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ɵConsole, AfterViewInit, Input } from '@angular/core';
 import { ProductService } from '../../../services/product-service/product.service';
 import { CartComponent } from '../cart/cart.component';
@@ -17,6 +18,7 @@ import { SearchService } from 'src/app/services/search-filter/search.service';
 })
 export class ProductComponent implements OnInit{
   cartHItems: boolean = false;
+  sellerId : Number;
   products : any;
   @Input() searchBar : any;
   constructor(
@@ -25,13 +27,17 @@ export class ProductComponent implements OnInit{
   public cart: CartService,
   private api : ApiService,
   private gc : GetCategoryService,
-  private _search : SearchService
+  private _search : SearchService,
+  private aroute : ActivatedRoute
   ) 
   { 
     this.products = this.productService.productsArr;
   }
 
   ngOnInit() {
+    this.aroute.params.subscribe(params => {
+      this.sellerId = params["id"];
+    });
   }
   vegNonvegFilter(type : boolean):string{
     if (type) return "Veg";
@@ -68,5 +74,14 @@ export class ProductComponent implements OnInit{
       }
     });
   }
+  getTime(id : any){
+    return this.gc.returnTime(id-1);
+  }
+  cartUpdation(id){
+    if(localStorage.getItem("seller__id")){
+      if(this.sellerId === parseInt(localStorage.getItem("seller__id")))
+      this.cart.updateCart(id);
+    }
+    localStorage.setItem("seller__id",this.sellerId.toString());  }
 
 }

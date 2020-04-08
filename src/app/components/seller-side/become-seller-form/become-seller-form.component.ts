@@ -76,7 +76,6 @@ export class BecomeSellerFormComponent implements OnInit {
     data.address = this.formatted_address;
     data["latitude"] = this.latitude;
     data["longitude"] = this.longitude;
-    console.log(data);
     this.Obs$ = {
       next : data => this.api.SetSellerAccountStatus(),
       error : err => console.log(err),
