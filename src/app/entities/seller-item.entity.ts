@@ -8,4 +8,5 @@ export class SellerItem{
     category : String;
     time_to_prepare : number;
     is_veg: boolean;
+    is_available : boolean;
 }

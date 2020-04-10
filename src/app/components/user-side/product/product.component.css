@@ -6,9 +6,10 @@
 .card{
     box-shadow: none !important;
 }
-.card .image img{
+.card .image-container .image img{
     border-radius: 10px !important;
     min-height: 200px;
+    z-index: -1;
 }
 .header{
     font-family: 'Righteous', cursive !important;
@@ -22,4 +23,22 @@
 .label{
     color:#ffffff;
     font-family: 'Righteous', cursive !important;
+    margin-bottom:5% !important;
+}
+#unavailability-message{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:#fff !important;
+}
+.blurOut{
+    filter:blur(3px);
+}
+.image-mask{
+    min-height:200px;
+    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
 }

@@ -5,7 +5,7 @@
 }">
     <ng-container *ngIf="productDetails">
     <h1 class="ui header">
-        Product Id : {{productDetails.id}}
+        Product Id : #{{productDetails.id}}
     </h1>
     <h3 class="ui header">
         Item Title : {{productDetails.title}}
@@ -43,6 +43,9 @@
     }">
         {{vegNonvegFilter(productDetails.is_veg)}}
     </a>
+    <a class="ui teal label" *ngIf="productDetails.is_available else makeUnavailableLabel">
+        Available
+    </a>
     <div class="ui hidden divider"></div>
     <img class="ui medium rounded image" src="{{productDetails.image}}">
     <div class="ui hidden divider"></div>
@@ -52,6 +55,19 @@
     <button class="ui negative button" (click)="removeMenuItem()">
         Remove This Item
     </button>
+    <button class="ui teal button" (click)="makeItemAvailable(productDetails.id)" *ngIf="!productDetails.is_available else makeUnavailable">
+        Make Item Available
+    </button>
+    <ng-template #makeUnavailable>
+    <button class="ui olive button" (click)="makeItemUnavailable(productDetails.id)">
+        Make Item Unavailable
+    </button>
+    </ng-template>
+    <ng-template #makeUnavailableLabel>
+        <a class="ui olive label">
+            Unavailable
+        </a>
+    </ng-template>
     <button class="ui negative button" *ngIf="editDetails" (click)="editDetails = false">
         Close
     </button>

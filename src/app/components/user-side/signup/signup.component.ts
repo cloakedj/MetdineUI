@@ -31,8 +31,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSubmit(data){
     this.api.buyerRegistration(data).subscribe(
       (data) => {
-        localStorage.setItem("Auth_Token",data["key"]);
-        this.router.navigateByUrl(`/user/(userRouterOutlet:home)`);
+        this.router.navigateByUrl(`/confirm-email`)
        },
       (err) => this.toastr.error(err),
     );

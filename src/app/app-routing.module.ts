@@ -1,3 +1,4 @@
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PagenotfoundComponent } from './components/user-side/pagenotfound/pagenotfound.component';
@@ -55,6 +56,7 @@ const routes: Routes =[
   ]},
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path: 'map', component:GeolocationComponent},
+  { path : 'confirm-email', component : ConfirmEmailComponent},
   { path: 'userGateway', component: UserGatewayComponent,children:[
     { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
     { path: 'login-with-phone', component:LoginWithPhoneComponent,outlet: 'userGatewayRouter'},

@@ -1,7 +1,7 @@
 <div class="ui stackable grid">
-    <ng-container *ngIf="activeOrderData">
     <div class="ten wide column">
-    <div class="ui raised segment" *ngFor="let data of activeOrderData">
+    <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
+        <ng-container *ngIf="activeOrderData">
         <h1 class="ui header">
             Order Id : #{{data.id}}
         </h1>
@@ -34,6 +34,7 @@
                 </div>
                 </div>
             </ng-container>
+        <ng-container *ngIf="sentImages !== undefined else waitingForImages">
         <h3 class="ui center aligned header">
             Confirm Seller Pictures
         </h3>
@@ -67,14 +68,17 @@
             (click)="rejectImages(sentImages[0].id)">
                 Reject
             </button>
+        </ng-container>
+    </ng-container>
     </div>
 </div>
 <div class="six wide column">
-    <div class="ui segment">
+    <div class="ui segment" [ngClass]="{'loading': !activeOrderData}">
         <h2 class="ui center aligned header">
             Order Details
         </h2>
         <div class="ui divider"></div>
+        <ng-container *ngIf="activeOrderData">
         <div class="row">
             <table class="ui single line table" *ngFor="let data of activeOrderData;">
             <thead>
@@ -103,8 +107,15 @@
             </tbody>
             </table>
         </div>
-        <div class="ui dieendivider"></div>
+    </ng-container>
+        <div class="ui divider"></div>
     </div>
 </div>
-</ng-container>
 </div>
+<ng-template #waitingForImages>
+    <div class="ui centered column grid container">
+        <h3 class="ui header">
+            Seller Has Not Sent The Images Yet.
+        </h3>
+    </div>
+</ng-template>

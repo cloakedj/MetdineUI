@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://a6c79ce9.ngrok.io/api';
+  API_URL = 'http://da0dd0c9.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -206,8 +206,8 @@ export class ApiService {
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(address : any){
-    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address})
+  checkoutUserCart(address : any,topay : any){
+    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address,total : topay})
     .pipe(
       catchError(this.handleError)
     )
@@ -247,6 +247,13 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+    //Make Item Available And Unavailable
+    patchMealAvailabilityById(id : any,status : boolean){
+      return this.http.patch(`${this.API_URL}/seller/menu/${id}/`,{is_available : status})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
   //Endpoint to Delete Menu Item By Id
   deleteMenuItemById(id : any){
     return this.http.delete(`${this.API_URL}/seller/menu/${id}/`)

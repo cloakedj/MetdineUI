@@ -1,5 +1,5 @@
      <div class="column maincontainer">
-      <ng-container *ngIf="imagesSent[0].status">
+      <ng-container *ngIf="imagesSent !== undefined">
       <div class="ui error message" *ngIf="imagesSent[0].status == 'Refused'">
         <i class="close icon"></i>
         <div class="header">
@@ -112,7 +112,7 @@
         <div class="ui hidden divider">
         </div>
         <div class="row">
-          <ng-container  *ngIf="imagesSent[0].status == 'Confirmed'">
+          <ng-container  *ngIf="imagesSent !== undefined && imagesSent[0].status == 'Confirmed'">
             <div class="confirmedMask">
             <div class="lock notice">
                 <h4 class="ui center aligned icon header">

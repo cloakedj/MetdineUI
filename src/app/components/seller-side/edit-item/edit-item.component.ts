@@ -34,6 +34,11 @@ export class EditItemComponent implements OnInit {
     {value: '120 minutes'},
   ];
   imageUpdated = false;
+  patchItemObs$ : Observer<any> = {
+    next : data => this.toastr.success("Item Status Changed Successfully"),
+    error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+    complete : () => this.getProductDetails()
+  }
   constructor(private aroute :ActivatedRoute,
     private api : ApiService,
     private gc : GetCategoryService,
@@ -46,14 +51,16 @@ export class EditItemComponent implements OnInit {
         this.api.getMealItemDetail(this.productId).subscribe(this.product$);
       });
      }
-
+     getProductDetails(){
+      this.product$ = {
+        next : data => this.productDetails = data,
+        error : err => console.log(err),
+        complete : () => console.log("Got product Details")
+      }
+      this.api.getMealItemDetail(this.productId).subscribe(this.product$);
+     }
   ngOnInit() {
-    this.product$ = {
-      next : data => this.productDetails = data,
-      error : err => console.log(err),
-      complete : () => console.log("Got product Details")
-    }
-    this.api.getMealItemDetail(this.productId).subscribe(this.product$);
+    this.getProductDetails();
     this.updateItemData = this._fb.group({
       title : ['',[
         Validators.pattern(/^[a-zA-Z\s]+$/i)
@@ -106,6 +113,12 @@ export class EditItemComponent implements OnInit {
       },
       err => this.toastr.error("Something Went Wrong. Try Again!")
     )
+  }
+  makeItemUnavailable(id : any){
+    this.api.patchMealAvailabilityById(id,false).subscribe(this.patchItemObs$);
+  }
+  makeItemAvailable(id : any){
+    this.api.patchMealAvailabilityById(id,true).subscribe(this.patchItemObs$);
   }
 
 }

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone, ViewEncapsulation, Input  } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
@@ -24,6 +25,7 @@ export class GeolocationComponent implements OnInit{
   public isOnCheckoutMode;
   public locationBtnTitle;
   saveNewAddress$ : Observer<any>;
+  totalToPay : any;
   public locationIcon = {
     url : 'https://image.flaticon.com/icons/png/512/1176/1176403.png',
     label: {
@@ -59,11 +61,13 @@ export class GeolocationComponent implements OnInit{
     private aroute : ActivatedRoute,
     private api : ApiService,
     private _fb : FormBuilder,
-    private router : Router
+    private router : Router,
+    private toastr : ToastrService
   ) { 
    this.aroute.queryParams.subscribe(params =>{
     this.isOnCheckoutMode = params['checkout'];
     this.isSigningUp = params['signup'];
+    this.totalToPay = params["total_amount"];
     });
     if(!this.isSigningUp)
     {
@@ -144,10 +148,10 @@ export class GeolocationComponent implements OnInit{
           this.address = results[0].formatted_address;
           this.zipCode = results[0].address_components[results[0].address_components.length - 1].long_name;
         } else {
-          window.alert('No results found');
+          this.toastr.error('No results found');
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
+        this.toastr.error('Geocoder failed due to: ' + status);
       }
  
     });
@@ -156,7 +160,7 @@ export class GeolocationComponent implements OnInit{
     this.loading = true;
     if(this.isOnCheckoutMode){
       let redirecturl;
-      this.api.checkoutUserCart(this.address)
+      this.api.checkoutUserCart(this.address,this.totalToPay)
       .subscribe(
         data => redirecturl = data["redirect_url"],
         err => console.log(err),

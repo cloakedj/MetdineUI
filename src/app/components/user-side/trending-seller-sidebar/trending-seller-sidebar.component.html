@@ -1,7 +1,7 @@
-<div class="column" *ngIf="trendingSellersFeed$">
+<div class="column">
     <h2 class="ui centered header">Trending Sellers</h2>
     <div class="ui divider"></div>
-    <div class="ui grid" >
+    <div class="ui grid" *ngIf="trendingSellersFeed$ else loading">
         <div class="column row" *ngFor="let seller of trendingSellers">
             <div class="image">
                 <a 
@@ -21,3 +21,9 @@
         </div>
     </div>
 </div>
+<ng-template #loading>
+    <div class="ui centered column grid">
+        <div class="ui hidden divider"></div>
+        <div class="ui active inline loader"></div>
+    </div>
+</ng-template>

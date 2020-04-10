@@ -2,6 +2,10 @@
 agm-map {
     height: 100vh;
 }
+.mask
+{
+    background: rgba(0,0,0,0.6);
+}
 .mapColumn
 {
     padding : 0 !important;

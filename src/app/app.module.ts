@@ -74,6 +74,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 import { DisableInputDirective } from './Directives/disable-input.directive';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { DisableInputDirective } from './Directives/disable-input.directive';
     LoginWithPhoneComponent,
     VerifyPhoneComponent,
     DisableInputDirective,
+    ConfirmEmailComponent,
   ],
   imports: [
     BrowserModule,

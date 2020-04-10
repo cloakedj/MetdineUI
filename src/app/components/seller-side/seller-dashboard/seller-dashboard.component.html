@@ -108,10 +108,14 @@
             </table>
           </div>
           <div class="four wide column actions">
-            <button class="circular positive ui icon button" (click)="updateRequestedOrderStatus(order.id,1)">
+            <button class="circular positive ui icon button" 
+            data-inverted="" data-position="top right" data-tooltip="Accept Order"
+            (click)="updateRequestedOrderStatus(order.id,1)">
               <i class="check icon"></i>
             </button>
-            <button class="circular negative ui icon button" (click)="updateRequestedOrderStatus(order.id,6)">
+            <button class="circular negative ui icon button" 
+            data-inverted="" data-position="top left" data-tooltip="Reject Order"
+            (click)="updateRequestedOrderStatus(order.id,6)">
               <i class="close icon"></i>
             </button>
           </div>

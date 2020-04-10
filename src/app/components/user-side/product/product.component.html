@@ -3,8 +3,11 @@ two doubling tablet link cards grid container">
   <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
     <div  class="ui card" *ngFor="let product of productService.productsArr">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
-      <div class="image">
+      <div class="image" [ngClass]="{'blurOut':!product.is_available}">
         <img src="{{product.image}}">
+        </div>
+        <div class="image-mask" *ngIf="!product.is_available">
+          <h5 class="ui header" id="unavailability-message">Item Is Unavailable.</h5>
         </div>
       </ng-container>  
         <div class="content">
@@ -24,7 +27,7 @@ two doubling tablet link cards grid container">
             </h5>
           </div>
         </div>
-        <div class="extra content">
+        <div class="extra content" *ngIf="product.is_available">
             <button class="positive ui button right floated"   
             (click)="[cartUpdation(product.id),cartHasItems()]" 
             *ngIf="!cartHItems" (switch)="onSwitch($event)">

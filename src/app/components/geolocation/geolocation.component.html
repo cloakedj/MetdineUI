@@ -1,4 +1,4 @@
-<div class="ui container">
+<div class="ui container" [ngClass]="{'mask':isSellerSide}">
   <div class="ui stackable grid">
     <div class="six wide stretched column mapColumn">
       <div class="ui centered raised segment" [ngClass]="{
@@ -76,6 +76,11 @@
           </div>
         </div>
       </div>
+      </ng-container>
+      <ng-container *ngIf="!isSellerSide">
+        <h4 class="ui centered header">
+          Return Back To <u><a href="/home">Home</a></u>
+        </h4>
       </ng-container>
     </div>
     </div>

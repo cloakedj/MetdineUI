@@ -23,7 +23,7 @@ export class BuyerProfileComponent implements OnInit {
     private toastr : ToastrService) {
     this.userDetailsObs$ = {
       next : (data) => this.userProfileData = data,
-      error : err => console.log(err),
+      error : err => this.toastr.error(err),
       complete : () => console.log("Completed request to user profile")
     }
     this.api.getUserProfileInfo().subscribe(this.userDetailsObs$);

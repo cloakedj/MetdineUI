@@ -31,7 +31,7 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
       this.product.sellerId = routeParams.id;
       this.product.getSellerItems(this.product.sellerId);
       this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
-    })
+    });
     this.product.sellerLogo = this.sellerLogo;
   }
 

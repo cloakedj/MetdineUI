@@ -38,8 +38,8 @@ export class CartComponent implements OnInit {
     this.winWidth = window.innerWidth;
     this.cart.loadCart();
   }
-  checkoutCart(){
-    this.router.navigate(['/map'],{queryParams : {checkout : true}})
+  checkoutCart(total : any){
+    this.router.navigate(['/map'],{queryParams : {checkout : true,total_amount : total}})
   }
   sellerPage(){
     this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${this.sellerId})`);
