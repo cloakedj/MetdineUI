@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://f7f60fa0.ngrok.io/api';
+  API_URL = 'http://856ec3cd.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,

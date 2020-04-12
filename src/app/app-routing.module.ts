@@ -1,3 +1,5 @@
+import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-email/confirm-user-email.component';
+import { PaymentWaitingScreenComponent } from './components/user-side/payment-waiting-screen/payment-waiting-screen.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -57,6 +59,8 @@ const routes: Routes =[
   { path:'becomeSeller', component : BecomeSellerFormComponent},
   { path: 'map', component:GeolocationComponent},
   { path : 'confirm-email', component : ConfirmEmailComponent},
+  { path : 'confirm-user-email', component : ConfirmUserEmailComponent},
+  { path: 'payment-confirmation-wait', component: PaymentWaitingScreenComponent},
   { path: 'userGateway', component: UserGatewayComponent,children:[
     { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
     { path: 'login-with-phone', component:LoginWithPhoneComponent,outlet: 'userGatewayRouter'},

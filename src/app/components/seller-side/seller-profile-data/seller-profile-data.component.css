@@ -2,10 +2,10 @@
     padding-top:2.5% !important;
     padding-right: 3% !important;
 }
-.closeMap{
+.closeMap{    
     position: absolute;
-    left:82%;
-    top:1%;
+    left: 94%;
+    top: 3%;
     z-index: 999999;
 }
 .sixteen.wide.column{
@@ -53,6 +53,12 @@ app-geolocation{
     width: 100%;
     z-index: 99999;
     padding-right: 0 !important;
+}
+@media (max-width:500px){
+.closeMap{
+    left:82%;
+    top:1%;    
+}
 }
 @media (max-width : 350px){
 #actionId{

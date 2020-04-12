@@ -90,18 +90,19 @@ export class EditItemComponent implements OnInit {
   }
   imageChanged(){
     this.imageUpdated = true;
-    this.updatedFormData.append("image",this.keepFiles.Files[0])
   }
   updateItem(){
+    if(this.imageUpdated)
+    this.updatedFormData.append("image",this.keepFiles.Files[0]);
     this.updateItemData['_forEachChild']((control,name)=>{
       if(control.dirty){
         this.updatedFormData.append(name.toString(),control.value);
       }
     });
     this.patchObs$ = {
-      next : data => console.log("Patched"),
-      error: err => console.log(err),
-      complete : () => console.log("Patch Completed")
+      next : data => this.toastr.success("Item Updated Successfully"),
+      error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+      complete : () => this.getProductDetails()
     }
     this.api.patchMealDataById(this.productId,this.updatedFormData).subscribe(this.patchObs$);
   }

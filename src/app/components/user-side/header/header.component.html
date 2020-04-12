@@ -55,52 +55,13 @@
             <div class="pulse-loader"></div>
         </div>
     </div>
-    <div class="two wide column">
-        <a class="ui image black label">
-            Order Id
-            <a class="detail">
-                #{{activeOrderData[0].id}}
-            </a>
-        </a>
-    </div>
-    <div class="three wide column">
-        <a 
-        [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',activeOrderData[0].seller_id]}}]" 
-        routerLinkActive="active">
-        <div class="ui header">
-        <img class="ui mini rounded image" src="{{activeOrderData[0].seller_logo}}">
-        {{activeOrderData[0].seller_name}}
+    <ng-container *ngIf="activeOrderData[0].status === 5 else computerActiveOrderNav">
+        <div class="fourteen wide column">
+            <h3 class="ui centered header">
+                We Are Waiting For The Seller To Accept Your Order. Please Wait Patiently.
+            </h3>
         </div>
-        </a>
-    </div>
-    <div class="three wide column">
-        <a class="ui image label"
-        [ngClass]="{
-            'green' : activeOrderData[0].status === 1,
-            'teal' : activeOrderData[0].status === 2,
-            'yellow' : activeOrderData[0].status === 3,
-            'red' : activeOrderData[0].status === 4
-            }">
-            Order Status
-            <a class="detail">
-                {{getOrderStatus(activeOrderData[0].status)}}
-            </a>
-        </a>
-    </div>
-    <div class="four wide column">
-        <a class="ui orange label">
-            Time For Preparation
-            <a class="detail">
-            <i class="clock icon"></i>{{getTime(activeOrderData[0].time)}}
-             </a>
-          </a>
-    </div>
-    <div class="two wide column">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
-        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
-            View Order
-        </a>
-    </div>
+    </ng-container>
 </div>
 </div>
 <!--
@@ -115,33 +76,13 @@
             <div class="pulse-loader"></div>
         </div>
     </div>
-    <div class="two wide column">
-        <a class="ui image black label">
-                #{{activeOrderData[0].id}}
-        </a>
-    </div>
-    <div class="three wide column">
-        <a class="ui image label"
-        [ngClass]="{
-            'green' : activeOrderData[0].status === 1,
-            'teal' : activeOrderData[0].status === 2,
-            'yellow' : activeOrderData[0].status === 3,
-            'red' : activeOrderData[0].status === 4
-            }">
-                {{getOrderStatus(activeOrderData[0].status)}}
-        </a>
-    </div>
-    <div class="four wide column">
-        <a class="ui orange label">
-            <i class="clock icon"></i>{{getTime(activeOrderData[0].time,"mobile")}}
-             </a>
-    </div>
-    <div class="five wide column">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
-        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
-            View Order
-        </a>
-    </div>
+    <ng-container *ngIf="activeOrderData[0].status === 5 else activeOrderNavbarMobile">
+        <div class="fourteen wide column">
+            <h5 class="ui sub header">
+                Waiting For The Seller To Accept Order.
+            </h5>
+        </div>
+    </ng-container>
 </div>
 <div class="ui mobile tablet only centered mobileNav grid">
     <ng-container *ngIf="userLoggedIn">
@@ -197,3 +138,102 @@
     X
 </h1>
 </div>
+
+<ng-template #activeOrderNavbarMobile>
+    <div class="two wide column" *ngIf="screenSize > 370">
+        <a class="ui image black label">
+                #{{activeOrderData[0].id}}
+        </a>
+    </div>
+    <div class="three wide column"*ngIf="screenSize > 360 else smallScreenStatus">
+        <a class="ui image label"
+        [ngClass]="{
+            'green' : activeOrderData[0].status === 1,
+            'teal' : activeOrderData[0].status === 2,
+            'yellow' : activeOrderData[0].status === 3,
+            'red' : activeOrderData[0].status === 4
+            }">
+                {{getOrderStatus(activeOrderData[0].status)}}
+        </a>
+    </div>
+    <div class="four wide column">
+        <a class="ui orange label">
+            <i class="clock icon" *ngIf="screenSize > 350"></i>{{getTime(activeOrderData[0].time,"mobile")}}min
+             </a>
+    </div>
+    <div class="five wide column" *ngIf="screenSize > 370 else smallScreenActiveOrder">
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
+        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+            View Order
+        </a>
+    </div>
+</ng-template>
+<ng-template #computerActiveOrderNav>
+    <div class="two wide column">
+        <a class="ui image black label">
+            Order Id
+            <a class="detail">
+                #{{activeOrderData[0].id}}
+            </a>
+        </a>
+    </div>
+    <div class="three wide column">
+        <a 
+        [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',activeOrderData[0].seller_id]}}]" 
+        routerLinkActive="active">
+        <div class="ui header">
+        <img class="ui mini rounded image" src="{{activeOrderData[0].seller_logo}}">
+        {{activeOrderData[0].seller_name}}
+        </div>
+        </a>
+    </div>
+    <div class="three wide column">
+        <a class="ui image label"
+        [ngClass]="{
+            'green' : activeOrderData[0].status === 1,
+            'teal' : activeOrderData[0].status === 2,
+            'yellow' : activeOrderData[0].status === 3,
+            'red' : activeOrderData[0].status === 4
+            }">
+            Order Status
+            <a class="detail">
+                {{getOrderStatus(activeOrderData[0].status)}}
+            </a>
+        </a>
+    </div>
+    <!-- <div class="four wide column">
+        <a class="ui orange label">
+            Time For Preparation
+            <a class="detail">
+            <i class="clock icon"></i>{{getTime(activeOrderData[0].time)}}
+             </a>
+          </a>
+    </div> -->
+    <div class="two wide column">
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
+        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+            View Order
+        </a>
+    </div>
+</ng-template>
+<ng-template #smallScreenActiveOrder>
+    <div class="six wide column">
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
+        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+            View Order
+        </a>
+    </div>
+</ng-template>
+<ng-template #smallScreenStatus>
+    <div class="four wide column">
+        <a class="ui image label"
+        [ngClass]="{
+            'green' : activeOrderData[0].status === 1,
+            'teal' : activeOrderData[0].status === 2,
+            'yellow' : activeOrderData[0].status === 3,
+            'red' : activeOrderData[0].status === 4
+            }">
+                {{getOrderStatus(activeOrderData[0].status)}}
+        </a>
+    </div>
+</ng-template>

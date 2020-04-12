@@ -130,7 +130,6 @@ export class SellerDashboardComponent implements OnInit {
   }
   getTableItems(id : any){
     for(const order in this.sellerRequestedOrders){
-    console.log(order)
     }
   }
   getOrderStatus(id: number): any {

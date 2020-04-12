@@ -105,13 +105,20 @@ label{
   padding:13.5%;
 }
 .mobileActiveOrderNavbar{
+  background: #fff;
   position: fixed;
   bottom:13%;
   z-index:999;
+  min-width:92% !important;
 }
 @media (max-width : 780px){
   .closeSearch{
     top : 2% !important;
     right:  3%;
+  }
+}
+@media (max-width : 360px){
+  .mobileActiveOrderNavbar{
+    bottom : 18% !important;
   }
 }

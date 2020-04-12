@@ -75,6 +75,8 @@ import { LoginWithPhoneComponent } from './components/user-side/login-with-phone
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 import { DisableInputDirective } from './Directives/disable-input.directive';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
+import { PaymentWaitingScreenComponent } from './components/user-side/payment-waiting-screen/payment-waiting-screen.component';
+import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-email/confirm-user-email.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +127,8 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
     VerifyPhoneComponent,
     DisableInputDirective,
     ConfirmEmailComponent,
+    PaymentWaitingScreenComponent,
+    ConfirmUserEmailComponent,
   ],
   imports: [
     BrowserModule,
