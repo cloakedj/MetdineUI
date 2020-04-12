@@ -1,3 +1,18 @@
 .grid.container{
     padding-top:5%;
 }
+@media (max-width : 350px){
+    h3.ui.header {
+        font-size: 0.9rem;
+    }
+}
+@media(max-width: 390px) and (min-width : 360px){
+    h3.ui.header {
+        font-size: 1.1rem;
+    }
+}
+@media(max-width: 500px) and (min-width : 400px){
+    h3.ui.header {
+        font-size: 1.23456rem;
+    }
+}

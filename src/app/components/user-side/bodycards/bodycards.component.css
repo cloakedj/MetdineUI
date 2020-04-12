@@ -5,6 +5,9 @@
   min-height: 100%;
   padding-top:4%;
 }
+.location{
+  min-width:100%;
+}
 .image img{
   outline: none;
   min-height:200px;

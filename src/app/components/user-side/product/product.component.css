@@ -42,3 +42,14 @@
     top:0;
     left:0;
 }
+@media (max-width:350px){
+#unavailability-message{
+    font-size:0.85rem !important;
+}
+}
+@media(min-width:780px){
+    .product-image{
+        max-height: 200px;
+        min-height: 200px;
+    }
+}

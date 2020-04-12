@@ -27,3 +27,15 @@
 .grid.container{
     height: 100%;
 }
+@media (max-width:380px) and (min-width:360px)
+{
+.cart .column{
+    padding:0.2rem !important;
+}
+}
+@media (max-width:350px)
+{
+.cart .column{
+    padding:0 !important;
+}
+}

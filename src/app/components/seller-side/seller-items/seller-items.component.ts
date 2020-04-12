@@ -16,6 +16,7 @@ export class SellerItemsComponent implements OnInit {
   @Input() showCount : any;
   @Input() isSubSection = false;
   title = "Menu Items";
+  screenWidth = window.screen.width;
   RemoveModeText = "Remove Items";
   itemsObs$ : Observer<any[]>;
   removeItemsMode = false;

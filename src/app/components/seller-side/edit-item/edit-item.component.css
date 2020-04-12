@@ -4,3 +4,13 @@
 .mat-radio-group{
     width:30%;
 }
+@media (max-width : 500px)
+{
+button{
+    margin-bottom: 5% !important;
+}
+.ui.label
+{
+margin-bottom: 5% !important;
+}
+}

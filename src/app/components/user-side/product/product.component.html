@@ -4,7 +4,7 @@ two doubling tablet link cards grid container">
     <div  class="ui card" *ngFor="let product of productService.productsArr">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
       <div class="image" [ngClass]="{'blurOut':!product.is_available}">
-        <img src="{{product.image}}">
+        <img src="{{product.image}}"class="product-image">
         </div>
         <div class="image-mask" *ngIf="!product.is_available">
           <h5 class="ui header" id="unavailability-message">Item Is Unavailable.</h5>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { SellerDash } from 'src/app/entities/seller-dash.entity';
@@ -26,6 +27,7 @@ export class SellerProfileDataComponent implements OnInit {
   updateSellerInfo$ : Observer<any>;
   editedSellerInfo = new FormData();
   constructor(private api: ApiService,
+    private router : Router,
     private _fb : FormBuilder) { }
 
   ngOnInit() {
@@ -63,6 +65,9 @@ export class SellerProfileDataComponent implements OnInit {
       complete : () => this.api.getSellerQuickData().subscribe(this.sellerData$)
     }
     this.api.updateSellerProfile(this.editedSellerInfo,this.sellerDashOptions.id).subscribe(this.updateSellerInfo$);
+  }
+  toCompletedOrders(){
+    this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:completed-orders)`);
   }
 
 }

@@ -2,6 +2,12 @@
     padding-top:2.5% !important;
     padding-right: 3% !important;
 }
+.closeMap{
+    position: absolute;
+    left:82%;
+    top:1%;
+    z-index: 999999;
+}
 .sixteen.wide.column{
     padding-right: 2% !important;
 }
@@ -40,7 +46,16 @@
 .ui.grid.editDetails{
     padding : 0 !important;
 }
+.scrollMap{
+    overflow-y: scroll;
+}
 app-geolocation{
     width: 100%;
     z-index: 99999;
+    padding-right: 0 !important;
+}
+@media (max-width : 350px){
+#actionId{
+ padding : 0 !important;   
+}
 }

@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.winWidth = window.innerWidth;
+    this.winWidth = window.screen.width;
     this.cart.loadCart();
   }
   checkoutCart(total : any){

@@ -47,13 +47,15 @@
         </div>
         <div class="extra content">
             <button class="ui blue button" (click)="editItem(product.id)"
-            [ngClass]="{'left floated': product.is_available,'fluid':!product.is_available}">
+            [ngClass]="{'left floated': product.is_available && screenWidth > 500,'fluid':!product.is_available || screenWidth < 500}">
                 Edit
             </button>
-            <button class="ui right floated olive button" (click)="makeItemUnavailable(product.id)" *ngIf="product.is_available">
+            <button class="ui olive button" [ngClass]="{'right floated' : screenWidth > 380, 'fluid' : screenWidth < 500}" (click)="makeItemUnavailable(product.id)" *ngIf="product.is_available">
               Make Item Unavailable
           </button>
             <ng-container *ngIf="removeItemsMode">
+            <div class="ui hidden divider">
+            </div>
             <div class="ui hidden divider">
             </div>
             <div class="ui centered five wide column grid">

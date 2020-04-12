@@ -1,9 +1,14 @@
 <!--
   Edit seller details
 -->
-<div class="ui grid editDetails" *ngIf="editDetailsShow">
+<div class="ui grid editDetails" [ngClass]="{'scrollMap':editAddress}" *ngIf="editDetailsShow">
+  <div class="closeMap" *ngIf="editAddress">
+    <button class="ui negative icon button" (click)="editAddress = false">
+      <i class="close icon"></i>
+    </button>
+  </div>
   <app-geolocation *ngIf="editAddress" [isSellerSide]="true"></app-geolocation>
-<div class="ui modal">
+<div class="ui modal" *ngIf="!editAddress">
   <i class="close icon" (click)="editDetailsShow = false;"></i>
   <div class="header">
    Edit Details
@@ -39,7 +44,7 @@
       </div>
         <div class="field">
           <label>Edit Address On map</label>
-        <div class="ui red right labeled icon button" (click)="editAddress = true">
+        <div class="ui red right labeled icon button" (click)="editAddress = true;">
           Open Map
           <i class="map pin icon"></i>
         </div>
@@ -49,7 +54,7 @@
     </div>
     </div>
   </div>
-  <div class="actions">
+  <div class="actions" id="actionId">
     <div class="ui black right labeled icon button" (click)="editDetailsShow = false">
       Reset
       <i class="close icon"></i>
@@ -189,7 +194,7 @@
       </div>
     </div>
     <div class="ui hidden divider"></div>
-    <button class="ui positive fluid button">
+    <button class="ui positive fluid button" (click)="toCompletedOrders()">
       View All Orders
     </button>
   </ng-container>
