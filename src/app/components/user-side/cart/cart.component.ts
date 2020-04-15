@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
     this.cart.loadCart();
   }
   checkoutCart(total : any){
-    this.router.navigate(['/map'],{queryParams : {checkout : true,total_amount : total}})
+    this.router.navigate(['/map'],{queryParams : {checkout : true}});
   }
   sellerPage(){
     this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${this.sellerId})`);

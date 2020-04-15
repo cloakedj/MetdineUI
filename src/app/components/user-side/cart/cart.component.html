@@ -1,4 +1,4 @@
-<div class="ui grid container">
+<div class="ui stackable grid container">
   <div class="ui basic modal" *ngIf="clearCartModalShow">
     <div class="ui two column computer column mobile centered grid">
       <div class="row">
@@ -26,8 +26,11 @@
   </div>
     </div>
   </div>
+  <div class="ten wide computer only column" *ngIf="cart.getCartLength()">
+    <app-trending-seller-sidebar></app-trending-seller-sidebar>
+  </div>
   <ng-container *ngIf="cart.getCartLength() else emptyCart">
-    <div class="sixteen wide mobile six wide computer twelve wide tablet right floated column">
+    <div class="six wide computer twelve wide tablet sixteen wide mobile column">
     <div class="ui center aligned segment" [ngClass]="{
       'compact' : winWidth > 500
     }">
@@ -94,7 +97,6 @@
 </div>
 </div>
 </ng-container>
-
 <!-- 
   Placeholder for if cart is empty
 -->

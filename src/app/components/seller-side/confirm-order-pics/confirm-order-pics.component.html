@@ -1,6 +1,37 @@
+<div class="ui basic modal" *ngIf="imagesSentForConfirmation">
+  <div class="ui two column computer column mobile centered grid container">
+    <div class="row">
+  <div class="ui compact center aligned segment clcartmodal">
+  <div class="ui icon header">
+    <i class="clock icon"></i>
+    <div class="ui hidden divider"></div>
+    Waiting For Buyer To Confirm Images
+  </div>
+  <div class="ui divider"></div>
+  <div class="content">
+    <div class="timer">
+      <h1 class="ui header">
+        {{timeLeft}}
+      </h1>
+    </div>
+    <div class="ui center sub header">
+      Seconds Left
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="actions">
+    <div class="ui red fluid  inverted button" (click)="startTimer()">
+      <i class="clock icon"></i>
+     Refresh Timer
+    </div>
+  </div>
+  </div>
+</div>
+  </div>
+</div>
      <div class="column maincontainer">
       <ng-container *ngIf="imagesSent !== undefined">
-      <div class="ui error message" *ngIf="imagesSent[0].status == 'Refused'">
+      <div class="ui error message" *ngIf="imagesSent[0].status == 'Rejected'">
         <i class="close icon"></i>
         <div class="header">
          Buyer rejected Images.
@@ -27,7 +58,9 @@
           <li>Images Sent To Seller. Pending Verification.</li>
         </ul>
       </div>
+      <ng-container *ngIf="imagesSent[0].status == 'Sent'">
       <h1 class="ui center aligned header">Sent Images</h1>
+      <div class="ui divider"></div>
       <div class="ui three column stackable centered grid row">
           <div class="column">
           <img src="{{imagesSent[0].image1}}" class="ui rounded medium image">
@@ -39,6 +72,7 @@
           <img src="{{imagesSent[0].image3}}" class="ui rounded medium image">
       </div>
       </div>
+      </ng-container>
       </ng-container>
         <h2 class="ui top center aligned attached header">
             Send Pictures to User
@@ -112,24 +146,30 @@
         <div class="ui hidden divider">
         </div>
         <div class="row">
-          <ng-container  *ngIf="imagesSent !== undefined && imagesSent[0].status == 'Confirmed'">
+          <ng-container  *ngIf="imagesSent !== undefined && imagesSent[0].status == 'Confirmed' || imagesSent[0].status == 'Sent'">
             <div class="confirmedMask">
             <div class="lock notice">
-                <h4 class="ui center aligned icon header">
+                <h4 class="ui center aligned icon header" *ngIf="imagesSent[0].status == 'Confirmed' else waitingAction">
                     <i class="lock icon"></i>
                 <p class="lock-text">Buyer Has {{imagesSent[0].status}} The Images</p>
                 </h4>
+                <ng-template #waitingAction>
+                  <h4 class="ui center aligned icon header">
+                    <i class="lock icon"></i>
+                <p class="lock-text">Images Have Been Sent. Please Wait For The Buyer's Action</p>
+                </h4>
+                </ng-template>
             </div>
             </div>
         </ng-container>
         <h3 class="ui center aligned header">
-            Add 5 Images To Send
+            Add 3 Images To Send
         </h3>
         <div class="center aligned row">
             <app-file-upload></app-file-upload>
         </div>
         <div class="row centeraligned">
-        <button class="ui positive button" (click)="uploadOrderImages();loading = true">
+        <button class="ui positive button" (click)="uploadOrderImages();loading = true" [disabled]="filesLength !== 3">
             Submit
         </button>
         </div>

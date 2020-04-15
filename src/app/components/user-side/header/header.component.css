@@ -12,9 +12,15 @@ flex: 1 1 auto;
 .ui.horizontal.list .item{
   margin-left:0 !important;
 }
+.mat-toolbar{
+  background: #2193b0;
+}
+.mat-toolbar label{
+  color: #fff;
+}
 .address{
    margin-left: 5%;
-   color : black;
+   color : #fff;
    cursor: pointer;
   }
   .address:hover{
@@ -56,6 +62,7 @@ a{
   position : fixed;
    z-index: 99999;
    right : 2%;
+   top : 3%;
 }
 .closeSearch .header{
   font-family: 'Permanent Marker', cursive;
@@ -110,6 +117,12 @@ label{
   bottom:13%;
   z-index:999;
   min-width:92% !important;
+}
+.getAddress{
+  color : #fff;
+  font-family: 'Fondamento', cursive;
+  margin-left:2%;
+  margin-bottom:2%;
 }
 @media (max-width : 780px){
   .closeSearch{

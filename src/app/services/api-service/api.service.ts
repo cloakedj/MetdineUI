@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://856ec3cd.ngrok.io/api';
+  API_URL = 'http://27219d1c.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -206,8 +206,8 @@ export class ApiService {
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(address : any,topay : any){
-    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address,total : topay})
+  checkoutUserCart(address : any){
+    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address})
     .pipe(
       catchError(this.handleError)
     )
@@ -262,9 +262,8 @@ export class ApiService {
     )
   }
   //Endpoint to Send pictures to buyer
-  sendImagesToSeller(images : any,id: string){
-    this.params = new HttpParams().set("order_id",id);
-    return this.http.post(`${this.API_URL}/seller/confirm_images/`,images,{
+  sendImagesToSeller(images : any,id: any){
+    return this.http.patch(`${this.API_URL}/seller/confirm_images/${id}/`,images,{
       params : this.params
     })
     .pipe(
@@ -280,7 +279,8 @@ export class ApiService {
   }
   //get images for confirmation to buyer
   getConfirmationImages(id : number){
-  return this.http.get(`${this.API_URL}/user/confirmation_images/`)
+    this.params = new HttpParams().set("order_id",id.toString());
+  return this.http.get(`${this.API_URL}/user/confirmation_images/`,{params : this.params})
   .pipe(
     catchError(this.handleError)
   )
@@ -313,9 +313,9 @@ export class ApiService {
         catchError(this.handleError)
       )
     }
-    //Get Buyer Prevois Orders
+    //Get Buyer Previous Orders
     getBuyerPreviousOrders(){
-      return this.http.get(`${this.API_URL}/user/orders/active`)
+      return this.http.get(`${this.API_URL}/user/orders/previous`)
       .pipe(
         catchError(this.handleError)
       )

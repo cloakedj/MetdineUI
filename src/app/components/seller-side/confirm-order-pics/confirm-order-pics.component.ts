@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
@@ -10,11 +11,14 @@ import { KeepFilesService } from 'src/app/services/upload-files/keep-files.servi
   styleUrls: ['./confirm-order-pics.component.css']
 })
 export class ConfirmOrderPicsComponent implements OnInit {
-  orderId: string;
+  orderId: any;
   orderDetails$: Observer<any>;
   @Input() orderDetails: any;
   uploadImagesObs$ : Observer<any>;
   imagesSent : any;
+  imageConfirmationId : any;
+  timeLeft = 120;
+  imagesSentForConfirmation = false;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -23,20 +27,25 @@ export class ConfirmOrderPicsComponent implements OnInit {
   ];
   uploadFiles = new FormData();
   loading = false;
+  filesLength = this.keepFiles.Files.length;
   constructor(
     private aroute: ActivatedRoute,
     private api: ApiService,
     private keepFiles : KeepFilesService,
+    private toastr : ToastrService,
   ) { }
 
   ngOnInit() {
     this.orderId = this.aroute.snapshot.paramMap.get('id');
     this.orderDetailsAPI();
-    this.getConfirmationImagesStatus(this.orderId);
+    this.getConfirmationImagesStatus();
   }
   orderDetailsAPI() {
     this.orderDetails$ = {
-      next: data => this.orderDetails = data,
+      next: data => {
+        this.orderDetails = data;
+        this.imageConfirmationId = data["confirmation"];
+      },
       error: err => console.log(err),
       complete: () => {
         console.log("Fetched Order data", this.orderDetails)
@@ -53,21 +62,38 @@ export class ConfirmOrderPicsComponent implements OnInit {
   }
   uploadOrderImages(){
   this.uploadImagesObs$ = {
-    next : data => console.log("uploaded"),
-    error : err => console.log(err),
-    complete : () => this.loading = false
+    next : data => this.toastr.success("Images Sent To User Successfully."),
+    error : err => this.toastr.error("Something Went Wrong. try Again Later!"),
+    complete : () => {
+      this.loading = false;
+      this.imagesSentForConfirmation = true;
+      this.startTimer();
+      this.getConfirmationImagesStatus();
+    }
   }
   for(let i=0;i<this.keepFiles.Files.length;i++){
     this.uploadFiles.append(`image${i+1}`,this.keepFiles.Files[i]);
   }
-  this.api.sendImagesToSeller(this.uploadFiles,this.orderId).subscribe(this.uploadImagesObs$);
+  this.uploadFiles.append("status","Sent");
+  this.api.sendImagesToSeller(this.uploadFiles,this.imageConfirmationId).subscribe(this.uploadImagesObs$);
   }
-  getConfirmationImagesStatus(id : any){
-    this.api.getConfirmationImages(id).subscribe(
-      (data) => this.imagesSent = data,
-      (err) => console.log(err),
+  getConfirmationImagesStatus(){
+    this.api.getConfirmationImages(this.orderId).subscribe(
+      (data) => 
+      {
+        this.imagesSent = data;
+      },
+      (err) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () => console.log("getting status")
     )
   }
-
+  startTimer(){
+      setInterval(()=>{
+        if(this.timeLeft > 0)
+        this.timeLeft--;
+        else
+        clearInterval();
+      }
+      ,1000)
+    }
 }

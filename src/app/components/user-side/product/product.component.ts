@@ -35,6 +35,7 @@ export class ProductComponent implements OnInit{
   }
 
   ngOnInit() {
+    console.log("id",this.sellerId);
     this.aroute.params.subscribe(params => {
       this.sellerId = params["id"];
     });

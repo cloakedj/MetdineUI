@@ -46,10 +46,6 @@ export class HeaderComponent implements OnInit {
       this.cart.loadCart();
         }
   }
-  getTime(id : any,screen ?: any){
-    if(screen) return this.gc.returnTime(id-1).slice(0,3);
-    return this.gc.returnTime(id-1);
-  }
   hasActiveOrder(){
     this.api.checkIfActiveOrder().subscribe(
       data => {

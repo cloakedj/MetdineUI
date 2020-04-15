@@ -25,7 +25,6 @@ export class GeolocationComponent implements OnInit{
   public isOnCheckoutMode;
   public locationBtnTitle;
   saveNewAddress$ : Observer<any>;
-  totalToPay : any;
   public locationIcon = {
     url : 'https://image.flaticon.com/icons/png/512/1176/1176403.png',
     label: {
@@ -67,7 +66,6 @@ export class GeolocationComponent implements OnInit{
    this.aroute.queryParams.subscribe(params =>{
     this.isOnCheckoutMode = params['checkout'];
     this.isSigningUp = params['signup'];
-    this.totalToPay = params["total_amount"];
     });
     if(!this.isSigningUp)
     {
@@ -160,7 +158,7 @@ export class GeolocationComponent implements OnInit{
     this.loading = true;
     if(this.isOnCheckoutMode){
       let redirecturl;
-      this.api.checkoutUserCart(this.address,this.totalToPay)
+      this.api.checkoutUserCart(this.address)
       .subscribe(
         data => redirecturl = data["redirect_url"],
         err => console.log(err),

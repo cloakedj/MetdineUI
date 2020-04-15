@@ -138,7 +138,7 @@
       <div class="column" *ngFor="let order of sellerActiveOrders;">
         <app-order-card [order]="order"></app-order-card>
         <div class="ui hidden divider"></div>
-        <button class="ui primary fluid button" (click)="routeToOrderImages(order.id)">
+        <button class="ui primary fluid button" [disabled] = "order.status < 2" (click)="routeToOrderImages(order.id)">
           View Order Images
         </button>
         <div class="ui hidden divider"></div>

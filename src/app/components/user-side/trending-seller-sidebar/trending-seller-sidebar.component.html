@@ -1,7 +1,7 @@
 <div class="column">
     <h2 class="ui centered header">Trending Sellers</h2>
     <div class="ui divider"></div>
-    <div class="ui grid" *ngIf="trendingSellersFeed$ else loading">
+    <div class="ui grid" *ngIf="trendingSellers else loading">
         <div class="column row" *ngFor="let seller of trendingSellers">
             <div class="image">
                 <a 

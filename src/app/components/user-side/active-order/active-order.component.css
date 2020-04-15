@@ -30,3 +30,10 @@
 .grid{
     padding : 5% !important;
 }
+mainContainer{
+    min-height:100vh;
+}
+.noImages{
+    color: #fff;
+    z-index:999999;
+}

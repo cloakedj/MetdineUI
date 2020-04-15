@@ -2,7 +2,7 @@
 <mat-toolbar *ngIf="userLoggedIn">
     <mat-toolbar-row>
            <a href="/user" class ="logo_text"><span>Metdine</span></a>
-           <ng-container *ngIf="product.address">
+           <ng-container *ngIf="product.address else gettingAddress">
            <a routerLink="/map">
             <label class="address">{{product.address | contentLength : 50}}</label>
             </a>
@@ -158,7 +158,7 @@
     </div>
     <div class="four wide column">
         <a class="ui orange label">
-            <i class="clock icon" *ngIf="screenSize > 350"></i>{{getTime(activeOrderData[0].time,"mobile")}}min
+            <i class="clock icon" *ngIf="screenSize > 380"></i>{{activeOrderData[0].time}}<span *ngIf="screenSize < 380">min</span>
              </a>
     </div>
     <div class="five wide column" *ngIf="screenSize > 370 else smallScreenActiveOrder">
@@ -201,14 +201,14 @@
             </a>
         </a>
     </div>
-    <!-- <div class="four wide column">
+    <div class="four wide column">
         <a class="ui orange label">
             Time For Preparation
             <a class="detail">
-            <i class="clock icon"></i>{{getTime(activeOrderData[0].time)}}
+            <i class="clock icon"></i>{{activeOrderData[0].time}} min
              </a>
           </a>
-    </div> -->
+    </div>
     <div class="two wide column">
         <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
         data-position="bottom left" data-inverted="" data-tooltip="View This Order">
@@ -237,3 +237,9 @@
         </a>
     </div>
 </ng-template>
+<ng-template #gettingAddress>
+    <h3 class="ui centered header getAddress">
+      Getting Your Location...
+      <div class="ui active inline loader"></div>
+    </h3>
+  </ng-template>

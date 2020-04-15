@@ -1,7 +1,7 @@
-<div class="ui stackable grid">
+<div class="ui stackable grid mainContainer">
     <div class="ten wide column">
-    <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
         <ng-container *ngIf="activeOrderData">
+    <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
         <h1 class="ui header">
             Order Id : #{{data.id}}
         </h1>
@@ -24,7 +24,7 @@
         <h3 class="ui header">
             Address : {{data.address}}
         </h3>
-        <ng-container *ngIf="data.status == 2 && sentImages[0].status != 'Sent'">
+        <ng-container *ngIf="data.status >= 2 && sentImages[0].status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
@@ -35,6 +35,10 @@
                 </div>
             </ng-container>
         <ng-container *ngIf="sentImages !== undefined else waitingForImages">
+        <ng-container *ngIf="sentImages[0].status == 'Sent' || 
+        sentImages[0].status == 'Confirmed' ||
+        sentImages[0].status == 'Rejected'
+         else notSentImages">
         <h3 class="ui center aligned header">
             Confirm Seller Pictures
         </h3>
@@ -69,8 +73,9 @@
                 Reject
             </button>
         </ng-container>
-    </ng-container>
+        </ng-container>
     </div>
+</ng-container>
 </div>
 <div class="six wide column">
     <div class="ui segment" [ngClass]="{'loading': !activeOrderData}">
@@ -113,8 +118,13 @@
 </div>
 </div>
 <ng-template #waitingForImages>
+<div class="ui centered grid column container">
+    <div class="ui active inline loader"></div>
+</div>
+</ng-template>
+<ng-template #notSentImages>
     <div class="ui centered column grid container">
-        <h3 class="ui header">
+        <h3 class="ui header noImages">
             Seller Has Not Sent The Images Yet.
         </h3>
     </div>
