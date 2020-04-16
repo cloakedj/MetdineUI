@@ -50,16 +50,6 @@ export class SellerItemsComponent implements OnInit {
     if(this.skipItem) this.title = "Other Menu Items";
 
   }
-  vegNonvegFilter(type : boolean):string{
-    if (type) return "Veg";
-    return "Non Veg";
-  }
-  getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
-  }
-  getTime(id : any){
-    return this.gc.returnTime(id-1);
-  }
   editItem(id){
     this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet' :['edit-item',id]}}])
 

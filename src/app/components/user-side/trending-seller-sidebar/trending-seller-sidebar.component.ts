@@ -31,8 +31,5 @@ export class TrendingSellerSidebarComponent implements OnInit {
     }
     this.api.getTrendingSellers().subscribe(this.trendingSellersFeed$);
   }
-  getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
-  }
 
 }

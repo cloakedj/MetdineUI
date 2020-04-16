@@ -1,3 +1,8 @@
+<div class="ui mini modal">
+    <div class="ui compact center aligned segment partial-timer">
+        <div class="header">Name</div>
+  </div>
+</div>
 <div class="ui stackable grid mainContainer">
     <div class="ten wide column">
         <ng-container *ngIf="activeOrderData">
@@ -29,51 +34,27 @@
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
                         <i class="lock icon"></i>
-                    <p class="lock-text">You Have {{sentImages[0].status}} The Images</p>
-                    </h4>
+                    <p class="lock-text" *ngIf="sentImages[0].status != 'Waiting' else waitingtext">You Have {{sentImages[0].status}} The Images</p>
+                    <ng-template #waitingtext>
+                        <h5 class="ui header pleaseSendImages">
+                            Please Wait For The Seller To Send The Images.
+                        </h5>
+                    </ng-template>
+                </h4>
+                </div>
+                </div>
+                <div class="ui three column stackable grid row">
+                    <div class="column">
+                    <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
+                    </div>
+                    <div class="column">
+                        <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
+                    </div>
+                <div class="column">
+                    <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
                 </div>
                 </div>
             </ng-container>
-        <ng-container *ngIf="sentImages !== undefined else waitingForImages">
-        <ng-container *ngIf="sentImages[0].status == 'Sent' || 
-        sentImages[0].status == 'Confirmed' ||
-        sentImages[0].status == 'Rejected'
-         else notSentImages">
-        <h3 class="ui center aligned header">
-            Confirm Seller Pictures
-        </h3>
-        <div class="ui negative message" *ngIf="!hideMessage && sentImages[0].status == 'Sent'">
-            <i class="close icon" (click)="hideMessage = true"></i>
-            <div class="header">
-              Kindly Confirm Images.
-            </div>
-            <p>Please take a look at the seller pictures and confirm the status.
-                In Case You Reject The Images the Seller Will Send you New Images.
-          </p>
-        </div>
-        <div class="ui center aligned divider"></div>
-        <div class="ui three column stackable grid row">
-            <div class="column">
-            <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
-            </div>
-            <div class="column">
-                <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
-            </div>
-        <div class="column">
-            <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
-        </div>
-        </div>
-        <div class="ui center aligned divider"></div>
-            <button class="ui  positive button" [disabled]="sentImages[0].status != 'Sent'"
-             (click)="acceptImages(sentImages[0].id)">
-                Accept
-            </button>
-            <button class="ui right floated negative button" [disabled]="sentImages[0].status != 'Sent'"
-            (click)="rejectImages(sentImages[0].id)">
-                Reject
-            </button>
-        </ng-container>
-        </ng-container>
     </div>
 </ng-container>
 </div>
@@ -117,6 +98,88 @@
     </div>
 </div>
 </div>
+<ng-container *ngIf="sentImages">
+<ng-container *ngIf="sentImages[0].status == 'Sent'">
+    <div class="ui basic modal">
+    <div class="ui two column computer column mobile centered grid container">
+      <div class="row">
+    <div class="ui compact center aligned segment clcartmodal">
+    <div class="ui icon header">
+        <i class="images icon"></i>
+      <div class="ui hidden divider"></div>
+     Please Confirm The Images Sent By Seller.
+    </div>
+    <div class="ui divider"></div>
+    <div class="content">
+      <div class="timer">
+        <h1 class="ui header">
+         {{timeLeft}}
+        </h1>
+      </div>
+      <div class="ui center sub header">
+        Seconds Left
+      </div>
+      <ng-container *ngIf="sentImages !== undefined else waitingForImages">
+        <ng-container *ngIf="sentImages[0].status == 'Sent' || 
+        sentImages[0].status == 'Confirmed' ||
+        sentImages[0].status == 'Rejected'
+         else notSentImages">
+        <h3 class="ui center aligned header">
+            Confirm Seller Pictures
+        </h3>
+        <div class="ui negative message" *ngIf="!hideMessage && sentImages[0].status == 'Sent'">
+            <i class="close icon" (click)="hideMessage = true"></i>
+            <div class="header">
+              Kindly Confirm Images.
+            </div>
+            <p>Please take a look at the seller pictures and confirm the status.
+                In Case You Reject Seller Will Call You Within 3 minutes.
+          </p>
+        </div>
+        <div class="ui center aligned divider"></div>
+        <div class="ui three column stackable grid row">
+            <div class="confirmedMask" *ngIf="waitingAction">
+                <div class="ui centered grid column container">
+                    <div class="ui active inline loader"></div>
+                </div>
+            </div>
+            <div class="column">
+            <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
+            </div>
+            <div class="column">
+                <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
+            </div>
+        <div class="column">
+            <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
+        </div>
+        </div>
+        <div class="ui center aligned divider"></div>
+            <button class="ui  positive button" [ngClass]="{
+                'left floated' : screenSize > 780,
+                'fluid' : screenSize < 700
+            }"
+            [disabled]="sentImages[0].status != 'Sent'"
+             (click)="acceptImages(sentImages[0].id)">
+                Accept
+            </button>
+            <div class="ui hidden divider" *ngIf="screenSize < 700"></div>
+            <button class="ui fluid negative button" [ngClass]="{
+                'right floated' : screenSize > 780,
+                'fluid' : screenSize < 700
+            }"
+            [disabled]="sentImages[0].status != 'Sent'"
+            (click)="rejectImages(sentImages[0].id)">
+                Reject
+            </button>
+        </ng-container>
+        </ng-container>
+    </div>
+    </div>
+  </div>
+    </div>
+  </div>
+</ng-container>
+</ng-container>
 <ng-template #waitingForImages>
 <div class="ui centered grid column container">
     <div class="ui active inline loader"></div>

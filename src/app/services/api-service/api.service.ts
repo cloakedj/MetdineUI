@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://27219d1c.ngrok.io/api';
+  API_URL = 'http://a8900ec0.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -45,7 +45,9 @@ export class ApiService {
       )
   }
   getSellerDetails(id): Observable<Seller>{
-    return this.http.get<Seller>(`${this.API_URL}/seller/${id}/`)
+    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
+    .set("long",localStorage.getItem("longitude"));
+    return this.http.get<Seller>(`${this.API_URL}/seller/${id}/`,{params : this.params})
     .pipe(
       catchError(this.handleError)
     )
@@ -81,7 +83,10 @@ export class ApiService {
   }
   SetSellerAccountStatus():any {
     this.checkIfSeller().subscribe(
-      (data) =>  localStorage.setItem("is_seller",data["is_seller"].toString()),
+      (data) =>  {
+        localStorage.setItem("is_seller",data["is_seller"].toString());
+        localStorage.setItem("seller_phone_verified",data["phone"].toString());
+      },
       (err) => console.log(err),
       () => console.log("checked if seller")
     )
@@ -214,7 +219,9 @@ export class ApiService {
   }
   //Get Trending Sellers
   getTrendingSellers() : Observable<Seller[]>{
-    return this.http.get<Seller[]>(`${this.API_URL}/home/trending/`)
+    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
+    .set("long",localStorage.getItem("longitude"));
+    return this.http.get<Seller[]>(`${this.API_URL}/home/trending/`,{params : this.params})
     .pipe(
       catchError(this.handleError)
     )
@@ -355,17 +362,46 @@ export class ApiService {
         catchError(this.handleError)
       )
     }
-    //User get request Id
-    getRequestidForOtpVerification(phoneNumber){
+    //User get request Id for Otp verification
+    getRequestidForOtpVerificationBuyer(phoneNumber){
       return this.http.post(`${this.API_URL}/user/phone/confirm/`,{phone :phoneNumber})
       .pipe(
         catchError(this.handleError)
       )
     }
-    //Otp Verification
-    getOtpForVerification(data,rid){
+    //Seller get Request ID for Otp verification
+    getRequestidForOtpVerificationSeller(phoneNumber){
+      return this.http.post(`${this.API_URL}/seller/phone/confirm/`,{phone :phoneNumber})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Otp Verification for Buyer
+    getOtpForVerificationBuyer(data,rid){
       this.params = new HttpParams().set("request_id",rid)
       return this.http.post(`${this.API_URL}/user/phone/verify/`,data,{params : this.params})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Otp Verification for Seller
+    getOtpForVerificationSeller(data,rid){
+      this.params = new HttpParams().set("request_id",rid)
+      return this.http.post(`${this.API_URL}/seller/phone/verify/`,data,{params : this.params})
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Get Elapsed Time FOr Images
+    getElapsedTimeForImages(id : any){
+      return this.http.get(`${this.API_URL}/order/elapsed_time/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Check If Buyer Updated Image Status
+    getImageConfirmationStatus(c_id : any){
+      return this.http.get(`${this.API_URL}/confirmation/status/${c_id}`)
       .pipe(
         catchError(this.handleError)
       )

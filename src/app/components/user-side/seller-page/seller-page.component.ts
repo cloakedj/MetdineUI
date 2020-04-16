@@ -39,9 +39,6 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   }
   ngAfterViewInit(){
   }
-  getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
-  }
   filterByVegItems(){
     console.log(this.backUpProducts);
     if(!this.backUpProducts)

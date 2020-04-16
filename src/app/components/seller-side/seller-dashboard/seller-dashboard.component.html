@@ -69,7 +69,8 @@
         <i class="circular clipboard list icon"></i> Requested Orders
       </h2>
       <div class="ui hidden divider"></div>
-      <ng-container *ngIf="requestedOrdersCount(1) else requestorderspl;">
+      <ng-container *ngIf="requestedOrdersCount(1) else loading">
+      <ng-container *ngIf="sellerRequestedOrders.length > 0 else requestorderspl">
         <div class="ui grid rorders" *ngFor="let order of sellerRequestedOrders;">
           <div class="row">
             <a class="ui black label">
@@ -127,6 +128,7 @@
           <div class="ui hidden divider"></div>
         </div>
       </ng-container>
+      </ng-container>
     </div>
   </div>
   <div class="five wide stretched column">
@@ -134,7 +136,8 @@
       <h2 class="ui center aligned icon  header">
         <i class="circular tasks icon"></i>Currently Active Order
       </h2>
-      <ng-container *ngIf="requestedOrdersCount(2) else activeorderspl;">
+      <ng-container *ngIf="requestedOrdersCount(2) else loading">
+        <ng-container *ngIf="sellerActiveOrders.length > 0 else activeorderspl">
       <div class="column" *ngFor="let order of sellerActiveOrders;">
         <app-order-card [order]="order"></app-order-card>
         <div class="ui hidden divider"></div>
@@ -180,6 +183,7 @@
         </button>
       </div>
     </ng-container>
+    </ng-container>
     </div>
   </div>
 </div>
@@ -195,10 +199,12 @@
     </h2>
     <div class="ui hidden divider"></div>
     <div class="ui center aligned stackable mobile doubling tablet grid">
-      <ng-container  *ngIf="requestedOrdersCount(3) else completedorderspl;">
+      <ng-container  *ngIf="requestedOrdersCount(3) else loading">
+        <ng-container *ngIf="sellerCompletedOrders && sellerCompletedOrders.length > 0 else completedorderspl">
       <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
           <app-order-card [order]="order"></app-order-card>
       </div>
+    </ng-container>
     </ng-container>
     </div>
   </div>
@@ -247,3 +253,8 @@
     </h2>
   </div>
  </ng-template>
+ <ng-template #loading>
+  <div class="ui centered column grid container loader-container">
+      <div class="ui active inline loader"></div>
+  </div>
+</ng-template>

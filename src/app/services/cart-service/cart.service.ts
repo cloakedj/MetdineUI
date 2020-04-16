@@ -35,7 +35,6 @@ loadCart(): void {
       this.total = data.total;
       this.orderId = data.id;
       this.delivery_charge = data.delivery_charge;
-      console.log("login");
       if(!localStorage.getItem("seller__id"))
       localStorage.setItem("seller__id",`${data.seller_id}`)
     },
@@ -100,11 +99,10 @@ updateCart(id: number,operation?: string): void{
 
 }
 }
-  clearCart(){
+  clearCart(clearToAddNewSeller ?: boolean, id ?: any){
     this.api.deleteCurrentCart().subscribe(
       data => {
-        console.log(data);
-        localStorage.removeItem("cartSize");
+        if(clearToAddNewSeller) this.updateCart(id);
       },
       err => console.log(err),
       () => {

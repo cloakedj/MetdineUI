@@ -1,16 +1,18 @@
+import { KeepFilesService } from './../../../services/upload-files/keep-files.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
-import { Observer } from 'rxjs';
-import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
+import { takeUntil, switchMap, catchError } from 'rxjs/operators';
+import { Injectable, OnDestroy } from '@angular/core';
+import { timer, Observer, Subject, Observable, of } from 'rxjs'
 
 @Component({
   selector: 'app-confirm-order-pics',
   templateUrl: './confirm-order-pics.component.html',
   styleUrls: ['./confirm-order-pics.component.css']
 })
-export class ConfirmOrderPicsComponent implements OnInit {
+export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   orderId: any;
   orderDetails$: Observer<any>;
   @Input() orderDetails: any;
@@ -25,9 +27,16 @@ export class ConfirmOrderPicsComponent implements OnInit {
     { key: 3, value: 'On The Way' },
     { key: 4, value: 'Completed' }
   ];
+  checkStatus  : string;
   uploadFiles = new FormData();
   loading = false;
-  filesLength = this.keepFiles.Files.length;
+  startTimer  : any;
+  filesLength = () => {
+    return this.keepFiles.Files.length;
+  }
+  private killTrigger = new Subject();
+  private fetchData$ : Observable<any>;
+  private refreshInterval$: Observable<string>;
   constructor(
     private aroute: ActivatedRoute,
     private api: ApiService,
@@ -62,13 +71,15 @@ export class ConfirmOrderPicsComponent implements OnInit {
   }
   uploadOrderImages(){
   this.uploadImagesObs$ = {
-    next : data => this.toastr.success("Images Sent To User Successfully."),
+    next : data => 
+    {
+      this.toastr.success("Images Sent To User Successfully.");
+      this.getConfirmationImagesStatus();
+      this.getElapsedTime();
+    },
     error : err => this.toastr.error("Something Went Wrong. try Again Later!"),
     complete : () => {
       this.loading = false;
-      this.imagesSentForConfirmation = true;
-      this.startTimer();
-      this.getConfirmationImagesStatus();
     }
   }
   for(let i=0;i<this.keepFiles.Files.length;i++){
@@ -87,13 +98,60 @@ export class ConfirmOrderPicsComponent implements OnInit {
       () => console.log("getting status")
     )
   }
-  startTimer(){
-      setInterval(()=>{
-        if(this.timeLeft > 0)
-        this.timeLeft--;
+  getElapsedTime(){
+    this.api.getElapsedTimeForImages(this.imageConfirmationId).subscribe(
+      (data) => {
+        if(data["elapsed"] == 121)
+        {
+        this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically.");
+        }
         else
-        clearInterval();
-      }
-      ,1000)
-    }
+        {
+        this.timeLeft = 120 - data["elapsed"];
+        this.startTimer =  
+        setInterval(()=>{
+          if(this.timeLeft > 0)
+          {
+          this.timeLeft--;
+          }
+          else
+          {
+          this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
+          this.clearTimer();
+          this.killTrigger.next();
+          }
+        }
+        ,1000)
+        this.checkStatusOfImages();
+        }
+      },
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
+    )
+  }
+  checkStatusOfImages(){
+    this.fetchData$ = this.api.getImageConfirmationStatus(this.imageConfirmationId);
+    this.refreshInterval$ = timer(0, 10000)
+    .pipe(
+      takeUntil(this.killTrigger),
+      switchMap(() => this.fetchData$),
+      catchError(error => of('Error'))
+    );
+    this.refreshInterval$.subscribe(
+      (data)=> {
+        this.checkStatus = data;
+        if(this.checkStatus == 'Confirmed' || this.checkStatus == 'Rejected'){
+          this.getConfirmationImagesStatus();
+          this.killTrigger.next();
+          this.clearTimer();
+        }
+        },
+        err => of('Error')
+    )
+  }
+  clearTimer(){
+    clearInterval(this.startTimer);
+  }
+  ngOnDestroy(){
+    this.killTrigger.next();
+  }
 }

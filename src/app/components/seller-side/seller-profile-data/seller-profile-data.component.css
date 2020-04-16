@@ -63,5 +63,6 @@ app-geolocation{
 @media (max-width : 350px){
 #actionId{
  padding : 0 !important;   
+ margin-top: -16%;
 }
 }

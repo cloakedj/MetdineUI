@@ -15,7 +15,11 @@
                     {{seller.first_name}} {{seller.last_name}}
                 </h3>
                 <a class="ui violet label">
-                    {{getCategory(seller.category)}}
+                    {{seller.category | labelFilter : 'category'}}
+                  </a>
+                  <a class="ui black label">
+                    <i class="map icon"></i>
+                    {{seller.distance | number : '1.0-2'}} km
                   </a>
             </div>
         </div>

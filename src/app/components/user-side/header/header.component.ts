@@ -75,13 +75,12 @@ export class HeaderComponent implements OnInit {
   logUserOut(){
     this.api.logOutUser()
     .subscribe(
-      data => console.log("Logged Out"),
-      err => console.log(err),
+      data => this.toastr.success("Logged Out Succesfully"),
+      err => this.toastr.error(err),
       () => 
       {
         localStorage.clear();
         this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');
-        console.log("Logged out Successfully!");
       }
     )
     }

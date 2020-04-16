@@ -6,6 +6,7 @@
     background-color: black;
     width:23%;
     left: 0%;
+    z-index: 999;
 }
 .ui.segment
 {
@@ -43,6 +44,15 @@
 .tiny.rounded.image{
     margin-top:20%;
     margin-bottom:7%;
+}
+.loader{
+    min-height:150px;
+}
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:10%;
 }
 @media (max-width: 780px){
     .sidebarmenu{

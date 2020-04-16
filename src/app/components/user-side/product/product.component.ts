@@ -17,10 +17,12 @@ import { SearchService } from 'src/app/services/search-filter/search.service';
   providers: [CartComponent,IncDecCartComponent],
 })
 export class ProductComponent implements OnInit{
-  cartHItems: boolean = false;
   sellerId : Number;
   products : any;
+  quantZero : boolean;
   @Input() searchBar : any;
+  cartHasDiffSeller : boolean = false;
+  update : number;
   constructor(
   public productService: ProductService,
   private incdeccart: IncDecCartComponent,
@@ -35,23 +37,9 @@ export class ProductComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log("id",this.sellerId);
     this.aroute.params.subscribe(params => {
       this.sellerId = params["id"];
     });
-  }
-  vegNonvegFilter(type : boolean):string{
-    if (type) return "Veg";
-    return "Non Veg";
-  }
-  getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id) : 'No meals yet';
-  }
-  cartHasItems(){
-    this.cartHItems = true;
-  }
-  onSwitch(event){
-    this.cartHItems = event;
   }
   updateCart(id :any){
     this.cart.updateCart(id);
@@ -75,14 +63,22 @@ export class ProductComponent implements OnInit{
       }
     });
   }
-  getTime(id : any){
-    return this.gc.returnTime(id-1);
-  }
   cartUpdation(id){
-    if(localStorage.getItem("seller__id")){
-      if(this.sellerId === parseInt(localStorage.getItem("seller__id")))
-      this.cart.updateCart(id);
+    if(localStorage.getItem("seller__id") && localStorage.getItem("seller__id") !== "undefined"){
+      if(this.sellerId == parseInt(localStorage.getItem("seller__id")))
+      {
+        this.cart.updateCart(id);
+        this.update = Math.random() * 1000;
+      }
+      else
+      this.cartHasDiffSeller= true;
     }
-    localStorage.setItem("seller__id",this.sellerId.toString());  }
+    else
+    {
+    localStorage.setItem("seller__id",this.sellerId.toString());
+    this.cart.updateCart(id);
+    this.update = Math.random() * 1000;
+    }
+    }
 
 }

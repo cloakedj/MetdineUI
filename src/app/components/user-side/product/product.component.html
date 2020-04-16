@@ -1,3 +1,30 @@
+<div class="ui basic modal" *ngIf="cartHasDiffSeller">
+  <div class="ui two column computer column mobile centered grid">
+    <div class="row">
+  <div class="ui compact center aligned segment clcartmodal">
+  <div class="ui icon header">
+    <i class="shopping cart icon"></i>
+    Cart Contains Other Items.
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="content">
+    <h5 class="ui centered header">Your Cart Contains Items From A Different Seller. Do You Want To Clear your Cart?</h5>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="actions">
+    <div class="ui red  cancel inverted button" (click)="cartHasDiffSeller = false;">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div class="ui green ok inverted button" (click)="cart.clearCart(true,sellerId);this.cartHasDiffSeller = false;">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+  </div>
+</div>
+  </div>
+</div>
 <div class="ui four stackable device 
 two doubling tablet link cards grid container">
   <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
@@ -14,13 +41,13 @@ two doubling tablet link cards grid container">
         <a class="ui centered header">{{product.title}}</a>
           <div class="description">
             <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
-              {{vegNonvegFilter(product.is_veg)}}
+              {{product.is_veg | vegNonVeg}}
             </div>
             <div class="ui  teal horizontal label">
-              {{getCategory(product.category)}}
+              {{product.category | labelFilter : 'category'}}
             </div>
               <a class="ui orange label">
-                <i class="clock icon"></i>{{getTime(product.time_to_prepare)}}
+                <i class="clock icon"></i>{{product.time_to_prepare | labelFilter}}
               </a>
             <h5 class="ui header desc">
               {{product.short_description}}
@@ -29,10 +56,13 @@ two doubling tablet link cards grid container">
         </div>
         <div class="extra content" *ngIf="product.is_available">
             <button class="positive ui button right floated"   
-            (click)="[cartUpdation(product.id),cartHasItems()]" 
-            *ngIf="!cartHItems" (switch)="onSwitch($event)">
+            (click)="cartUpdation(product.id)" 
+            *ngIf="product.id | addOrAddedToCart : sellerId :update else incdec"
+            >
             <h3 class="ui sub header">Add</h3></button>
-            <app-inc-dec-cart  [productId] = "product.id" [toggle]="cartHItems" class="right floated"></app-inc-dec-cart>
+            <ng-template #incdec>
+            <app-inc-dec-cart  [productId] = "product.id" class="right floated"></app-inc-dec-cart>
+          </ng-template>
             <h4 class="ui header left floated"> {{product.price | currency: 'INR'}}</h4>
         </div>
       </div>

@@ -37,3 +37,64 @@ mainContainer{
     color: #fff;
     z-index:999999;
 }
+.ui.basic.modal,.ui.mini.modal{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0,0.95);
+    color: #fff;
+    position : fixed;
+    z-index:999999;
+}
+.ui.modal .actions>.button{
+    margin-left: 0 !important;
+}
+.content p{
+    color:black;
+    font-weight: bold;
+}
+.partial-timer{
+    width:40%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.clcartmodal{
+    top:50%;
+    transform: translateY(-50%);
+}
+.timer{
+    height:120px;
+    width:120px;
+    margin-left:50%;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.timer .header{
+    color: #fff !important;
+}
+.btnactions{
+    margin-bottom:10%;
+}
+.ui.compact{
+    display : block !important;
+}
+.pleaseSendImages{
+    color: #fff;
+}
+.fluid.negative{
+    margin-bottom:35%;
+}
+@media(max-width:500px){
+    .ui.basic.modal{
+        margin-bottom:5%;
+    }
+}

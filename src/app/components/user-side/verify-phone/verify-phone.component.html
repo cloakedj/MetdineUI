@@ -5,7 +5,7 @@
           <img class="ui rounded centered small image" src="../../../assets/phone.webp">
             <div class="ui message" *ngIf="enteredPhone">
                 <h4 class="ui header">
-                    A Six Digit OTP Has Been Sent To {{phone.value}}
+                    A Four Digit OTP Has Been Sent To {{phone.value}}
                 </h4>
             </div>
           <div class="ui divider"></div>
@@ -22,7 +22,7 @@
                     Phone Number Is Required
                 </div>
                 <div class="ui hidden divider"></div>
-                <button class="ui positive fluid button" (click)="requestOtp()" *ngIf="!enteredPhone" [disabled]="phone.pristine || phone.invalid">Request OTP</button>
+                <button class="ui positive fluid button" (click)="requestOtpByDashboard()" *ngIf="!enteredPhone" [disabled]="phone.pristine || phone.invalid">Request OTP</button>
                 </div>
                   <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone" *ngIf="enteredPhone">
                     <div class="ui centered header">
@@ -39,11 +39,14 @@
                 </form>
                 </div>
           </div>
-          <ng-container>
-          <h5 class="ui bottom attached center aligned inverted header">
-            Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
-          </h5>
-        </ng-container>
+            <h5 class="ui bottom attached center aligned inverted header" *ngIf="isSellerSide else goToHome">
+              Go Back To <a [routerLink]="['/seller-side',{outlets : {sellerRouterOutlet : 'seller-dashboard'}}]" routerLinkActive="active">Seller Dashboard.</a>
+            </h5>
         </div>
   </div>
   
+  <ng-template #goToHome>
+    <h5 class="ui bottom attached center aligned inverted header">
+      Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
+    </h5>
+  </ng-template>

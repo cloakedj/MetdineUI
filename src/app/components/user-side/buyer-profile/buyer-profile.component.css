@@ -1,6 +1,9 @@
 .grid.container{
     padding-top:5%;
 }
+.loader-container{
+    min-height:120px;
+}
 @media (max-width : 350px){
     h3.ui.header {
         font-size: 0.9rem;

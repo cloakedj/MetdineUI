@@ -46,6 +46,10 @@
 .sendImages{
     overflow: hidden;
 }
+.sentImages img{
+    margin-left:50%;
+    transform: translateX(-50%);
+}
 .timer{
     height:120px;
     width:120px;

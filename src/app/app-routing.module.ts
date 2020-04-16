@@ -37,9 +37,9 @@ import { LoginWithPhoneComponent } from './components/user-side/login-with-phone
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 
 const routes: Routes =[
-  {path : 'user', component: BuyerComponent,children: [
+  {path : 'user', component: BuyerComponent,canActivate :[AuthGuardService],children: [
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
-  { path: 'home', component: HomepageComponent,canActivate :[AuthGuardService],outlet:'userRouterOutlet'},
+  { path: 'home', component: HomepageComponent,outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path: 'profile', component : BuyerProfileComponent, outlet : 'userRouterOutlet'},
@@ -56,11 +56,11 @@ const routes: Routes =[
     {path : 'edit-item/:id',component: EditItemComponent, outlet : 'sellerRouterOutlet'},
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
-  { path:'becomeSeller', component : BecomeSellerFormComponent},
-  { path: 'map', component:GeolocationComponent},
+  { path:'becomeSeller', component : BecomeSellerFormComponent,canActivate :[AuthGuardService]},
+  { path: 'map', component:GeolocationComponent,canActivate :[AuthGuardService]},
   { path : 'confirm-email', component : ConfirmEmailComponent},
   { path : 'confirm-user-email', component : ConfirmUserEmailComponent},
-  { path: 'payment-confirmation-wait', component: PaymentWaitingScreenComponent},
+  { path: 'payment-confirmation-wait', component: PaymentWaitingScreenComponent,canActivate :[AuthGuardService]},
   { path: 'userGateway', component: UserGatewayComponent,children:[
     { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
     { path: 'login-with-phone', component:LoginWithPhoneComponent,outlet: 'userGatewayRouter'},

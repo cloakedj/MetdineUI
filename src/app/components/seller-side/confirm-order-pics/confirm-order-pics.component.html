@@ -1,4 +1,5 @@
-<div class="ui basic modal" *ngIf="imagesSentForConfirmation">
+<ng-container *ngIf="imagesSent">
+  <div class="ui basic modal" *ngIf="imagesSent[0].status == 'Sent'">
   <div class="ui two column computer column mobile centered grid container">
     <div class="row">
   <div class="ui compact center aligned segment clcartmodal">
@@ -20,7 +21,7 @@
   </div>
   <div class="ui hidden divider"></div>
   <div class="actions">
-    <div class="ui red fluid  inverted button" (click)="startTimer()">
+    <div class="ui red fluid  inverted button" (click)="startTimer">
       <i class="clock icon"></i>
      Refresh Timer
     </div>
@@ -29,6 +30,7 @@
 </div>
   </div>
 </div>
+</ng-container>
      <div class="column maincontainer">
       <ng-container *ngIf="imagesSent !== undefined">
       <div class="ui error message" *ngIf="imagesSent[0].status == 'Rejected'">
@@ -58,10 +60,10 @@
           <li>Images Sent To Seller. Pending Verification.</li>
         </ul>
       </div>
-      <ng-container *ngIf="imagesSent[0].status == 'Sent'">
+      <ng-container *ngIf="imagesSent[0].status != 'Waiting'">
       <h1 class="ui center aligned header">Sent Images</h1>
       <div class="ui divider"></div>
-      <div class="ui three column stackable centered grid row">
+      <div class="ui three column stackable centered grid row sentImages">
           <div class="column">
           <img src="{{imagesSent[0].image1}}" class="ui rounded medium image">
           </div>
@@ -82,8 +84,8 @@
               Please Keep These Points In Mind Before Uploading The Image.
             </div>
             <ul class="list">
-              <li>You must include both a upper and lower case letters in your password.</li>
-              <li>You need to select your home country.</li>
+              <li>The Uploaded Images Must Be Clear.</li>
+              <li>Make Sure That The Images Are Proper.</li>
             </ul>
           </div>
           <div class="ui attached padded sendImages segment" [ngClass]="{
@@ -146,7 +148,8 @@
         <div class="ui hidden divider">
         </div>
         <div class="row">
-          <ng-container  *ngIf="imagesSent !== undefined && imagesSent[0].status == 'Confirmed' || imagesSent[0].status == 'Sent'">
+          <ng-container  *ngIf="imagesSent">
+            <ng-container *ngIf="imagesSent[0].status == 'Confirmed' || imagesSent[0].status == 'Sent'">
             <div class="confirmedMask">
             <div class="lock notice">
                 <h4 class="ui center aligned icon header" *ngIf="imagesSent[0].status == 'Confirmed' else waitingAction">
@@ -162,6 +165,7 @@
             </div>
             </div>
         </ng-container>
+      </ng-container>
         <h3 class="ui center aligned header">
             Add 3 Images To Send
         </h3>
@@ -169,7 +173,7 @@
             <app-file-upload></app-file-upload>
         </div>
         <div class="row centeraligned">
-        <button class="ui positive button" (click)="uploadOrderImages();loading = true" [disabled]="filesLength !== 3">
+        <button class="ui positive button" (click)="uploadOrderImages();loading = true" [disabled]="filesLength() !== 3">
             Submit
         </button>
         </div>

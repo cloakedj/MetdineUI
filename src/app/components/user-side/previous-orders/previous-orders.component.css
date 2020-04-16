@@ -4,3 +4,6 @@
     transform:translateX(-50%);
     text-align: center;
 }
+.loader-container{
+    min-height:200px;
+}

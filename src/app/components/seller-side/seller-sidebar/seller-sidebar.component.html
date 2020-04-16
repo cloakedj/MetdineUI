@@ -1,5 +1,5 @@
 <div class="ui segment sidebarmenu">
-    <ng-container *ngIf="sellerData">
+    <ng-container *ngIf="sellerData else loader">
     <img src="{{sellerData.logo}}" class="ui centered tiny rounded image">
    <div class="row">
    <h4 class="ui centered header">{{sellerData.first_name}} {{sellerData.last_name}}</h4>
@@ -29,6 +29,11 @@
    <button class="ui teal fluid button"     
    [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['home']}}]"
     routerLinkActive="active" (click)="removeCookie()">Buyer Mode</button>
-   <button class="ui negative fluid button">Log Out</button>
+   <button class="ui negative fluid button" (click)="logUserOut()">Log Out</button>
    </div>
 </div>
+<ng-template #loader>
+   <div class="ui centered grid container loading">
+      <div class="ui active inline loader"></div>
+   </div>
+</ng-template>

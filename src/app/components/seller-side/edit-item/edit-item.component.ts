@@ -75,16 +75,6 @@ export class EditItemComponent implements OnInit {
       time_to_prepare:['']
     });
   }
-  getCategory(id : any){
-    return this.gc.returnCategory(id-1);
-  }
-  getTime(id : any){
-    return this.gc.returnTime(id-1);
-  }
-  vegNonvegFilter(type : boolean):string{
-    if (type) return "Veg";
-    return "Non Veg";
-  }
   getVegNonVegValue(){
     this.itemIsVeg = !this.itemIsVeg;
   }

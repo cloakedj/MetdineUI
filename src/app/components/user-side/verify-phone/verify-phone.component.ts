@@ -33,6 +33,7 @@ export class VerifyPhoneComponent implements OnInit {
   verifyPhone: FormGroup = this.formbuilder.group({
   otp:['',[Validators.required]],
 });
+isSellerSide : boolean;
 constructor(private formbuilder: FormBuilder,
   private api : ApiService,
   private cart : CartService,
@@ -41,10 +42,25 @@ constructor(private formbuilder: FormBuilder,
   private aroute : ActivatedRoute) {}
 
 ngOnInit() {
+  this.aroute.queryParams.subscribe(params => {
+    this.isSellerSide = params["sellerSide"];
+  });
 }
-requestOtp(){
-  console.log(this.phone.value);
-  this.api.getRequestidForOtpVerification(this.phone.value).subscribe(
+requestOtpByDashboard(){
+  if(this.isSellerSide)
+  this.requestSellerOtp();
+  else
+  this.buyerRequestOtp();
+}
+requestSellerOtp(){
+  this.api.getRequestidForOtpVerificationSeller(this.phone.value).subscribe(
+    data => localStorage.setItem("otp_request_id",`${data}`),
+    err => this.toastr.error("Something Went Wrong. Try Again!")
+  );
+  this.enteredPhone = true;
+}
+buyerRequestOtp(){
+  this.api.getRequestidForOtpVerificationBuyer(this.phone.value).subscribe(
     data => localStorage.setItem("otp_request_id",`${data}`),
     err => this.toastr.error("Something Went Wrong. Try Again!")
   );
@@ -52,12 +68,29 @@ requestOtp(){
 }
 onSubmit(Data){
   let rid = localStorage.getItem("otp_request_id");
-  this.api.getOtpForVerification(Data,rid)
+  if(this.isSellerSide)
+  this.sellerOtpVerification(Data,rid)
+  else this.buyerOtpVerification(Data,rid);
+}
+buyerOtpVerification(Data,rid){
+  this.api.getOtpForVerificationBuyer(Data,rid)
   .subscribe(
     (data) => {
       this.toastr.success("Phone Number Has Been Successfully Verified. Redirecting...");
       localStorage.removeItem("otp_request_id");
       this.router.navigateByUrl('/user/(userRouterOutlet:home)');
+    },
+    (err) => this.toastr.error("Something Went Wrong. Try Again!")
+  );
+}
+sellerOtpVerification(Data,rid){
+  this.api.getOtpForVerificationSeller(Data,rid)
+  .subscribe(
+    (data) => {
+      this.toastr.success("Phone Number Has Been Successfully Verified. Redirecting...");
+      localStorage.removeItem("otp_request_id");
+      localStorage.setItem("seller_phone_verified","true");
+      this.router.navigateByUrl('/seller-side/(sellerRouterOutlet:seller-dashboard)');
     },
     (err) => this.toastr.error("Something Went Wrong. Try Again!")
   );

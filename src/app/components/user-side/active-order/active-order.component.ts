@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
@@ -25,24 +26,65 @@ export class ActiveOrderComponent implements OnInit {
   hideMessage = false;
   imageStatusObs$ : Observer<any>;
   statusCompleted = false;
+  timeLeft = 120;
+  waitingAction = false;
+  startTimer : any;
+  screenSize = window.screen.width;
   constructor(private api : ApiService,
-    private gc : GetCategoryService) { }
+    private gc : GetCategoryService,
+    private toastr :ToastrService) { }
 
   ngOnInit() {
     this.activeOrderData$ = {
       next : (data) => {
         this.activeOrderData = data;
-        this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
+        this.getImages();
       },
-      error: (err) => console.log(err),
+      error: (err) => this.toastr.error(err),
       complete : () => console.log("Request Completed")
     }
+    this.api.getActiveOrderDetailsForBuyer().subscribe(this.activeOrderData$);
+  }
+  getImages(){
     this.sentImagesObs$ = {
-      next : (data) => this.sentImages = data,
-      error : (err) => console.log(err),
+      next : (data) => {
+        this.sentImages = data;
+        if(data[0].status == 'Sent')
+        this.getElapsedTime()
+      },
+      error : (err) => this.toastr.error(err),
       complete : () => console.log("Request comleted")
     }
-    this.api.getActiveOrderDetailsForBuyer().subscribe(this.activeOrderData$);
+    this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
+  }
+  getElapsedTime(){
+    this.api.getElapsedTimeForImages(this.activeOrderData[0].confirmation).subscribe(
+      (data) => {
+        if(data["elapsed"] == 121)
+        {
+        this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
+        this.getImages();
+        }
+        else
+        {
+        this.timeLeft = 120 - data["elapsed"];
+        this.startTimer =  setInterval(()=>{
+          if(this.timeLeft > 0)
+          {
+          this.timeLeft--;
+          }
+          else
+          {
+          this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
+          this.getImages();
+          this.clearTimer();
+          }
+        }
+        ,1000)
+        }
+      },
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
+    )
   }
   getStatus(id : any){
     let val;
@@ -52,9 +94,16 @@ export class ActiveOrderComponent implements OnInit {
     return val;
   }
   acceptImages(id : any){
+    this.waitingAction = true;
     this.statusimagesObs$ = {
-      next : (data) => console.log(data),
-      error : (err) => console.log(err),
+      next : (data) => 
+      {
+        this.waitingAction = false;
+        this.toastr.success("Images Accepted Successfully!!");
+        this.getImages();
+        this.clearTimer();
+      },
+      error : (err) => this.toastr.error(err),
       complete : () => {
         this.statusCompleted = true
         this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
@@ -63,9 +112,13 @@ export class ActiveOrderComponent implements OnInit {
     this.api.acceptSellerImages(id).subscribe(this.statusimagesObs$);  
   }
   rejectImages(id : any){
+    this.waitingAction = true;
     this.api.rejectSellerImages(id).subscribe(this.statusimagesObs$); 
     this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
      
+  }
+  clearTimer(){
+    clearInterval(this.startTimer);
   }
 
 }

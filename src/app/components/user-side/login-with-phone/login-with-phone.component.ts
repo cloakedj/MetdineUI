@@ -30,9 +30,9 @@ onSubmit(Data){
   this.loginSubscription = this.api.loginUserWithPhone(Data)
   .subscribe(
     (data) => {this.Auth_Key = data["key"];
+    this.api.AddUserTokenHeader(this.Auth_Key)
     this.cart.loadCart()},
     (err) => this.toastr.error("Something Went Wrong. Try Later!"),
-    () =>   this.api.AddUserTokenHeader(this.Auth_Key)
   );
 }
 get phone(){ return this.loginForm.get('phone');}

@@ -144,8 +144,7 @@ export class SellerDashboardComponent implements OnInit {
     if(code === 1) returnArr = this.sellerRequestedOrders;
     else if(code === 2) returnArr = this.sellerActiveOrders;
     else returnArr = this.sellerCompletedOrders;
-    if ( returnArr === undefined || 
-    returnArr.length === 0) return false;
+    if ( returnArr === undefined ) return false;
     return true;
   }
   toInt(status : string):number{

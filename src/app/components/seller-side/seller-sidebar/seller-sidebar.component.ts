@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
@@ -10,20 +12,36 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 export class SellerSidebarComponent implements OnInit {
   sellerData$ : Observer<any>;
   sellerData : any;
-  constructor(private api : ApiService) { }
+  constructor(
+    private api : ApiService,
+    private router : Router,
+    private toastr : ToastrService
+    ) { }
 
   ngOnInit() {
     this.sellerData$ = {
       next: (data) => {
         this.sellerData = data;
       },
-      error: (err) => console.log(err),
-      complete: () => console.log("Request completed")
+      error: (err) => this.toastr.error(err),
+      complete: () => console.log("Completed")            
     };
     this.api.getSellerQuickData().subscribe(this.sellerData$);
   }
   removeCookie(){
     if (localStorage.getItem("seller_mode_active")) localStorage.removeItem("seller_mode_active");
   }
+  logUserOut(){
+    this.api.logOutUser()
+    .subscribe(
+      data => this.toastr.success("Logged Out Successfully."),
+      err => this.toastr.error(err),
+      () => 
+      {
+        localStorage.clear();
+        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');
+      }
+    )
+    }
 
 }

@@ -6,7 +6,7 @@
                 Profile
             </h2>
             <div class="ui divider"></div>
-            <ng-container *ngIf="userProfileData">
+            <ng-container *ngIf="userProfileData else loading">
             <div class="row">
             <h3 class="ui header">
                 <i class="user circle icon"></i>  {{userProfileData.username}}
@@ -40,3 +40,8 @@
             <app-previous-orders></app-previous-orders>
     </div>
 </div>
+<ng-template #loading>
+    <div class="ui centered column grid container loader-container">
+        <div class="ui active inline loader"></div>
+    </div>
+</ng-template>

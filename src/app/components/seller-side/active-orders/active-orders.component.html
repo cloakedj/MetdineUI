@@ -6,7 +6,8 @@
 <h2 class="ui center aligned icon  header">
     <i class="circular tasks icon"></i>Active Orders
 </h2>
-<ng-container  *ngIf="allActiveOrders && allActiveOrders.length > 0 else noActiveOrders">
+<ng-container *ngIf="allActiveOrders">
+<ng-container  *ngIf="allActiveOrders.length > 0 else noActiveOrders">
 <div class="five wide column" *ngFor="let order of allActiveOrders;" >
 <app-order-card [order]="order"></app-order-card>
 <div class="ui hidden divider"></div>
@@ -38,6 +39,7 @@
 </div>
 <div class="ui hidden divider"></div>
 </div>
+</ng-container>
 </ng-container>
 </div>
 </div>

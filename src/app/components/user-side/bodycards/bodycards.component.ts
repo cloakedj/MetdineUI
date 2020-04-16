@@ -21,9 +21,6 @@ export class BodycardsComponent implements OnInit {
 
   ngOnInit() {
   }
-  getCategory(id: any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
-  }
   openMap(){
     this.router.navigateByUrl('/map');
   }

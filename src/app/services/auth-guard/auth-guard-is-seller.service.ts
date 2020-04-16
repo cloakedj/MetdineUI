@@ -13,7 +13,16 @@ export class AuthGuardIsSellerService {
     private auth : AuthService
   ) { }
   canActivate(route :ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
-    if(localStorage.getItem("is_seller") === "true") return true;
+    if(localStorage.getItem("is_seller") === "true") {
+      if(localStorage.getItem("seller_phone_verified") === "true")
+      return true;
+      else
+      {
+      this.router.navigate(["/userGateway",{outlets : {userGatewayRouter : ['verify-phone']}}],
+      {queryParams : {sellerSide : true}});
+      return false;
+      }
+    }
     this.router.navigate(['/becomeSeller']);
     return false;
 }

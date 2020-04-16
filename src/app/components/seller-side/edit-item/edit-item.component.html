@@ -26,7 +26,7 @@
         'pink' : productDetails.category == 4
     }">
         Category
-        <a class="detail">{{getCategory(productDetails.category)}}</a>
+        <a class="detail">{{productDetails.category | labelFilter : 'category'}}</a>
     </a>
     <a class="ui image label" [ngClass]="{
         'teal' : productDetails.time_to_prepare == 1,
@@ -35,13 +35,13 @@
         'olive' : productDetails.time_to_prepare == 4
     }">
         Time To Prepare
-        <a class="detail">{{getTime(productDetails.time_to_prepare)}}</a>
+        <a class="detail">{{productDetails.time_to_prepare | labelFilter}}</a>
     </a>
     <a class="ui label" [ngClass]="{
         'green' : productDetails.is_veg,
         'red' : !productDetails.is_veg
     }">
-        {{vegNonvegFilter(productDetails.is_veg)}}
+        {{productDetails.is_veg | vegNonVeg}}
     </a>
     <a class="ui teal label" *ngIf="productDetails.is_available else makeUnavailableLabel">
         Available
@@ -91,7 +91,7 @@
                 </div>
                 <div class="field">
                     <label>Current Category : 
-                        <a class="ui red label">{{getCategory(productDetails.category)}}</a>
+                        <a class="ui red label">{{productDetails.category | labelFilter : 'category'}}</a>
                     </label>
                     <div class="ui hidden divider"></div>
                     <label>Select Category</label>
@@ -105,7 +105,7 @@
                 <div class="ui hidden divider"></div>
                 <div class="field">
                     <label>Current Time To Prepare : 
-                        <a class="ui orange label">{{getTime(productDetails.time_to_prepare)}}</a>
+                        <a class="ui orange label">{{productDetails.time_to_prepare | labelFilter}}</a>
                     </label>
                     <div class="ui hidden divider"></div>
                     <label>Select Time To Prepare</label>
@@ -122,7 +122,7 @@
                     <a class="ui label" [ngClass]="{
                         'green' : productDetails.is_veg,
                         'red' : !productDetails.is_veg
-                    }">{{vegNonvegFilter(productDetails.is_veg)}}
+                    }">{{productDetails.is_veg | vegNonVeg}}
                     </a>
                     </label>
                     <div class="ui hidden divider"></div>

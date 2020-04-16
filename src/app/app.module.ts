@@ -1,3 +1,4 @@
+import { CartService } from './services/cart-service/cart.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -77,6 +78,10 @@ import { DisableInputDirective } from './Directives/disable-input.directive';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { PaymentWaitingScreenComponent } from './components/user-side/payment-waiting-screen/payment-waiting-screen.component';
 import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-email/confirm-user-email.component';
+import { VegNonVegPipe } from './pipes/vegNonveg/veg-non-veg.pipe';
+import { LabelFilterPipe } from './pipes/LabelFilter/label-filter.pipe';
+import { AddOrAddedToCartPipe } from './pipes/addOrAddedToCart/add-or-added-to-cart.pipe';
+import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
 
 @NgModule({
   declarations: [
@@ -129,6 +134,10 @@ import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-e
     ConfirmEmailComponent,
     PaymentWaitingScreenComponent,
     ConfirmUserEmailComponent,
+    VegNonVegPipe,
+    LabelFilterPipe,
+    AddOrAddedToCartPipe,
+    GetquantityPipe,
   ],
   imports: [
     BrowserModule,
@@ -168,6 +177,7 @@ import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-e
       useClass: MetdineInterceptor,
       multi: true
     },
+    CartService
   ],
   bootstrap: [AppComponent]
 })

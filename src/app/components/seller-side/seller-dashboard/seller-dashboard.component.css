@@ -41,6 +41,9 @@
 .completedOrders .segment{
     padding-bottom : 10%;
 }
+.loader{
+    min-height:200px;
+}
 @media (max-width: 780px){
     .ui.grid.quickoptions
     {

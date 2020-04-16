@@ -8,11 +8,13 @@
           Previously Completed Orders
         </h2>
         <div class="ui hidden divider"></div>
-        <div class="ui center aligned stackable grid" *ngIf="ItemsSold && ItemsSold.length > 0 else noItemsSold">
+        <ng-container *ngIf="ItemsSold">
+        <div class="ui center aligned stackable grid" *ngIf="ItemsSold.length > 0 else noItemsSold">
           <div class="five wide column" *ngFor="let order of ItemsSold">
               <app-order-card [order]="order"></app-order-card>
           </div>
         </div>
+      </ng-container>
       </div>
     </div>
     <ng-template #noItemsSold>

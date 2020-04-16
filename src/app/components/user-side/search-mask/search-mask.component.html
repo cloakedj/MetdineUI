@@ -33,6 +33,7 @@
                                 {{result.first_name}} {{result.last_name}}
                                 </h4>
                             </a>
+                            <div class="ui divider"></div>
                             <div class="description">
                             <a class="ui label" [ngClass]="{
                                 'green' : result.category == 0,
@@ -40,11 +41,13 @@
                                 'yellow' : result.category == 2,
                                 'black' : result.category == 3
                             }">
-                                {{getCategory(result.category)}}
+                                {{result.category | labelFilter : 'category'}}
                             </a>
-                            <p *ngIf="windowWidth > 500">
-                                {{result.desc | contentLength : 30}}
-                            </p>
+                            <a class="ui black label">
+                                <i class="map icon"></i>
+                                {{result.distance | number : '1.0-2'}} km
+                              </a>
+                              <div class="ui hidden divider"></div>
                         </div>
                         </div>
                 </div>

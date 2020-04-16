@@ -21,7 +21,6 @@ export class SellerProfileDataComponent implements OnInit {
   sellerDetails = this._fb.group({
     first_name : [''],
     last_name : [''],
-    phone : [''],
     address : ['']
   });
   updateSellerInfo$ : Observer<any>;
@@ -68,6 +67,10 @@ export class SellerProfileDataComponent implements OnInit {
   }
   toCompletedOrders(){
     this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:completed-orders)`);
+  }
+  updatePhone(){
+    this.router.navigate(["/userGateway",{outlets : {userGatewayRouter : ['verify-phone']}}],
+    {queryParams : {sellerSide : true}});
   }
 
 }

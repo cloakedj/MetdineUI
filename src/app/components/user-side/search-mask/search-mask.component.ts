@@ -52,9 +52,6 @@ export class SearchMaskComponent implements OnInit {
       }
     });
   }
-  getCategory(id : any){
-    return id !== 'No meals yet' ? this.gc.returnCategory(id-1) : 'No meals yet';
-  }
   sellerPage(id : number){
     this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${id})`);
     this.hideSearchMask.emit(false);

@@ -32,13 +32,13 @@
         <a class="ui centered header">{{product.title}}</a>
           <div class="description">
             <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
-              {{vegNonvegFilter(product.is_veg)}}
+              {{product.is_veg | vegNonVeg}}
             </div>
             <div class="ui  teal horizontal label">
-              {{getCategory(product.category)}}
+              {{product.category | labelFilter : 'category'}}
             </div>
               <a class="ui orange label">
-                <i class="clock icon"></i>{{getTime(product.time_to_prepare)}}
+                <i class="clock icon"></i>{{product.time_to_prepare | labelFilter}}
               </a>
             <h5 class="ui header desc">
               {{product.short_description}}

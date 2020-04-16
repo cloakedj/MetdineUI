@@ -42,7 +42,7 @@ flex: 1 1 auto;
 }
 .mobileNav{
   position: fixed;
-  z-index: 999;
+  z-index: 9999999;
   background: #fff;
   width: 100%;
   bottom: -3%;
@@ -60,7 +60,7 @@ a{
 }
 .closeSearch{
   position : fixed;
-   z-index: 99999;
+   z-index: 9999999;
    right : 2%;
    top : 3%;
 }
@@ -123,6 +123,9 @@ label{
   font-family: 'Fondamento', cursive;
   margin-left:2%;
   margin-bottom:2%;
+}
+.mobileActiveOrderNavbar{
+  z-index: 99999;
 }
 @media (max-width : 780px){
   .closeSearch{

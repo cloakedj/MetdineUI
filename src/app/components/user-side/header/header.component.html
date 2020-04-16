@@ -12,7 +12,10 @@
             <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
              </button>
             </a>
-            <label *ngIf="username">{{username}}</label>
+            <label *ngIf="username else loader">{{username}}</label>
+            <ng-template #loader>
+                <div class="ui active inline loader"></div>
+            </ng-template>
            <div class="ui horizontal list">
             <div class="item">
                 <a class="ui black circular label" *ngIf="this.cart.getCartLength()">{{this.cart.getCartLength()}}</a>
@@ -140,7 +143,7 @@
 </div>
 
 <ng-template #activeOrderNavbarMobile>
-    <div class="two wide column" *ngIf="screenSize > 370">
+    <div class="two wide column mobileActiveOrderBar" *ngIf="screenSize > 370">
         <a class="ui image black label">
                 #{{activeOrderData[0].id}}
         </a>
@@ -163,7 +166,7 @@
     </div>
     <div class="five wide column" *ngIf="screenSize > 370 else smallScreenActiveOrder">
         <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
-        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+        data-position="top left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>
     </div>
