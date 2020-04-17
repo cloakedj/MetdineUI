@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://a8900ec0.ngrok.io/api';
+  API_URL = 'http://969d03a6.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -399,9 +399,23 @@ export class ApiService {
         catchError(this.handleError)
       )
     }
+    //Get Elapsed Time FOr Images
+    getElapsedTimeForCall(id : any){
+      return this.http.get(`${this.API_URL}/order/reject_time/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
     //Check If Buyer Updated Image Status
     getImageConfirmationStatus(c_id : any){
       return this.http.get(`${this.API_URL}/confirmation/status/${c_id}`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Reconfirm Images
+    reconfirmImages(c_id : any){
+      return this.http.get(`${this.API_URL}/order/reconfirm_images/status/${c_id}`)
       .pipe(
         catchError(this.handleError)
       )

@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
 
@@ -12,6 +12,12 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 export class SellerSidebarComponent implements OnInit {
   sellerData$ : Observer<any>;
   sellerData : any;
+  @Output() hideMenu : EventEmitter<boolean> = new EventEmitter();
+  @HostListener('click',['$event'])
+  onClick(evt){
+    if(evt.target.className == "ui header")
+    this.hideMenu.emit(true);
+  }
   constructor(
     private api : ApiService,
     private router : Router,
@@ -24,7 +30,7 @@ export class SellerSidebarComponent implements OnInit {
         this.sellerData = data;
       },
       error: (err) => this.toastr.error(err),
-      complete: () => console.log("Completed")            
+      complete: () => console.log("Completed")
     };
     this.api.getSellerQuickData().subscribe(this.sellerData$);
   }
@@ -36,7 +42,7 @@ export class SellerSidebarComponent implements OnInit {
     .subscribe(
       data => this.toastr.success("Logged Out Successfully."),
       err => this.toastr.error(err),
-      () => 
+      () =>
       {
         localStorage.clear();
         this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');

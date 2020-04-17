@@ -11,7 +11,7 @@
     'computer only' : deviceActive === 'computer',
     'mobile tablet' : deviceActive === 'smaller'
     }" id="toggleDisplay">
-<app-seller-sidebar></app-seller-sidebar>
+<app-seller-sidebar (hideMenu)="hideSidebar($event)"></app-seller-sidebar>
 </div>
 <div class="ui sixteen wide mobile twelve wide tablet twelve wide computer centered column">
 <router-outlet name="sellerRouterOutlet"></router-outlet>

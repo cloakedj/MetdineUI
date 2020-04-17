@@ -4,12 +4,13 @@ import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { ApiService } from '../api-service/api.service';
 import { Seller } from 'src/app/entities/seller.entity';
 import { MapsAPILoader } from '@agm/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService implements OnInit{
-  products$ : Observable<SellerItem[]>; 
+  products$ : Observable<SellerItem[]>;
   productsArr : SellerItem[];
   sellers$: Observable<Seller[]>;
   sellersArr : Seller[];
@@ -22,7 +23,8 @@ export class ProductService implements OnInit{
   private geoCoder;
   constructor(
     private api : ApiService,
-    private maps : MapsAPILoader) {
+    private maps : MapsAPILoader,
+    private toastr : ToastrService) {
       this.GetLocation();
   }
   ngOnInit(){
@@ -37,8 +39,7 @@ export class ProductService implements OnInit{
         this.sellers$ = this.api.getAllSellers(this.latitude,this.longitude);
         this.api.getAllSellers(this.latitude,this.longitude).subscribe(
           data => this.sellersArr = data,
-          err => console.log(err),
-          () => console.log("Fetched sellers")
+          err => this.toastr.error("Something Went Wrong. Please Try Again Later."),
         )
         this.getAddress(this.latitude, this.longitude);
       });
@@ -50,12 +51,12 @@ export class ProductService implements OnInit{
         if (results[0]) {
           this.address = results[0].formatted_address;
         } else {
-          window.alert('No results found');
+          this.toastr.error("Something Went Wrong.")
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
+        this.toastr.error("Couldn't Get Your Location.")
       }
- 
+
     });
   }
   GetLocation(){
@@ -71,5 +72,5 @@ export class ProductService implements OnInit{
       err => console.log(err),
       () => console.log("Products Fetched To Cart")
     )
-  } 
+  }
 }

@@ -19,7 +19,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   uploadImagesObs$ : Observer<any>;
   imagesSent : any;
   imageConfirmationId : any;
-  timeLeft = 120;
+  timeLeft : any;
   imagesSentForConfirmation = false;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
@@ -31,6 +31,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   uploadFiles = new FormData();
   loading = false;
   startTimer  : any;
+  timerFlag = true;
   filesLength = () => {
     return this.keepFiles.Files.length;
   }
@@ -47,13 +48,13 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.orderId = this.aroute.snapshot.paramMap.get('id');
     this.orderDetailsAPI();
-    this.getConfirmationImagesStatus();
   }
   orderDetailsAPI() {
     this.orderDetails$ = {
       next: data => {
         this.orderDetails = data;
         this.imageConfirmationId = data["confirmation"];
+        this.getConfirmationImagesStatus();
       },
       error: err => console.log(err),
       complete: () => {
@@ -71,7 +72,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   }
   uploadOrderImages(){
   this.uploadImagesObs$ = {
-    next : data => 
+    next : data =>
     {
       this.toastr.success("Images Sent To User Successfully.");
       this.getConfirmationImagesStatus();
@@ -90,9 +91,13 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   }
   getConfirmationImagesStatus(){
     this.api.getConfirmationImages(this.orderId).subscribe(
-      (data) => 
+      (data) =>
       {
         this.imagesSent = data;
+        if(this.imagesSent[0].status == "Sent")
+        this.getElapsedTime();
+        if(this.imagesSent[0].status == "Partial")
+        this.getElapsedTimeforCall();
       },
       (err) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () => console.log("getting status")
@@ -104,11 +109,12 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         if(data["elapsed"] == 121)
         {
         this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically.");
+        this.getConfirmationImagesStatus();
         }
         else
         {
         this.timeLeft = 120 - data["elapsed"];
-        this.startTimer =  
+        this.startTimer =
         setInterval(()=>{
           if(this.timeLeft > 0)
           {
@@ -119,6 +125,40 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
           this.clearTimer();
           this.killTrigger.next();
+          this.getConfirmationImagesStatus();
+          }
+        }
+        ,1000)
+        this.checkStatusOfImages();
+        }
+      },
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
+    )
+  }
+    getElapsedTimeforCall(){
+    this.api.getElapsedTimeForCall(this.imageConfirmationId).subscribe(
+      (data) => {
+        if(data["elapsed"] == 181)
+        {
+        this.toastr.info("Time To Accept Images Has Expired. The Order Has been Rejected.");
+        this.getConfirmationImagesStatus();
+        }
+        else
+        {
+        this.timeLeft = 180 - data["elapsed"];
+        this.getConfirmationImagesStatus();
+        this.startTimer =
+        setInterval(()=>{
+          if(this.timeLeft > 0)
+          {
+          this.timeLeft--;
+          }
+          else
+          {
+          this.toastr.info("Time To Accept Images Has Expired. The Order Has been Rejected.");
+          this.clearTimer();
+          this.killTrigger.next();
+          this.getConfirmationImagesStatus();
           }
         }
         ,1000)
@@ -130,7 +170,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   }
   checkStatusOfImages(){
     this.fetchData$ = this.api.getImageConfirmationStatus(this.imageConfirmationId);
-    this.refreshInterval$ = timer(0, 10000)
+    this.refreshInterval$ = timer(5000, 10000)
     .pipe(
       takeUntil(this.killTrigger),
       switchMap(() => this.fetchData$),
@@ -143,6 +183,13 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           this.getConfirmationImagesStatus();
           this.killTrigger.next();
           this.clearTimer();
+        }
+        else
+        if(this.checkStatus == 'Partial' && this.timerFlag){
+          this.killTrigger.next();
+          this.clearTimer();
+          this.getElapsedTimeforCall();
+          this.timerFlag = false;
         }
         },
         err => of('Error')

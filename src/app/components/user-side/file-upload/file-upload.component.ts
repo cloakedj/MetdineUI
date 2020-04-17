@@ -6,7 +6,7 @@ import { KeepFilesService } from 'src/app/services/upload-files/keep-files.servi
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css']
 })
-export class FileUploadComponent implements OnInit {  
+export class FileUploadComponent implements OnInit {
   files: any = [];
 
   uploadFile(event,byInput ?: string) {
@@ -22,10 +22,11 @@ export class FileUploadComponent implements OnInit {
     }
     this.files.push(element.name);
   }
-  }  
+  }
 
   deleteAttachment(index) {
-  this.files.splice(index, 1)
+  this.files.splice(index, 1);
+  this.filesUpload.Files.splice(index,1);
   }
   constructor(private filesUpload : KeepFilesService,
     private cd : ChangeDetectorRef) { }

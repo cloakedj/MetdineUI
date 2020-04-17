@@ -1,9 +1,42 @@
-<div class="ui mini modal">
+<ng-container *ngIf="sentImages">
+<div class="ui mini modal" *ngIf="sentImages[0].status == 'Partial'">
     <div class="ui compact center aligned segment partial-timer">
-        <div class="header">Name</div>
-  </div>
+      <div class="ui icon header">
+      <i class="circular phone icon"></i>
+     <h4 class="ui header">
+      Please Be Near Your Phone. The Seller Will Contact You Within Next 3 Minutes.
+     </h4>
+    </div>
+     <div class="ui divider"></div>
+     <div class="content">
+       <div class="timer">
+         <h1 class="ui header" *ngIf="timeLeft else loader">
+          {{timeLeft}}
+         </h1>
+         <ng-template #loader>
+           <div class="ui active inline loader"></div>
+         </ng-template>
+       </div>
+       <div class="ui center sub header">
+         Seconds Left
+       </div>
+       <div class="ui divider"></div>
+       <h5 class="ui header">
+        <i class="ui exclamation circle icon"></i>
+        After Talking To The Seller, If You Would Like To Receive The Order, Please Click The Button Below.
+       </h5>
+       <div class="actions">
+        <div class="ui green fluid  inverted button" (click)="reconfirmOrder()">
+          <i class="check icon"></i>
+         I Want To Receive The Order.
+        </div>
+      </div>
+     </div>
+    </div>
 </div>
-<div class="ui stackable grid mainContainer">
+</ng-container>
+<div class="ui stackable grid mainContainer" *ngIf="hasActiveOrder && activeOrderData else loading">
+  <ng-container *ngIf="hasActiveOrder == true else noActiveOrder">
     <div class="ten wide column">
         <ng-container *ngIf="activeOrderData">
     <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
@@ -97,6 +130,7 @@
         <div class="ui divider"></div>
     </div>
 </div>
+</ng-container>
 </div>
 <ng-container *ngIf="sentImages">
 <ng-container *ngIf="sentImages[0].status == 'Sent'">
@@ -112,7 +146,7 @@
     <div class="ui divider"></div>
     <div class="content">
       <div class="timer">
-        <h1 class="ui header">
+        <h1 class="ui header" *ngIf="timeLeft else loader">
          {{timeLeft}}
         </h1>
       </div>
@@ -120,7 +154,7 @@
         Seconds Left
       </div>
       <ng-container *ngIf="sentImages !== undefined else waitingForImages">
-        <ng-container *ngIf="sentImages[0].status == 'Sent' || 
+        <ng-container *ngIf="sentImages[0].status == 'Sent' ||
         sentImages[0].status == 'Confirmed' ||
         sentImages[0].status == 'Rejected'
          else notSentImages">
@@ -191,4 +225,14 @@
             Seller Has Not Sent The Images Yet.
         </h3>
     </div>
+</ng-template>
+<ng-template #loading>
+  <div class="ui centered column active-loader">
+    <div class="ui active inline loader"></div>
+  </div>
+</ng-template>
+<ng-template #noActiveOrder>
+  <div class="centered column active-loader">
+    No Active Order At The Moment.
+  </div>
 </ng-template>

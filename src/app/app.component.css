@@ -1,0 +1,23 @@
+#offlineMessage{
+  position:fixed;
+  top:80%;
+  margin: auto;
+}
+@media(min-width: 1000px){
+  #offlineMessage{
+    top:10%;
+    left:50%;
+    transform: translateX(-50%);
+    margin : 0;
+  }
+}
+@media(max-width: 780px){
+  #offlineMessage{
+    min-width: 100%;
+  }
+}
+@media(max-width: 3600px){
+  #offlineMessage{
+    top:75%;
+  }
+}

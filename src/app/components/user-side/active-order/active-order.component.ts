@@ -22,12 +22,14 @@ export class ActiveOrderComponent implements OnInit {
   ];
   sentImagesObs$ : Observer<any>;
   statusimagesObs$ : Observer<any>;
+  statusimagesRejectObs$ : Observer<any>;
   sentImages : any;
   hideMessage = false;
   imageStatusObs$ : Observer<any>;
   statusCompleted = false;
-  timeLeft = 120;
+  timeLeft : number;
   waitingAction = false;
+  hasActiveOrder : boolean;
   startTimer : any;
   screenSize = window.screen.width;
   constructor(private api : ApiService,
@@ -35,6 +37,17 @@ export class ActiveOrderComponent implements OnInit {
     private toastr :ToastrService) { }
 
   ngOnInit() {
+    this.api.checkIfActiveOrder().subscribe(
+      data => {
+        this.hasActiveOrder = data["detail"];
+        if(this.hasActiveOrder)
+        this.getActiveOrderData();
+      },
+      err => this.toastr.error("Something Went Wrong. Try Again Later!")
+
+    )
+  }
+  getActiveOrderData(){
     this.activeOrderData$ = {
       next : (data) => {
         this.activeOrderData = data;
@@ -51,6 +64,8 @@ export class ActiveOrderComponent implements OnInit {
         this.sentImages = data;
         if(data[0].status == 'Sent')
         this.getElapsedTime()
+        if(data[0].status == 'Partial')
+        this.getElapsedTimeForCall();
       },
       error : (err) => this.toastr.error(err),
       complete : () => console.log("Request comleted")
@@ -86,6 +101,35 @@ export class ActiveOrderComponent implements OnInit {
       (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
+  getElapsedTimeForCall(){
+    this.api.getElapsedTimeForCall(this.activeOrderData[0].confirmation).subscribe(
+      (data) => {
+        if(data["elapsed"] == 181)
+        {
+        this.toastr.info("Time To Accept Images Has Expired. The Order Has Been Rejected.");
+        this.getImages();
+        }
+        else
+        {
+        this.timeLeft = 180 - data["elapsed"];
+        this.startTimer =  setInterval(()=>{
+          if(this.timeLeft > 0)
+          {
+          this.timeLeft--;
+          }
+          else
+          {
+          this.toastr.info("Time To Accept Images Has Expired. The Order Has Been Rejected.");
+          this.getImages();
+          this.clearTimer();
+          }
+        }
+        ,1000)
+        }
+      },
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
+    )
+  }
   getStatus(id : any){
     let val;
     this.orderStatusFilter.forEach((arr,k,v)=>{
@@ -96,29 +140,42 @@ export class ActiveOrderComponent implements OnInit {
   acceptImages(id : any){
     this.waitingAction = true;
     this.statusimagesObs$ = {
-      next : (data) => 
+      next : (data) =>
       {
         this.waitingAction = false;
         this.toastr.success("Images Accepted Successfully!!");
-        this.getImages();
         this.clearTimer();
       },
       error : (err) => this.toastr.error(err),
       complete : () => {
-        this.statusCompleted = true
-        this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
+        this.statusCompleted = true;
+        this.getImages();
       }
     }
-    this.api.acceptSellerImages(id).subscribe(this.statusimagesObs$);  
+    this.api.acceptSellerImages(id).subscribe(this.statusimagesObs$);
   }
   rejectImages(id : any){
     this.waitingAction = true;
-    this.api.rejectSellerImages(id).subscribe(this.statusimagesObs$); 
-    this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
-     
+    this.statusimagesRejectObs$ = {
+      next : (data) =>
+      {
+        this.waitingAction = false;
+        this.toastr.success("Images Rejected Successfully!!");
+        this.clearTimer();
+      },
+      error : (err) => this.toastr.error(err),
+      complete : () => {
+        this.statusCompleted = true;
+        this.getImages();
+      }
+    }
+    this.api.rejectSellerImages(id).subscribe(this.statusimagesRejectObs$);
   }
   clearTimer(){
     clearInterval(this.startTimer);
+  }
+  reconfirmOrder(){
+    this.api.reconfirmImages(this.activeOrderData[0].confirmation).subscribe(this.statusimagesObs$);
   }
 
 }

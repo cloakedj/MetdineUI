@@ -1,6 +1,6 @@
 <div class="ui four column centered grid">
     <div class="fifteen wide mobile four wide computer column">
-        <h3 class="ui top attached header center aligned inverted">Verify Your Phone Number</h3>
+        <h3 class="ui top attached header center aligned inverted">{{Title}}</h3>
         <div class="ui raised attached segment">
           <img class="ui rounded centered small image" src="../../../assets/phone.webp">
             <div class="ui message" *ngIf="enteredPhone">
@@ -26,7 +26,7 @@
                 </div>
                   <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone" *ngIf="enteredPhone">
                     <div class="ui centered header">
-                    <div class="ui red basic label"  *ngIf="otp.invalid && !otp.pristine">                      
+                    <div class="ui red basic label"  *ngIf="otp.invalid && !otp.pristine">
                         The Otp Should Be Six Digit
                         </div>
                     </div>
@@ -44,7 +44,7 @@
             </h5>
         </div>
   </div>
-  
+
   <ng-template #goToHome>
     <h5 class="ui bottom attached center aligned inverted header">
       Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>

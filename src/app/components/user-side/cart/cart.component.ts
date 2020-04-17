@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
       data => {
         this.sellerName = `${data["first_name"]}  ${data["last_name"]}`;
         this.sellerLogo = data["logo"];
-        console.log(data); 
+        console.log(data);
       },
       err => this.toastr.error("Something Went Wrong. Please Try Later")
     )
@@ -38,8 +38,17 @@ export class CartComponent implements OnInit {
     this.winWidth = window.screen.width;
     this.cart.loadCart();
   }
-  checkoutCart(total : any){
-    this.router.navigate(['/map'],{queryParams : {checkout : true}});
+  checkoutCart(){
+    this.api.checkPhoneNumberVerStatus().subscribe(
+      (data) => {
+        if(data)
+        this.router.navigate(['/map'],{queryParams : {checkout : true}});
+        else
+        this.router.navigate(["/userGateway",{outlets : {userGatewayRouter : ['verify-phone']}}],
+        {queryParams : {onTheWayToCheckout : true}});
+      }
+    )
+
   }
   sellerPage(){
     this.router.navigateByUrl(`/user/(userRouterOutlet:seller-page/${this.sellerId})`);

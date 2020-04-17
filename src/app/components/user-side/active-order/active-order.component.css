@@ -30,7 +30,7 @@
 .grid{
     padding : 5% !important;
 }
-mainContainer{
+.mainContainer{
     min-height:100vh;
 }
 .noImages{
@@ -40,6 +40,7 @@ mainContainer{
 .ui.basic.modal,.ui.mini.modal{
     height: 100%;
     width: 100%;
+    display : block !important;
     overflow-x: hidden;
     overflow-y:scroll;
     top: 0;
@@ -57,15 +58,20 @@ mainContainer{
     font-weight: bold;
 }
 .partial-timer{
-    width:40%;
+    width:90%;
     position: absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    margin:5%;
+    top:3%;
 }
 .clcartmodal{
     top:50%;
     transform: translateY(-50%);
+}
+.active-loader{
+  min-height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .timer{
     height:120px;
@@ -97,4 +103,13 @@ mainContainer{
     .ui.basic.modal{
         margin-bottom:5%;
     }
+}
+@media(min-width : 700px){
+  .partial-timer{
+    width:40%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
 }

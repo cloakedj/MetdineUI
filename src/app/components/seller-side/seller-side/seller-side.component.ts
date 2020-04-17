@@ -8,7 +8,7 @@ export class SellerSideComponent implements OnInit {
   toggleMenu = false;
   winwidth = window.screen.width;
   deviceActive = (window.screen.width) <= 780 || this.toggleMenu ? 'smaller' : 'computer';
-  constructor() { 
+  constructor() {
   }
 
   ngOnInit() {
@@ -17,6 +17,12 @@ export class SellerSideComponent implements OnInit {
     let elt = document.getElementById('toggleDisplay');
     if(this.toggleMenu) elt.style.display = 'none';
     else elt.style.display = 'block';
+    this.toggleMenu = !this.toggleMenu;
+  }
+  hideSidebar(evt){
+    let elt = document.getElementById('toggleDisplay');
+    if(this.toggleMenu) elt.style.display = 'none';
+    if(window.screen.width < 700)
     this.toggleMenu = !this.toggleMenu;
   }
 }

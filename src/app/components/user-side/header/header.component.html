@@ -161,7 +161,7 @@
     </div>
     <div class="four wide column">
         <a class="ui orange label">
-            <i class="clock icon" *ngIf="screenSize > 380"></i>{{activeOrderData[0].time}}<span *ngIf="screenSize < 380">min</span>
+            <i class="clock icon" *ngIf="screenSize > 380"></i>{{activeOrderData[0].time | contentLength : 0 : true}}<span *ngIf="screenSize < 380">min</span>
              </a>
     </div>
     <div class="five wide column" *ngIf="screenSize > 370 else smallScreenActiveOrder">
@@ -181,8 +181,8 @@
         </a>
     </div>
     <div class="three wide column">
-        <a 
-        [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',activeOrderData[0].seller_id]}}]" 
+        <a
+        [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',activeOrderData[0].seller_id]}}]"
         routerLinkActive="active">
         <div class="ui header">
         <img class="ui mini rounded image" src="{{activeOrderData[0].seller_logo}}">

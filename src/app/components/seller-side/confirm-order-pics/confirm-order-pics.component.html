@@ -3,29 +3,71 @@
   <div class="ui two column computer column mobile centered grid container">
     <div class="row">
   <div class="ui compact center aligned segment clcartmodal">
-  <div class="ui icon header">
+  <div class="ui icon header" *ngIf="imagesSent[0].status == 'Sent'">
     <i class="clock icon"></i>
-    <div class="ui hidden divider"></div>
-    Waiting For Buyer To Confirm Images
+    <h4 class="ui header">Waiting For Buyer To Confirm Images</h4>
   </div>
   <div class="ui divider"></div>
   <div class="content">
     <div class="timer">
-      <h1 class="ui header">
+      <h1 class="ui header" *ngIf="timeLeft else loader">
         {{timeLeft}}
       </h1>
+      <ng-template #loader>
+        <div class="ui inline active loader"></div>
+      </ng-template>
     </div>
     <div class="ui center sub header">
       Seconds Left
     </div>
   </div>
-  <div class="ui hidden divider"></div>
-  <div class="actions">
-    <div class="ui red fluid  inverted button" (click)="startTimer">
-      <i class="clock icon"></i>
-     Refresh Timer
+  <div class="ui divider"></div>
+  <h5 class="ui header"  *ngIf="imagesSent[0].status == 'Sent'">
+    <i class="ui exclamation circle icon"></i>
+    Images Have Been Sent To The Buyer. Kindly Wait For The Buyer's Action.
+  </h5>
+  </div>
+</div>
+  </div>
+</div>
+</ng-container>
+<ng-container *ngIf="imagesSent">
+  <div class="ui basic modal" *ngIf="imagesSent[0].status == 'Partial'">
+  <div class="ui two column computer column mobile centered grid container">
+    <div class="row">
+  <div class="ui compact center aligned segment clcartmodal">
+    <div class="ui icon header">
+      <i class="circular phone icon"></i>
+      Buyer Has Rejected The Images.
+    </div>
+    <div class="ui divider"></div>
+    <h5 class="ui header">
+      <i class="circular user icon"></i>
+      {{orderDetails.customer_name}}
+    </h5>
+    <h5 class="ui header">
+      <i class="circular phone icon"></i>
+      {{orderDetails.customer_phone}}
+    </h5>
+  <div class="ui divider"></div>
+  <div class="content">
+    <div class="timer">
+      <h1 class="ui header" *ngIf="timeLeft else loader">
+        {{timeLeft}}
+      </h1>
+      <ng-template #loader>
+        <div class="ui inline active loader"></div>
+      </ng-template>
+    </div>
+    <div class="ui center sub header">
+      Seconds Left
     </div>
   </div>
+  <div class="ui divider"></div>
+    <h5 class="ui header">
+      <i class="ui exclamation circle icon"></i>
+      Please Contact The Buyer Immediately Within 3 Minutes To Continue With The Order.
+    </h5>
   </div>
 </div>
   </div>
@@ -101,7 +143,7 @@
         </div>
         <div class="three wide column">
             <h3 class="ui header">
-              Revenue : 
+              Revenue :
               {{orderDetails.total | currency:'INR'}}
           </h3>
           </div>
@@ -177,7 +219,7 @@
             Submit
         </button>
         </div>
-    </div>          
+    </div>
     </ng-container>
       </div>
     </div>

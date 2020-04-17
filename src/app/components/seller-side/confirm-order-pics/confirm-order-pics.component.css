@@ -60,6 +60,8 @@
     display:flex;
     align-items: center;
     justify-content: center;
+    animation : 0.3s fadeIn ease-in;
+    animation-fill-mode: forwards;
 }
 .timer .header{
     color: #fff !important;
@@ -77,4 +79,12 @@
     left: 50%;
     top : 30%;
     transform: translate(-50%,-50%);
+}
+@keyframes fadeIn{
+  0%{
+    opacity : 0;
+  }
+  100%{
+    opacity : 1;
+  }
 }

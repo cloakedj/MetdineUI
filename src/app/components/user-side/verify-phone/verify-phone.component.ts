@@ -25,7 +25,9 @@ export class VerifyPhoneComponent implements OnInit {
   Auth_Key = '';
   postSignup : boolean;
   enteredPhone = false;
-  phone : FormControl = new FormControl('',      
+  isOnCheckout : boolean;
+  Title = "Verify Your Phone Number."
+  phone : FormControl = new FormControl('',
   [Validators.required,
   Validators.minLength(10),
   Validators.maxLength(10),
@@ -44,6 +46,9 @@ constructor(private formbuilder: FormBuilder,
 ngOnInit() {
   this.aroute.queryParams.subscribe(params => {
     this.isSellerSide = params["sellerSide"];
+    this.isOnCheckout = params["onTheWayToCheckout"];
+    if(this.isSellerSide) this.Title = "Please Verify Your Phone to Become A Seller."
+    else if(this.isOnCheckout) this.Title = "Please Verify Your Phone Before Completing The Order."
   });
 }
 requestOtpByDashboard(){
@@ -54,17 +59,37 @@ requestOtpByDashboard(){
 }
 requestSellerOtp(){
   this.api.getRequestidForOtpVerificationSeller(this.phone.value).subscribe(
-    data => localStorage.setItem("otp_request_id",`${data}`),
+    data => {
+      if(data == "An account with this number already exists")
+      {
+      this.toastr.info("An account with this number already exists");
+      this.enteredPhone = false;
+      }
+      else
+      {
+        localStorage.setItem("otp_request_id",`${data}`);
+        this.enteredPhone = true;
+      }
+    },
     err => this.toastr.error("Something Went Wrong. Try Again!")
   );
-  this.enteredPhone = true;
 }
 buyerRequestOtp(){
   this.api.getRequestidForOtpVerificationBuyer(this.phone.value).subscribe(
-    data => localStorage.setItem("otp_request_id",`${data}`),
+    data => {
+      if(data == "An account with this number already exists")
+      {
+        this.toastr.info("An account with this number already exists");
+        this.enteredPhone = false;
+      }
+      else
+      {
+        localStorage.setItem("otp_request_id",`${data}`);
+        this.enteredPhone = true;
+      }
+    },
     err => this.toastr.error("Something Went Wrong. Try Again!")
   );
-  this.enteredPhone = true;
 }
 onSubmit(Data){
   let rid = localStorage.getItem("otp_request_id");
@@ -78,6 +103,8 @@ buyerOtpVerification(Data,rid){
     (data) => {
       this.toastr.success("Phone Number Has Been Successfully Verified. Redirecting...");
       localStorage.removeItem("otp_request_id");
+      if(this.isOnCheckout)  this.router.navigate(['/map'],{queryParams : {checkout : true}});
+      else
       this.router.navigateByUrl('/user/(userRouterOutlet:home)');
     },
     (err) => this.toastr.error("Something Went Wrong. Try Again!")
