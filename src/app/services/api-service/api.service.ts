@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://969d03a6.ngrok.io/api';
+  API_URL = 'http://e8968957.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -415,11 +415,26 @@ export class ApiService {
     }
     //Reconfirm Images
     reconfirmImages(c_id : any){
-      return this.http.get(`${this.API_URL}/order/reconfirm_images/status/${c_id}`)
+      return this.http.get(`${this.API_URL}/order/reconfirm_images/${c_id}`)
       .pipe(
         catchError(this.handleError)
       )
     }
+    //Update Seller Payment Info
+    addSellerPaymentInfo(id: any,data: any){
+      return this.http.patch(`${this.API_URL}/seller/payment/modify/${id}`,data)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+      //Get Seller Payment Info
+    getSellerPaymentInfo(){
+      return this.http.get(`${this.API_URL}/seller/payment/`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+
   //Log User Out
   logOutUser(){
     return this.http.post(`${this.API_URL}/rest-auth/logout/`,'')

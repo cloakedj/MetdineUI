@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-orders',
@@ -17,10 +18,11 @@ export class ActiveOrdersComponent implements OnInit {
     { key: 3, value: 'On The Way' },
     { key: 4, value: 'Completed' }
   ];
-  constructor(private api : ApiService) { 
+  constructor(private api : ApiService,
+    private router : Router) {
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getActiveOrders();
   }
   getActiveOrders(){
@@ -32,7 +34,7 @@ export class ActiveOrdersComponent implements OnInit {
     this.api.getSellerDashboardOrders(true, true).subscribe(this.allOrdersObs$);
   }
   requestedOrdersCount() {
-    if (this.allActiveOrders === undefined || 
+    if (this.allActiveOrders === undefined ||
       this.allActiveOrders.length === 0) return false;
       return true;
   }
@@ -49,5 +51,8 @@ export class ActiveOrdersComponent implements OnInit {
         this.getActiveOrders();
       }
     )
+  }
+  routeToOrderImages(id : any){
+    this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet': ['active-order',id]}}])
   }
 }

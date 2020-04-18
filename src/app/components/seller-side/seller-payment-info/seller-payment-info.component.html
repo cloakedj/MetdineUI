@@ -1,0 +1,50 @@
+<div class="ui four column centered grid">
+  <div class="fifteen wide mobile four wide computer column">
+      <h3 class="ui top attached header center aligned inverted">Log In To Metdine</h3>
+      <div class="ui raised attached segment">
+        <img class="ui circular centered small image" src="../../../assets/molly.png">
+        <div class="ui divider"></div>
+            <div class="ui fluid form">
+                <form [formGroup]="paymentForm" (ngSubmit)="onSubmit(paymentForm.value)" (ngForm)="paymentForm">
+                  <div class="field">
+                    <input placeholder="Bank Account Number"  formControlName="bank_account_number" type="text">
+                    <div class="ui pointing red basic label"  *ngIf="!bank_account_number.pristine && !bank_account_number.errors?.required">
+                      Bank Account Is Required
+                   </div>
+                   <div class="ui pointing red basic label"  *ngIf="!bank_account_number.pristine && !bank_account_number.errors?.pattern">
+                    Enter A Valid Bank Account Number
+                 </div>
+                  </div>
+                  <div class="field">
+                    <input placeholder="IFSC Code" formControlName="ifsc_code" type="password">
+                    <div class="ui pointing red basic label"  *ngIf="ifsc_code.errors?.required && !ifsc_code.pristine">
+                      IFSC Code Is Required is required
+                   </div>
+                   <div class="ui pointing red basic label"  *ngIf="ifsc_code.errors?.pattern && !ifsc_code.pristine">
+                    Please Enter A Valid IFSC Code
+                 </div>
+                      </div>
+                      <div class="field">
+                          <button class="ui  positive fluid button" [disabled]="paymentForm.pristine || paymentForm.invalid" type="submit">Add Payment Info</button>
+                      </div>
+              </form>
+              </div>
+              <div class="ui horizontal divider">
+                OR
+              </div>
+              <div class="field">
+
+                <input placeholder="UPI Id" formControlName="upi_id" type="password">
+                <div class="ui pointing red basic label"  *ngIf="upi_id.errors?.required && !upi_id.pristine">
+                  UPI Required is required
+               </div>
+               <div class="ui pointing red basic label"  *ngIf="upi_id.errors?.pattern && !upi_id.pristine">
+                Please Enter A Valid UPI Id
+             </div>
+            </div>
+              <div class="field">
+                <button class="ui  blue fluid button" (click)="onSubmit(upi_id.value,true)" [disabled]="upi_id.pristine && !upi_id.invalid">Add UPI Id</button>
+            </div>
+        </div>
+      </div>
+</div>

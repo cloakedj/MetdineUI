@@ -26,9 +26,10 @@
         After Talking To The Seller, If You Would Like To Receive The Order, Please Click The Button Below.
        </h5>
        <div class="actions">
-        <div class="ui green fluid  inverted button" (click)="reconfirmOrder()">
+        <div class="ui green fluid  inverted button" (click)="reconfirmOrder();showReconfirmLoader = true;">
           <i class="check icon"></i>
          I Want To Receive The Order.
+         <div class="ui inline active loader" *ngIf="showReconfirmLoader"></div>
         </div>
       </div>
      </div>
@@ -36,7 +37,6 @@
 </div>
 </ng-container>
 <div class="ui stackable grid mainContainer" *ngIf="hasActiveOrder && activeOrderData else loading">
-  <ng-container *ngIf="hasActiveOrder == true else noActiveOrder">
     <div class="ten wide column">
         <ng-container *ngIf="activeOrderData">
     <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
@@ -62,6 +62,7 @@
         <h3 class="ui header">
             Address : {{data.address}}
         </h3>
+        <ng-container *ngIf="sentImages">
         <ng-container *ngIf="data.status >= 2 && sentImages[0].status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
@@ -88,6 +89,7 @@
                 </div>
                 </div>
             </ng-container>
+          </ng-container>
     </div>
 </ng-container>
 </div>
@@ -130,7 +132,6 @@
         <div class="ui divider"></div>
     </div>
 </div>
-</ng-container>
 </div>
 <ng-container *ngIf="sentImages">
 <ng-container *ngIf="sentImages[0].status == 'Sent'">
@@ -230,9 +231,7 @@
   <div class="ui centered column active-loader">
     <div class="ui active inline loader"></div>
   </div>
-</ng-template>
-<ng-template #noActiveOrder>
-  <div class="centered column active-loader">
+  <div class="centered column active-loader" *ngIf="!hasActiveOrder">
     No Active Order At The Moment.
   </div>
 </ng-template>

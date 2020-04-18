@@ -2,7 +2,7 @@
     padding-top:2.5% !important;
     padding-right: 3% !important;
 }
-.closeMap{    
+.closeMap{
     position: absolute;
     left: 94%;
     top: 3%;
@@ -33,7 +33,7 @@
     left: 50%;
     transform: translate(-50%,-50%);
 }
-.editDetails{
+.editDetails,.paymentInfo{
     width: 100%;
     height: 100%;
     position: fixed;
@@ -54,15 +54,29 @@ app-geolocation{
     z-index: 99999;
     padding-right: 0 !important;
 }
+.active-loader{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  min-height:200px;
+  width:100%
+}
+.no-payment-message{
+  text-align: center;
+  padding: 6%;
+  min-height: 200px;
+  width: 100%;
+  min-height:200px;
+}
 @media (max-width:500px){
 .closeMap{
     left:82%;
-    top:1%;    
+    top:1%;
 }
 }
 @media (max-width : 350px){
 #actionId{
- padding : 0 !important;   
+ padding : 0 !important;
  margin-top: -16%;
 }
 }

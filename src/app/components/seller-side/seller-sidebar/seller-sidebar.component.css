@@ -6,7 +6,7 @@
     background-color: black;
     width:23%;
     left: 0%;
-    z-index: 99999;
+    z-index: 999;
 }
 .ui.link.list .active{
   border-left:4px solid  #e0f3ff;

@@ -125,7 +125,6 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
           this.clearTimer();
           this.killTrigger.next();
-          this.getConfirmationImagesStatus();
           }
         }
         ,1000)
@@ -146,7 +145,6 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         else
         {
         this.timeLeft = 180 - data["elapsed"];
-        this.getConfirmationImagesStatus();
         this.startTimer =
         setInterval(()=>{
           if(this.timeLeft > 0)
@@ -158,7 +156,6 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           this.toastr.info("Time To Accept Images Has Expired. The Order Has been Rejected.");
           this.clearTimer();
           this.killTrigger.next();
-          this.getConfirmationImagesStatus();
           }
         }
         ,1000)
@@ -180,14 +177,15 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
       (data)=> {
         this.checkStatus = data;
         if(this.checkStatus == 'Confirmed' || this.checkStatus == 'Rejected'){
-          this.getConfirmationImagesStatus();
-          this.killTrigger.next();
           this.clearTimer();
+          this.orderDetailsAPI();
+          this.timerFlag = true;
+          this.killTrigger.next();
         }
         else
         if(this.checkStatus == 'Partial' && this.timerFlag){
-          this.killTrigger.next();
           this.clearTimer();
+          this.killTrigger.next();
           this.getElapsedTimeforCall();
           this.timerFlag = false;
         }

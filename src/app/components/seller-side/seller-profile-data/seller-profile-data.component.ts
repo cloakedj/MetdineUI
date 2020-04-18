@@ -4,6 +4,7 @@ import { Observer } from 'rxjs';
 import { SellerDash } from 'src/app/entities/seller-dash.entity';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-seller-profile-data',
@@ -18,6 +19,8 @@ export class SellerProfileDataComponent implements OnInit {
   editDetailsShow = false;
   editAddress = false;
   windowWidth  : number;
+  showPaymentInfoModal = false;
+  sellerPaymentInfo : any;
   sellerDetails = this._fb.group({
     first_name : [''],
     last_name : [''],
@@ -27,7 +30,8 @@ export class SellerProfileDataComponent implements OnInit {
   editedSellerInfo = new FormData();
   constructor(private api: ApiService,
     private router : Router,
-    private _fb : FormBuilder) { }
+    private _fb : FormBuilder,
+    private toastr :ToastrService) { }
 
   ngOnInit() {
     this.windowWidth = window.innerWidth;
@@ -48,7 +52,7 @@ export class SellerProfileDataComponent implements OnInit {
     .subscribe(this.sellerCompletedOrdersForDashboard$);
   }
   getItemsLength(){
-    if ( this.sellerCompletedOrders === undefined || 
+    if ( this.sellerCompletedOrders === undefined ||
       this.sellerCompletedOrders.length === 0) return false;
       return true;
   }
@@ -71,6 +75,17 @@ export class SellerProfileDataComponent implements OnInit {
   updatePhone(){
     this.router.navigate(["/userGateway",{outlets : {userGatewayRouter : ['verify-phone']}}],
     {queryParams : {sellerSide : true}});
+  }
+  updatePaymentInfo(){
+    this.router.navigate(['/seller-side',{outlets : {sellerRouterOutlet : ['seller-payment-info']}}],
+    {queryParams : {updateMode : this.sellerPaymentInfo.id}});
+  }
+  showPaymentData(){
+    this.showPaymentInfoModal = true;
+    this.api.getSellerPaymentInfo().subscribe(
+      (data) => this.sellerPaymentInfo = data,
+      (err) => this.toastr.error("Something Went Wrong. Try Again Later!")
+    )
   }
 
 }

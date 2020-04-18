@@ -12,6 +12,7 @@ import { GetCategoryService } from 'src/app/services/get-category/get-category.s
 export class ActiveOrderComponent implements OnInit {
   activeOrderData$ : Observer<any>;
   activeOrderData : any;
+  showReconfirmLoader = false;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -66,6 +67,8 @@ export class ActiveOrderComponent implements OnInit {
         this.getElapsedTime()
         if(data[0].status == 'Partial')
         this.getElapsedTimeForCall();
+        if(data[0].status == 'Comfirmed')
+        this.getActiveOrderData();
       },
       error : (err) => this.toastr.error(err),
       complete : () => console.log("Request comleted")
@@ -176,6 +179,7 @@ export class ActiveOrderComponent implements OnInit {
   }
   reconfirmOrder(){
     this.api.reconfirmImages(this.activeOrderData[0].confirmation).subscribe(this.statusimagesObs$);
+    this.getImages();
   }
 
 }

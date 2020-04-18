@@ -38,6 +38,9 @@
     </div>
 </div>
 <div class="ui hidden divider"></div>
+<button class="ui primary fluid button" [disabled] = "order.status < 2" (click)="routeToOrderImages(order.id)">
+  View Order Images
+</button>
 </div>
 </ng-container>
 </ng-container>

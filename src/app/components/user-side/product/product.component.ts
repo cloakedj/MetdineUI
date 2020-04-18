@@ -31,15 +31,15 @@ export class ProductComponent implements OnInit{
   private gc : GetCategoryService,
   private _search : SearchService,
   private aroute : ActivatedRoute
-  ) 
-  { 
+  )
+  {
     this.products = this.productService.productsArr;
-  }
-
-  ngOnInit() {
     this.aroute.params.subscribe(params => {
       this.sellerId = params["id"];
     });
+  }
+
+  ngOnInit() {
   }
   updateCart(id :any){
     this.cart.updateCart(id);

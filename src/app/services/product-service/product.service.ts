@@ -36,11 +36,14 @@ export class ProductService implements OnInit{
         this.longitude = position.coords.longitude;
         localStorage.setItem("latitude",this.latitude.toString());
         localStorage.setItem("longitude",this.longitude.toString());
+        if(localStorage.getItem("Auth_Token"))
+        {
         this.sellers$ = this.api.getAllSellers(this.latitude,this.longitude);
         this.api.getAllSellers(this.latitude,this.longitude).subscribe(
           data => this.sellersArr = data,
           err => this.toastr.error("Something Went Wrong. Please Try Again Later."),
         )
+        }
         this.getAddress(this.latitude, this.longitude);
       });
     }

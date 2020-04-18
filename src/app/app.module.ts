@@ -82,6 +82,7 @@ import { VegNonVegPipe } from './pipes/vegNonveg/veg-non-veg.pipe';
 import { LabelFilterPipe } from './pipes/LabelFilter/label-filter.pipe';
 import { AddOrAddedToCartPipe } from './pipes/addOrAddedToCart/add-or-added-to-cart.pipe';
 import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
+import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
     LabelFilterPipe,
     AddOrAddedToCartPipe,
     GetquantityPipe,
+    SellerPaymentInfoComponent,
   ],
   imports: [
     BrowserModule,

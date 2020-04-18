@@ -32,7 +32,7 @@
 </div>
 </ng-container>
 <ng-container *ngIf="imagesSent">
-  <div class="ui basic modal" *ngIf="imagesSent[0].status == 'Partial'">
+  <div class="ui basic modal" *ngIf="imagesSent[0].status == 'Partial' || !this.timerFlag">
   <div class="ui two column computer column mobile centered grid container">
     <div class="row">
   <div class="ui compact center aligned segment clcartmodal">

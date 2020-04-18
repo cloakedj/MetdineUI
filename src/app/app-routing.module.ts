@@ -35,6 +35,7 @@ import { ActiveOrderGuardService } from './services/Active-order/active-order-gu
 import { PreviousOrdersComponent } from './components/user-side/previous-orders/previous-orders.component';
 import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
+import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
 
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,canActivate :[AuthGuardService],children: [
@@ -43,7 +44,7 @@ const routes: Routes =[
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path: 'profile', component : BuyerProfileComponent, outlet : 'userRouterOutlet'},
-  { path : '', redirectTo : '/user/(userRouterOutlet:home)', pathMatch:'full'}, 
+  { path : '', redirectTo : '/user/(userRouterOutlet:home)', pathMatch:'full'},
 ]},
   { path: 'seller-side', component: SellerSideComponent, canActivate:[AuthGuardIsSellerService],children: [
     { path:'addItem', component:MenuItemComponent, outlet:'sellerRouterOutlet'},
@@ -51,6 +52,7 @@ const routes: Routes =[
     { path : 'completed-orders', component : CompletedOrdersComponent, outlet : 'sellerRouterOutlet'},
     {path : 'seller-items', component : SellerItemsComponent, outlet : 'sellerRouterOutlet'},
     {path : 'seller-profile', component : SellerProfileDataComponent, outlet: 'sellerRouterOutlet'},
+    {path : 'seller-payment-info', component : SellerPaymentInfoComponent, outlet: 'sellerRouterOutlet'},
     {path : 'active-order/:id', component : ConfirmOrderPicsComponent, outlet: 'sellerRouterOutlet'},
     {path : 'active-orders', component: ActiveOrdersComponent, outlet : 'sellerRouterOutlet'},
     {path : 'edit-item/:id',component: EditItemComponent, outlet : 'sellerRouterOutlet'},

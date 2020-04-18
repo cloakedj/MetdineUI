@@ -2,6 +2,9 @@
 {
     padding:5%;
 }
+.ui.loader{
+  z-index:99 !important;
+}
 .status-index .four.wide.column{
     width:16% !important;
 }
