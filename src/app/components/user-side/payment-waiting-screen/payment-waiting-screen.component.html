@@ -12,7 +12,7 @@
             Kindly Don't Close This Screen Or Reload The Browser.
         </h4>
         <div class="ui divider"></div>
-        <div class="ui centered header">
+        <div class="ui centered header" *ngIf="!loaderOff">
             <div class="loader-container">
                 <div class="pulse-loader"></div>
                 <div class="pulse-loader"></div>
@@ -24,3 +24,32 @@
     </div>
 </div>
 </div>
+  <div class="ui mini modal" *ngIf="loaderOff">
+    <div class="ui compact center aligned segment partial-timer">
+     <div class="content" *ngIf="paymentStatus">
+      <h3 class="ui center aligned icon header">
+        <i class="circular check icon"></i>
+        Congratulations! Your Payment Was Successful. Your Order Has Been Placed. Redirecting....
+      </h3>
+      <div class="ui centered active inline loader"></div>
+      <div class="ui divider"></div>
+      <h5 class="ui header">
+        <i class="triangle exclamation icon"></i>
+        Congratulations. Your Payment Was Successful. We Are Redirecting You To The Active Order Screen.
+      </h5>
+     </div>
+     <div class="content" *ngIf="!paymentStatus">
+      <h3 class="ui center aligned icon header">
+        <i class="circular close icon"></i>
+       Sorry! Your Payment Was Unsuccessful. Your Order Has Been Cancelled. Redirecting....
+      </h3>
+      <div class="ui centered active inline loader"></div>
+      <div class="ui divider"></div>
+      <h5 class="ui header">
+        <i class="triangle exclamation icon"></i>
+        Unfortunately, your Payment Was Unsuccessful, Hence Your Order Was 
+        Cancelled. We Are Redirecting You To The Previous Orders Screen.
+      </h5>
+     </div>
+    </div>
+  </div>

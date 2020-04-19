@@ -2,7 +2,8 @@ import { CartService } from './../../services/cart-service/cart.service';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'addOrAddedToCart'
+  name: 'addOrAddedToCart',
+  pure : false
 })
 export class AddOrAddedToCartPipe implements PipeTransform {
   constructor(

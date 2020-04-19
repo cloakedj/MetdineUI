@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit{
   products : any;
   quantZero : boolean;
   @Input() searchBar : any;
+  activeProductId : any;
   cartHasDiffSeller : boolean = false;
   update : number;
   constructor(
@@ -71,7 +72,10 @@ export class ProductComponent implements OnInit{
         this.update = Math.random() * 1000;
       }
       else
+      {
+      this.activeProductId = id;
       this.cartHasDiffSeller= true;
+      }
     }
     else
     {

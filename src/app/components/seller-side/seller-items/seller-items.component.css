@@ -6,6 +6,10 @@
 .header{
     font-family: 'Righteous', cursive !important;
 }
+.ui.label
+{
+margin-bottom: 5% !important;
+}
 .sub.header{
     color:#ffffff;
 }
@@ -92,10 +96,6 @@
 {
 button{
     margin-bottom: 5% !important;
-}
-.ui.label
-{
-margin-bottom: 5% !important;
 }
 }
 @media (min-width : 780px){

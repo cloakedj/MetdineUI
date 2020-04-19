@@ -7,11 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class OrderCardComponent implements OnInit {
   @Input() order : any;
   @Input() itemCount : any;
+  @Input() buyerSide : boolean;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
     { key: 3, value: 'On The Way' },
-    { key: 4, value: 'Completed' }
+    { key: 4, value: 'Completed' },
+    { key : 6, value : 'Cancelled'}
   ];
   constructor() { }
 

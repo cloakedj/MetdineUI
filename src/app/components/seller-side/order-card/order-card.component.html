@@ -10,16 +10,17 @@
     'green' : order.status === 1,
     'teal' : order.status === 2,
     'yellow' : order.status === 3,
-    'red' : order.status === 4
+    'blue' : order.status === 4,
+    'red' : order.status === 6
     }">{{getOrderStatus(order.status)}}</a>
 </div>
-<div class="ui hidden divider"></div>
-<h4 class="ui header">
+<div class="ui hidden divider" *ngIf="!buyerSide"></div>
+<h4 class="ui header" *ngIf="!buyerSide">
   <i class="ui circular user icon">
   </i>
   {{order.customer_name}}
 </h4>
-<h4 class="ui header">
+<h4 class="ui header" *ngIf="!buyerSide">
   <i class="ui circular phone icon">
   </i>
   {{order.customer_phone}}

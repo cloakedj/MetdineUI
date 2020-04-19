@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   redirectUrl: string;
   winWidth : number;
   sellerName : string;
+  cartHadItems : boolean;
   sellerLogo : string;
   sellerId = localStorage.getItem("seller__id");
   constructor(

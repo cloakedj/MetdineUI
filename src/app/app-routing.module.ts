@@ -42,7 +42,7 @@ const routes: Routes =[
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
   { path: 'home', component: HomepageComponent,outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
-  { path: 'active-order',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
+  { path: 'active-order/:id',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path: 'profile', component : BuyerProfileComponent, outlet : 'userRouterOutlet'},
   { path : '', redirectTo : '/user/(userRouterOutlet:home)', pathMatch:'full'},
 ]},

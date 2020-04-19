@@ -57,11 +57,21 @@
     color:black;
     font-weight: bold;
 }
+.allOrdersStatus{
+  padding:7% !important;
+}
 .partial-timer{
     width:90%;
     position: absolute;
     margin:5%;
     top:3%;
+}
+.orderlist{
+  width:40%;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 .clcartmodal{
     top:50%;
@@ -96,14 +106,29 @@
 .pleaseSendImages{
     color: #fff;
 }
+.closeMap{
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  z-index: 999999;
+}
 .fluid.negative{
     margin-bottom:35%;
 }
+@media (max-width:500px){
+  .closeMap{
+      left:88%;
+      top:2%;
+  }
+  }
 @media(max-width:500px){
     .ui.basic.modal{
         margin-bottom:5%;
     }
-}
+    .orderlist{
+      width:90%;
+    }
+  }
 @media(min-width : 700px){
   .partial-timer{
     width:40%;

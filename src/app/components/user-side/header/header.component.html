@@ -208,12 +208,12 @@
         <a class="ui orange label">
             Time For Preparation
             <a class="detail">
-            <i class="clock icon"></i>{{activeOrderData[0].time}} min
+            <i class="clock icon"></i>{{activeOrderData[0].time}}
              </a>
           </a>
     </div>
     <div class="two wide column">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderData[0].id]}}]" class="ui red label"
         data-position="bottom left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>

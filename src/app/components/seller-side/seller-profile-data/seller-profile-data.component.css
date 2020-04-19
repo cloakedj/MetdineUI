@@ -68,6 +68,9 @@ app-geolocation{
   width: 100%;
   min-height:200px;
 }
+.seller-profile-data{
+  width : 50% !important;
+}
 @media (max-width:500px){
 .closeMap{
     left:82%;

@@ -31,12 +31,18 @@
   </div>
   <ng-container *ngIf="cart.getCartLength() else emptyCart">
     <div class="six wide computer sixteen wide tablet sixteen wide mobile column">
+      <h2 class="ui center aligned header">
+        Cart Details
+      </h2>
+      <div class="ui divider"></div>
     <div class="ui center aligned segment" [ngClass]="{
       'compact' : winWidth > 500
     }">
     <div class="ui computer only center aligned row grid">
-    <h4 class="ui header" *ngIf="sellerLogo">
-        <img src="{{sellerLogo}}" class="ui rounded image" (click)="sellerPage()">
+        <img src="{{sellerLogo}}" class="ui small centered image" *ngIf="sellerLogo" (click)="sellerPage()">
+      </div>
+      <div class="ui computer only center aligned row grid">
+      <h4 class="ui header">
         {{sellerName}}
       </h4>
     </div>
@@ -45,6 +51,7 @@
         <h3 class="ui centered header">{{sellerName}}</h3>
       </div>
       <div class="ui divider"></div>
+      <!-- <ng-container *ngIf="cart.items else remainingCart"> -->
       <div class="row" *ngFor="let item of cart.items;">
         <div class="ui grid cart">
           <div class="three wide column" *ngIf="winWidth > 500 || winWidth < 350 else title">
@@ -72,6 +79,7 @@
         </div>
       <div class="ui hidden divider"></div>
     </div>
+  <!-- </ng-container> -->
     <div class="ui section divider"></div>
     <div class="ui right aligned grid">
       <div class="left floated left aligned ten wide column">

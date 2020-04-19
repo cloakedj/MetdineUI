@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-order',
@@ -22,6 +23,7 @@ export class ActiveOrderComponent implements OnInit {
     { key : 6, value : 'Cancelled'}
   ];
   sentImagesObs$ : Observer<any>;
+  allActiveOrders$ : Observer<any>;
   statusimagesObs$ : Observer<any>;
   statusimagesRejectObs$ : Observer<any>;
   sentImages : any;
@@ -32,17 +34,27 @@ export class ActiveOrderComponent implements OnInit {
   waitingAction = false;
   hasActiveOrder : boolean;
   startTimer : any;
+  listallorders = false;
+  reconfirmScreen = false;
+  activeOrderId : any;
   screenSize = window.screen.width;
+  allActiveOrders : any;
   constructor(private api : ApiService,
     private gc : GetCategoryService,
-    private toastr :ToastrService) { }
+    private aroute : ActivatedRoute,
+    private toastr :ToastrService,
+    private router : Router) {
+      this.aroute.params.subscribe(params =>{
+        this.activeOrderId = params["id"];
+        this.getActiveOrderData();
+        this.getAllActiveOrders();
+      })
+     }
 
   ngOnInit() {
     this.api.checkIfActiveOrder().subscribe(
       data => {
         this.hasActiveOrder = data["detail"];
-        if(this.hasActiveOrder)
-        this.getActiveOrderData();
       },
       err => this.toastr.error("Something Went Wrong. Try Again Later!")
 
@@ -52,12 +64,22 @@ export class ActiveOrderComponent implements OnInit {
     this.activeOrderData$ = {
       next : (data) => {
         this.activeOrderData = data;
-        this.getImages();
+        if(!this.reconfirmScreen) this.getImages();
       },
       error: (err) => this.toastr.error(err),
       complete : () => console.log("Request Completed")
     }
-    this.api.getActiveOrderDetailsForBuyer().subscribe(this.activeOrderData$);
+    this.api.getSingleActiveOrderDetailsForBuyer(this.activeOrderId).subscribe(this.activeOrderData$);
+  }
+  getAllActiveOrders(){
+    this.allActiveOrders$ = {
+      next : (data) =>{
+        this.allActiveOrders = data;
+      },
+      error : (err) => this.toastr.error("Something Went Wrong. Try Again.") ,
+      complete : () => console.log("completed")
+    }
+    this.api.getActiveOrderDetailsForBuyer().subscribe(this.allActiveOrders$);
   }
   getImages(){
     this.sentImagesObs$ = {
@@ -67,16 +89,19 @@ export class ActiveOrderComponent implements OnInit {
         this.getElapsedTime()
         if(data[0].status == 'Partial')
         this.getElapsedTimeForCall();
-        if(data[0].status == 'Comfirmed')
+        if(data[0].status == 'Confirmed' || this.imagesSent[0].status == "Rejected")
+        {
         this.getActiveOrderData();
+        this.reconfirmScreen = true;
+        }
       },
       error : (err) => this.toastr.error(err),
       complete : () => console.log("Request comleted")
     }
-    this.api.getConfirmationImages(this.activeOrderData[0].id).subscribe(this.sentImagesObs$);
+    this.api.getConfirmationImages(this.activeOrderData.id).subscribe(this.sentImagesObs$);
   }
   getElapsedTime(){
-    this.api.getElapsedTimeForImages(this.activeOrderData[0].confirmation).subscribe(
+    this.api.getElapsedTimeForImages(this.activeOrderData.confirmation).subscribe(
       (data) => {
         if(data["elapsed"] == 121)
         {
@@ -105,7 +130,7 @@ export class ActiveOrderComponent implements OnInit {
     )
   }
   getElapsedTimeForCall(){
-    this.api.getElapsedTimeForCall(this.activeOrderData[0].confirmation).subscribe(
+    this.api.getElapsedTimeForCall(this.activeOrderData.confirmation).subscribe(
       (data) => {
         if(data["elapsed"] == 181)
         {
@@ -178,8 +203,12 @@ export class ActiveOrderComponent implements OnInit {
     clearInterval(this.startTimer);
   }
   reconfirmOrder(){
-    this.api.reconfirmImages(this.activeOrderData[0].confirmation).subscribe(this.statusimagesObs$);
+    this.api.reconfirmImages(this.activeOrderData.confirmation).subscribe(this.statusimagesObs$);
     this.getImages();
+  }
+  toOtherActiveOrder(id : any){
+    this.router.navigate(['/user',{outlets : { userRouterOutlet : ['active-order',id]}}]);
+    this.listallorders = false;
   }
 
 }

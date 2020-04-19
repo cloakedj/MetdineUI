@@ -61,7 +61,6 @@ export class HeaderComponent implements OnInit {
     this.api.getActiveOrderDetailsForBuyer().subscribe(
       data => {
         this.activeOrderData = data;
-        console.log("order: ",this.activeOrderData)
       },
       err => this.toastr.error(err)
     )

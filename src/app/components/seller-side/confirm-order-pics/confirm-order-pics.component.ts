@@ -21,6 +21,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   imageConfirmationId : any;
   timeLeft : any;
   imagesSentForConfirmation = false;
+  autoAccept = false;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -54,7 +55,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
       next: data => {
         this.orderDetails = data;
         this.imageConfirmationId = data["confirmation"];
-        this.getConfirmationImagesStatus();
+        if(!this.autoAccept) this.getConfirmationImagesStatus();
       },
       error: err => console.log(err),
       complete: () => {
@@ -98,6 +99,11 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         this.getElapsedTime();
         if(this.imagesSent[0].status == "Partial")
         this.getElapsedTimeforCall();
+         if(this.imagesSent[0].status == "Confirmed" || this.imagesSent[0].status == "Rejected")
+         {
+           this.orderDetailsAPI();
+            this.autoAccept = true;
+         }
       },
       (err) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () => console.log("getting status")
@@ -124,6 +130,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           {
           this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
           this.clearTimer();
+          this.getConfirmationImagesStatus();
           this.killTrigger.next();
           }
         }
@@ -155,6 +162,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
           {
           this.toastr.info("Time To Accept Images Has Expired. The Order Has been Rejected.");
           this.clearTimer();
+          this.getConfirmationImagesStatus();
           this.killTrigger.next();
           }
         }

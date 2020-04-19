@@ -1,3 +1,59 @@
+<div class="ui centered grid column container" *ngIf="allActiveOrders && allActiveOrders.length > 1">
+  <button class="ui blue button" (click)="listallorders = true">
+    View All Active Orders
+  </button>
+</div>
+<div class="ui mini modal orders" *ngIf="listallorders">
+  <div class="ui compact center aligned segment orderlist">
+    <div class="closeMap">
+      <button class="ui negative icon button" (click)="listallorders = false">
+        <i class="close icon"></i>
+      </button>
+    </div>
+    <div class="ui icon header">
+      <i class="list alternate outline icon"></i>
+   <h4 class="ui header">
+    Other Active Orders
+   </h4>
+  </div>
+   <div class="ui divider"></div>
+   <div class="scrolling content">
+     <ng-container *ngIf="allActiveOrders">
+       <div class="row" *ngFor="let order of allActiveOrders">
+         <ng-container *ngIf="order.id != activeOrderId">
+        <div class="ui stackable grid container">
+      <div class="five wide column">
+        <h4 class="ui header allOrdersStatus">#{{order.id}}</h4>
+      </div>
+      <div class="five wide column">
+        <h4 class="ui header allOrdersStatus">
+           <a class="ui  image label" [ngClass]="{
+            'yellow' : order.status === 1,
+            'orange' : order.status === 2,
+            'purple' : order.status === 3,
+            'pink' : order.status === 4,
+            'brown' : order.status === 5,
+            'red' : order.status === 6
+        }">{{getStatus(order.status)}}
+        <a class="description">{{getStatus(order.id)}}</a>
+        </a>
+        </h4>
+      </div>
+      <div class="six wide column">
+        <button class="ui inverted green button" (click)="toOtherActiveOrder(order.id)">View Order</button>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+  </ng-container>
+  </div>
+</ng-container>
+     <h5 class="ui header">
+      <i class="ui exclamation triangle icon"></i>
+        This List Contains Other Active Orders At The Moment. Click On The Order Id For Full View Of Order.
+     </h5>
+   </div>
+  </div>
+</div>
 <ng-container *ngIf="sentImages">
 <div class="ui mini modal" *ngIf="sentImages[0].status == 'Partial'">
     <div class="ui compact center aligned segment partial-timer">
@@ -36,34 +92,34 @@
     </div>
 </div>
 </ng-container>
-<div class="ui stackable grid mainContainer" *ngIf="hasActiveOrder && activeOrderData else loading">
+<div class="ui stackable grid mainContainer" *ngIf="activeOrderData else loading">
     <div class="ten wide column">
         <ng-container *ngIf="activeOrderData">
-    <div class="ui raised segment" *ngFor="let data of activeOrderData" [ngClass]="{'loading': !activeOrderData}">
+    <div class="ui raised segment" [ngClass]="{'loading': !activeOrderData}">
         <h1 class="ui header">
-            Order Id : #{{data.id}}
+            Order Id : #{{activeOrderData.id}}
         </h1>
         <h3 class="ui header">
             Status :  <a class="ui label" [ngClass]="{
-                'yellow' : data.status === 1,
-                'orange' : data.status === 2,
-                'purple' : data.status === 3,
-                'pink' : data.status === 4,
-                'brown' : data.status === 5,
-                'red' : data.status === 6
-            }">{{getStatus(data.status)}}
+                'yellow' : activeOrderData.status === 1,
+                'orange' : activeOrderData.status === 2,
+                'purple' : activeOrderData.status === 3,
+                'pink' : activeOrderData.status === 4,
+                'brown' : activeOrderData.status === 5,
+                'red' : activeOrderData.status === 6
+            }">{{getStatus(activeOrderData.status)}}
             </a>
         </h3>
         <h3 class="ui header">
             Amount : <a class="ui black label">
-                {{data.total | currency : 'INR'}}
+                {{activeOrderData.total | currency : 'INR'}}
             </a>
         </h3>
         <h3 class="ui header">
-            Address : {{data.address}}
+            Address : {{activeOrderData.address}}
         </h3>
         <ng-container *ngIf="sentImages">
-        <ng-container *ngIf="data.status >= 2 && sentImages[0].status != 'Sent'">
+        <ng-container *ngIf="activeOrderData.status >= 2 && sentImages[0].status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
@@ -101,7 +157,7 @@
         <div class="ui divider"></div>
         <ng-container *ngIf="activeOrderData">
         <div class="row">
-            <table class="ui single line table" *ngFor="let data of activeOrderData;">
+            <table class="ui single line table">
             <thead>
                 <tr>
                 <th>Item Name</th>
@@ -112,7 +168,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of data.items;let i = index;">
+                <tr *ngFor="let item of activeOrderData.items;let i = index;">
                 <td>
                     <h4 class="ui image header">
                     {{item.meal_title}}
@@ -122,7 +178,7 @@
                     {{item.quantity}}
                 </td>
                 <td>
-                    <a class="ui label yellow">120</a>
+                    <a class="ui label yellow">{{item.meal_time | labelFilter}}</a>
                 </td>
                 </tr>
             </tbody>

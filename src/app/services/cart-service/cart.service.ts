@@ -14,6 +14,7 @@ export class CartService implements OnDestroy, OnInit{
   @Input() total: number = 0;
   existingOrder : CartItem[];
   orderDetailsId : number;
+  existingTotal
   @Input() orderId : number;
   userCartdetaisl$ : Observer<any>;
   itemExistsQuantity : number;
@@ -27,8 +28,6 @@ export class CartService implements OnDestroy, OnInit{
   }
 
 loadCart(): void {
-  this.total = 0;
-  this.items = [];
   this.userCartdetaisl$ = {
     next : (data) => {
       this.items = data.items;
@@ -46,14 +45,13 @@ loadCart(): void {
 }
                     
 getCartLength(){
-   localStorage.setItem("cartSize",`${this.items.length}`);
- return parseInt(localStorage.getItem("cartSize"));
+ return this.items.length;
 }
 updateCart(id: number,operation?: string): void{ 
     if(this.items === undefined)
     {
 
-    this.api.additemtoCart(id,this.productService.sellerId)
+    this.api.additemtoCart(id,parseInt(localStorage.getItem("seller__id")))
     .subscribe(
       data => 
       {
@@ -78,7 +76,6 @@ updateCart(id: number,operation?: string): void{
         if(item.meal_id === id)
         {
         this.itemExistsQuantity = item.quantity;
-        console.log(item.id)
         orderItemId = item.id;
         }
       });
@@ -99,14 +96,18 @@ updateCart(id: number,operation?: string): void{
 
 }
 }
-  clearCart(clearToAddNewSeller ?: boolean, id ?: any){
+  clearCart(clearToAddNewSeller ?: any, id ?: any){
     this.api.deleteCurrentCart().subscribe(
       data => {
-        if(clearToAddNewSeller) this.updateCart(id);
+        if(clearToAddNewSeller) this.updateCart(clearToAddNewSeller);
+        localStorage.removeItem("cartSize");
       },
       err => console.log(err),
       () => {
+        if(!clearToAddNewSeller)
         localStorage.removeItem("seller__id");
+        else
+        localStorage.setItem("seller__id",id.toString());
         this.loadCart();
         console.log("Completed request to delete current cart");
       }

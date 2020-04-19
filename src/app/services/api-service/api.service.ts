@@ -284,6 +284,13 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
+    //Get Single Active Order Details For Buyer
+    getSingleActiveOrderDetailsForBuyer(id : any){
+      return this.http.get(`${this.API_URL}/user/order_details/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
   //get images for confirmation to buyer
   getConfirmationImages(id : number){
     this.params = new HttpParams().set("order_id",id.toString());
@@ -421,8 +428,8 @@ export class ApiService {
       )
     }
     //Update Seller Payment Info
-    addSellerPaymentInfo(id: any,data: any){
-      return this.http.patch(`${this.API_URL}/seller/payment/modify/${id}`,data)
+    addSellerPaymentInfo(data: any,id : any){
+      return this.http.patch(`${this.API_URL}/seller/payment/modify/${id}/`,data)
       .pipe(
         catchError(this.handleError)
       )

@@ -4,7 +4,7 @@
   <ng-container *ngIf="sellerPaymentInfo else loader">
     <ng-container *ngIf="sellerPaymentInfo.account_activated || sellerPaymentInfo.upi_activated else addPaymentInfo">
   <div class="ui icon header">
-    <i class="rupee sign icon"></i>
+    <i class="circular rupee sign icon"></i>
    Seller Payment Details Details
   </div>
   <div class="image content">
@@ -14,41 +14,28 @@
     }">
       <img src="{{sellerDashOptions.logo}}">
     </div>
-    <div class="description">
+    <div class="seller-profile-data description">
       <div class="column" *ngIf="sellerPaymentInfo.account_activated">
-      <h3 class="ui header">
+      <h4 class="ui header">
         Total Revenue Collected :  {{sellerDashOptions.revenue | currency : 'INR'}}
-      </h3>
-      <h3 class="ui header">
+      </h4>
+      <h4 class="ui header">
         Bank A/C Number : {{sellerPaymentInfo.bank_account_number}}
-      </h3>
+      </h4>
       </div>
-      <h3 class="ui header">
+      <h4 class="ui header">
         IFSC Code : {{sellerPaymentInfo.ifsc_code}}
-      </h3>
-      <div class="ui divider"></div>
+      </h4>
+      <div class="ui hidden divider"></div>
       <div class="column" *ngIf="sellerPaymentInfo.upi_activated">
-      <h3 class="ui header">
+      <h4 class="ui header">
         UPI ID : {{sellerPaymentInfo.upi_id}}
-      </h3>
+      </h4>
     </div>
-    <div class="ui positive fluid button" (click)="updatePaymentInfo()">
+    <div class="ui divider"></div>
+    <div class="ui positive right floated button" (click)="updatePaymentInfo()">
       Update Payment Info
     </div>
-    </div>
-  </div>
-  <div class="actions">
-    <button class="ui blue right labeled icon button" (click)="updatePhone()">
-      Update Phone Number
-      <i class="phone icon"></i>
-    </button>
-    <div class="ui black right labeled icon button" (click)="editDetailsShow = false">
-      Reset
-      <i class="close icon"></i>
-    </div>
-    <div class="ui positive right labeled icon button" (click)="updateSellerDetails()">
-      Submit
-      <i class="checkmark icon"></i>
     </div>
   </div>
 </ng-container>
@@ -106,6 +93,10 @@
           <i class="map pin icon"></i>
         </div>
       </div>
+      </div>
+      <div class="field">
+        <label>Edit Image</label>
+        <input type="file" (change)="uploadFile($event)">
       </div>
     </form>
     </div>
@@ -311,7 +302,7 @@
       No Payment Information Found.
     </h4>
     <div class="ui divider"></div>
-    <button class="ui positive button">
+    <button class="ui positive button" (click)="updatePaymentInfo()">
       Add Payment Info
     </button>
   </div>

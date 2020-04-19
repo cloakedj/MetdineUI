@@ -14,14 +14,17 @@ import { ToastrService } from 'ngx-toastr';
 export class SellerPaymentInfoComponent implements OnInit {
 
   paymentSubscription : Subscription;
-  paymentUpi = new FormData();
-  upi_id : FormControl = new FormControl([Validators.pattern(/^[0-9A-za-z]@[0-9a-zA-Z]+$/)]);
+  paymentFormData = new FormData();
+  upi_id : FormControl = new FormControl('',[
+    Validators.required,
+    Validators.pattern(/^[0-9A-za-z]+@[0-9a-zA-Z]+$/)]);
   paymentForm: FormGroup = this.formbuilder.group({
   bank_account_number:['',[Validators.required,
   Validators.minLength(9),
-Validators.maxLength(18)]],
+  Validators.maxLength(18),
+  Validators.pattern(/^[0-9]+$/)]],
   ifsc_code:['',[Validators.required,
-  Validators.pattern(/^[A-za-z]{0,4}0[0-9]{0,6}$/)]],
+  Validators.pattern(/^[A-Za-z]{4}[0][0-9]{6}$/)]],
 });
 sellerPaymentId : any;
 constructor(private formbuilder: FormBuilder,
@@ -30,7 +33,7 @@ constructor(private formbuilder: FormBuilder,
   private router : Router,
   private toastr : ToastrService,
   private aroute :ActivatedRoute) {
-    this.sellerPaymentId = this.aroute.queryParams.subscribe(query =>{
+     this.aroute.queryParams.subscribe(query =>{
       this.sellerPaymentId = query['updateMode'];
     })
   }
@@ -40,10 +43,14 @@ ngOnInit() {
 onSubmit(Data: any,is_upi ?: boolean){
   if(is_upi)
   {
-  this.paymentUpi.append("upi_id",Data);
-  Data = this.paymentUpi;
+  this.paymentFormData.append("upi_id",Data);
   }
-  this.paymentSubscription = this.api.addSellerPaymentInfo(Data,this.sellerPaymentId)
+  else{
+    this.paymentForm['_forEachChild']((control,name)=>{
+        this.paymentFormData.append(name.toString(),control.value);
+    });
+  }
+  this.paymentSubscription = this.api.addSellerPaymentInfo(this.paymentFormData,this.sellerPaymentId)
   .subscribe(
     (data) => {
       this.toastr.success("Successfully Updated Payment Info");

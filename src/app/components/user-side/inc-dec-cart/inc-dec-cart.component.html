@@ -1,5 +1,8 @@
 <div class="ui small basic icon buttons">
     <button class="ui inverted red button"  (click) = "cartAction(productId)"><i class="minus icon"></i></button>
-    <button class="ui button quant">{{productId | getquantity}}</button>
+    <button class="ui button quant" *ngIf="productId | getquantity else loader">{{productId | getquantity}}</button>
     <button class="ui inverted green button" (click)="cartAction(productId,'a')"><i class="plus icon"></i></button>
 </div>
+<ng-template #loader>
+  <button class="ui button"><div class="ui active inline loader"></div></button>
+</ng-template>

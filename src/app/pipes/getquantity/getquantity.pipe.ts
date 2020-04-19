@@ -12,9 +12,15 @@ export class GetquantityPipe implements PipeTransform {
   }
   getItemQuantity(id :Number){
     let quantity ;
+    let found = false;
     this.cart.items.find(item => {
-      if(id === item.meal_id) quantity =  item.quantity;
+      if(id === item.meal_id){
+        quantity =  item.quantity;
+        found = true;
+      } 
     });
+    if(!found)
+    quantity = 0;
     return quantity;
   }
 

@@ -1,16 +1,19 @@
 .grid{
     padding-top:5%;
 }
+.ui.segment{
+  min-height : 200px;
+}
 .mat-radio-group{
     width:30%;
+}
+.ui.label
+{
+margin-bottom: 5% !important;
 }
 @media (max-width : 500px)
 {
 button{
     margin-bottom: 5% !important;
-}
-.ui.label
-{
-margin-bottom: 5% !important;
 }
 }
