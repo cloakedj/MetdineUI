@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
+  showUnmatchMessage : boolean = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -29,6 +30,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   onSubmit(data){
+    if(this.password1.value !== this.password2.value)
+    {
+      this.showUnmatchMessage = true;
+    }
+    else{
+      this.showUnmatchMessage = false;
     this.api.buyerRegistration(data).subscribe(
       (data) => {
         this.router.navigateByUrl(`/confirm-email`)
@@ -36,6 +43,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       (err) => this.toastr.error(err),
     );
     this.signUpForm.reset();
+    }
   }
   ngOnDestroy(){
   }

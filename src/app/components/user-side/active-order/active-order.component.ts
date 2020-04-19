@@ -89,7 +89,7 @@ export class ActiveOrderComponent implements OnInit {
         this.getElapsedTime()
         if(data[0].status == 'Partial')
         this.getElapsedTimeForCall();
-        if(data[0].status == 'Confirmed' || this.imagesSent[0].status == "Rejected")
+        if(data[0].status == 'Confirmed' || data[0].status == "Rejected")
         {
         this.getActiveOrderData();
         this.reconfirmScreen = true;

@@ -38,6 +38,11 @@
                         </div>
                         <div class="field">
                         <input placeholder="Confirm Password" formControlName="password2" type="password">
+                        <div class="field" *ngIf="showUnmatchMessage">
+                          <h5 class="ui header dontmatch">
+                            Password And Confirm Password Should Match.
+                          </h5>
+                        </div>
                         <!-- <div class="ui pointing red basic label"  *ngIf="signUpForm.controls['confirmPassword'].hasError('NoPassswordMatch') && !confirmPassword.pristine">
                          Password and Confirm Password Should Match
                         </div> -->
