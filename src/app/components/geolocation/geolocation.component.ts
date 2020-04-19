@@ -62,7 +62,7 @@ export class GeolocationComponent implements OnInit{
     private _fb : FormBuilder,
     private router : Router,
     private toastr : ToastrService
-  ) { 
+  ) {
    this.aroute.queryParams.subscribe(params =>{
     this.isOnCheckoutMode = params['checkout'];
     this.isSigningUp = params['signup'];
@@ -94,7 +94,7 @@ export class GeolocationComponent implements OnInit{
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-      
+
       const autocomplete = new google.maps.places.Autocomplete(this.autocompletesearch.nativeElement, {
         types: [],
         componentRestrictions : { 'country' : 'IN'}
@@ -107,7 +107,7 @@ export class GeolocationComponent implements OnInit{
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
- 
+
           //set latitude, longitude and zoom
           this.zipCode = place.address_components[place.address_components.length - 1].long_name;
           this.latitude = place.geometry.location.lat();
@@ -137,7 +137,7 @@ export class GeolocationComponent implements OnInit{
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
   }
- 
+
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
@@ -151,7 +151,7 @@ export class GeolocationComponent implements OnInit{
       } else {
         this.toastr.error('Geocoder failed due to: ' + status);
       }
- 
+
     });
   }
   onAddressBtnClick(){
@@ -166,7 +166,7 @@ export class GeolocationComponent implements OnInit{
           this.loading = false;
           location.href = redirecturl
           console.log("Completed Checkout");
-        } 
+        }
       )
     }
     else if(this.isSellerSide){

@@ -20,6 +20,7 @@ export class ProductService implements OnInit{
   latitude: number;
   longitude: number;
   address : string;
+  buyerCity : any;
   private geoCoder;
   constructor(
     private api : ApiService,
@@ -53,6 +54,11 @@ export class ProductService implements OnInit{
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;
+          results.forEach(address_component => {
+            if (address_component.types[0] == "locality") {
+              this.buyerCity = address_component.address_components[0].long_name;
+          }
+        });
         } else {
           this.toastr.error("Something Went Wrong.")
         }
