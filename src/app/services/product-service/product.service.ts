@@ -12,8 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductService implements OnInit{
   products$ : Observable<SellerItem[]>;
   productsArr : SellerItem[];
-  sellers$: Observable<Seller[]>;
-  sellersArr : Seller[];
   trendingSellers : Seller[];
   sellerId : any;
   sellerLogo : any;
@@ -37,14 +35,6 @@ export class ProductService implements OnInit{
         this.longitude = position.coords.longitude;
         localStorage.setItem("latitude",this.latitude.toString());
         localStorage.setItem("longitude",this.longitude.toString());
-        if(localStorage.getItem("Auth_Token"))
-        {
-        this.sellers$ = this.api.getAllSellers(this.latitude,this.longitude);
-        this.api.getAllSellers(this.latitude,this.longitude).subscribe(
-          data => this.sellersArr = data,
-          err => this.toastr.error("Something Went Wrong. Please Try Again Later."),
-        )
-        }
         this.getAddress(this.latitude, this.longitude);
       });
     }
@@ -57,10 +47,11 @@ export class ProductService implements OnInit{
           results.forEach(address_component => {
             if (address_component.types[0] == "locality") {
               this.buyerCity = address_component.address_components[0].long_name;
+              localStorage.setItem("city",this.buyerCity);
           }
         });
         } else {
-          this.toastr.error("Something Went Wrong.")
+          this.toastr.error("Something Went Wrong. Try Again Later")
         }
       } else {
         this.toastr.error("Couldn't Get Your Location.")

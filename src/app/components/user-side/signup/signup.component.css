@@ -6,6 +6,26 @@
 {
     margin : 0 !important;
 }
+.load-container{
+  position:relative;
+}
+.load-container h3{
+  position: absolute;
+  top: -26px;
+  left: 89%;
+}
+.load-container .loader{
+  position: absolute;
+  top: -36px;
+  left: 89%;
+  font-size: 2rem;
+}
+.load-container h3 .check{
+  color : green;
+}
+.load-container h3 .close{
+  color : red;
+}
 .dontmatch{
   margin-top:5% !important;
   color : red;

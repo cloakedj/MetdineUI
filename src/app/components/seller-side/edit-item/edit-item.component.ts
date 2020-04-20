@@ -36,7 +36,7 @@ export class EditItemComponent implements OnInit {
   imageUpdated = false;
   patchItemObs$ : Observer<any> = {
     next : data => this.toastr.success("Item Status Changed Successfully"),
-    error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+    error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     complete : () => this.getProductDetails()
   }
   constructor(private aroute :ActivatedRoute,
@@ -91,7 +91,7 @@ export class EditItemComponent implements OnInit {
     });
     this.patchObs$ = {
       next : data => this.toastr.success("Item Updated Successfully"),
-      error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+      error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => this.getProductDetails()
     }
     this.api.patchMealDataById(this.productId,this.updatedFormData).subscribe(this.patchObs$);
@@ -102,7 +102,7 @@ export class EditItemComponent implements OnInit {
         this.toastr.success("Menu Item Deleted Successfully!");
         this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)`)
       },
-      err => this.toastr.error("Something Went Wrong. Try Again!")
+      err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
   makeItemUnavailable(id : any){

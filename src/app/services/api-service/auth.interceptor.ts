@@ -40,14 +40,12 @@ export class MetdineInterceptor implements HttpInterceptor{
           }
         },
         error => {
-          let errorm = error.error.non_field_errors ? error.error.non_field_errors : error.error.password1[0] ;
-          if(error.status >= 500)
-            errorm = "Something Went Wrong. Try Again later";
-            this.toastr.error(errorm);
+          let errorm = error.error.non_field_errors;
+          if(errorm) this.toastr.error(errorm)
         },
       )
     );
- 
+
  }
 
 }

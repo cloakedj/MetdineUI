@@ -35,7 +35,6 @@ export class SearchMaskComponent implements OnInit {
       this.loading = true;
       if(query == '')
       {
-      this.plText = 'Search From Our Collection';
       this.searchBar.reset();
       }
       if (this.searchItem)

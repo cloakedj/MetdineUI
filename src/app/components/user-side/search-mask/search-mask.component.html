@@ -4,7 +4,7 @@
     <div class="ui form">
             <div class="ui column grid">
             <div class="sixteen wide column">
-            <input type="text" [formControl]="searchBar" placeholder="Type Something..." 
+            <input type="text" [formControl]="searchBar" placeholder="Type Something..."
             class="search-bar" autofocus>
             <h5 class="ui header searchItem"><mat-slide-toggle (change)="getsearchByItemFilter()">Search By Item</mat-slide-toggle></h5>
             </div>
@@ -16,9 +16,10 @@
     </div>
     </div>
     <div class="ui grid">
-        <div class="six wide computer fifteen wide mobile twelve wide tablet 
+        <div class="six wide computer fifteen wide mobile twelve wide tablet
         centered column search-results">
         <ng-container *ngIf="searchBar.value != null else searchPlaceholder">
+          <ng-container *ngIf="!queryResults && queryResults.length > 0 else searchPlaceholder">
         <div class="ui very relaxed list">
             <ng-container *ngIf="queryResults || searchItem">
                 <div class="item" *ngFor="let result of queryResults;">
@@ -53,10 +54,11 @@
                 </div>
             </ng-container>
         </div>
+      </ng-container>
     </ng-container>
         </div>
     </div>
-</div>  
+</div>
 <!--
     Placeholder in case nothing is searched or no results found
 -->

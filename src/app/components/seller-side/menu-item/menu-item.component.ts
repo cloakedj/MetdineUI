@@ -78,14 +78,14 @@ export class MenuItemComponent implements OnInit {
       this.ItemObjtoPush.append(key,data[key]);
     }
   }
-  apiToAddNewSellerItem(){ 
+  apiToAddNewSellerItem(){
     this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
     this.addNewSellerItemObs$ = {
       next : data => {
         this.toastr.success("Sucessfully Added A New Item! Redirecting....");
         this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)/`);
       },
-      error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+      error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => console.log()
     }
     this.api.addNewItemFromSellerDashboard(this.ItemObjtoPush).subscribe(this.addNewSellerItemObs$);

@@ -23,7 +23,7 @@ export class BuyerProfileComponent implements OnInit {
     private toastr : ToastrService) {
     this.userDetailsObs$ = {
       next : (data) => this.userProfileData = data,
-      error : err => this.toastr.error(err),
+      error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => console.log("Completed request to user profile")
     }
     this.api.getUserProfileInfo().subscribe(this.userDetailsObs$);
@@ -34,7 +34,7 @@ export class BuyerProfileComponent implements OnInit {
   checkPhoneStatus(){
     this.api.checkPhoneNumberVerStatus().subscribe(
       data =>this.numberVerified = data,
-      err => this.toastr.error("Something Went Wrong. Please Try Again.")
+      err => console.log(err)
     )
   }
   verifyPhone(){
@@ -45,7 +45,7 @@ export class BuyerProfileComponent implements OnInit {
     .subscribe(
       data => console.log("Logged Out"),
       err => console.log(err),
-      () => 
+      () =>
       {
         localStorage.clear();
         this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');

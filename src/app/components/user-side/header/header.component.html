@@ -98,14 +98,14 @@
                 </h6>
                 </a>
             </div>
-            <div class="three wide column" (click)="searchOn = true;">
+            <div class="three wide column" (click)="searchOn = true;" [ngClass]="{'active' : searchOn}">
                 <h6 class="ui center aligned icon header">
                     <i class="search icon"></i>
                     Search
                 </h6>
             </div>
             <div class="three wide column">
-                <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['profile']}}]">
+                <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['profile']}}]" routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
                     <i class="user icon"></i>
                     Profile
@@ -116,7 +116,7 @@
                 <a [routerLink]="['/seller-side']" routerLinkActive="active" (click)="userLoggedIn = false">
                 <h6 class="ui center aligned icon header">
                     <i class="exchange icon"></i>
-                    Seller Mode
+                    Seller
                 </h6>
             </a>
             </div>

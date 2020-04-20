@@ -1,6 +1,6 @@
 import { GetCategoryService } from './../../../services/get-category/get-category.service';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
@@ -20,6 +20,12 @@ export class HeaderComponent implements OnInit {
   username: string;
   activeOrderStatus : boolean;
   activeOrderData : any;
+  @HostListener('click',['$event'])
+  hideMask(evt){
+    if(evt.target.className.includes('icon') && evt.target.className != "search icon"){
+      if(this.searchOn) this.searchOn = !this.searchOn;
+    }
+  }
   constructor(public cart: CartService,
     private api: ApiService,
     public auth : AuthService,
@@ -35,7 +41,7 @@ export class HeaderComponent implements OnInit {
       { key: 3, value: 'On The Way' },
       { key: 4, value: 'Completed' }
     ];
-  ngOnInit() {  
+  ngOnInit() {
     this.ensureuser();
         if(this.userLoggedIn) {
           this.api.getUserProfileInfo().subscribe(
@@ -53,7 +59,7 @@ export class HeaderComponent implements OnInit {
         if(this.activeOrderStatus)
         this.getActiveOrderData();
       },
-      err => this.toastr.error("Something Went Wrong. Try Again Later!")
+      err => this.toastr.error("Somethine Went Wrong. Try Again Later!")
 
     )
   }
@@ -62,7 +68,7 @@ export class HeaderComponent implements OnInit {
       data => {
         this.activeOrderData = data;
       },
-      err => this.toastr.error(err)
+      err => console.log(err)
     )
   }
   getlengthIfLoggedIn(){
@@ -75,8 +81,8 @@ export class HeaderComponent implements OnInit {
     this.api.logOutUser()
     .subscribe(
       data => this.toastr.success("Logged Out Succesfully"),
-      err => this.toastr.error(err),
-      () => 
+      err => console.log(err),
+      () =>
       {
         localStorage.clear();
         this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');

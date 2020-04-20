@@ -75,7 +75,7 @@ export class SellerProfileDataComponent implements OnInit {
       next : data => {
         this.toastr.success("Profile Updated Successfully. Refresh The Page To View The Changes.");
       },
-      error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+      error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => this.getSellerInfo()
     }
     this.api.updateSellerProfile(this.editedSellerInfo,this.sellerDashOptions.id).subscribe(this.updateSellerInfo$);
@@ -95,7 +95,7 @@ export class SellerProfileDataComponent implements OnInit {
     this.showPaymentInfoModal = true;
     this.api.getSellerPaymentInfo().subscribe(
       (data) => this.sellerPaymentInfo = data,
-      (err) => this.toastr.error("Something Went Wrong. Try Again Later!")
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
   uploadFile(event) {

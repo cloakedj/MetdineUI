@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UsernameEmailCheckService } from 'src/app/services/username-email-check/username-email-check.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   showUnmatchMessage : boolean = false;
+  loading = false;
+  showAvailable = false;
+  searchingEmail = false;
+  searchingUsername = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -24,11 +29,59 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private api : ApiService,
     private router : Router,
-    private toastr : ToastrService) {
+    private toastr : ToastrService,
+    private _check : UsernameEmailCheckService) {
   }
 
   ngOnInit() {
+    this.username.valueChanges
+    .debounceTime(200)
+    .distinctUntilChanged()
+    .switchMap((query) => {
+      this.loading = true;
+      this.searchingUsername = true;
+      if(query == '')
+      {
+      this.loading=false;
+      this.searchingUsername = false;
+      }
+      return this._check.searchUsername(query)
+    })
+    .subscribe((_available : any) => {
+      if(_available.status === 400) return;
+      else{
+        this.loading = false;
+        if(_available == "false")
+        this.showAvailable = true
+        else
+        this.showAvailable = false;
+      }
+    });
+    this.email.valueChanges
+    .debounceTime(200)
+    .distinctUntilChanged()
+    .switchMap((query) => {
+      this.loading = true;
+      this.searchingEmail = true;
+      if(query == '')
+      {
+      this.loading=false;
+      this.searchingEmail = false;
+      }
+      return this._check.searchUsername(query)
+    })
+    .subscribe((_available : any) => {
+      if(_available.status === 400) return;
+      else{
+        this.loading = false;
+        if(_available == "false")
+        this.showAvailable = true
+        else
+        this.showAvailable = false;
+      }
+    });
   }
+
   onSubmit(data){
     if(this.password1.value !== this.password2.value)
     {
@@ -38,15 +91,23 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.showUnmatchMessage = false;
     this.api.buyerRegistration(data).subscribe(
       (data) => {
-        this.router.navigateByUrl(`/confirm-email`)
+        this.signUpForm.reset();
+        this.router.navigateByUrl(`/confirm-email`);
        },
-      (err) => this.toastr.error(err),
+      (err) => {
+        console.log(err);
+        if(err["email"])
+        this.toastr.error(err["email"])
+        else
+        if(err["username"])
+        this.toastr.error(err["email"])
+      },
     );
-    this.signUpForm.reset();
     }
   }
   ngOnDestroy(){
   }
+
   get fname(){ return this.signUpForm.get('fname');}
   get lname(){ return this.signUpForm.get('lname');}
   get username(){ return this.signUpForm.get('username');}

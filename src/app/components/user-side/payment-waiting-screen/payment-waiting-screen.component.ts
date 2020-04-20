@@ -8,13 +8,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PaymentWaitingScreenComponent implements OnInit {
   paymentStatus : boolean;
-  loaderOff : boolean = true; 
+  orderId : any;
+  loaderOff : boolean = true;
   constructor(
     private router : Router,
     private aroute : ActivatedRoute
   ) {
     this.aroute.queryParams.subscribe(query=>{
       this.paymentStatus = query['status'];
+      this.orderId = query['order'];
     })
    }
 
@@ -22,7 +24,7 @@ export class PaymentWaitingScreenComponent implements OnInit {
     if(this.paymentStatus)
     {
     setTimeout(() => this.loaderOff = true, 5000);
-    setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['active-order']}}]),10000);
+    setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['active-order',this.orderId]}}]),10000);
     }
     else{
       setTimeout(() => this.loaderOff = true, 5000);

@@ -32,12 +32,12 @@ onSubmit(Data){
     (data) => {this.Auth_Key = data["key"];
     this.api.AddUserTokenHeader(this.Auth_Key)
     this.cart.loadCart()},
-    (err) => this.toastr.error("Something Went Wrong. Try Later!"),
+    (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
   );
 }
 get phone(){ return this.loginForm.get('phone');}
 get password(){ return this.loginForm.get('password');}
-loginWithEmail(){ 
+loginWithEmail(){
   return this.router.navigateByUrl(`/userGateway/(userGatewayRouter:login)`);
 }
 }

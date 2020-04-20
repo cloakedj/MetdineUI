@@ -24,7 +24,7 @@ export class BuyerComponent implements OnInit {
         if(!this.numberVerified)
         this.messageVisible = true;
       },
-      err => this.toastr.error("Something Went Wrong. Please Try Again.")
+      err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
   switchMessage(){

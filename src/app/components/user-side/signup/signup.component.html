@@ -20,12 +20,30 @@
                         </div>
                         <div class="field">
                           <input placeholder="Username" formControlName="username" type="text">
+                          <div class="load-container" *ngIf="searchingUsername">
+                            <div class="ui active inline loader" *ngIf="loading"></div>
+                            <h3 class="ui header" *ngIf="!loading && showAvailable">
+                              <i class="check square icon"></i>
+                            </h3>
+                            <h3 class="ui header" *ngIf="!loading && !showAvailable">
+                              <i class="window close icon"></i>
+                            </h3>
+                          </div>
                           <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine">
                                 <span *ngIf="username.errors?.required">Username Is required</span>
                            </div>
                         </div>
                         <div class="field">
                           <input placeholder="Email" formControlName="email" type="text">
+                          <div class="load-container" *ngIf="searchingEmail">
+                            <div class="ui active inline loader" *ngIf="loading"></div>
+                            <h3 class="ui header" *ngIf="!loading && showAvailable">
+                              <i class="check square icon"></i>
+                            </h3>
+                            <h3 class="ui header" *ngIf="!loading && !showAvailable">
+                              <i class="window close icon"></i>
+                            </h3>
+                          </div>
                           <div class="ui pointing red basic label"  *ngIf="email.invalid && !email.pristine">
                             Enter A Valid Email
                         </div>

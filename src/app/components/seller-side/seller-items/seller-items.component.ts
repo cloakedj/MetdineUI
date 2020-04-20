@@ -23,14 +23,14 @@ export class SellerItemsComponent implements OnInit {
   menuItems : any[];
   patchItemObs$ : Observer<any> = {
     next : data => this.toastr.success("Item Status Changed Successfully"),
-    error : err => this.toastr.error("Something Went Wrong. Try Again!"),
+    error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     complete : () => this.getMenuItems()
   }
   constructor(private api : ApiService,
     private router : Router,
     private gc : GetCategoryService,
     private seller : SellerDashboardService,
-    private toastr : ToastrService) { 
+    private toastr : ToastrService) {
       this.getMenuItems();
     }
   getMenuItems(){
@@ -68,7 +68,7 @@ export class SellerItemsComponent implements OnInit {
         this.toastr.success("Menu Item Deleted Successfully!");
         this.getMenuItems();
       },
-      err => this.toastr.error("Something Went Wrong. Try Again!")
+      err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
   makeItemUnavailable(id : any){

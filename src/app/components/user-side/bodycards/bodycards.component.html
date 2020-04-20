@@ -1,3 +1,20 @@
+<ng-container *ngIf="sellersArr">
+<div class="ui-mask-nosellers" *ngIf="sellersArr.length == 0">
+<h3 class="ui centered icon header">
+  <i class="ui triangle exclamation icon"></i>
+  <div class="ui hidden divider"></div>
+   Looks Like We Don't Have Any Sellers Near You.
+   <div class="ui hidden divider"></div>
+   <h4 class="ui header" *ngIf="!isSeller">
+    Want To Become The First Seller In You Area?
+  </h4>
+  <div class="ui hidden divider" *ngIf="!isSeller"></div>
+  <button class="ui centered positive button" (click)="becomeASeller()" *ngIf="!isSeller">
+    Become A Seller
+  </button>
+  </h3>
+</div>
+</ng-container>
 <div class="ui fourteen wide mobile only column grid container">
 <div class="ui raised segment location">
   <h3 class="ui header">
@@ -15,33 +32,31 @@
       Seller's Near You
     </h1>
     <div class="ui centered cards">
-      <ng-container *ngIf="product.sellers$ | async; else plForSellerCards;">
-        <ng-container *ngIf="!product.sellersArr else loadfromarray">
-      <div class="ui card" *ngFor="let seller of product.sellers$ | async">
-        <ng-container *ngIf="seller.logo else plForSellerLogo">
-        <div class="image">
-              <img src="{{seller.logo}}" alt="Seller Picture"
-              [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]"
-               routerLinkActive="active">
+      <ng-container *ngIf="sellersArr; else plForSellerCards;">
+          <div class="ui card" *ngFor="let seller of sellersArr">
+            <ng-container *ngIf="seller.logo else plForSellerLogo">
+            <div class="image">
+                  <img src="{{seller.logo}}" alt="Seller Picture"
+                  [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]"
+                   routerLinkActive="active">
+            </div>
+          </ng-container>
+          <div class="ui raised segment">
+            <a class="ui violet label">
+              {{seller.category | labelFilter : 'category'}}
+            </a>
+            <a class="ui black label">
+              <i class="map icon"></i>
+              {{seller.distance | number : '1.0-2'}} km
+            </a>
+            <h3 class="ui header">
+              {{seller.first_name}} {{seller.last_name}}
+            </h3>
+            <p class="ui sub header">
+              {{seller.address | contentLength : 30}}
+            </p>
+          </div>
         </div>
-      </ng-container>
-      <div class="ui raised segment">
-        <a class="ui violet label">
-          {{seller.category | labelFilter : 'category'}}
-        </a>
-        <a class="ui black label">
-          <i class="map icon"></i>
-          {{seller.distance | number : '1.0-2'}} km
-        </a>
-        <h3 class="ui header">
-          {{seller.first_name}} {{seller.last_name}}
-        </h3>
-        <p class="ui sub header">
-          {{seller.address | contentLength : 30}}
-        </p>
-      </div>
-    </div>
-  </ng-container>
      </ng-container>
     </div>
   </div>
@@ -53,6 +68,7 @@
 <ng-template #plForSellerCards>
 <div class="Message">
   Preparing The App For You
+  <div class="ui active inline loader"></div>
 </div>
 </ng-template>
 <ng-template #plForSellerLogo>
@@ -65,30 +81,4 @@
     Getting Your Location...
     <div class="ui active inline loader"></div>
   </div>
-</ng-template>
-<ng-template  #loadfromarray>
-  <div class="ui card" *ngFor="let seller of product.sellersArr">
-    <ng-container *ngIf="seller.logo else plForSellerLogo">
-    <div class="image">
-          <img src="{{seller.logo}}" alt="Seller Picture"
-          [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]"
-           routerLinkActive="active">
-    </div>
-  </ng-container>
-  <div class="ui raised segment">
-    <a class="ui violet label">
-      {{seller.category | labelFilter : 'category'}}
-    </a>
-    <a class="ui black label">
-      <i class="map icon"></i>
-      {{seller.distance | number : '1.0-2'}} km
-    </a>
-    <h3 class="ui header">
-      {{seller.first_name}} {{seller.last_name}}
-    </h3>
-    <p class="ui sub header">
-      {{seller.address | contentLength : 30}}
-    </p>
-  </div>
-</div>
 </ng-template>

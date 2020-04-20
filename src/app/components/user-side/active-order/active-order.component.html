@@ -69,9 +69,6 @@
          <h1 class="ui header" *ngIf="timeLeft else loader">
           {{timeLeft}}
          </h1>
-         <ng-template #loader>
-           <div class="ui active inline loader"></div>
-         </ng-template>
        </div>
        <div class="ui center sub header">
          Seconds Left
@@ -290,4 +287,7 @@
   <div class="centered column active-loader" *ngIf="!hasActiveOrder">
     No Active Order At The Moment.
   </div>
+</ng-template>
+<ng-template #loader>
+  <div class="ui active inline loader"></div>
 </ng-template>

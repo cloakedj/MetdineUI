@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GetquantityPipe implements PipeTransform {
   constructor(private cart : CartService){}
-  transform(value: any, update : number): any {
+  transform(value: any): any {
     return this.getItemQuantity(value);
   }
   getItemQuantity(id :Number){
@@ -17,7 +17,7 @@ export class GetquantityPipe implements PipeTransform {
       if(id === item.meal_id){
         quantity =  item.quantity;
         found = true;
-      } 
+      }
     });
     if(!found)
     quantity = 0;

@@ -8,7 +8,7 @@
             <a class ="logo_text"><span>Metdine</span></a>
         </div>
         <h4 class="ui center aligned header">
-            We Are Waiting For Payment Confirmation From Our Payment Gateway. 
+            We Are Waiting For Payment Confirmation From Our Payment Gateway.
             Kindly Don't Close This Screen Or Reload The Browser.
         </h4>
         <div class="ui divider"></div>
@@ -28,7 +28,7 @@
     <div class="ui compact center aligned segment partial-timer">
      <div class="content" *ngIf="paymentStatus">
       <h3 class="ui center aligned icon header">
-        <i class="circular check icon"></i>
+        <i class="circular check icon" style="color: green;"></i>
         Congratulations! Your Payment Was Successful. Your Order Has Been Placed. Redirecting....
       </h3>
       <div class="ui centered active inline loader"></div>
@@ -40,14 +40,14 @@
      </div>
      <div class="content" *ngIf="!paymentStatus">
       <h3 class="ui center aligned icon header">
-        <i class="circular close icon"></i>
+        <i class="circular close icon" style="color: red;"></i>
        Sorry! Your Payment Was Unsuccessful. Your Order Has Been Cancelled. Redirecting....
       </h3>
       <div class="ui centered active inline loader"></div>
       <div class="ui divider"></div>
       <h5 class="ui header">
         <i class="triangle exclamation icon"></i>
-        Unfortunately, your Payment Was Unsuccessful, Hence Your Order Was 
+        Unfortunately, your Payment Was Unsuccessful, Hence Your Order Was
         Cancelled. We Are Redirecting You To The Previous Orders Screen.
       </h5>
      </div>

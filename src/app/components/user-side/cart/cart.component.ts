@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
         this.sellerLogo = data["logo"];
         console.log(data);
       },
-      err => this.toastr.error("Something Went Wrong. Please Try Later")
+      err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
   }
 

@@ -79,7 +79,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
       this.getConfirmationImagesStatus();
       this.getElapsedTime();
     },
-    error : err => this.toastr.error("Something Went Wrong. try Again Later!"),
+    error : err => this.toastr.error("Something Went Wrong. Try Later!"),
     complete : () => {
       this.loading = false;
     }
@@ -105,7 +105,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
             this.autoAccept = true;
          }
       },
-      (err) => this.toastr.error("Something Went Wrong. Try Again Later!"),
+      (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () => console.log("getting status")
     )
   }

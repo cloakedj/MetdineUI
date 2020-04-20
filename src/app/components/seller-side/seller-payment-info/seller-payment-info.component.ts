@@ -56,7 +56,7 @@ onSubmit(Data: any,is_upi ?: boolean){
       this.toastr.success("Successfully Updated Payment Info");
       this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-profile)`);
     },
-    (err) => this.toastr.error(err),
+    (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
   );
 }
 get bank_account_number(){ return this.paymentForm.get('bank_account_number');}

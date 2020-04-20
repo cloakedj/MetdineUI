@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://metdine.in/api';
+  API_URL = 'http://3572b0b6.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -33,12 +33,14 @@ export class ApiService {
         `body was: ${err.error}`);
     }
     return throwError(
-      'Something Bad Happened. Try Later'
+      'Something Bad Happened. Please Try Later!'
     );
   };
 
-  getAllSellers(lat : any,long: any):Observable<Seller[]>{
-    this.params = new HttpParams().set("lat",lat.toString()).set("long",long.toString());
+  getAllSellers():Observable<Seller[]>{
+    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
+    .set("long",localStorage.getItem("longitude"))
+    .set("city",localStorage.getItem("city"));
       return this.http.get<Seller[]>(`${this.API_URL}/seller/`,{params : this.params})
       .pipe(
         catchError(this.handleError)
@@ -220,7 +222,8 @@ export class ApiService {
   //Get Trending Sellers
   getTrendingSellers() : Observable<Seller[]>{
     this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
-    .set("long",localStorage.getItem("longitude"));
+    .set("long",localStorage.getItem("longitude"))
+    .set("city",localStorage.getItem("city"));
     return this.http.get<Seller[]>(`${this.API_URL}/home/trending/`,{params : this.params})
     .pipe(
       catchError(this.handleError)

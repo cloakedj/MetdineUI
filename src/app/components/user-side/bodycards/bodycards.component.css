@@ -50,6 +50,15 @@
 .fifteen.wide.column.mobile.only{
   margin-bottom: 5%;;
 }
+.ui-mask-nosellers{
+  min-height : 100vh;
+  min-width: 100%;
+  position : absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 @media (max-width: 500px){
   .ui.card{
     margin-bottom:25% !important;

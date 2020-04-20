@@ -71,7 +71,7 @@ requestSellerOtp(){
         this.enteredPhone = true;
       }
     },
-    err => this.toastr.error("Something Went Wrong. Try Again!")
+    err => this.toastr.error("Something Went Wrong. Try Later!")
   );
 }
 buyerRequestOtp(){
@@ -88,7 +88,7 @@ buyerRequestOtp(){
         this.enteredPhone = true;
       }
     },
-    err => this.toastr.error("Something Went Wrong. Try Again!")
+    err => this.toastr.error("Something Went Wrong. Try Again Later!")
   );
 }
 onSubmit(Data){
@@ -107,7 +107,7 @@ buyerOtpVerification(Data,rid){
       else
       this.router.navigateByUrl('/user/(userRouterOutlet:home)');
     },
-    (err) => this.toastr.error("Something Went Wrong. Try Again!")
+    (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
   );
 }
 sellerOtpVerification(Data,rid){
@@ -119,7 +119,7 @@ sellerOtpVerification(Data,rid){
       localStorage.setItem("seller_phone_verified","true");
       this.router.navigateByUrl('/seller-side/(sellerRouterOutlet:seller-dashboard)');
     },
-    (err) => this.toastr.error("Something Went Wrong. Try Again!")
+    (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
   );
 }
 get otp(){ return this.verifyPhone.get('otp');}

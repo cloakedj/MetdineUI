@@ -45,13 +45,14 @@ flex: 1 1 auto;
   z-index: 9999999;
   background: #fff;
   width: 100%;
-  bottom: -3%;
+  bottom: 0;
+  margin-left: 0 !important;
 }
-.mobileNav.grid{
-  margin:0 !important;
+.mobileNav .three.wide.column{
+  padding-bottom: 2% !important;
 }
-a{ 
-  color : purple;
+.mobileNav .active h6{
+  color:cornflowerblue !important;
 }
 .device.only .column h3{
   margin-left: 50%;

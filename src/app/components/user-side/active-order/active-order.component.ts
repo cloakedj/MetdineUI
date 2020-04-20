@@ -66,7 +66,7 @@ export class ActiveOrderComponent implements OnInit {
         this.activeOrderData = data;
         if(!this.reconfirmScreen) this.getImages();
       },
-      error: (err) => this.toastr.error(err),
+      error: (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => console.log("Request Completed")
     }
     this.api.getSingleActiveOrderDetailsForBuyer(this.activeOrderId).subscribe(this.activeOrderData$);
@@ -76,7 +76,7 @@ export class ActiveOrderComponent implements OnInit {
       next : (data) =>{
         this.allActiveOrders = data;
       },
-      error : (err) => this.toastr.error("Something Went Wrong. Try Again.") ,
+      error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!") ,
       complete : () => console.log("completed")
     }
     this.api.getActiveOrderDetailsForBuyer().subscribe(this.allActiveOrders$);
@@ -95,7 +95,7 @@ export class ActiveOrderComponent implements OnInit {
         this.reconfirmScreen = true;
         }
       },
-      error : (err) => this.toastr.error(err),
+      error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => console.log("Request comleted")
     }
     this.api.getConfirmationImages(this.activeOrderData.id).subscribe(this.sentImagesObs$);
@@ -174,7 +174,7 @@ export class ActiveOrderComponent implements OnInit {
         this.toastr.success("Images Accepted Successfully!!");
         this.clearTimer();
       },
-      error : (err) => this.toastr.error(err),
+      error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => {
         this.statusCompleted = true;
         this.getImages();
@@ -191,7 +191,7 @@ export class ActiveOrderComponent implements OnInit {
         this.toastr.success("Images Rejected Successfully!!");
         this.clearTimer();
       },
-      error : (err) => this.toastr.error(err),
+      error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => {
         this.statusCompleted = true;
         this.getImages();

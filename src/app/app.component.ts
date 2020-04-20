@@ -22,6 +22,6 @@ export class AppComponent{
   // hideOfflineMessage(){
   //   this.offline = false;
   // }
-  constructor(private loader : LoaderService){
+  constructor(public loader : LoaderService){
   }
 }

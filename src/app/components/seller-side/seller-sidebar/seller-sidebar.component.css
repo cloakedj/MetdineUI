@@ -60,7 +60,10 @@
 }
 @media (max-width: 780px){
     .sidebarmenu{
-       width:70%;
+       width:90%;
+    }
+    .two.ui.buttons{
+      margin-top:5%;
     }
     .ui.link.list .item{
         padding :0;

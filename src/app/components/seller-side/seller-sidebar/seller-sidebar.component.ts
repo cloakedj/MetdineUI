@@ -29,7 +29,7 @@ export class SellerSidebarComponent implements OnInit {
       next: (data) => {
         this.sellerData = data;
       },
-      error: (err) => this.toastr.error(err),
+      error: (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete: () => console.log("Completed")
     };
     this.api.getSellerQuickData().subscribe(this.sellerData$);
@@ -41,7 +41,7 @@ export class SellerSidebarComponent implements OnInit {
     this.api.logOutUser()
     .subscribe(
       data => this.toastr.success("Logged Out Successfully."),
-      err => this.toastr.error(err),
+      err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () =>
       {
         localStorage.clear();
