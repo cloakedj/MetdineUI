@@ -15,7 +15,7 @@
                 <div class="ui negative message">
                   <div class="header">
                     <h5 class="ui heading">
-                    Please rectify The Following Errors before Proceeding Forward : 
+                    Please rectify The Following Errors before Proceeding Forward :
                   </h5>
                   </div>
                   <ul class="list">
@@ -43,11 +43,6 @@
                    <app-file-upload></app-file-upload>
                   </div>
                   <div class="field">
-                    <h5 class="ui right floated header">
-                      <span class="chars-left-in-total" *ngIf="!short_description.pristine">
-                        {{characters_used}} / {{characters_left}}
-                      </span>
-                    </h5>
                     <h5 class="ui left floated header">
                       Description*
                     </h5>
@@ -71,7 +66,7 @@
                   <div class="ui negative message">
                     <div class="header">
                       <h5 class="ui heading">
-                      Please rectify The Following Errors before Proceeding Forward : 
+                      Please rectify The Following Errors before Proceeding Forward :
                     </h5>
                     </div>
                     <ul class="list">
@@ -98,7 +93,7 @@
                   <div class="field">
                     <div class="two ui buttons">
                         <button class="negative ui button" matStepperPrevious type="button">Back</button>
-                    <button class="positive ui button" matStepperNext type="button" [disabled]="ItemPropertiesFormGroup.pristine || ItemPropertiesFormGroup.invalid" 
+                    <button class="positive ui button" matStepperNext type="button" [disabled]="ItemPropertiesFormGroup.pristine || ItemPropertiesFormGroup.invalid"
                     (click)="addToFormObject(ItemPropertiesFormGroup.value)">Next</button>
                     </div>
                   </div>
@@ -115,7 +110,7 @@
                 <div class="ui negative message">
                   <div class="header">
                     <h5 class="ui heading">
-                    Please rectify The Following Errors before Proceeding Forward : 
+                    Please rectify The Following Errors before Proceeding Forward :
                   </h5>
                   </div>
                   <ul class="list">

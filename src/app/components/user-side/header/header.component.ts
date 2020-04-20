@@ -22,6 +22,11 @@ export class HeaderComponent implements OnInit {
   activeOrderData : any;
   @HostListener('click',['$event'])
   hideMask(evt){
+    if(evt.target.className.includes("searchDesktop"))
+    {
+      this.searchOn = true;
+    }
+    else
     if(evt.target.className.includes('icon') && evt.target.className != "search icon"){
       if(this.searchOn) this.searchOn = !this.searchOn;
     }

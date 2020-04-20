@@ -20,12 +20,24 @@
                      </div>
                     </div>
                     <div class="field">
+                      <label>Upload Logo</label>
+                      <h5 class="ui header" style="color: red;" *ngIf="showImageError">
+                      Logo Is Required. Please Upload An Appropriate Logo.
+                      </h5>
                       <app-file-upload></app-file-upload>
                       </div>
                     <div class="field">
                       <input placeholder="Phone Number" formControlName="phone" type="text">
                       <div class="ui pointing red basic label"  *ngIf="phone.invalid && !phone.pristine">
+                        <span *ngIf="phone.errors?.required">Phone Number Is Required</span>
                         <span *ngIf="phone.errors?.minlength || phone.errors?.maxlength ||phone.errors?.pattern">Enter A Valid Phone Number</span>
+                    </div>
+                    </div>
+                    <div class="field">
+                      <textarea placeholder="Description" formControlName="description"></textarea>
+                      <div class="ui pointing red basic label"  *ngIf="description.invalid && !description.pristine">
+                        <span *ngIf="description.errors?.required">Description Is Required</span>
+                        <span *ngIf="description.errors?.maxlength">Description Should Be Less Than 100 Characters.</span>
                     </div>
                     </div>
                     <div class="field">

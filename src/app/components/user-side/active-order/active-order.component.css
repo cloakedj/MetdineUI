@@ -112,8 +112,8 @@
   top: 3%;
   z-index: 999999;
 }
-.fluid.negative{
-    margin-bottom:35%;
+.no-reject,.without-no-reject{
+    margin-bottom:35% !important;
 }
 @media (max-width:500px){
   .closeMap{

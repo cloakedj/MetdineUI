@@ -71,7 +71,7 @@ export class MenuItemComponent implements OnInit {
       time_to_prepare:['',[
         Validators.required
       ]]
-    })
+    });
   }
   addToFormObject(data){
     for(const key in data){

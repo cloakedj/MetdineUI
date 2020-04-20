@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService {
   // API_URL = 'http://104.198.201.7/api';
-  API_URL = 'http://3572b0b6.ngrok.io/api';
+  API_URL = 'http://ca56512f.ngrok.io/api';
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -163,8 +163,10 @@ export class ApiService {
     )
   }
   //Function to reject requested order
-  rejectRequestedOrderStatusById(orderId : number){
-    return this.http.delete(`${this.API_URL}/seller/orders/actions/${orderId}/`)
+  rejectRequestedOrderStatusById(orderId : number,patchId : number){
+    return this.http.patch(`${this.API_URL}/seller/orders/actions/${orderId}/`,{
+      status : patchId
+    })
     .pipe(
       catchError(this.handleError)
     )
@@ -440,6 +442,12 @@ export class ApiService {
       //Get Seller Payment Info
     getSellerPaymentInfo(){
       return this.http.get(`${this.API_URL}/seller/payment/`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    checkRejectionCount(){
+      return this.http.get(`${this.API_URL}/refund_check/`)
       .pipe(
         catchError(this.handleError)
       )

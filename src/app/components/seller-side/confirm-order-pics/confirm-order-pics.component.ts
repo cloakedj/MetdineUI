@@ -99,7 +99,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         this.getElapsedTime();
         if(this.imagesSent[0].status == "Partial")
         this.getElapsedTimeforCall();
-         if(this.imagesSent[0].status == "Confirmed" || this.imagesSent[0].status == "Rejected")
+         if(this.imagesSent[0].status == "Confirmed")
          {
            this.orderDetailsAPI();
             this.autoAccept = true;

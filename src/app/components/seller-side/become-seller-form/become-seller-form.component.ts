@@ -31,6 +31,7 @@ export class BecomeSellerFormComponent implements OnInit {
     ]
     ],
     logo:[''],
+    description : ['',Validators.required,Validators.maxLength(100)],
     phone:['',[
       Validators.pattern(/^[0-9]+$/),
       Validators.minLength(10),
@@ -39,6 +40,7 @@ export class BecomeSellerFormComponent implements OnInit {
     ]],
     address:['',Validators.required],
   });
+  showImageError : boolean;
   constructor(private formBuilder: FormBuilder,
     private api : ApiService,
     private cd : ChangeDetectorRef,
@@ -49,7 +51,7 @@ export class BecomeSellerFormComponent implements OnInit {
     private toastr : ToastrService) {
       this.maps.load().then(() => {
         this.geoCoder = new google.maps.Geocoder;
-        
+
         const autocomplete = new google.maps.places.Autocomplete(this.autocompletesearch.nativeElement, {
           types: [],
           componentRestrictions : { 'country' : 'IN'}
@@ -62,7 +64,7 @@ export class BecomeSellerFormComponent implements OnInit {
             if (place.geometry === undefined || place.geometry === null) {
               return;
             }
-   
+
             //set latitude, longitude and zoom
             this.latitude = place.geometry.location.lat();
             this.longitude = place.geometry.location.lng();
@@ -72,12 +74,21 @@ export class BecomeSellerFormComponent implements OnInit {
       });
   }
   onSubmit(data){
+    if(this.files.Files.length == 0)
+    {
+      this.showImageError = true;
+    }
+    else{
     data.logo = this.files.Files[0];
     data.address = this.formatted_address;
     data["latitude"] = this.latitude;
     data["longitude"] = this.longitude;
     this.Obs$ = {
-      next : data => this.api.SetSellerAccountStatus(),
+      next : data => {
+        this.api.SetSellerAccountStatus()
+        this.becomeSellerForm.reset();
+      }
+        ,
       error : err => console.log(err),
       complete : () => {
         localStorage.setItem("is_seller","true");
@@ -85,7 +96,7 @@ export class BecomeSellerFormComponent implements OnInit {
       }
     }
     this.api.sellerRegistration(data).subscribe(this.Obs$);
-    this.becomeSellerForm.reset();
+  }
   }
   ngOnInit() {
     if(localStorage.getItem("is_seller") == "true")
@@ -102,15 +113,15 @@ export class BecomeSellerFormComponent implements OnInit {
       } else {
         this.toastr.error("Unable to fetch location try later!");
       }
- 
+
     });
   }
-  
+
 
   get first_name(){ return this.becomeSellerForm.get('first_name');}
   get last_name(){ return this.becomeSellerForm.get('last_name');}
   get logo(){ return this.becomeSellerForm.get("logo");}
-  get desc(){ return this.becomeSellerForm.get("desc")}
+  get description(){ return this.becomeSellerForm.get("desc")}
   get phone(){ return this.becomeSellerForm.get("phone");}
   get address(){ return this.becomeSellerForm.get("address");}
 

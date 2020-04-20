@@ -255,10 +255,14 @@
                 'right floated' : screenSize > 780,
                 'fluid' : screenSize < 700
             }"
-            [disabled]="sentImages[0].status != 'Sent'"
-            (click)="rejectImages(sentImages[0].id)">
+            [disabled]="sentImages[0].status != 'Sent' || !refundRecentCount"
+            (click)="rejectImages(sentImages[0].id)" [ngClass]="{'without-no-reject':refundRecentCount}">
                 Reject
             </button>
+            <div class="ui hidden divider" *ngIf="screenSize > 800"></div>
+            <h4 class="ui centered header noreject" *ngIf="!refundRecentCount">
+              Sorry. You have already received a refund in the last 30 days. You Cannot Reject The Order.
+            </h4>
         </ng-container>
         </ng-container>
     </div>

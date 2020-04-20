@@ -109,7 +109,7 @@ export class SellerDashboardComponent implements OnInit {
   }
   updateRequestedOrderStatus(orderId: number, status: number) {
     if (status === 6) {
-      this.api.rejectRequestedOrderStatusById(orderId).subscribe(
+      this.api.rejectRequestedOrderStatusById(orderId,6).subscribe(
         (data) => console.log(data),
         (err) => console.log(err),
         () => {

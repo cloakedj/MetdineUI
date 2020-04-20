@@ -79,9 +79,9 @@
             <a class="ui orange label">
               Waiting
             </a>
-            <a class="ui teal label">
+            <!-- <a class="ui teal label">
               Contains {{getTableItems(order.id)}} More Items.
-            </a>
+            </a> -->
           </div>
           <div class="orderid four wide column">
             <h1 class="ui header">#{{order.id}}</h1>
@@ -109,12 +109,12 @@
             </table>
           </div>
           <div class="four wide column actions">
-            <button class="circular positive ui icon button" 
+            <button class="circular positive ui icon button"
             data-inverted="" data-position="top right" data-tooltip="Accept Order"
             (click)="updateRequestedOrderStatus(order.id,1)">
               <i class="check icon"></i>
             </button>
-            <button class="circular negative ui icon button" 
+            <button class="circular negative ui icon button"
             data-inverted="" data-position="top left" data-tooltip="Reject Order"
             (click)="updateRequestedOrderStatus(order.id,6)">
               <i class="close icon"></i>
@@ -176,8 +176,8 @@
       </div>
       <div class="ui hidden divider"></div>
       <div class="row" *ngIf="sellerActiveOrders">
-        <button class="ui fluid positive button" 
-        matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}} 
+        <button class="ui fluid positive button"
+        matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}}
         more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
           View All Orders
         </button>
