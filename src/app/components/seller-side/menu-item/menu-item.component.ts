@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
 import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
 import { FileUploadComponent } from '../../user-side/file-upload/file-upload.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-menu-item',
@@ -26,6 +27,7 @@ export class MenuItemComponent implements OnInit {
   itemIsVeg : boolean = true;
   ItemObjtoPush = new FormData();
   addNewSellerItemObs$ :Observer<any>;
+  smallScreen : any;
   categories = [
     {name:'Indian'},
     {name:'Western'},
@@ -43,7 +45,15 @@ export class MenuItemComponent implements OnInit {
     private keepFile : KeepFilesService,
     private cd : ChangeDetectorRef,
     private toastr : ToastrService,
-    private router : Router) {}
+    private router : Router,
+    private breakpointObserver : BreakpointObserver) {
+      breakpointObserver.observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small
+      ]).subscribe(result => {
+        this.smallScreen = result.matches;
+    });
+    }
 
   ngOnInit() {
     this.ItemDetailsFormGroup = this._formBuilder.group({

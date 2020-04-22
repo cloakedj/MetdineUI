@@ -4,6 +4,7 @@
             <i class="circular angellist icon"></i>
             Previous Orders
         </h2>
+        <div class="ui divider"></div>
         <ng-container *ngIf="sellerPreviousOrders else loading">
             <ng-container *ngIf="sellerPreviousOrders.length > 0 else noOrdersMade">
             <div class="three wide column" *ngFor="let order of sellerPreviousOrders">

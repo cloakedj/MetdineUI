@@ -43,8 +43,8 @@ export class BuyerProfileComponent implements OnInit {
   logUserOut(){
     this.api.logOutUser()
     .subscribe(
-      data => console.log("Logged Out"),
-      err => console.log(err),
+      data => this.toastr.success("Logged Out Successfully"),
+      err => this.toastr.error(err),
       () =>
       {
         localStorage.clear();
