@@ -8,7 +8,7 @@
             </a>
             </ng-container>
            <span class="spacer"></span>
-           <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['profile']}}]"><button mat-icon-button aria-label="User's Profile">
+           <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['profile']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Profile">
             <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
              </button>
             </a>
@@ -90,7 +90,7 @@
 <div class="ui mobile tablet only centered mobileNav grid">
     <ng-container *ngIf="userLoggedIn">
             <div class="three wide center aligned column">
-                <a [routerLink]="[{ outlets : {'userRouterOutlet' :['home']}}]"
+                <a [routerLink]="['/user']"
                  routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
                     <i class="home icon"></i>
@@ -143,12 +143,12 @@
 </div>
 
 <ng-template #activeOrderNavbarMobile>
-    <div class="two wide column mobileActiveOrderBar" *ngIf="screenSize > 370">
+    <!-- <div class="two wide column mobileActiveOrderBar" *ngIf="screenSize > 370">
         <a class="ui image black label">
-                #{{activeOrderData[0].id}}
+                #{{activeOrderId}}
         </a>
-    </div>
-    <div class="three wide column"*ngIf="screenSize > 360 else smallScreenStatus">
+    </div> -->
+    <div class="five wide column"*ngIf="screenSize > 360 else smallScreenStatus">
         <a class="ui image label"
         [ngClass]="{
             'green' : activeOrderData[0].status === 1,
@@ -165,7 +165,7 @@
              </a>
     </div>
     <div class="five wide column" *ngIf="screenSize > 370 else smallScreenActiveOrder">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderId]}}]" class="ui red label"
         data-position="top left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>
@@ -176,7 +176,7 @@
         <a class="ui image black label">
             Order Id
             <a class="detail">
-                #{{activeOrderData[0].id}}
+                #{{activeOrderId}}
             </a>
         </a>
     </div>
@@ -213,16 +213,16 @@
           </a>
     </div>
     <div class="two wide column">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderData[0].id]}}]" class="ui red label"
-        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderId]}}]" class="ui red label"
+        data-position="top left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>
     </div>
 </ng-template>
 <ng-template #smallScreenActiveOrder>
     <div class="six wide column">
-        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order']}}]" class="ui red label"
-        data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+        <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderId]}}]" class="ui red label"
+        data-position="top left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>
     </div>

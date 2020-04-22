@@ -21,6 +21,7 @@ export class SellerDashboardComponent implements OnInit {
   sellerCompletedOrdersForDashboard$: Observer<any>;
   sellerRequestedOrdersForDashboard$: Observer<any>;
   sellerAcceptedOrdersForDashboard$: Observer<any>;
+  screenSize = window.screen.width;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -52,7 +53,7 @@ export class SellerDashboardComponent implements OnInit {
       complete: () => console.log("Request for requested orders completed")
     }
     this.sellerAcceptedOrdersForDashboard$ = {
-      next: (data) => this.sellerActiveOrders = data,
+      next: (data) => this.sellerActiveOrders = data.splice(0,1),
       error: (err) => console.log(err),
       complete: () => console.log("Request for active orders completed")
     }
@@ -149,6 +150,12 @@ export class SellerDashboardComponent implements OnInit {
   }
   toInt(status : string):number{
     return parseInt(status);
+  }
+  showAllCompletedOrders(){
+    this.router.navigate(['/seller-side',{outlets  : { sellerRouterOutlet : ['completed-orders']}}]);
+  }
+  viewAllActiveOrders(){
+    this.router.navigate(['/seller-side',{outlets  : { sellerRouterOutlet : ['active-orders']}}]);
   }
   routeToOrderImages(id : any){
     this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet': ['active-order',id]}}])

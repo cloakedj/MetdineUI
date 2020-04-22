@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header *ngIf="isLoggedIn"></app-header>
 <div class="ui centered six wide column grid" *ngIf="messageVisible && !numberVerified">
     <div class="ui centered error message">
         <i class="close icon" (click)="switchMessage()"></i>

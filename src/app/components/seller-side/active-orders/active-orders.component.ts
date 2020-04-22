@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-active-orders',
@@ -19,7 +20,8 @@ export class ActiveOrdersComponent implements OnInit {
     { key: 4, value: 'Completed' }
   ];
   constructor(private api : ApiService,
-    private router : Router) {
+    private router : Router,
+    private toastr : ToastrService) {
   }
 
   ngOnInit() {
@@ -44,8 +46,11 @@ export class ActiveOrdersComponent implements OnInit {
   updateOrderStatus(orderId, status) {
     this.loading = true;
     this.api.modifyRequestedOrderStatusById(orderId, status).subscribe(
-      (data) => console.log(data),
-      (err) => console.log(err),
+      (data) => {
+        if(status == 2)
+        this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet' :['active-order',orderId]}}])
+      },
+      (err) => this.toastr.error(err),
       () => {
         this.loading = false;
         this.getActiveOrders();

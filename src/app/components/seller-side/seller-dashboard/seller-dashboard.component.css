@@ -14,10 +14,13 @@
 }
 .orderid
 {
-    padding: 8% 0% 8% 0% !important;
-    border-radius:3px;
-    background-color: black;
-    text-align: center;
+  align-items: center;
+  display: flex !important;
+  justify-content: center;
+  border-radius: 3px;
+  background-color: black;
+  text-align: center;
+  word-break: break-word;
 }
 .orderid h1{
     color:#fff;

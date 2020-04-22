@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class BuyerComponent implements OnInit {
   numberVerified : any;
   messageVisible = false;
+  isLoggedIn = localStorage.getItem("Auth_Token") ? true : false;
   constructor(
     private api : ApiService,
     private toastr : ToastrService,

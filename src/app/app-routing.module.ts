@@ -83,6 +83,7 @@ const routes: Routes =[
   providers: [
     AuthGuardService,
     AuthGuardIsSellerService,
+    ActiveOrderGuardService
   ]
 })
 export class AppRoutingModule { }

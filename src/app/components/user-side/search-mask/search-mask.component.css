@@ -40,8 +40,15 @@
         margin-top: 0%;
     }
 }
+.sellerLink{
+  cursor: pointer;
+}
 @media (max-width : 500px){
     .container{
       padding-top : 15% !important;
     }
+    .loader-wrapper{
+      margin-top:2%;
+      margin-left:91%;
+  }
   }

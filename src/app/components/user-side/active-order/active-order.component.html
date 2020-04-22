@@ -55,7 +55,7 @@
   </div>
 </div>
 <ng-container *ngIf="sentImages">
-<div class="ui mini modal" *ngIf="sentImages[0].status == 'Partial'">
+<div class="ui mini modal" *ngIf="sentImages.status == 'Partial'">
     <div class="ui compact center aligned segment partial-timer">
       <div class="ui icon header">
       <i class="circular phone icon"></i>
@@ -116,12 +116,12 @@
             Address : {{activeOrderData.address}}
         </h3>
         <ng-container *ngIf="sentImages">
-        <ng-container *ngIf="activeOrderData.status >= 2 && sentImages[0].status != 'Sent'">
+        <ng-container *ngIf="activeOrderData.status >= 2 && sentImages.status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
                         <i class="lock icon"></i>
-                    <p class="lock-text" *ngIf="sentImages[0].status != 'Waiting' else waitingtext">You Have {{sentImages[0].status}} The Images</p>
+                    <p class="lock-text" *ngIf="sentImages.status != 'Waiting' else waitingtext">You Have {{sentImages.status}} The Images</p>
                     <ng-template #waitingtext>
                         <h5 class="ui header pleaseSendImages">
                             Please Wait For The Seller To Send The Images.
@@ -132,13 +132,13 @@
                 </div>
                 <div class="ui three column stackable grid row">
                     <div class="column">
-                    <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
+                    <img src="{{sentImages.image1}}" class="ui rounded medium image">
                     </div>
                     <div class="column">
-                        <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
+                        <img src="{{sentImages.image2}}" class="ui rounded medium image">
                     </div>
                 <div class="column">
-                    <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
+                    <img src="{{sentImages.image3}}" class="ui rounded medium image">
                 </div>
                 </div>
             </ng-container>
@@ -154,7 +154,7 @@
         <div class="ui divider"></div>
         <ng-container *ngIf="activeOrderData">
         <div class="row">
-            <table class="ui single line table">
+            <table class="ui unstackable single line table">
             <thead>
                 <tr>
                 <th>Item Name</th>
@@ -175,7 +175,7 @@
                     {{item.quantity}}
                 </td>
                 <td>
-                    <a class="ui label yellow">{{item.meal_time | labelFilter}}</a>
+                    <a class="ui label yellow">{{item.meal_time | labelFilter | contentLength : 0 : true}}</a>
                 </td>
                 </tr>
             </tbody>
@@ -187,7 +187,7 @@
 </div>
 </div>
 <ng-container *ngIf="sentImages">
-<ng-container *ngIf="sentImages[0].status == 'Sent'">
+<ng-container *ngIf="sentImages.status == 'Sent'">
     <div class="ui basic modal">
     <div class="ui two column computer column mobile centered grid container">
       <div class="row">
@@ -208,14 +208,14 @@
         Seconds Left
       </div>
       <ng-container *ngIf="sentImages !== undefined else waitingForImages">
-        <ng-container *ngIf="sentImages[0].status == 'Sent' ||
-        sentImages[0].status == 'Confirmed' ||
-        sentImages[0].status == 'Rejected'
+        <ng-container *ngIf="sentImages.status == 'Sent' ||
+        sentImages.status == 'Confirmed' ||
+        sentImages.status == 'Rejected'
          else notSentImages">
         <h3 class="ui center aligned header">
             Confirm Seller Pictures
         </h3>
-        <div class="ui negative message" *ngIf="!hideMessage && sentImages[0].status == 'Sent'">
+        <div class="ui negative message" *ngIf="!hideMessage && sentImages.status == 'Sent'">
             <i class="close icon" (click)="hideMessage = true"></i>
             <div class="header">
               Kindly Confirm Images.
@@ -232,13 +232,13 @@
                 </div>
             </div>
             <div class="column">
-            <img src="{{sentImages[0].image1}}" class="ui rounded medium image">
+            <img src="{{sentImages.image1}}" class="ui rounded medium image">
             </div>
             <div class="column">
-                <img src="{{sentImages[0].image2}}" class="ui rounded medium image">
+                <img src="{{sentImages.image2}}" class="ui rounded medium image">
             </div>
         <div class="column">
-            <img src="{{sentImages[0].image3}}" class="ui rounded medium image">
+            <img src="{{sentImages.image3}}" class="ui rounded medium image">
         </div>
         </div>
         <div class="ui center aligned divider"></div>
@@ -246,8 +246,8 @@
                 'left floated' : screenSize > 780,
                 'fluid' : screenSize < 700
             }"
-            [disabled]="sentImages[0].status != 'Sent'"
-             (click)="acceptImages(sentImages[0].id)">
+            [disabled]="sentImages.status != 'Sent'"
+             (click)="acceptImages(sentImages.id)">
                 Accept
             </button>
             <div class="ui hidden divider" *ngIf="screenSize < 700"></div>
@@ -255,8 +255,8 @@
                 'right floated' : screenSize > 780,
                 'fluid' : screenSize < 700
             }"
-            [disabled]="sentImages[0].status != 'Sent' || !refundRecentCount"
-            (click)="rejectImages(sentImages[0].id)" [ngClass]="{'without-no-reject':refundRecentCount}">
+            [disabled]="sentImages.status != 'Sent' || !refundRecentCount"
+            (click)="rejectImages(sentImages.id)" [ngClass]="{'without-no-reject':!refundRecentCount}">
                 Reject
             </button>
             <div class="ui hidden divider" *ngIf="screenSize > 800"></div>

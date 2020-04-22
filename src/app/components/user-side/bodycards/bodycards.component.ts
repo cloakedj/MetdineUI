@@ -16,7 +16,8 @@ export class BodycardsComponent implements OnInit {
   public sellers : any;
   public sellers$ : any;
   public sellersArr : any;
-  isSeller  = localStorage.getItem("is_seller") ? localStorage.getItem("is_seller") : false;
+  checkLocationAgainTime : any;
+  isSeller  = localStorage.getItem("is_seller") ? localStorage.getItem("is_seller") : "true";
   constructor(private api:ApiService,
     public product : ProductService,
     private gc : GetCategoryService,
@@ -25,19 +26,27 @@ export class BodycardsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if(localStorage.getItem("Auth_Token"))
+    this.checkLocationAgainTime = setInterval(() =>{
+    if(localStorage.getItem("Auth_Token") && localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
     {
+    this.clearTime();
     this.sellers$ = this.api.getAllSellers();
     this.api.getAllSellers().subscribe(
-      data => this.sellersArr = data,
+      data =>{
+        this.sellersArr = data;
+      } ,
       err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     )
     }
+    },5000);
   }
   openMap(){
     this.router.navigateByUrl('/map');
   }
   becomeASeller(){
     this.router.navigate(['/becomeSeller']);
+  }
+  clearTime(){
+    clearInterval(this.checkLocationAgainTime);
   }
 }

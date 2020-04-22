@@ -119,6 +119,15 @@
   .closeMap{
       left:88%;
       top:2%;
+}
+}
+@media (max-width:360px){
+  .closeMap{
+      left:85%;
+      top:2%;
+  }
+  .orderlist{
+    margin-top: -10%;
   }
   }
 @media(max-width:500px){

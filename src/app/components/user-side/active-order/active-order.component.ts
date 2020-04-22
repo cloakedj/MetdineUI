@@ -93,7 +93,9 @@ export class ActiveOrderComponent implements OnInit {
   getImages(){
     this.sentImagesObs$ = {
       next : (data) => {
-        this.sentImages = data;
+        this.sentImages = data[0];
+        if(data[0])
+        {
         if(data[0].status == 'Sent')
         this.getElapsedTime()
         if(data[0].status == 'Partial')
@@ -102,6 +104,7 @@ export class ActiveOrderComponent implements OnInit {
         {
         this.getActiveOrderData();
         this.reconfirmScreen = true;
+        }
         }
       },
       error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),

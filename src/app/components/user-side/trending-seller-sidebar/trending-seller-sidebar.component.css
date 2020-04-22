@@ -9,3 +9,10 @@
 .label{
     margin-bottom:3%;
 }
+.nosellersheading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width:100%;
+}

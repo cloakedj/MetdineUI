@@ -2,10 +2,11 @@
     <h2 class="ui centered header">Trending Sellers</h2>
     <div class="ui divider"></div>
     <div class="ui grid" *ngIf="trendingSellers else loading">
+      <ng-container *ngIf="trendingSellers.length > 0 else notrendingsellers">
         <div class="column row" *ngFor="let seller of trendingSellers">
             <div class="image">
-                <a 
-                [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]" 
+                <a
+                [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]"
                  routerLinkActive="active">
                     <img class="ui centered small rounded image" src="{{seller.logo}}">
                 </a>
@@ -23,6 +24,7 @@
                   </a>
             </div>
         </div>
+      </ng-container>
     </div>
 </div>
 <ng-template #loading>
@@ -30,4 +32,11 @@
         <div class="ui hidden divider"></div>
         <div class="ui active inline loader"></div>
     </div>
+</ng-template>
+<ng-template #notrendingsellers>
+  <div class="nosellersheading">
+  <h3 class="ui header">
+    No Trending Sellers Near You.
+  </h3>
+</div>
 </ng-template>

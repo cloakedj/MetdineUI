@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   username: string;
   activeOrderStatus : boolean;
   activeOrderData : any;
+  activeOrderId : any;
   @HostListener('click',['$event'])
   hideMask(evt){
     if(evt.target.className.includes("searchDesktop"))
@@ -71,6 +72,7 @@ export class HeaderComponent implements OnInit {
   getActiveOrderData(){
     this.api.getActiveOrderDetailsForBuyer().subscribe(
       data => {
+        this.activeOrderId = data[0].id;
         this.activeOrderData = data;
       },
       err => console.log(err)

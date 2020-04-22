@@ -94,16 +94,19 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
     this.api.getConfirmationImages(this.orderId).subscribe(
       (data) =>
       {
-        this.imagesSent = data;
-        if(this.imagesSent[0].status == "Sent")
+        this.imagesSent = data[0];
+        if(data[0])
+        {
+        if(this.imagesSent.status == "Sent")
         this.getElapsedTime();
-        if(this.imagesSent[0].status == "Partial")
+        if(this.imagesSent.status == "Partial")
         this.getElapsedTimeforCall();
-         if(this.imagesSent[0].status == "Confirmed")
+         if(this.imagesSent.status == "Confirmed")
          {
            this.orderDetailsAPI();
             this.autoAccept = true;
          }
+        }
       },
       (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
       () => console.log("getting status")
@@ -121,7 +124,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         {
         this.timeLeft = 120 - data["elapsed"];
         this.startTimer =
-        setInterval(()=>{
+        setInterval(() =>{
           if(this.timeLeft > 0)
           {
           this.timeLeft--;

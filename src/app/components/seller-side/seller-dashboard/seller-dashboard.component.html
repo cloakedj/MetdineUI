@@ -71,23 +71,27 @@
       <div class="ui hidden divider"></div>
       <ng-container *ngIf="requestedOrdersCount(1) else loading">
       <ng-container *ngIf="sellerRequestedOrders.length > 0 else requestorderspl">
-        <div class="ui grid rorders" *ngFor="let order of sellerRequestedOrders;">
-          <div class="row">
+        <div class="ui stackable grid rorders" *ngFor="let order of sellerRequestedOrders;">
+          <div class="row" [ngClass]="{'centered' : screenSize < 500}">
             <a class="ui black label">
               {{order.total | currency:'INR'}}
             </a>
             <a class="ui orange label">
               Waiting
             </a>
+            <a class="ui teal label">
+              {{order.time}}
+            </a>
             <!-- <a class="ui teal label">
               Contains {{getTableItems(order.id)}} More Items.
             </a> -->
           </div>
+          <div class="ui hidden divider" *ngIf="screenSize < 500"></div>
           <div class="orderid four wide column">
             <h1 class="ui header">#{{order.id}}</h1>
           </div>
           <div class="eight wide column">
-            <table class="ui single line table">
+            <table class="ui unstackable single line table">
               <thead>
                 <tr>
                   <th>Item Name</th>
@@ -107,8 +111,9 @@
                 </tr>
               </tbody>
             </table>
+
           </div>
-          <div class="four wide column actions">
+          <div class="four wide column actions" [ngClass]="{'center aligned' : screenSize < 500}">
             <button class="circular positive ui icon button"
             data-inverted="" data-position="top right" data-tooltip="Accept Order"
             (click)="updateRequestedOrderStatus(order.id,1)">
@@ -177,6 +182,7 @@
       <div class="ui hidden divider"></div>
       <div class="row" *ngIf="sellerActiveOrders">
         <button class="ui fluid positive button"
+        (click) = "viewAllActiveOrders()"
         matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}}
         more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
           View All Orders
@@ -204,6 +210,7 @@
       <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
           <app-order-card [order]="order"></app-order-card>
       </div>
+      <button class="ui right floated negative button" (click)="showAllCompletedOrders()">View All Completed Orders</button>
     </ng-container>
     </ng-container>
     </div>

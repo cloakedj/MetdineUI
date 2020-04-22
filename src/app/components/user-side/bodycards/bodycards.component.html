@@ -5,11 +5,11 @@
   <div class="ui hidden divider"></div>
    Looks Like We Don't Have Any Sellers Near You.
    <div class="ui hidden divider"></div>
-   <h4 class="ui header" *ngIf="!isSeller">
+   <h4 class="ui header" *ngIf="isSeller == 'false'">
     Want To Become The First Seller In You Area?
   </h4>
-  <div class="ui hidden divider" *ngIf="!isSeller"></div>
-  <button class="ui centered positive button" (click)="becomeASeller()" *ngIf="!isSeller">
+  <div class="ui hidden divider" *ngIf="isSeller == 'false'"></div>
+  <button class="ui centered positive button" (click)="becomeASeller()" *ngIf="isSeller == 'false'">
     Become A Seller
   </button>
   </h3>
