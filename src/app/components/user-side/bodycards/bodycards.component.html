@@ -1,3 +1,15 @@
+<ng-container *ngIf="showMaxRetryErrorCode">
+  <div class="ui centered grid container" id="maxRetry">
+    <h3 class="ui icon header">
+      <i class="ui triangle exclamation icon"></i>
+      ERROR CODE : M000. MAX RETRIES REACHED.
+    </h3>
+    <div class="ui divider"></div>
+    <h4 class="ui sub header">
+      Please Make Sure You Have An Active Internet Connection and You Have Allowed Location Services For Metdine.in Before Retrying.
+    </h4>
+  </div>
+</ng-container>
 <ng-container *ngIf="sellersArr">
 <div class="ui-mask-nosellers" *ngIf="sellersArr.length == 0">
 <h3 class="ui centered icon header">

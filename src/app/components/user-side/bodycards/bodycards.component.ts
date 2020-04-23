@@ -13,6 +13,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./bodycards.component.css']
 })
 export class BodycardsComponent implements OnInit {
+  readonly maxRetries = 7;
+  tryCount = 0;
+  showMaxRetryErrorCode : boolean = false;
   public sellers : any;
   public sellers$ : any;
   public sellersArr : any;
@@ -27,6 +30,12 @@ export class BodycardsComponent implements OnInit {
 
   ngOnInit() {
     this.checkLocationAgainTime = setInterval(() =>{
+    if(this.tryCount === this.maxRetries)
+    {
+      this.showMaxRetryErrorCode = true;
+      this.clearTime();
+    }
+    else{
     if(localStorage.getItem("Auth_Token") && localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
     {
     this.clearTime();
@@ -38,6 +47,8 @@ export class BodycardsComponent implements OnInit {
       err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     )
     }
+    this.tryCount++;
+    }
     },5000);
   }
   openMap(){
@@ -48,5 +59,6 @@ export class BodycardsComponent implements OnInit {
   }
   clearTime(){
     clearInterval(this.checkLocationAgainTime);
+    this.tryCount = 0;
   }
 }
