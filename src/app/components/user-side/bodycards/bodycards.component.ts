@@ -49,7 +49,7 @@ export class BodycardsComponent implements OnInit {
     }
     this.tryCount++;
     }
-    },5000);
+    },3000);
   }
   openMap(){
     this.router.navigateByUrl('/map');

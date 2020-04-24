@@ -38,7 +38,7 @@
                             <div class="description">
                             <a class="ui label" [ngClass]="{
                                 'green' : result.category == 0,
-                                'teal' : result.category == 1,
+                                'orange' : result.category == 1,
                                 'yellow' : result.category == 2,
                                 'black' : result.category == 3
                             }">
@@ -52,96 +52,6 @@
                         </div>
                         </div>
                 </div>
-                <div class="item" *ngFor="let result of queryResults;">
-                  <img class="ui sellerLink image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
-                  [ngClass]="{
-                    'tiny' : windowWidth <= 350,
-                    'small' : windowWidth > 350
-                  }">
-                      <div class="content">
-                          <a class="header" (click)="sellerPage(result.id)">
-                              <h4 class="ui header">
-                              {{result.first_name}} {{result.last_name}}
-                              </h4>
-                          </a>
-                          <div class="ui divider"></div>
-                          <div class="description">
-                          <a class="ui label" [ngClass]="{
-                              'green' : result.category == 0,
-                              'teal' : result.category == 1,
-                              'yellow' : result.category == 2,
-                              'black' : result.category == 3
-                          }">
-                              {{result.category | labelFilter : 'category'}}
-                          </a>
-                          <a class="ui black label">
-                              <i class="map icon"></i>
-                              {{result.distance | number : '1.0-2'}} km
-                            </a>
-                            <div class="ui hidden divider"></div>
-                      </div>
-                      </div>
-              </div>
-              <div class="item" *ngFor="let result of queryResults;">
-                <img class="ui sellerLink image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
-                [ngClass]="{
-                  'tiny' : windowWidth <= 350,
-                  'small' : windowWidth > 350
-                }">
-                    <div class="content">
-                        <a class="header" (click)="sellerPage(result.id)">
-                            <h4 class="ui header">
-                            {{result.first_name}} {{result.last_name}}
-                            </h4>
-                        </a>
-                        <div class="ui divider"></div>
-                        <div class="description">
-                        <a class="ui label" [ngClass]="{
-                            'green' : result.category == 0,
-                            'teal' : result.category == 1,
-                            'yellow' : result.category == 2,
-                            'black' : result.category == 3
-                        }">
-                            {{result.category | labelFilter : 'category'}}
-                        </a>
-                        <a class="ui black label">
-                            <i class="map icon"></i>
-                            {{result.distance | number : '1.0-2'}} km
-                          </a>
-                          <div class="ui hidden divider"></div>
-                    </div>
-                    </div>
-            </div>
-            <div class="item" *ngFor="let result of queryResults;">
-              <img class="ui sellerLink image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
-              [ngClass]="{
-                'tiny' : windowWidth <= 350,
-                'small' : windowWidth > 350
-              }">
-                  <div class="content">
-                      <a class="header" (click)="sellerPage(result.id)">
-                          <h4 class="ui header">
-                          {{result.first_name}} {{result.last_name}}
-                          </h4>
-                      </a>
-                      <div class="ui divider"></div>
-                      <div class="description">
-                      <a class="ui label" [ngClass]="{
-                          'green' : result.category == 0,
-                          'teal' : result.category == 1,
-                          'yellow' : result.category == 2,
-                          'black' : result.category == 3
-                      }">
-                          {{result.category | labelFilter : 'category'}}
-                      </a>
-                      <a class="ui black label">
-                          <i class="map icon"></i>
-                          {{result.distance | number : '1.0-2'}} km
-                        </a>
-                        <div class="ui hidden divider"></div>
-                  </div>
-                  </div>
-          </div>
             </ng-container>
         </div>
       </ng-container>

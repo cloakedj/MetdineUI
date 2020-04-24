@@ -37,12 +37,13 @@
                       <textarea placeholder="Description" formControlName="description"></textarea>
                       <div class="ui pointing red basic label"  *ngIf="description.invalid && !description.pristine">
                         <span *ngIf="description.errors?.required">Description Is Required</span>
-                        <span *ngIf="description.errors?.maxlength">Description Should Be Less Than 100 Characters.</span>
+                        <span *ngIf="description.errors?.minlength">Description Should Be More Than 60 Characters.</span>
+                        <span *ngIf="description.errors?.maxlength">Description Should Be Less Than 150 Characters.</span>
                     </div>
                     </div>
                     <div class="field">
                       <div class="ui fluid icon input">
-                        <input type="text" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
+                        <input type="text" placeholder="Address" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
                         <i class="search icon"></i>
                       </div>
                     <div class="ui pointing red basic label"  *ngIf="address.errors?.required && !address.pristine">
@@ -51,7 +52,7 @@
                     </div>
                         <div class="field">
                           <div class="two ui buttons">
-                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid" type="Submit" value="Sign Up">
+                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address.length == 0" type="Submit" value="Sign Up">
                             <button class="ui negative button" [disabled]="becomeSellerForm.pristine" (click)="becomeSellerForm.reset();">Reset</button>
                           </div>
                         </div>

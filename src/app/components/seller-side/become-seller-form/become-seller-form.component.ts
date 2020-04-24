@@ -26,12 +26,13 @@ export class BecomeSellerFormComponent implements OnInit {
   becomeSellerForm: FormGroup = this.formBuilder.group({
     first_name:['',Validators.required],
     last_name:['',Validators.required],
-    desc:['',[
-      Validators.maxLength(200)
+    description:['',[
+      Validators.required,
+      Validators.minLength(60),
+      Validators.maxLength(150)
     ]
     ],
     logo:[''],
-    description : ['',Validators.required,Validators.maxLength(100)],
     phone:['',[
       Validators.pattern(/^[0-9]+$/),
       Validators.minLength(10),
@@ -121,7 +122,7 @@ export class BecomeSellerFormComponent implements OnInit {
   get first_name(){ return this.becomeSellerForm.get('first_name');}
   get last_name(){ return this.becomeSellerForm.get('last_name');}
   get logo(){ return this.becomeSellerForm.get("logo");}
-  get description(){ return this.becomeSellerForm.get("desc")}
+  get description(){ return this.becomeSellerForm.get("description")}
   get phone(){ return this.becomeSellerForm.get("phone");}
   get address(){ return this.becomeSellerForm.get("address");}
 
