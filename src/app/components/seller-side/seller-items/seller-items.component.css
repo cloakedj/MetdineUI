@@ -97,6 +97,10 @@ margin-bottom: 5% !important;
 button{
     margin-bottom: 5% !important;
 }
+#itemsContainer{
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
 }
 @media (min-width : 780px){
     .newItemButton{

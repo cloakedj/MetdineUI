@@ -5,7 +5,7 @@
     <ng-container *ngIf="sellerPaymentInfo.account_activated || sellerPaymentInfo.upi_activated else addPaymentInfo">
   <div class="ui icon header">
     <i class="circular rupee sign icon"></i>
-   Seller Payment Details Details
+   Seller Payment Details
   </div>
   <div class="image content">
     <div class="ui image" [ngClass]="{
@@ -65,7 +65,7 @@
       <img src="{{sellerDashOptions.logo}}">
     </div>
     <div class="scrolling description">
-      <div class="ui form">
+      <div class="ui form" id="sellerDataForm">
         <form [formGroup]="sellerDetails">
       <div class="two fields">
         <div class="field">

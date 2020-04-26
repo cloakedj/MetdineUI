@@ -89,3 +89,8 @@ app-geolocation{
  margin-top: -16%;
 }
 }
+@media only screen and (max-width: 370px){
+  #sellerDataForm .fields{
+    flex-wrap: nowrap;
+  }
+}

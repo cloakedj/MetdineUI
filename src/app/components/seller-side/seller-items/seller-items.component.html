@@ -7,7 +7,7 @@
 <button class="ui negative button" *ngIf="menuItems.length!==0 && !isSubSection" (click)="changeRemoveMode()">{{RemoveModeText}}</button>
 </ng-container>
 </div>
-    <div class="ui stackable mobile doubling tablet link cards grid container" [ngClass]="{
+    <div class="ui stackable mobile doubling tablet link cards grid container" id="itemsContainer" [ngClass]="{
       'three' : !skipItem,
       'center aligned' : skipItem
     }">
@@ -16,7 +16,7 @@
       <ng-container *ngIf="(product.id != skipItem)">
       <ng-container *ngIf="product.image  else productimagePlaceholder">
         <div class="image-container">
-      <div class="image" [ngClass]="{'blurOut': !product.is_available}" 
+      <div class="image" [ngClass]="{'blurOut': !product.is_available}"
       [ngStyle]="{'background': 'url(' + product.image + ')'}">
         </div>
         <div class="image-mask" *ngIf="!product.is_available">
@@ -27,7 +27,7 @@
           <h4 class="ui header" id="unavailability-message">Item Is Unavailable.</h4>
         </div>
       </div>
-      </ng-container>  
+      </ng-container>
         <div class="content">
         <a class="ui centered header">{{product.title}}</a>
           <div class="description">

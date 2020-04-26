@@ -1,4 +1,4 @@
-<div class="ui stackable grid container">
+<div class="ui stackable grid container" id="itemContainer">
 <div class="ten wide column">
 <div class="ui raised segment" [ngClass]="{
     'loading' : !productDetails
@@ -83,20 +83,20 @@
                 <div class="field">
                     <label>Item Price</label>
                     <input type="number" formControlName="price" value="{{productDetails.price}}">
-                    </div>  
+                    </div>
                 </div>
                 <div class="field">
                     <label>Item Description</label>
                 <textarea rows="4" formControlName="short_description" value="{{productDetails.short_description}}"></textarea>
                 </div>
                 <div class="field">
-                    <label>Current Category : 
+                    <label>Current Category :
                         <a class="ui red label">{{productDetails.category | labelFilter : 'category'}}</a>
                     </label>
                     <div class="ui hidden divider"></div>
                     <label>Select Category</label>
                     <mat-radio-group aria-label="Select Category" formControlName="category">
-                    <mat-radio-button *ngFor="let category of categories;index as i;" 
+                    <mat-radio-button *ngFor="let category of categories;index as i;"
                     value="{{i+1}}" [checked]="productDetails.category-1 == i" name="item-category">
                     <a class="ui red horizontal label">{{category.name}}</a>
                     </mat-radio-button>
@@ -104,13 +104,13 @@
                 </div>
                 <div class="ui hidden divider"></div>
                 <div class="field">
-                    <label>Current Time To Prepare : 
+                    <label>Current Time To Prepare :
                         <a class="ui orange label">{{productDetails.time_to_prepare | labelFilter}}</a>
                     </label>
                     <div class="ui hidden divider"></div>
                     <label>Select Time To Prepare</label>
                     <mat-radio-group aria-label="Select Time To Prepare" formControlName="time_to_prepare">
-                    <mat-radio-button *ngFor="let time of prepTimeList;index as i;" 
+                    <mat-radio-button *ngFor="let time of prepTimeList;index as i;"
                     value="{{i+1}}" [checked]="productDetails.category-1 == i" name="item-category">
                     <a class="ui orange horizontal label">{{time.value}}</a>
                     </mat-radio-button>
@@ -136,7 +136,7 @@
                   </div>
                   <div class="ui hidden divider"></div>
                   <div class="field">
-                      <label> Current Image: 
+                      <label> Current Image:
                         <img class="ui tiny rounded image" src="{{productDetails.image}}">
                       </label>
                       <label>Upload Item Image</label>
