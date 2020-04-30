@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "http://b9907432.ngrok.io/api";
+  API_URL = "http://9ba89acd.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
@@ -267,7 +267,7 @@ export class ApiService {
     }
   //Endpoint to Delete Menu Item By Id
   deleteMenuItemById(id : any){
-    return this.http.delete(`${this.API_URL}/seller/menu/${id}/`)
+    return this.http.post(`${this.API_URL}/seller/meal/delete/${id}/`,{delete : true})
     .pipe(
       catchError(this.handleError)
     )
@@ -447,6 +447,13 @@ export class ApiService {
     }
     checkRejectionCount(){
       return this.http.get(`${this.API_URL}/refund_check/`)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    //Upgrade Buyer Phone Number To Seller Phone Number
+    upgradePhoneNumberForSeller(){
+      return this.http.get(`${this.API_URL}/seller/phone/re-verify`)
       .pipe(
         catchError(this.handleError)
       )

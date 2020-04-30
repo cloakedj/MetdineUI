@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
+import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
 @Component({
   selector: 'app-geolocation',
@@ -17,8 +18,10 @@ export class GeolocationComponent implements OnInit{
   latitude: number;
   longitude: number;
   zoom:number;
+  updateAddressLoader : boolean = false;
   address: string;
   private geoCoder;
+  buyerCity : any;
   public selectedAddress: PlaceResult;
   @(ViewChild)('search',{static:true}) autocompletesearch : ElementRef;
   public searchControl : FormControl = new FormControl();
@@ -61,7 +64,8 @@ export class GeolocationComponent implements OnInit{
     private api : ApiService,
     private _fb : FormBuilder,
     private router : Router,
-    private toastr : ToastrService
+    private toastr : ToastrService,
+    private currlc : CurrLocationService
   ) {
    this.aroute.queryParams.subscribe(params =>{
     this.isOnCheckoutMode = params['checkout'];
@@ -75,10 +79,10 @@ export class GeolocationComponent implements OnInit{
       complete: () => console.log("Completed request")
     }
     this.api.getBuyerAddress().subscribe(this.savedAddressesObs$);
-  }
+    }
+    this.GetLocation();
   }
   ngOnInit(){
-    this.GetLocation();
     this.locationBtnTitle = this.isOnCheckoutMode ? "Use This Address And Checkout"
     : "Save New Address";
     this.newAddressForm = this._fb.group({
@@ -92,6 +96,14 @@ export class GeolocationComponent implements OnInit{
   }
   GetLocation(){
     this.mapsAPILoader.load().then(() => {
+      if(this.currlc.address)
+      {
+        this.latitude = this.currlc.latitude;
+        this.longitude = this.currlc.longitude;
+        this.address = this.currlc.address;
+        this.zoom = 18;
+      }
+      else
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
@@ -125,6 +137,7 @@ export class GeolocationComponent implements OnInit{
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 18;
+          this.updateAddressLoader = true;
         this.getAddress(this.latitude, this.longitude);
       });
     }
@@ -135,17 +148,26 @@ export class GeolocationComponent implements OnInit{
   markerDragEnd($event: any) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
+    this.updateAddressLoader = true;
     this.getAddress(this.latitude, this.longitude);
   }
 
   getAddress(latitude, longitude) {
+    this.currlc.setLatLong(this.latitude,this.longitude);
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log("getAddress");
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
           this.address = results[0].formatted_address;
+          this.updateAddressLoader = false;
           this.zipCode = results[0].address_components[results[0].address_components.length - 1].long_name;
-        } else {
+          results.forEach(address_component => {
+            if (address_component.types[0] == "locality") {
+              this.buyerCity = address_component.address_components[0].long_name;
+          }
+        })
+       } else {
           this.toastr.error('No results found');
         }
       } else {
@@ -188,6 +210,11 @@ export class GeolocationComponent implements OnInit{
       }
       this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);
     }
+  }
+  changeCurrentLocation(){
+    this.currlc.setLatLong(this.latitude,this.longitude);
+    this.currlc.setAddressAndCity(this.address,this.buyerCity);
+    this.router.navigate(['/user']);
   }
 
 }

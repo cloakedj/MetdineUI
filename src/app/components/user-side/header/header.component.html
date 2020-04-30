@@ -90,7 +90,7 @@
 <div class="ui mobile tablet only centered mobileNav grid">
     <ng-container *ngIf="userLoggedIn">
             <div class="three wide center aligned column">
-                <a [routerLink]="['/user']"
+                <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['home']}}]"
                  routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
                     <i class="home icon"></i>

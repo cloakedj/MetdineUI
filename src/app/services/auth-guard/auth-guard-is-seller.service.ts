@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs'; 
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth-service/auth-service.service';
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,9 @@ export class AuthGuardIsSellerService {
       return true;
       else
       {
+      if(localStorage.getItem("buyer-phone-status") == "true")
+      this.router.navigate(['/upgrade-phone']);
+      else
       this.router.navigate(["/userGateway",{outlets : {userGatewayRouter : ['verify-phone']}}],
       {queryParams : {sellerSide : true}});
       return false;

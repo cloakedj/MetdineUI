@@ -27,6 +27,7 @@ import { ActiveOrderGuardService } from './services/Active-order/active-order-gu
 import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
+import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/upgrade-phone.component';
 
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,canActivate :[AuthGuardService],children: [
@@ -50,6 +51,7 @@ const routes: Routes =[
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
   { path:'becomeSeller', component : BecomeSellerFormComponent,canActivate :[AuthGuardService]},
+  { path: 'upgrade-phone', component : UpgradePhoneComponent},
   { path: 'map', component:GeolocationComponent , canActivate : [AuthGuardService]},
   { path : 'confirm-email', component : ConfirmEmailComponent},
   { path : 'confirm-user-email', component : ConfirmUserEmailComponent},

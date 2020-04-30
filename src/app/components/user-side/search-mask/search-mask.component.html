@@ -25,8 +25,8 @@
                 <div class="item" *ngFor="let result of queryResults;">
                     <img class="ui sellerLink image rounded left floated " src="{{result.logo}}" (click)="sellerPage(result.id)"
                     [ngClass]="{
-                      'tiny' : windowWidth <= 350,
-                      'small' : windowWidth > 350
+                      'tiny' : windowWidth <= 370,
+                      'small' : windowWidth > 370
                     }">
                         <div class="content">
                             <a class="header" (click)="sellerPage(result.id)">

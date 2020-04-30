@@ -19,14 +19,22 @@ export class BuyerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(!localStorage.getItem("buyer-phone-status"))
+    {
     this.api.checkPhoneNumberVerStatus().subscribe(
       data => {
         this.numberVerified = data;
+        localStorage.setItem("buyer-phone-status",data.toString());
         if(!this.numberVerified)
         this.messageVisible = true;
       },
       err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
+    }
+    else{
+      if(localStorage.getItem("buyer-phone-status") == "false")
+      this.messageVisible = true;
+    }
   }
   switchMessage(){
     this.messageVisible = false;

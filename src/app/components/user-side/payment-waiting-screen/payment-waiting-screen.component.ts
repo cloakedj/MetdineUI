@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PaymentWaitingScreenComponent implements OnInit {
   paymentStatus : boolean;
   orderId : any;
-  loaderOff : boolean = true;
+  loaderOff : boolean = false;
   constructor(
     private router : Router,
     private aroute : ActivatedRoute
@@ -23,12 +23,12 @@ export class PaymentWaitingScreenComponent implements OnInit {
   ngOnInit() {
     if(this.paymentStatus)
     {
-    setTimeout(() => this.loaderOff = true, 5000);
-    setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['active-order',this.orderId]}}]),10000);
+    setTimeout(() => this.loaderOff = true, 4000);
+    setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['active-order',this.orderId]}}]),6000);
     }
     else{
-      setTimeout(() => this.loaderOff = true, 5000);
-      setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['profile']}}]),10000);
+      setTimeout(() => this.loaderOff = true, 4000);
+      setTimeout(() =>this.router.navigate(['/user',{outlets : {userRouterOutlet : ['profile']}}]),6000);
     }
   }
 

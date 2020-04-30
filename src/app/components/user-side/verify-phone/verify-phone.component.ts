@@ -103,6 +103,7 @@ buyerOtpVerification(Data,rid){
     (data) => {
       this.toastr.success("Phone Number Has Been Successfully Verified. Redirecting...");
       localStorage.removeItem("otp_request_id");
+      localStorage.setItem("buyer-phone-status","true");
       if(this.isOnCheckout)  this.router.navigate(['/map'],{queryParams : {checkout : true}});
       else
       this.router.navigateByUrl('/user/(userRouterOutlet:home)');

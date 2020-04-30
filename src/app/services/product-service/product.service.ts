@@ -5,6 +5,7 @@ import { ApiService } from '../api-service/api.service';
 import { Seller } from 'src/app/entities/seller.entity';
 import { MapsAPILoader } from '@agm/core';
 import { ToastrService } from 'ngx-toastr';
+import { CurrLocationService } from '../curr-location/curr-location.service';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,7 @@ export class ProductService implements OnInit{
   GetLocation(){
     this.maps.load().then(() => {
       this.geoCoder  = new google.maps.Geocoder;
+      if(!this.address)
       this.setCurrentLocation();
     });
   }

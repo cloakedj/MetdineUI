@@ -2,7 +2,7 @@
   <div class="ui stackable grid">
     <div class="six wide stretched column mapColumn">
       <div class="ui centered raised segment" [ngClass]="{
-       'loading' : loading 
+       'loading' : loading
       }">
         <h3 class="ui header">
           Add Your Address
@@ -20,13 +20,16 @@
         </button>
         <div class="ui top attached header">
           <h3 class="ui header">
-            Current Address
+            Currently Selected Location
           </h3>
         </div>
-      <div class="ui attached compact segment">
+      <div class="ui attached compact segment currentAddress" [ngClass]="{'loading' : updateAddressLoader}">
         <h4 class="ui header">
           {{address}}
         </h4>
+        <button class="ui negative fluid button" *ngIf="address" (click)="changeCurrentLocation()">
+          Use This Location To Get Closest Sellers
+        </button>
       </div>
       <div class="ui hidden divider"></div>
       <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode && !isSellerSide">

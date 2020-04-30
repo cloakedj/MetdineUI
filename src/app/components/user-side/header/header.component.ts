@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
+import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit {
     private router : Router,
     public product : ProductService,
     private toastr : ToastrService,
+    public  currlc : CurrLocationService,
     private gc : GetCategoryService) {
       this.hasActiveOrder();
      }

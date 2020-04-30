@@ -1,0 +1,31 @@
+<div class="ui mini modal">
+  <div class="ui compact center aligned segment partial-timer" [ngClass]="{'loading' : !pNumber || loading}">
+   <div class="content">
+    <h3 class="ui center aligned icon header">
+      <i class="circular phone icon"></i>
+      We Found {{pNumber}} As The Registered Mobile Number For Your Buyer Account.
+      Do You Want To Use The Same Number For Your Seller Account?
+    </h3>
+    <div class="ui hidden divider"></div>
+    <button class="ui positive fluid button" (click)="upgradePhone()">
+      Yes. Upgrade The Same Phone Number.
+    </button>
+    <div class="ui horizontal divider">
+      OR
+    </div>
+    <button class="ui primary fluid button" (click)="registerNewNumber()">
+      No, Register A New Number.
+    </button>
+    <div class="ui hidden divider"></div>
+    <h5 class="ui header">
+      <i class="triangle exclamation icon"></i>
+      NOTE : Please Remmember If You Want To Use A Different Mobile Number, You Will Have To Verify It First
+      Like The Buyer Mobile Number.
+    </h5>
+   </div>
+   <div class="ui divider"></div>
+   <h4 class="ui sub header">
+     Return Back To <a href="/user">Home</a>
+   </h4>
+  </div>
+</div>

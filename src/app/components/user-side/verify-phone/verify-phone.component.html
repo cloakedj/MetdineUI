@@ -39,14 +39,8 @@
                 </form>
                 </div>
           </div>
-            <h5 class="ui bottom attached center aligned inverted header" *ngIf="isSellerSide else goToHome">
-              Go Back To <a [routerLink]="['/seller-side',{outlets : {sellerRouterOutlet : 'seller-dashboard'}}]" routerLinkActive="active">Seller Dashboard.</a>
-            </h5>
+          <h5 class="ui bottom attached center aligned inverted header">
+            Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
+          </h5>
         </div>
   </div>
-
-  <ng-template #goToHome>
-    <h5 class="ui bottom attached center aligned inverted header">
-      Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
-    </h5>
-  </ng-template>

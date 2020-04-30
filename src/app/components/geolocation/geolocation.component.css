@@ -16,8 +16,11 @@ agm-map {
 .six.wide.column
 {
     padding:2% 0% 2% 4% !important;
-        
+
 }
 .ten.wide.column{
     padding:2% !important;
+}
+.currentAddress{
+    min-height: 100px;
 }

@@ -12,7 +12,7 @@
             <div class="row">
               <form [formGroup]="ItemDetailsFormGroup" autocomplete>
                 <div class="ui form">
-                  <div class="field" *ngIf="ItemDetailsFormGroup.invalid && !ItemDetailsFormGroup.pristine ">
+                  <div class="field" *ngIf="!ItemDetailsFormGroup.pristine && (ItemDetailsFormGroup.invalid || !imageUploaded)">
                     <div class="ui negative message">
                       <div class="header">
                         <h5 class="ui heading">
@@ -22,6 +22,9 @@
                       <ul class="list">
                         <li *ngIf="title.errors?.required">
                           Item title Is Required.
+                        </li>
+                        <li *ngIf="!imageUploaded">
+                          Please Upload An Image For The Item.
                         </li>
                         <li *ngIf="title.errors?.pattern">
                           Item title Can Only Be Alphabetic Letters.
@@ -41,7 +44,7 @@
                       </div>
                       <div class="field">
                         <label>Item picture*</label>
-                       <app-file-upload></app-file-upload>
+                       <app-file-upload (imageUpload)="imageHasBeenUploaded($event)"></app-file-upload>
                       </div>
                       <div class="field">
                         <h5 class="ui left floated header">
@@ -50,8 +53,8 @@
                         <textarea placeholder="A small Description Of the Item."  type="text" formControlName="short_description"></textarea>
                       </div>
                       <div class="field">
-                        <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid"
-                         matStepperNext type="button" (click)="addToFormObject(ItemDetailsFormGroup.value)">Next</button>
+                        <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid || !imageUploaded"
+                         matStepperNext type="button" (click)="addToFormObject(ItemDetailsFormGroup.value,false,true)">Next</button>
                       </div>
                   </div>
                 </form>
@@ -86,9 +89,16 @@
                     </div>
                       <div class="field">
                         <label>Item Description</label>
-                        <h5 class="ui header"><mat-slide-toggle formControlName="is_veg" (change)="getVegNonVegValue()">The Item Is Veg</mat-slide-toggle></h5>
+                        <h5 class="ui header"><mat-slide-toggle formControlName="is_veg" (change)="getVegNonVegValue()">The Item Is Non Veg</mat-slide-toggle></h5>
                         <div class="ui compact negative message">
-                            <h5 class="ui header">Note: In case the item is non veg, leave this Option</h5>
+                            <h5 class="ui header">Note: In case the item is Veg, leave this Option</h5>
+                          </div>
+                      </div>
+                      <div class="field">
+                        <label>Item Availability</label>
+                        <h5 class="ui header"><mat-slide-toggle formControlName="is_available" (change)="getAvailabilityValue()">The Item Is Unavavailable</mat-slide-toggle></h5>
+                        <div class="ui compact negative message">
+                            <h5 class="ui header">Note: In case the item is Available, leave this Option</h5>
                           </div>
                       </div>
                       <div class="field">
@@ -160,7 +170,7 @@
             <div class="row">
               <form [formGroup]="ItemDetailsFormGroup" autocomplete>
                 <div class="ui form">
-                  <div class="field" *ngIf="ItemDetailsFormGroup.invalid && !ItemDetailsFormGroup.pristine ">
+                  <div class="field" *ngIf="(ItemDetailsFormGroup.invalid || !imageUploaded) && !ItemDetailsFormGroup.pristine ">
                     <div class="ui negative message">
                       <div class="header">
                         <h5 class="ui heading">
@@ -173,6 +183,9 @@
                         </li>
                         <li *ngIf="title.errors?.pattern">
                           Item title Can Only Be Alphabetic Letters.
+                        </li>
+                        <li *ngIf="!imageUploaded">
+                          Please Upload An Image For The Item.
                         </li>
                         <li *ngIf="short_description.invalid">
                           Please Describe Your Item In  30 - 60 letters.
@@ -189,7 +202,7 @@
                       </div>
                       <div class="field">
                         <label>Item picture*</label>
-                       <app-file-upload></app-file-upload>
+                       <app-file-upload (imageUpload)="imageHasBeenUploaded($event)"></app-file-upload>
                       </div>
                       <div class="field">
                         <h5 class="ui left floated header">
@@ -198,7 +211,7 @@
                         <textarea placeholder="A small Description Of the Item."  type="text" formControlName="short_description"></textarea>
                       </div>
                       <div class="field">
-                        <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid"
+                        <button class="positive fluid ui button" [disabled]="ItemDetailsFormGroup.pristine || ItemDetailsFormGroup.invalid || !imageUploaded"
                          matStepperNext type="button" (click)="addToFormObject(ItemDetailsFormGroup.value)">Next</button>
                       </div>
                   </div>
@@ -234,16 +247,23 @@
               </div>
                 <div class="field">
                   <label>Item Description</label>
-                  <h5 class="ui header"><mat-slide-toggle formControlName="is_veg" (change)="getVegNonVegValue()">The Item Is Veg</mat-slide-toggle></h5>
+                  <h5 class="ui header"><mat-slide-toggle formControlName="is_veg" (change)="getVegNonVegValue()">The Item Is Non Veg</mat-slide-toggle></h5>
                   <div class="ui compact negative message">
-                      <h5 class="ui header">Note: In case the item is non veg, leave this Option</h5>
+                      <h5 class="ui header">Note: In case the item is Veg, leave this Option</h5>
+                    </div>
+                </div>
+                <div class="field">
+                  <label>Item Availability</label>
+                  <h5 class="ui header"><mat-slide-toggle formControlName="is_available" (change)="getAvailabilityValue()">The Item Is Unavailable</mat-slide-toggle></h5>
+                  <div class="ui compact negative message">
+                      <h5 class="ui header">Note: In case the item is Available, leave this Option</h5>
                     </div>
                 </div>
                 <div class="field">
                   <div class="two ui buttons">
                       <button class="negative ui button" matStepperPrevious type="button">Back</button>
                   <button class="positive ui button" matStepperNext type="button" [disabled]="ItemPropertiesFormGroup.pristine || ItemPropertiesFormGroup.invalid"
-                  (click)="addToFormObject(ItemPropertiesFormGroup.value)">Next</button>
+                  (click)="addToFormObject(ItemPropertiesFormGroup.value,true)">Next</button>
                   </div>
                 </div>
             </div>

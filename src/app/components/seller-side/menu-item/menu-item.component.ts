@@ -26,7 +26,9 @@ export class MenuItemComponent implements OnInit {
   characters_left: number = 60;
   itemIsVeg : boolean = true;
   ItemObjtoPush = new FormData();
+  itemIsAvailable = true;
   addNewSellerItemObs$ :Observer<any>;
+  imageUploaded : boolean = false;
   smallScreen : any;
   categories = [
     {name:'Indian'},
@@ -72,6 +74,7 @@ export class MenuItemComponent implements OnInit {
         Validators.required
       ]],
       is_veg:[''],
+      is_available:['']
     });
     this.ItemPriceTimeFormGroup = this._formBuilder.group({
       price:['',[
@@ -83,10 +86,18 @@ export class MenuItemComponent implements OnInit {
       ]]
     });
   }
-  addToFormObject(data){
+  addToFormObject(data,boolprop ?: boolean,imageUpload ?: boolean){
+    if(boolprop)
+    {
+      data["is_veg"] = this.itemIsVeg;
+      data["is_available"] = this.itemIsAvailable;
+    }
     for(const key in data){
       this.ItemObjtoPush.append(key,data[key]);
     }
+  }
+  imageHasBeenUploaded(event){
+    this.imageUploaded = event;
   }
   apiToAddNewSellerItem(){
     this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
@@ -104,10 +115,14 @@ export class MenuItemComponent implements OnInit {
   getVegNonVegValue(){
     this.itemIsVeg = !this.itemIsVeg;
   }
+  getAvailabilityValue(){
+    this.itemIsAvailable = !this.itemIsAvailable;
+  }
   get title() { return this.ItemDetailsFormGroup.get("title");}
   get short_description() { return this.ItemDetailsFormGroup.get("short_description");}
   get category(){ return this.ItemPropertiesFormGroup.get("category");}
   get is_veg(){ return this.ItemPropertiesFormGroup.get("this.is_veg");}
   get price(){ return this.ItemPriceTimeFormGroup.get("price");}
   get time_to_prepare(){ return this.ItemPriceTimeFormGroup.get("time_to_prepare");}
+  get is_available(){ return this.ItemPropertiesFormGroup.get("is_available");}
 }

@@ -83,6 +83,7 @@ import { LabelFilterPipe } from './pipes/LabelFilter/label-filter.pipe';
 import { AddOrAddedToCartPipe } from './pipes/addOrAddedToCart/add-or-added-to-cart.pipe';
 import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
 import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
+import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/upgrade-phone.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { SellerPaymentInfoComponent } from './components/seller-side/seller-paym
     AddOrAddedToCartPipe,
     GetquantityPipe,
     SellerPaymentInfoComponent,
+    UpgradePhoneComponent,
   ],
   imports: [
     BrowserModule,

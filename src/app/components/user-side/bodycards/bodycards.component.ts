@@ -38,11 +38,11 @@ export class BodycardsComponent implements OnInit {
     else{
     if(localStorage.getItem("Auth_Token") && localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
     {
-    this.clearTime();
     this.sellers$ = this.api.getAllSellers();
     this.api.getAllSellers().subscribe(
       data =>{
         this.sellersArr = data;
+        this.clearTime();
       } ,
       err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     )
