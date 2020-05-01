@@ -16,11 +16,11 @@ export class CartService implements OnDestroy, OnInit{
   orderDetailsId : number;
   existingTotal
   @Input() orderId : number;
-  userCartdetaisl$ : Observer<any>;
+  userCartdetails$ : Observer<any>;
   itemExistsQuantity : number;
   constructor(private productService: ProductService,
     private api: ApiService,
-  ){ 
+  ){
   }
 
   ngOnInit(){
@@ -28,38 +28,41 @@ export class CartService implements OnDestroy, OnInit{
   }
 
 loadCart(): void {
-  this.userCartdetaisl$ = {
+  this.userCartdetails$ = {
     next : (data) => {
       this.items = data.items;
       this.total = data.total;
       this.orderId = data.id;
       this.delivery_charge = data.delivery_charge;
+      if(data.items.length > 0)
+      {
       if(!localStorage.getItem("seller__id"))
-      localStorage.setItem("seller__id",`${data.seller_id}`)
+      localStorage.setItem("seller__id",`${data.seller_id}`);
+      }
     },
     error : (err) => console.log(err),
     complete : () => console.log("Request to cart fetch completed")
   }
-  this.api.getUserCartDetails().subscribe(this.userCartdetaisl$);
-  
+  this.api.getUserCartDetails().subscribe(this.userCartdetails$);
+
 }
-                    
+
 getCartLength(){
  return this.items.length;
 }
-updateCart(id: number,operation?: string): void{ 
+updateCart(id: number,operation?: string): void{
     if(this.items === undefined)
     {
 
     this.api.additemtoCart(id,parseInt(localStorage.getItem("seller__id")))
     .subscribe(
-      data => 
+      data =>
       {
         console.log(data);
         console.log("New item Added To cart")
       },
       err => console.log(err),
-      () => 
+      () =>
       {
         this.loadCart();
         console.log("Request to add order Completed");
@@ -116,13 +119,13 @@ updateCart(id: number,operation?: string): void{
   updateCartItem(operation?: string, id?: number)
   {
     if(operation === 'a') this.itemExistsQuantity += 1;
-    else if(this.itemExistsQuantity - 1 === 0)  this.deleteItemFromCart(id); 
+    else if(this.itemExistsQuantity - 1 === 0)  this.deleteItemFromCart(id);
     else  this.itemExistsQuantity -=1;
     this.api.updateOrderItemQuantity(id,this.itemExistsQuantity)
     .subscribe(
       (data) => console.log("Cart item Quantity updated"),
       (err) => console.log(err),
-      () => 
+      () =>
       {
         this.loadCart();
         console.log("request to update quantity completed")
@@ -138,7 +141,7 @@ updateCart(id: number,operation?: string): void{
     .subscribe(
       elem => console.log("Deleted Item from Cart"),
       err => console.log(err),
-      () => 
+      () =>
       {
         this.loadCart();
         console.log("request to delete Item Completed Successfully");

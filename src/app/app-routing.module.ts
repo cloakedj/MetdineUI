@@ -51,7 +51,7 @@ const routes: Routes =[
     {path: '',redirectTo : '/seller-side/(sellerRouterOutlet:seller-dashboard)', pathMatch:'full'}
   ]},
   { path:'becomeSeller', component : BecomeSellerFormComponent,canActivate :[AuthGuardService]},
-  { path: 'upgrade-phone', component : UpgradePhoneComponent},
+  { path: 'upgrade-phone', component : UpgradePhoneComponent, canActivate : [AuthGuardService]},
   { path: 'map', component:GeolocationComponent , canActivate : [AuthGuardService]},
   { path : 'confirm-email', component : ConfirmEmailComponent},
   { path : 'confirm-user-email', component : ConfirmUserEmailComponent},

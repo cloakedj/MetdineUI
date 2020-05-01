@@ -89,7 +89,8 @@
     </div>
     <div class="ten wide column">
       <div class="ui centered raised stretched segment">
-      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true">
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true"
+      >
         <agm-marker
         [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
           (dragEnd)="markerDragEnd($event)"
@@ -97,6 +98,9 @@
           [label]="labelProps"
           [animation]="'DROP'"></agm-marker>
       </agm-map>
+      <!-- <button class="ui positive right floated button recenter" (click)="recenterMap()">
+        Recenter
+      </button> -->
     </div>
   </div>
   </div>

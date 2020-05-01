@@ -24,3 +24,20 @@ agm-map {
 .currentAddress{
     min-height: 100px;
 }
+.recenter{
+  top: 92%;
+  position: absolute;
+  left: 85%;
+}
+@media only screen and (max-width: 500px){
+  .recenter{
+    left: 62%;
+    top: 91%;
+  }
+}
+@media only screen and (max-width: 500px){
+  .recenter{
+    left: 62%;
+    top: 91%;
+  }
+}
