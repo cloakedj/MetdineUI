@@ -20,6 +20,7 @@ export class ProductService implements OnInit{
   longitude: number;
   address : string;
   buyerCity : any;
+  disabledPosition : boolean;
   private geoCoder;
   constructor(
     private api : ApiService,
@@ -37,7 +38,7 @@ export class ProductService implements OnInit{
         localStorage.setItem("latitude",this.latitude.toString());
         localStorage.setItem("longitude",this.longitude.toString());
         this.getAddress(this.latitude, this.longitude);
-      });
+      },this.errorCodes.bind(this));
     }
   }
   getAddress(latitude, longitude) {
@@ -74,5 +75,21 @@ export class ProductService implements OnInit{
       err => console.log(err),
       () => console.log("Products Fetched To Cart")
     )
+  }
+  errorCodes(error){
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          this.disabledPosition = true;
+          break;
+        case error.POSITION_UNAVAILABLE:
+          this.toastr.error("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+          this.toastr.error("The request to get user location timed out.");
+          break;
+        case error.UNKNOWN_ERROR:
+          this.toastr.error("An unknown error occurred.")
+          break;
+      }
   }
 }

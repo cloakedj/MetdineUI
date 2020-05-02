@@ -131,6 +131,21 @@ label{
 .mobileActiveOrderNavbar{
   z-index: 99999;
 }
+.noLocation{
+  background-color: rgba(240, 38, 38, 0.863);
+}
+.noLocationMobile{
+  top:0;
+  position : fixed !important;
+  background-color: rgba(240, 38, 38, 0.863);
+}
+.noLocation h3,.noLocationMobile h3{
+  color : #fff;
+}
+.cartLength{
+  position: absolute;
+    top: 7%;
+}
 @media (max-width : 780px){
   .closeSearch{
     top : 2% !important;
@@ -140,5 +155,11 @@ label{
 @media (max-width : 360px){
   .mobileActiveOrderNavbar{
     bottom : 15% !important;
+  }
+}
+@media only screen and (min-width: 900px){
+  .noLocation{
+    z-index: 999999;
+    top: -1px;
   }
 }

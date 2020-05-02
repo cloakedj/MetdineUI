@@ -30,6 +30,13 @@ export class BodycardsComponent implements OnInit {
 
   ngOnInit() {
     this.checkLocationAgainTime = setInterval(() =>{
+    if(this.product.disabledPosition)
+    {
+      this.showMaxRetryErrorCode = true;
+      this.clearTime();
+    }
+    else
+    {
     if(this.tryCount === this.maxRetries)
     {
       this.showMaxRetryErrorCode = true;
@@ -48,6 +55,7 @@ export class BodycardsComponent implements OnInit {
     )
     }
     this.tryCount++;
+    }
     }
     },3000);
   }

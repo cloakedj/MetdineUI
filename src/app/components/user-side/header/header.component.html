@@ -18,7 +18,7 @@
             </ng-template>
            <div class="ui horizontal list">
             <div class="item">
-                <a class="ui black circular label" *ngIf="this.cart.getCartLength()">{{this.cart.getCartLength()}}</a>
+                <a class="ui black circular label" *ngIf="cart.items.length">{{cart.items.length}}</a>
             </div>
             <div class="item">
            <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Shopping Cart">
@@ -49,6 +49,12 @@
         <label>Log Out</label>
     </mat-toolbar-row>
 </mat-toolbar>
+<div class="sixteen wide centered column grid container noLocation" *ngIf="product.disabledPosition">
+  <h3 class="ui centered sub header">
+    <i class="triangle exclamation icon"></i>
+     You Have Disabled Location Services For Metdine.in. Please Turn Them On From Browser Settings.
+  </h3>
+</div>
 <div class="ui sixteen wide centered  column grid container" *ngIf="activeOrderStatus && activeOrderData && userLoggedIn">
     <div class="two wide column">
         <div class="loader-container">
@@ -123,13 +129,19 @@
             <div class="three wide column">
                 <a [routerLink]="['/user',{ outlets : {'userRouterOutlet' :['cart']}}]" routerLinkActive="active">
                 <h6 class="ui center aligned icon header">
+                  <a class="ui olive circular label cartLength" *ngIf="cart.items.length">{{cart.items.length}}</a>
                     <i class="shopping cart icon"></i>
                     Cart
                 </h6>
                 </a>
             </div>
     </ng-container>
-
+    <div class="sixteen wide centered column grid container noLocationMobile" *ngIf="product.disabledPosition">
+      <h3 class="ui centered sub header">
+        <i class="triangle exclamation icon"></i>
+         Location Services Are Off. Please Turn Them On.
+      </h3>
+    </div>
 </div>
 
 <!--
@@ -156,7 +168,7 @@
             'yellow' : activeOrderData[0].status === 3,
             'red' : activeOrderData[0].status === 4
             }">
-                {{getOrderStatus(activeOrderData[0].status)}}
+                {{activeOrderData[0].status | labelFilter : 'status'}}
         </a>
     </div>
     <div class="four wide column">
@@ -200,7 +212,7 @@
             }">
             Order Status
             <a class="detail">
-                {{getOrderStatus(activeOrderData[0].status)}}
+                {{activeOrderData[0].status | labelFilter : 'status'}}
             </a>
         </a>
     </div>
@@ -236,13 +248,16 @@
             'yellow' : activeOrderData[0].status === 3,
             'red' : activeOrderData[0].status === 4
             }">
-                {{getOrderStatus(activeOrderData[0].status)}}
+                {{activeOrderData[0].status | labelFilter : 'status'}}
         </a>
     </div>
 </ng-template>
 <ng-template #gettingAddress>
-    <h3 class="ui centered header getAddress">
+    <h3 class="ui centered header getAddress" *ngIf="!product.disabledPosition">
       Getting Your Location...
       <div class="ui active inline loader"></div>
+    </h3>
+    <h3 class="ui centered header getAddress" *ngIf="product.disabledPosition">
+      Location Error...
     </h3>
   </ng-template>
