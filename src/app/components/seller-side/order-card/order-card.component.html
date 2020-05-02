@@ -3,6 +3,12 @@
 </div>
 <div class="ui hidden divider"></div>
 <div class="ui left aligned row">
+    <a class="ui blue label" *ngIf="order.status == 4">
+      {{order.create_time | date}}
+    </a>
+    <a class="ui purple label" *ngIf="buyerSide && order.is_refund">
+      Refunded
+    </a>
     <a class="ui black label">
     {{order.total | currency : 'INR'}}
     </a>
@@ -12,7 +18,7 @@
     'yellow' : order.status === 3,
     'blue' : order.status === 4,
     'red' : order.status === 6
-    }">{{getOrderStatus(order.status)}}</a>
+    }">{{order.status | labelFilter : 'status'}}</a>
     <a class="ui teal label">
       {{order.time}}
     </a>

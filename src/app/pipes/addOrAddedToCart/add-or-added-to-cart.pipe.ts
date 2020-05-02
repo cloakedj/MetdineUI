@@ -7,10 +7,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddOrAddedToCartPipe implements PipeTransform {
   constructor(
-    private cart : CartService
+    private cart : CartService,
   ){}
   status : boolean = true;
   transform(value: any, seller ?: any, update ?: number): any {
+    this.status = true;
     if(parseInt(localStorage.getItem("seller__id")) == seller){
       this.cart.items.forEach(item =>{
         if(item.meal_id == value)

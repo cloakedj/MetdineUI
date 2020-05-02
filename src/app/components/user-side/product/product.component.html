@@ -25,7 +25,7 @@
 </div>
   </div>
 </div>
-<div class="ui four stackable device 
+<div class="ui four stackable device
 two doubling tablet link cards grid container">
   <ng-container *ngIf="productService.products$ | async;else plForSellerProducts">
     <div  class="ui card" *ngFor="let product of productService.productsArr">
@@ -36,9 +36,9 @@ two doubling tablet link cards grid container">
         <div class="image-mask" *ngIf="!product.is_available">
           <h5 class="ui header" id="unavailability-message">Item Is Unavailable.</h5>
         </div>
-      </ng-container>  
+      </ng-container>
         <div class="content">
-        <a class="ui centered header">{{product.title}}</a>
+        <h3 class="ui centered header">{{product.title}}</h3>
           <div class="description">
             <div class="ui horizontal label" [ngStyle] = "{'background-color': product.is_veg === true ? 'green' : 'red'}">
               {{product.is_veg | vegNonVeg}}
@@ -55,8 +55,8 @@ two doubling tablet link cards grid container">
           </div>
         </div>
         <div class="extra content" *ngIf="product.is_available">
-            <button class="positive ui button right floated"   
-            (click)="cartUpdation(product.id)" 
+            <button class="positive ui button right floated"
+            (click)="cartUpdation(product.id)"
             *ngIf="product.id | addOrAddedToCart : sellerId :update else incdec"
             >
             <h3 class="ui sub header">Add</h3></button>

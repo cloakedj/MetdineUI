@@ -1,6 +1,6 @@
 import { GetCategoryService } from './../../../services/get-category/get-category.service';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';

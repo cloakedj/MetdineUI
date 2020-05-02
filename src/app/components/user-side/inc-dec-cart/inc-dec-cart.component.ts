@@ -16,8 +16,8 @@ export class IncDecCartComponent implements OnInit{
     this.cart.updateCart(pid,action);
   }
   constructor(
-    private cart : CartService
-    ) { 
+    public cart : CartService
+    ) {
     }
 
 

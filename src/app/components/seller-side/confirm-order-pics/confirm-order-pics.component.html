@@ -141,7 +141,7 @@
             <h1 class="ui header">Order Id : #{{orderDetails.id}}</h1>
         </div>
         <div class="two wide column">
-            <a class="ui teal label">Ready</a>
+            <a class="ui teal label">{{orderDetails.status | labelFilter : 'status'}}</a>
         </div>
         <div class="three wide column">
             <h3 class="ui header">
