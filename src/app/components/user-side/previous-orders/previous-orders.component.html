@@ -9,6 +9,7 @@
             <ng-container *ngIf="sellerPreviousOrders.length > 0 else noOrdersMade">
             <div class="three wide column" *ngFor="let order of sellerPreviousOrders">
                 <app-order-card [order]="order" [buyerSide]="true"></app-order-card>
+                <div class="ui divider"></div>
             </div>
         </ng-container>
         </ng-container>

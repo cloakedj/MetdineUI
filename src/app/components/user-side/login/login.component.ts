@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CartService } from '../../../services/cart-service/cart.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +20,9 @@ export class LoginComponent implements OnInit , OnDestroy{
   constructor(private formbuilder: FormBuilder,
     private api : ApiService,
     private cart : CartService,
-    private router : Router) {}
+    private router : Router,
+    private aroute : ActivatedRoute) {
+    }
 
   ngOnInit() {
   }

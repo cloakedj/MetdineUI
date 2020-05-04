@@ -34,7 +34,7 @@ loadCart(): void {
       this.total = data.total;
       this.orderId = data.id;
       this.delivery_charge = data.delivery_charge;
-      if(data.items)
+      if(data.items.length)
       {
       if(!localStorage.getItem("seller__id"))
       localStorage.setItem("seller__id",`${data.seller_id}`);

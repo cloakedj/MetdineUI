@@ -5,6 +5,9 @@
   min-height: 100%;
   padding-top:4%;
 }
+.mainTitle{
+  font-family: 'Righteous', cursive;
+}
 .location{
   min-width:100%;
 }
@@ -71,6 +74,9 @@
 }
 #maxRetry .header{
   color : #fff !important;
+}
+.sellerLink{
+  cursor: pointer;
 }
 @media (max-width: 500px){
   .ui.card{

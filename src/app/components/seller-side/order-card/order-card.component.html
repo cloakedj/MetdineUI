@@ -2,8 +2,15 @@
     <h1 class="ui header">#{{order.id}}</h1>
 </div>
 <div class="ui hidden divider"></div>
+<a [routerLink]="['/user',{outlets : { userRouterOutlet : ['seller-page',order.seller_id]}}]">
+<h2 class="ui centered header" *ngIf="buyerSide">
+  <img class="ui rounded image" src="{{order.seller_logo}}">
+  {{order.seller_name}}
+</h2>
+</a>
+<div class="ui hidden divider"></div>
 <div class="ui left aligned row">
-    <a class="ui blue label" *ngIf="order.status == 4">
+    <a class="ui orange label" *ngIf="order.status == 4">
       {{order.create_time | date}}
     </a>
     <a class="ui purple label" *ngIf="buyerSide && order.is_refund">
@@ -29,7 +36,7 @@
   </i>
   {{order.customer_name}}
 </h4>
-<h4 class="ui header" *ngIf="!buyerSide">
+<h4 class="ui header" *ngIf="!buyerSide && order.status !== 4">
   <i class="ui circular phone icon">
   </i>
   {{order.customer_phone}}

@@ -5,6 +5,9 @@
     background-color: black;
     text-align: center;
 }
+.label{
+  margin-bottom : 3% !important;
+}
 .orderid h1{
     color:#fff;
 }

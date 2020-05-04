@@ -26,7 +26,9 @@ export class BodycardsComponent implements OnInit {
     private gc : GetCategoryService,
     private router : Router,
     private toastr : ToastrService
-    ) { }
+    ) {
+      this.product.GetLocation();
+    }
 
   ngOnInit() {
     this.checkLocationAgainTime = setInterval(() =>{

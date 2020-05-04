@@ -210,9 +210,12 @@
       <div class="five wide column" *ngFor="let order of sellerCompletedOrders;">
           <app-order-card [order]="order"></app-order-card>
       </div>
-      <button class="ui right floated negative button" (click)="showAllCompletedOrders()">View All Completed Orders</button>
-    </ng-container>
-    </ng-container>
+         </ng-container>
+         <div class="row">
+          <div class="ui divider"></div>
+         <button class="ui right floated negative button" (click)="showAllCompletedOrders()">View All Completed Orders</button>
+        </div>
+        </ng-container>
     </div>
   </div>
 </div>

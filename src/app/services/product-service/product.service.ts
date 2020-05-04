@@ -26,7 +26,6 @@ export class ProductService implements OnInit{
     private api : ApiService,
     private maps : MapsAPILoader,
     private toastr : ToastrService) {
-      this.GetLocation();
   }
   ngOnInit(){
   }

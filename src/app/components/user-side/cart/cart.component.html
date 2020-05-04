@@ -55,7 +55,7 @@
       <div class="row" *ngFor="let item of cart.items;">
         <div class="ui grid cart">
           <div class="three wide column" *ngIf="winWidth > 500 || winWidth < 350 else title">
-            <img class="ui avatar image" src="{{item.image}}">
+            <img class="ui avatar image" src="{{item.image}}" style="cursor: pointer;">
           </div>
           <div class="four wide computer tablet only column">
             <h5 class="header">{{item.meal_title}}</h5>

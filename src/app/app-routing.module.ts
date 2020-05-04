@@ -59,7 +59,7 @@ const routes: Routes =[
   { path: 'userGateway', component: UserGatewayComponent,children:[
     { path: 'login', component:LoginComponent,outlet: 'userGatewayRouter'},
     { path: 'login-with-phone', component:LoginWithPhoneComponent,outlet: 'userGatewayRouter'},
-    { path : 'verify-phone', component:VerifyPhoneComponent,outlet: 'userGatewayRouter'},
+    { path : 'verify-phone', component:VerifyPhoneComponent,canActivate : [AuthGuardService],outlet: 'userGatewayRouter'},
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},

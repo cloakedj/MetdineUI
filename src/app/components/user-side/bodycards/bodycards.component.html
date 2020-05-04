@@ -4,7 +4,6 @@
       <i class="ui triangle exclamation icon"></i>
       ERROR CODE : M000. MAX RETRIES REACHED.
     </h3>
-    <div class="ui divider"></div>
     <h4 class="ui sub header">
       Please Make Sure You Have An Active Internet Connection and You Have Allowed Location Services For Metdine.in Before Retrying.
     </h4>
@@ -27,7 +26,7 @@
   </h3>
 </div>
 </ng-container>
-<div class="ui fourteen wide mobile only column grid container">
+<div class="ui ten wide mobile only column grid container">
 <div class="ui raised segment location">
   <h3 class="ui header">
     Current Location
@@ -42,17 +41,18 @@
     </button>
   </div>
 </div>
-<div class="ui grid container sellers">
-  <div class="sixteen wide computer sixteen wide mobile  ten wide doubling tablet centered column">
-    <h1 class="ui centered header">
+<div class="ui stackable grid container sellers">
+  <div class="ten wide computer  ten wide doubling tablet centered column">
+    <h2 class="ui centered header mainTitle">
       Seller's Near You
-    </h1>
+    </h2>
+    <div class="ui divider"></div>
     <div class="ui centered cards">
       <ng-container *ngIf="sellersArr; else plForSellerCards;">
           <div class="ui card" *ngFor="let seller of sellersArr">
             <ng-container *ngIf="seller.logo else plForSellerLogo">
             <div class="image">
-                  <img src="{{seller.logo}}" alt="Seller Picture"
+                  <img src="{{seller.logo}}" alt="Seller Picture" class="sellerLink"
                   [routerLink]="['/user',{ outlets : { 'userRouterOutlet' : ['seller-page',seller.id]}}]"
                    routerLinkActive="active">
             </div>
@@ -75,6 +75,9 @@
         </div>
      </ng-container>
     </div>
+  </div>
+  <div class="six wide column">
+    <app-trending-seller-sidebar></app-trending-seller-sidebar>
   </div>
 </div>
 

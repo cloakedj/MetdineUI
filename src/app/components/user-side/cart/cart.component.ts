@@ -25,6 +25,8 @@ export class CartComponent implements OnInit {
   private router : Router,
   private toastr : ToastrService
 	) {
+    if(localStorage.getItem("seller__id") && localStorage.getItem("seller__id") != 'undefined')
+    {
     this.api.getSellerDetails(this.sellerId).subscribe(
       data => {
         this.sellerName = `${data["first_name"]}  ${data["last_name"]}`;
@@ -33,6 +35,7 @@ export class CartComponent implements OnInit {
       },
       err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )
+    }
   }
 
   ngOnInit() {

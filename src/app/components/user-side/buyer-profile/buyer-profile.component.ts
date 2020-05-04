@@ -5,6 +5,7 @@ import { Observer } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-buyer-profile',
@@ -20,7 +21,8 @@ export class BuyerProfileComponent implements OnInit {
   numberVerified : any;
   constructor(private api : ApiService,
     private router : Router,
-    private toastr : ToastrService) {
+    private toastr : ToastrService,
+    private Auth :AuthService) {
     this.userDetailsObs$ = {
       next : (data) => this.userProfileData = data,
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
@@ -43,14 +45,13 @@ export class BuyerProfileComponent implements OnInit {
   logUserOut(){
     this.api.logOutUser()
     .subscribe(
-      data => this.toastr.success("Logged Out Successfully"),
-      err => this.toastr.error(err),
-      () =>
+      data =>
       {
+        this.toastr.success("Logged Out Successfully");
         localStorage.clear();
-        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)');
-        console.log("Logged out Successfully!");
-      }
+        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)',{queryParams : {reload : true}})
+      },
+      err => this.toastr.error(err),
     )
     }
 
