@@ -222,7 +222,7 @@
       <div class="row" *ngIf="sellerActiveOrders">
         <button class="ui fluid positive button"
         (click) = "viewAllActiveOrders()"
-        matTooltip="Contains {{getRemainingItems(sellerActiveOrders.length)}}
+        matTooltip="Contains {{totalActiveOrders - 1}}
         more Orders." *ngIf="getRemainingItems(sellerActiveOrders.length) >= 0">
           View All Orders
         </button>

@@ -17,6 +17,7 @@ export class SellerDashboardComponent implements OnInit {
   sellerCompletedOrders: [];
   sellerRequestedOrders: [];
   sellerActiveOrders: [];
+  totalActiveOrders : any;
   sellerItemsForDashboard$: Subscription;
   sellerCompletedOrdersForDashboard$: Observer<any>;
   sellerRequestedOrdersForDashboard$: Observer<any>;
@@ -55,7 +56,11 @@ export class SellerDashboardComponent implements OnInit {
       complete: () => console.log("Request for requested orders completed")
     }
     this.sellerAcceptedOrdersForDashboard$ = {
-      next: (data) => this.sellerActiveOrders = data.splice(0,1),
+      next: (data) =>
+      {
+        this.totalActiveOrders = data.length;
+        this.sellerActiveOrders = data.splice(0,1);
+      },
       error: (err) => console.log(err),
       complete: () => console.log("Request for active orders completed")
     }

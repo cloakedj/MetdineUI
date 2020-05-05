@@ -19,6 +19,12 @@
     <a class="ui black label">
     {{order.total | currency : 'INR'}}
     </a>
+    <a class="ui purple label">
+      Distance
+      <div class="detail">
+      {{order.distance | number : '1.0-2'}} Km
+    </div>
+      </a>
 <a class="ui label" [ngClass]="{
     'green' : order.status === 1,
     'teal' : order.status === 2,
