@@ -1,9 +1,9 @@
 <div class="ui basic modal billShow" *ngIf="showBillBreakdown">
-  <div class="ui two column computer column mobile centered grid">
+  <div class="ui two column computer column mobile centered grid container">
     <div class="row">
-  <div class="ui compact center aligned segment clcartmodal">
+  <div class="ui compact center aligned segment amountModal">
   <div class="ui icon header">
-    <i class="rupee sign icon"></i>>
+    <i class="rupee sign icon"></i>
     Detailed Amount BreakDown
   </div>
   <div class="ui divider"></div>
@@ -12,33 +12,39 @@
       Items Data
     </h3>
     <ng-container *ngFor="let item of activeOrderData.items; let i = index;">
-    <div class="ten wide column">
-      {{item.meal_title}}
+      <div class="ui grid">
+    <div class="ten wide left aligned column">
+      <h4 class="ui sub header">{{item.meal_title}}</h4>
     </div>
-    <div class="six wide column">
-      {{item.meal_price | currency : 'INR'}}
+    <div class="six wide right aligned column">
+      <h4 class="ui sub header"> {{item.meal_price | currency : 'INR'}}</h4>
     </div>
+  </div>
   </ng-container>
   <div class="ui hidden divider"></div>
   <h3 class="ui centered header">
     Delivery Charges
   </h3>
   <div class="ui divider"></div>
-  <div class="ten wide column">
-    Delivery Charge
+  <div class="ui grid">
+  <div class="ten wide left aligned  column">
+    <h4 class="ui sub header">Delivery Charge</h4>
   </div>
-  <div class="six wide column">
-    {{activeOrderData.delivery_charge | currency : 'INR'}}
+  <div class="six wide right aligned  column">
+    <h4 class="ui sub header">{{activeOrderData.delivery_charge | currency : 'INR'}}</h4>
   </div>
+</div>
   <div class="ui divider"></div>
-  <div class="ten wide column">
-    Total
+  <div class="ui grid">
+  <div class="ten wide left aligned column">
+    <h3 class="ui header">Total</h3>
   </div>
-  <div class="six wide column">
-    {{activeOrderData.amount | currency : 'INR'}}
+  <div class="six wide right aligned column">
+    <h3 class="ui header">{{activeOrderData.total | currency : 'INR'}}</h3>
   </div>
+</div>
   </div>
-  <div class="ui hieen divider"></div>
+  <div class="ui hidden divider"></div>
   <button class="ui negative fluid button" (click)="showBillBreakdown = false">Close</button>
   </div>
 </div>
