@@ -33,12 +33,12 @@ export class BecomeSellerFormComponent implements OnInit {
     ]
     ],
     logo:[''],
-    phone:['',[
-      Validators.pattern(/^[0-9]+$/),
-      Validators.minLength(10),
-      Validators.maxLength(10),
-      Validators.required
-    ]],
+    // phone:['',[
+    //   Validators.pattern(/^[0-9]+$/),
+    //   Validators.minLength(10),
+    //   Validators.maxLength(10),
+    //   Validators.required
+    // ]],
     address:['',Validators.required],
   });
   showImageError : boolean;
@@ -104,6 +104,7 @@ export class BecomeSellerFormComponent implements OnInit {
     this.router.navigateByUrl('/seller-side/(sellerRouterOutlet:seller-dashboard)')
   }
   getAddress(latitude, longitude) {
+    this.formatted_address = undefined;
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
@@ -123,7 +124,7 @@ export class BecomeSellerFormComponent implements OnInit {
   get last_name(){ return this.becomeSellerForm.get('last_name');}
   get logo(){ return this.becomeSellerForm.get("logo");}
   get description(){ return this.becomeSellerForm.get("description")}
-  get phone(){ return this.becomeSellerForm.get("phone");}
+  // get phone(){ return this.becomeSellerForm.get("phone");}
   get address(){ return this.becomeSellerForm.get("address");}
 
 }

@@ -1,3 +1,49 @@
+<div class="ui basic modal billShow" *ngIf="showBillBreakdown">
+  <div class="ui two column computer column mobile centered grid">
+    <div class="row">
+  <div class="ui compact center aligned segment clcartmodal">
+  <div class="ui icon header">
+    <i class="rupee sign icon"></i>>
+    Detailed Amount BreakDown
+  </div>
+  <div class="ui divider"></div>
+  <div class="content">
+    <h3 class="ui centered header">
+      Items Data
+    </h3>
+    <ng-container *ngFor="let item of activeOrderData.items; let i = index;">
+    <div class="ten wide column">
+      {{item.meal_title}}
+    </div>
+    <div class="six wide column">
+      {{item.meal_price | currency : 'INR'}}
+    </div>
+  </ng-container>
+  <div class="ui hidden divider"></div>
+  <h3 class="ui centered header">
+    Delivery Charges
+  </h3>
+  <div class="ui divider"></div>
+  <div class="ten wide column">
+    Delivery Charge
+  </div>
+  <div class="six wide column">
+    {{activeOrderData.delivery_charge | currency : 'INR'}}
+  </div>
+  <div class="ui divider"></div>
+  <div class="ten wide column">
+    Total
+  </div>
+  <div class="six wide column">
+    {{activeOrderData.amount | currency : 'INR'}}
+  </div>
+  </div>
+  <div class="ui hieen divider"></div>
+  <button class="ui negative fluid button" (click)="showBillBreakdown = false">Close</button>
+  </div>
+</div>
+  </div>
+</div>
 <div class="ui centered grid column container" *ngIf="allActiveOrders && allActiveOrders.length > 1">
   <button class="ui blue button" (click)="listallorders = true">
     View All Active Orders
@@ -159,9 +205,6 @@
                 <tr>
                 <th>Item Name</th>
                 <th>Quantity</th>
-                <th>
-                    <h4 class="ui header"><i class="stopwatch icon"></i></h4>
-                </th>
                 </tr>
             </thead>
             <tbody>
@@ -174,21 +217,21 @@
                 <td>
                     {{item.quantity}}
                 </td>
-                <td>
-                    <a class="ui label yellow">{{item.meal_time | labelFilter | contentLength : 0 : true}}</a>
-                </td>
                 </tr>
             </tbody>
             </table>
         </div>
     </ng-container>
         <div class="ui divider"></div>
+        <div class="ui inverted positive fluid button" (click)="showBillBreakdown = true">
+          View Amount Breakdown
+        </div>
     </div>
 </div>
 </div>
 <ng-container *ngIf="sentImages">
 <ng-container *ngIf="sentImages.status == 'Sent'">
-    <div class="ui basic modal">
+    <div class="ui basic modal sentImagesModal">
     <div class="ui two column computer column mobile centered grid container">
       <div class="row">
     <div class="ui compact center aligned segment clcartmodal">
@@ -256,7 +299,7 @@
                 'fluid' : screenSize < 700
             }"
             [disabled]="sentImages.status != 'Sent' || !refundRecentCount"
-            (click)="rejectImages(sentImages.id)" [ngClass]="{'without-no-reject':!refundRecentCount}">
+            (click)="rejectImages(sentImages.id)" [ngClass]="{'without-no-reject':refundRecentCount}">
                 Reject
             </button>
             <div class="ui hidden divider" *ngIf="screenSize > 800"></div>

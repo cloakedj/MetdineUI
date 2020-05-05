@@ -27,7 +27,7 @@
         <h4 class="ui header">
           {{address}}
         </h4>
-        <button class="ui negative fluid button" *ngIf="address" (click)="changeCurrentLocation()">
+        <button class="ui negative fluid button" *ngIf="address && !isOnCheckoutMode" (click)="changeCurrentLocation()">
           Use This Location To Get Closest Sellers
         </button>
       </div>

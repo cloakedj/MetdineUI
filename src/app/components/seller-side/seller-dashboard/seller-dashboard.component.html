@@ -1,3 +1,38 @@
+<div class="ui basic modal" *ngIf="distanceIsMoreThanFiveKm">
+  <div class="ui two column computer column mobile centered grid">
+    <div class="row">
+  <div class="ui compact center aligned segment clcartmodal">
+  <div class="ui icon header">
+    <i class="map icon"></i>
+    Buyer Is Located Farther Than 5 Kms.
+      </div>
+  <div class="ui hidden divider"></div>
+  <div class="content">
+    <h5 class="ui centered header">The Distance Between Buyer's And Your Location Is
+      More Than 5 Kms. Do You Still Want To Accept The Order?
+    </h5>
+  </div>
+  <div class="actions">
+    <div class="ui red  cancel inverted button" (click)="distanceIsMoreThanFiveKm = false;">
+      <i class="remove icon"></i>
+      No, I Will Reject It.
+    </div>
+    <div class="ui green ok inverted button" (click)="updateRequestedOrderStatus(popupWaitOrderId,1)">
+      <i class="checkmark icon"></i>
+      Yes, I want To Fulfill It.
+    </div>
+  </div>
+  <div class="ui divider"></div>
+  <h5 clas="ui sub header" style="color :black">
+    <i class="triangle exclamation icon">
+    </i>
+    Note : Please Keep In Mind That You Have To Complete The Delivery And The Preparation In The Given Time
+     Frame.
+  </h5>
+  </div>
+</div>
+  </div>
+</div>
 <div class="ui centered grid quickoptions">
   <ng-container *ngIf="sellerDashOptions else quickOptionsPlaceholder">
     <div class="ui three column stackable grid">
@@ -82,6 +117,10 @@
             <a class="ui teal label">
               {{order.time}}
             </a>
+            <a class="ui purple label">
+              Distance
+              <div class="detail">{{order.distance | number : '1.0-2'}} KM</div>
+            </a>
             <!-- <a class="ui teal label">
               Contains {{getTableItems(order.id)}} More Items.
             </a> -->
@@ -116,7 +155,7 @@
           <div class="four wide column actions" [ngClass]="{'center aligned' : screenSize < 500}">
             <button class="circular positive ui icon button"
             data-inverted="" data-position="top right" data-tooltip="Accept Order"
-            (click)="updateRequestedOrderStatus(order.id,1)">
+            (click)="updateRequestedOrderStatus(order.id,1,order.distance)">
               <i class="check icon"></i>
             </button>
             <button class="circular negative ui icon button"

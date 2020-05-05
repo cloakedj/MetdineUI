@@ -53,7 +53,10 @@ export class HeaderComponent implements OnInit {
     this.ensureuser();
         if(this.userLoggedIn) {
           this.api.getUserProfileInfo().subscribe(
-            data => this.username = data["username"],
+            data => {
+              this.username = data["username"];
+              if(!this.product.address) this.product.GetLocation();
+            },
             err => this.toastr.error("Something Went Wrong. Try Again Later!"),
             () => console.log("completed")
           );

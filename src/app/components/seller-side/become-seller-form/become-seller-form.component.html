@@ -26,13 +26,13 @@
                       </h5>
                       <app-file-upload></app-file-upload>
                       </div>
-                    <div class="field">
+                    <!-- <div class="field">
                       <input placeholder="Phone Number" formControlName="phone" type="text">
                       <div class="ui pointing red basic label"  *ngIf="phone.invalid && !phone.pristine">
                         <span *ngIf="phone.errors?.required">Phone Number Is Required</span>
                         <span *ngIf="phone.errors?.minlength || phone.errors?.maxlength ||phone.errors?.pattern">Enter A Valid Phone Number</span>
                     </div>
-                    </div>
+                    </div> -->
                     <div class="field">
                       <textarea placeholder="Description" formControlName="description"></textarea>
                       <div class="ui pointing red basic label"  *ngIf="description.invalid && !description.pristine">
@@ -43,6 +43,7 @@
                     </div>
                     <div class="field">
                       <div class="ui fluid icon input">
+                        <div class="ui active inline loader addressWait" *ngIf="!address.pristine && formatted_address == undefined "></div>
                         <input type="text" placeholder="Address" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
                         <i class="search icon"></i>
                       </div>
@@ -52,7 +53,7 @@
                     </div>
                         <div class="field">
                           <div class="two ui buttons">
-                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address.length == 0" type="Submit" value="Sign Up">
+                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address== undefined" type="Submit" value="Sign Up">
                             <button class="ui negative button" [disabled]="becomeSellerForm.pristine" (click)="becomeSellerForm.reset();">Reset</button>
                           </div>
                         </div>

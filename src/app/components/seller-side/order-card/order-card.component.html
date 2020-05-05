@@ -10,7 +10,7 @@
 </a>
 <div class="ui hidden divider"></div>
 <div class="ui left aligned row">
-    <a class="ui orange label" *ngIf="order.status == 4">
+    <a class="ui orange label" *ngIf="order.status == 4 || buyerSide">
       {{order.create_time | date}}
     </a>
     <a class="ui purple label" *ngIf="buyerSide && order.is_refund">
@@ -48,9 +48,6 @@
         <tr>
         <th>Item Name</th>
         <th>Quantity</th>
-        <th class="center aligned">
-            <h4 class="ui header"><i class="stopwatch icon"></i></h4>
-        </th>
         </tr>
     </thead>
     <tbody>
@@ -62,9 +59,6 @@
         </td>
         <td>
             {{item.quantity}}
-        </td>
-        <td>
-            <a class="ui label yellow">120</a>
         </td>
         </tr>
     </tbody>

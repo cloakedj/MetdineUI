@@ -22,6 +22,8 @@ export class SellerDashboardComponent implements OnInit {
   sellerRequestedOrdersForDashboard$: Observer<any>;
   sellerAcceptedOrdersForDashboard$: Observer<any>;
   screenSize = window.screen.width;
+  distanceIsMoreThanFiveKm : boolean = false;
+  popupWaitOrderId : any;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
     { key: 2, value: 'Ready' },
@@ -95,6 +97,8 @@ export class SellerDashboardComponent implements OnInit {
       (err) => console.log(err),
       () => {
         if (status === 1) {
+          this.popupWaitOrderId = 0;
+          if(this.distanceIsMoreThanFiveKm) this.distanceIsMoreThanFiveKm = false;
           this.sellerDashboardRequestedOrders();
           this.sellerDashboardActiveOrders();
         }
@@ -108,7 +112,7 @@ export class SellerDashboardComponent implements OnInit {
       }
     );
   }
-  updateRequestedOrderStatus(orderId: number, status: number) {
+  updateRequestedOrderStatus(orderId: number, status: number,distance ?: any) {
     if (status === 6) {
       this.api.rejectRequestedOrderStatusById(orderId,6).subscribe(
         (data) => console.log(data),
@@ -120,9 +124,16 @@ export class SellerDashboardComponent implements OnInit {
       );
     }
     else {
+      if(status == 1 && distance > 5)
+      {
+      this.distanceIsMoreThanFiveKm = true;
+      this.popupWaitOrderId = orderId;
+      }
+      else{
       this.sellerDashboardorderAction(orderId, status);
       if(status === 2){
         this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet' :['active-order',orderId]}}])
+      }
       }
     }
   }

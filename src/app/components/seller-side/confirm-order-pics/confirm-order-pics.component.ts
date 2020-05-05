@@ -76,6 +76,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
     next : data =>
     {
       this.toastr.success("Images Sent To User Successfully.");
+      this.keepFiles.Files = [];
       this.getConfirmationImagesStatus();
       this.getElapsedTime();
     },

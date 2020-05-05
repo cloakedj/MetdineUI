@@ -50,6 +50,23 @@
 .loader{
     min-height:200px;
 }
+.ui.basic.modal{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  width:100%;
+  overflow:hidden;
+  top:0;
+  left:0;
+  background-color: rgb(0,0,0,0.85);
+  color:#fff;
+  position: fixed;
+}
+.content p{
+  color:black;
+  font-weight: bold;
+}
 @media (max-width: 780px){
     .ui.grid.quickoptions
     {

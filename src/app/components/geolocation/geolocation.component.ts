@@ -180,7 +180,8 @@ export class GeolocationComponent implements OnInit{
     this.loading = true;
     if(this.isOnCheckoutMode){
       let redirecturl;
-      this.api.checkoutUserCart(this.address)
+      let distance = parseFloat(localStorage.getItem("seller_distance"));
+      this.api.checkoutUserCart(this.address,distance)
       .subscribe(
         data => redirecturl = data["redirect_url"],
         err => console.log(err),

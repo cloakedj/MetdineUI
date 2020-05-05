@@ -1,10 +1,13 @@
 @import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
 
+.grid.container{
+  min-height: 100vh;
+}
 .ui.inverted.segment
 {
     border-radius: 0 !important;
 }
-.column 
+.column
 {
     padding:2%;
 }

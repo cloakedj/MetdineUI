@@ -41,6 +41,7 @@ export class ActiveOrderComponent implements OnInit {
   refundRecentCount : any;
   screenSize = window.screen.width;
   allActiveOrders : any;
+  showBillBreakdown : boolean = false;
   constructor(private api : ApiService,
     private gc : GetCategoryService,
     private aroute : ActivatedRoute,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpBackend} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Seller } from '../../entities/seller.entity';
 import { User } from '../../entities/user.entity';
-import { catchError, retry, map } from 'rxjs/operators';
+import { catchError, retry, map, shareReplay } from 'rxjs/operators';
 import {Router} from "@angular/router";
 import 'rxjs/add/operator/catch';
 import { AuthService } from '../auth-service/auth-service.service';
@@ -14,10 +14,11 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "http://340037b5.ngrok.io/api";
+  API_URL = "http://66385993.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   constructor(private http: HttpClient,
+    private httpB : HttpBackend,
     private router : Router,
     private Auth: AuthService,
     private toastr : ToastrService
@@ -68,12 +69,14 @@ export class ApiService {
   loginUser(credentials){
     return this.http.post(`${this.API_URL}/rest-auth/login/`, credentials)
     .pipe(
+      shareReplay(1),
       catchError(this.handleError)
     )
   }
   loginUserWithPhone(credentials){
     return this.http.post(`${this.API_URL}/user/phone/`, credentials)
     .pipe(
+      shareReplay(1),
       catchError(this.handleError)
     )
   }
@@ -114,6 +117,7 @@ export class ApiService {
     this.params = new HttpParams().set("meal_id",mealId.toString()).set("seller_id",sellerId.toString());
     return this.http.post(`${this.API_URL}/user/cart/add/`, {quantity : quantity}, {params : this.params})
     .pipe(
+        shareReplay(1),
         catchError(this.handleError),
       )
   }
@@ -214,8 +218,9 @@ export class ApiService {
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(address : any){
-    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address})
+  checkoutUserCart(address : any,distance : any){
+    localStorage.removeItem("seller_distance");
+    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address,distance : distance})
     .pipe(
       catchError(this.handleError)
     )
