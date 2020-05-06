@@ -1,6 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
 
-.grid.container{
+.fullHeight{
   min-height: 100vh;
 }
 .ui.inverted.segment

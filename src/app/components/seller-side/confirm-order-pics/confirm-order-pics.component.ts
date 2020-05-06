@@ -78,7 +78,6 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
       this.toastr.success("Images Sent To User Successfully.");
       this.keepFiles.Files = [];
       this.getConfirmationImagesStatus();
-      this.getElapsedTime();
     },
     error : err => this.toastr.error("Something Went Wrong. Try Later!"),
     complete : () => {
@@ -100,12 +99,15 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         {
         if(this.imagesSent.status == "Sent")
         this.getElapsedTime();
-        if(this.imagesSent.status == "Partial")
+        else if(this.imagesSent.status == "Partial")
         this.getElapsedTimeforCall();
-         if(this.imagesSent.status == "Confirmed")
+         else if(this.imagesSent.status == "Confirmed")
          {
            this.orderDetailsAPI();
             this.autoAccept = true;
+         }
+         else if(this.imagesSent.status == "Refused"){
+           this.timerFlag = true;
          }
         }
       },

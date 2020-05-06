@@ -251,8 +251,7 @@
       </div>
          </ng-container>
          <div class="row">
-          <div class="ui divider"></div>
-         <button class="ui right floated negative button" (click)="showAllCompletedOrders()">View All Completed Orders</button>
+         <button class="ui right floated negative button" (click)="showAllCompletedOrders()" *ngIf="sellerCompletedOrders && sellerCompletedOrders.length > 0">View All Completed Orders</button>
         </div>
         </ng-container>
     </div>

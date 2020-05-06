@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 export class LoginComponent implements OnInit , OnDestroy{
     Auth_Key = '';
+    lID : any;
     loginSubscription : Subscription;
     loginForm: FormGroup = this.formbuilder.group({
     username:['',[Validators.required]],
@@ -22,9 +23,13 @@ export class LoginComponent implements OnInit , OnDestroy{
     private cart : CartService,
     private router : Router,
     private aroute : ActivatedRoute) {
+      this.lID = this.aroute.snapshot.queryParamMap.get('logOutId');
     }
 
   ngOnInit() {
+    console.log(localStorage);
+    if(this.lID) localStorage.clear();
+    console.log(localStorage);
   }
   onSubmit(Data){
     this.loginSubscription = this.api.loginUser(Data)

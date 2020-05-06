@@ -14,15 +14,17 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "http://66385993.ngrok.io/api";
+  API_URL = "http://66adda10.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
+  private httpWithoutInterceptor : HttpClient;
   constructor(private http: HttpClient,
     private httpB : HttpBackend,
     private router : Router,
     private Auth: AuthService,
     private toastr : ToastrService
     ) {
+      this.httpWithoutInterceptor = new HttpClient(httpB);
   }
   private handleError(err: HttpErrorResponse) {
     if (err.error instanceof ErrorEvent) {
@@ -60,7 +62,7 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
-  sellerRegistration(userData : Seller):Observable<Seller>{
+  sellerRegistration(userData : any):Observable<Seller>{
     return this.http.post<Seller>(`${this.API_URL}/to_seller/`, userData)
     .pipe(
       catchError(this.handleError)

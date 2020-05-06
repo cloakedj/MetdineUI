@@ -76,7 +76,7 @@
 <!--
     Navbar for mobile and tablet
 -->
-<div class="ui sixteen wide mobile tablet only centered column grid mobileActiveOrderNavbar container" *ngIf="activeOrderStatus && activeOrderData">
+<div class="ui sixteen wide mobile tablet only centered column grid mobileActiveOrderNavbar container" id="mobNav" *ngIf="activeOrderStatus && activeOrderData">
     <div class="two wide column">
         <div class="loader-container">
             <div class="pulse-loader"></div>
@@ -240,7 +240,7 @@
     </div>
 </ng-template>
 <ng-template #smallScreenStatus>
-    <div class="four wide column">
+    <div class="five wide column">
         <a class="ui image label"
         [ngClass]="{
             'green' : activeOrderData[0].status === 1,

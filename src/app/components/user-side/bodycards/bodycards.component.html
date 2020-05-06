@@ -76,7 +76,7 @@
      </ng-container>
     </div>
   </div>
-  <div class="six wide column">
+  <div class="six wide column" *ngIf="sellers$ || sellersArr">
     <app-trending-seller-sidebar></app-trending-seller-sidebar>
   </div>
 </div>

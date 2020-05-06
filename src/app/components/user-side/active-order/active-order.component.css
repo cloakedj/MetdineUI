@@ -13,12 +13,16 @@
   align-items: center;
   justify-content: center;
   height:100%;
-  width:100%;
+  width:100% !important;
   overflow:hidden;
   top:0;
   left:0;
   background-color: rgb(0,0,0,0.85) !important;
   color:#fff;
+  z-index:99999;
+}
+.amountModal{
+  width:40%;
 }
 .billShow .content p{
   color:black;
@@ -44,6 +48,10 @@
     top : 50%;
     transform: translate(-50%,-50%);
 }
+.scrollable{
+  overflow-y:auto;
+  overflow-x:hidden;
+}
 .grid{
     padding : 5% !important;
 }
@@ -54,7 +62,7 @@
     color: #fff;
     z-index:999999;
 }
-.sentImagesModal,.orders{
+.sentImagesModal,.orders,.callTimer{
     height: 100%;
     width: 100%  !important;
     display : block !important;
@@ -65,7 +73,7 @@
     background-color: rgb(0,0,0,0.95) !important;
     color: #fff;
     position : fixed;
-    z-index:999999;
+    z-index:99999999;
 }
 .ui.modal .actions>.button{
     margin-left: 0 !important;
@@ -153,6 +161,9 @@
     }
     .orderlist{
       width:90%;
+    }
+    .amountModal{
+      width:95%;
     }
   }
 @media(min-width : 700px){

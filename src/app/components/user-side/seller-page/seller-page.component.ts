@@ -20,13 +20,14 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   sellerLogo : string;
   backUpProducts : SellerItem[];
   searchDish = new FormControl();
+  screenSize : any;
   constructor(
     private product : ProductService,
     private aroute : ActivatedRoute,
     private api : ApiService,
     private cart : CartService,
     private gc : GetCategoryService
-  ) { 
+  ) {
     this.aroute.params.subscribe(routeParams =>{
       this.product.sellerId = routeParams.id;
       this.product.getSellerItems(this.product.sellerId);
@@ -36,6 +37,7 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   }
 
   ngOnInit() {
+    this.screenSize = window.screen.width;
   }
   ngAfterViewInit(){
   }

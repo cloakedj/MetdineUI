@@ -20,6 +20,7 @@ export class BecomeSellerFormComponent implements OnInit {
   File : File;
   latitude : any;
   longitude : any;
+  sellerRegister = new FormData();
   private geoCoder;
   formatted_address : any;
   @(ViewChild)('search',{static:true}) autocompletesearch : ElementRef;
@@ -84,6 +85,9 @@ export class BecomeSellerFormComponent implements OnInit {
     data.address = this.formatted_address;
     data["latitude"] = this.latitude;
     data["longitude"] = this.longitude;
+    for(let k in data){
+      this.sellerRegister.append(k,data[k]);
+    }
     this.Obs$ = {
       next : data => {
         this.api.SetSellerAccountStatus()
@@ -96,7 +100,7 @@ export class BecomeSellerFormComponent implements OnInit {
         this.router.navigateByUrl('/seller-side/(sellerRouterOutlet:seller-dashboard)')
       }
     }
-    this.api.sellerRegistration(data).subscribe(this.Obs$);
+    this.api.sellerRegistration(this.sellerRegister).subscribe(this.Obs$);
   }
   }
   ngOnInit() {

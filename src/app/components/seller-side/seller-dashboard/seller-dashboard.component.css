@@ -67,6 +67,9 @@
   color:black;
   font-weight: bold;
 }
+.label{
+  margin-bottom: 3%;
+}
 @media (max-width: 780px){
     .ui.grid.quickoptions
     {

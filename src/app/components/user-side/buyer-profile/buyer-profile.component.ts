@@ -48,8 +48,8 @@ export class BuyerProfileComponent implements OnInit {
       data =>
       {
         this.toastr.success("Logged Out Successfully");
-        localStorage.clear();
-        this.router.navigateByUrl('/userGateway/(userGatewayRouter:login)',{queryParams : {reload : true}})
+        let randId = Math.random() * 2510;
+        this.router.navigate(['/userGateway',{outlets : {userGatewayRouter : ['login']}}],{queryParams : {logOutId : randId}});
       },
       err => this.toastr.error(err),
     )

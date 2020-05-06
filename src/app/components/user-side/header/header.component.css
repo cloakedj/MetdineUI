@@ -119,17 +119,17 @@ label{
   background: #fff;
   position: fixed;
   bottom:13%;
-  z-index:999;
-  min-width:92% !important;
+  z-index:99999;
+  min-width:100% !important;
+}
+#mobNav{
+  margin-left: 0 !important;
 }
 .getAddress{
   color : #fff;
   font-family: 'Fondamento', cursive;
   margin-left:2%;
   margin-bottom:2%;
-}
-.mobileActiveOrderNavbar{
-  z-index: 99999;
 }
 .noLocation{
   background-color: rgba(240, 38, 38, 0.863);
