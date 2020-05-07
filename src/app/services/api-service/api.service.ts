@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "http://66adda10.ngrok.io/api";
+  API_URL = "http://67629fcb.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   private httpWithoutInterceptor : HttpClient;
@@ -39,10 +39,10 @@ export class ApiService {
     );
   };
 
-  getAllSellers():Observable<Seller[]>{
-    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
-    .set("long",localStorage.getItem("longitude"))
-    .set("city",localStorage.getItem("city"));
+  getAllSellers(lat : any,long : any, city : any):Observable<Seller[]>{
+    this.params = new HttpParams().set("lat",lat.toString())
+    .set("long",long.toString())
+    .set("city",city.toString());
       return this.http.get<Seller[]>(`${this.API_URL}/seller/`,{params : this.params})
       .pipe(
         catchError(this.handleError)
@@ -228,10 +228,10 @@ export class ApiService {
     )
   }
   //Get Trending Sellers
-  getTrendingSellers() : Observable<Seller[]>{
-    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
-    .set("long",localStorage.getItem("longitude"))
-    .set("city",localStorage.getItem("city"));
+  getTrendingSellers(lat : any,long : any, city : any) : Observable<Seller[]>{
+    this.params = new HttpParams().set("lat",lat.toString())
+    .set("long",long.toString())
+    .set("city",city.toString());
     return this.http.get<Seller[]>(`${this.API_URL}/home/trending/`,{params : this.params})
     .pipe(
       catchError(this.handleError)

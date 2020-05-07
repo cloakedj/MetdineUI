@@ -17,7 +17,7 @@ export class TrendingSellersComponent implements OnInit{
   };
   swiper : Swiper;
   constructor(private api :ApiService,
-    public product : ProductService) { 
+    public product : ProductService) {
       this.trendingSellersFetch();
   }
 
@@ -37,16 +37,16 @@ export class TrendingSellersComponent implements OnInit{
     });
   }
   trendingSellersFetch(){
-    this.getTrendingSellers$ = {
-      next : data => {
-        this.product.trendingSellers = data;
-      },
-      error : err => console.log(err),
-      complete : () => {
-        this.swiper.init();
-        console.log("Request to Trending Sellers Completed and glide reloaded")
-      }
-    }
-    this.api.getTrendingSellers().subscribe(this.getTrendingSellers$);
+    // this.getTrendingSellers$ = {
+    //   next : data => {
+    //     this.product.trendingSellers = data;
+    //   },
+    //   error : err => console.log(err),
+    //   complete : () => {
+    //     this.swiper.init();
+    //     console.log("Request to Trending Sellers Completed and glide reloaded")
+    //   }
+    // }
+    // this.api.getTrendingSellers().subscribe(this.getTrendingSellers$);
   }
 }

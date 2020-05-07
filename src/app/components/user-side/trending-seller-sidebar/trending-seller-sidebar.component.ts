@@ -29,7 +29,10 @@ export class TrendingSellerSidebarComponent implements OnInit {
         console.log("Request to Trending Sellers Completed and glide reloaded")
       }
     }
-    this.api.getTrendingSellers().subscribe(this.trendingSellersFeed$);
+    let lat = localStorage.getItem("latitude") || this.product.latitude;
+    let long = localStorage.getItem("longitude") || this.product.longitude;
+    let city = localStorage.getItem("city") || this.product.buyerCity;
+    this.api.getTrendingSellers(lat,long,city).subscribe(this.trendingSellersFeed$);
   }
 
 }

@@ -45,10 +45,14 @@ export class BodycardsComponent implements OnInit {
       this.clearTime();
     }
     else{
-    if(localStorage.getItem("Auth_Token") && localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
+    if(localStorage.getItem("Auth_Token") &&
+    ((localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
+    || (this.product.latitude !== undefined && this.product.longitude !== undefined && this.product.buyerCity !== undefined)))
     {
-    this.sellers$ = this.api.getAllSellers();
-    this.api.getAllSellers().subscribe(
+    let lat = localStorage.getItem("latitude") || this.product.latitude;
+    let long = localStorage.getItem("longitude") || this.product.longitude;
+    let city = localStorage.getItem("city") || this.product.buyerCity;
+    this.api.getAllSellers(lat,long,city).subscribe(
       data =>{
         this.sellersArr = data;
         this.clearTime();
