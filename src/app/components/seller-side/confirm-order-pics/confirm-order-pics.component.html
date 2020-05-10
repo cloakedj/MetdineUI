@@ -217,7 +217,7 @@
             <app-file-upload></app-file-upload>
         </div>
         <div class="row centeraligned">
-        <button class="ui positive button" (click)="uploadOrderImages();loading = true" [disabled]="filesLength() !== 3">
+        <button class="ui positive button" (click)="uploadOrderImages();loading = true" [disabled]="this.keepFiles.Files.length !== 3">
             Submit
         </button>
         </div>

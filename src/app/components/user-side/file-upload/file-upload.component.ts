@@ -12,7 +12,8 @@ export class FileUploadComponent implements OnInit {
 
   uploadFile(event,byInput ?: string) {
   this.imageUpload.emit(true);
-  for (let index = 0; index < event.target.files.length; index++) {
+  let fileCtrl = event.target.files || event.dataTransfer.files;
+  for (let index = 0; index < fileCtrl.length; index++) {
   const element = event.target.files[index];
   const reader = new FileReader();
   if(byInput){
@@ -32,7 +33,7 @@ export class FileUploadComponent implements OnInit {
   this.filesUpload.Files.splice(index,1);
   this.imageUpload.emit(false);
   }
-  constructor(private filesUpload : KeepFilesService,
+  constructor(public filesUpload : KeepFilesService,
     private cd : ChangeDetectorRef) { }
 
   ngOnInit() {

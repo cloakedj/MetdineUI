@@ -33,16 +33,13 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   loading = false;
   startTimer  : any;
   timerFlag = true;
-  filesLength = () => {
-    return this.keepFiles.Files.length;
-  }
   private killTrigger = new Subject();
   private fetchData$ : Observable<any>;
   private refreshInterval$: Observable<string>;
   constructor(
     private aroute: ActivatedRoute,
     private api: ApiService,
-    private keepFiles : KeepFilesService,
+    public keepFiles : KeepFilesService,
     private toastr : ToastrService,
   ) { }
 

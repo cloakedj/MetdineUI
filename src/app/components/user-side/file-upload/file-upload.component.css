@@ -17,15 +17,14 @@
 }
 
 .files-list {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    margin: 10px auto;
-    background: #ffffff;
-    border: 1px dashed;
-    border-radius: 12px;
-    padding: 5px;
-    color: #1c8adb;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 3px solid;
+  border-radius: 12px;
+  color: #1c8adb;
 }
 
 .files-list .delete-file {

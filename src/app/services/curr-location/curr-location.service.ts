@@ -5,8 +5,8 @@ import { ProductService } from '../product-service/product.service';
   providedIn: 'root'
 })
 export class CurrLocationService {
-  latitude : any;
-  longitude : any;
+  latitude : any = this.product.latitude || undefined;
+  longitude : any = this.product.longitude || undefined;
   address : any;
   constructor(
     private product : ProductService

@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { ToastrService } from 'ngx-toastr';
+import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
 @Component({
   selector: 'app-bodycards',
@@ -25,7 +26,8 @@ export class BodycardsComponent implements OnInit {
     public product : ProductService,
     private gc : GetCategoryService,
     private router : Router,
-    private toastr : ToastrService
+    private toastr : ToastrService,
+    private currlc : CurrLocationService
     ) {
       this.product.GetLocation();
     }
@@ -47,7 +49,8 @@ export class BodycardsComponent implements OnInit {
     else{
     if(localStorage.getItem("Auth_Token") &&
     ((localStorage.getItem("latitude") && localStorage.getItem("longitude") && localStorage.getItem("city"))
-    || (this.product.latitude !== undefined && this.product.longitude !== undefined && this.product.buyerCity !== undefined)))
+    || (this.product.latitude !== undefined && this.product.longitude !== undefined && this.product.buyerCity !== undefined)
+    || (this.currlc.latitude !== undefined && this.currlc.longitude !== undefined && this.currlc.address !== undefined)))
     {
     let lat = localStorage.getItem("latitude") || this.product.latitude;
     let long = localStorage.getItem("longitude") || this.product.longitude;

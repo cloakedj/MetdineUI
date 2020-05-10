@@ -1,9 +1,13 @@
 <div class="uploadfilecontainer" (click)="fileInput.click()" appFileUpload (onFileDropped)="uploadFile($event)">
     <input hidden type="file" #fileInput (change)="uploadFile($event,'byInput')" class="fileUpload">
   </div>
-  <div  class="files-list" *ngFor="let file of files;let i= index">
-      <p> {{ file }} </p>
+  <div  class="ui files-list grid" *ngFor="let file of filesUpload.Files;let i= index">
+    <div class="six wide column">
+      <img src="{{file}}" class="ui tiny rounded image">
+    </div>
+    <div class="ten wide right aligned column">
       <button class="delete-file" (click)="deleteAttachment(i)">
         <img src="../../../../assets/bin.png">
       </button>
+    </div>
    </div>

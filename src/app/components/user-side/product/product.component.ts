@@ -66,7 +66,7 @@ export class ProductComponent implements OnInit{
     });
   }
   cartUpdation(id){
-    if(localStorage.getItem("seller__id") && localStorage.getItem("seller__id") !== "undefined"){
+    if(localStorage.getItem("seller__id") && localStorage.getItem("seller__id") !== "undefined" && this.cart.items.length > 0){
       if(this.sellerId == parseInt(localStorage.getItem("seller__id")))
       {
         this.cart.updateCart(id);
