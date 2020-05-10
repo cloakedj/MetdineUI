@@ -21,11 +21,11 @@
                         <div class="field">
                           <input placeholder="Username" formControlName="username" type="text">
                           <div class="load-container" *ngIf="searchingUsername">
-                            <div class="ui active inline loader" *ngIf="loading"></div>
-                            <h3 class="ui header" *ngIf="!loading && showAvailable">
+                            <div class="ui active inline loader" *ngIf="loadingUsername"></div>
+                            <h3 class="ui header" *ngIf="!loadingUsername && showAvailable">
                               <i class="check square icon"></i>
                             </h3>
-                            <h3 class="ui header" *ngIf="!loading && !showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingUsername && !showAvailable">
                               <i class="window close icon"></i>
                             </h3>
                           </div>
@@ -35,12 +35,12 @@
                         </div>
                         <div class="field">
                           <input placeholder="Email" formControlName="email" type="text">
-                          <div class="load-container" *ngIf="searchingEmail">
-                            <div class="ui active inline loader" *ngIf="loading"></div>
-                            <h3 class="ui header" *ngIf="!loading && showAvailable">
+                          <div class="load-container" *ngIf="searchingEmail && !email.invalid">
+                            <div class="ui active inline loader" *ngIf="loadingEmail"></div>
+                            <h3 class="ui header" *ngIf="!loadingEmail && showAvailable">
                               <i class="check square icon"></i>
                             </h3>
-                            <h3 class="ui header" *ngIf="!loading && !showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingEmail && !showAvailable">
                               <i class="window close icon"></i>
                             </h3>
                           </div>

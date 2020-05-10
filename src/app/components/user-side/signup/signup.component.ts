@@ -12,7 +12,8 @@ import { UsernameEmailCheckService } from 'src/app/services/username-email-check
 })
 export class SignupComponent implements OnInit, OnDestroy {
   showUnmatchMessage : boolean = false;
-  loading = false;
+  loadingUsername = false;
+  loadingEmail = false;
   showAvailable = false;
   searchingEmail = false;
   searchingUsername = false;
@@ -38,11 +39,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     .debounceTime(200)
     .distinctUntilChanged()
     .switchMap((query) => {
-      this.loading = true;
+      this.loadingUsername = true;
       this.searchingUsername = true;
       if(query == '')
       {
-      this.loading=false;
+      this.loadingUsername=false;
       this.searchingUsername = false;
       }
       return this._check.searchUsername(query)
@@ -50,7 +51,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     .subscribe((_available : any) => {
       if(_available.status === 400) return;
       else{
-        this.loading = false;
+        this.loadingUsername = false;
         if(_available == "false")
         this.showAvailable = true
         else
@@ -61,11 +62,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     .debounceTime(200)
     .distinctUntilChanged()
     .switchMap((query) => {
-      this.loading = true;
+      this.loadingEmail = true;
       this.searchingEmail = true;
       if(query == '')
       {
-      this.loading=false;
+      this.loadingEmail = false;
       this.searchingEmail = false;
       }
       return this._check.searchUsername(query)
@@ -73,7 +74,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     .subscribe((_available : any) => {
       if(_available.status === 400) return;
       else{
-        this.loading = false;
+        this.loadingEmail = false;
         if(_available == "false")
         this.showAvailable = true
         else

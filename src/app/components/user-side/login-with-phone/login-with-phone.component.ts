@@ -29,9 +29,16 @@ ngOnInit() {
 onSubmit(Data){
   this.loginSubscription = this.api.loginUserWithPhone(Data)
   .subscribe(
-    (data) => {this.Auth_Key = data["key"];
+    (data) => {
+      if(data["key"])
+      {
+      this.Auth_Key = data["key"];
     this.api.AddUserTokenHeader(this.Auth_Key)
-    this.cart.loadCart()},
+    this.cart.loadCart()
+    }
+    else if(data["error"])
+    this.toastr.error(data["error"]);
+    },
     (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
   );
 }
