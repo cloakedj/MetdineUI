@@ -8,6 +8,7 @@ export class CurrLocationService {
   latitude : any = this.product.latitude || undefined;
   longitude : any = this.product.longitude || undefined;
   address : any;
+  city : any;
   constructor(
     private product : ProductService
   ) { }
@@ -20,6 +21,7 @@ export class CurrLocationService {
   setAddressAndCity(address : any,city ?: any){
     this.address = address;
     this.product.address = this.address;
+    this.city = city;
     localStorage.setItem("city",city);
   }
 }

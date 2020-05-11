@@ -1,7 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Molle:400i&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Fondamento&display=swap';
-
 .icon {
     cursor: pointer;
   }
@@ -125,6 +124,10 @@ label{
 #mobNav{
   margin-left: 0 !important;
 }
+.mobileNav .three.wide.column h6:focus{
+  background-color: transparent;
+  outline : none !important;
+}
 .getAddress{
   color : #fff;
   font-family: 'Fondamento', cursive;
@@ -151,6 +154,14 @@ label{
     top : 2% !important;
     right:  3%;
   }
+  *
+{
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 }
 @media (max-width : 360px){
   .mobileActiveOrderNavbar{

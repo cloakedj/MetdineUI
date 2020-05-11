@@ -52,9 +52,9 @@ export class BodycardsComponent implements OnInit {
     || (this.product.latitude !== undefined && this.product.longitude !== undefined && this.product.buyerCity !== undefined)
     || (this.currlc.latitude !== undefined && this.currlc.longitude !== undefined && this.currlc.address !== undefined)))
     {
-    let lat = localStorage.getItem("latitude") || this.product.latitude;
-    let long = localStorage.getItem("longitude") || this.product.longitude;
-    let city = localStorage.getItem("city") || this.product.buyerCity;
+    let lat = localStorage.getItem("latitude") || this.product.latitude || this.currlc.latitude;
+    let long = localStorage.getItem("longitude") || this.product.longitude || this.currlc.longitude;
+    let city = localStorage.getItem("city") || this.product.buyerCity || this.currlc.city;
     this.api.getAllSellers(lat,long,city).subscribe(
       data =>{
         this.sellersArr = data;
