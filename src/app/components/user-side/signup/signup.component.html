@@ -22,10 +22,10 @@
                           <input placeholder="Username" formControlName="username" type="text">
                           <div class="load-container" *ngIf="searchingUsername">
                             <div class="ui active inline loader" *ngIf="loadingUsername"></div>
-                            <h3 class="ui header" *ngIf="!loadingUsername && showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingUsername && showUsernameAvailable">
                               <i class="check square icon"></i>
                             </h3>
-                            <h3 class="ui header" *ngIf="!loadingUsername && !showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingUsername && !showUsernameAvailable">
                               <i class="window close icon"></i>
                             </h3>
                           </div>
@@ -37,10 +37,10 @@
                           <input placeholder="Email" formControlName="email" type="text">
                           <div class="load-container" *ngIf="searchingEmail && !email.invalid">
                             <div class="ui active inline loader" *ngIf="loadingEmail"></div>
-                            <h3 class="ui header" *ngIf="!loadingEmail && showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingEmail && showEmailAvailable">
                               <i class="check square icon"></i>
                             </h3>
-                            <h3 class="ui header" *ngIf="!loadingEmail && !showAvailable">
+                            <h3 class="ui header" *ngIf="!loadingEmail && !showEmailAvailable">
                               <i class="window close icon"></i>
                             </h3>
                           </div>

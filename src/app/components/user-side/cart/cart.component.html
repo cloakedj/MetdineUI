@@ -38,6 +38,7 @@
     <div class="ui center aligned segment" [ngClass]="{
       'compact' : winWidth > 500
     }">
+    <ng-container *ngIf="sellerLogo else loading">
     <div class="ui computer only center aligned row grid">
         <img src="{{sellerLogo}}" class="ui small centered image" *ngIf="sellerLogo" (click)="sellerPage()">
       </div>
@@ -50,6 +51,7 @@
       <div class="ui mobile only center aligned row grid">
         <h3 class="ui centered header">{{sellerName}}</h3>
       </div>
+    </ng-container>
       <div class="ui divider"></div>
       <!-- <ng-container *ngIf="cart.items else remainingCart"> -->
       <div class="row" *ngFor="let item of cart.items;">
@@ -115,3 +117,9 @@
   </h2>
 </ng-template>
 </div>
+<ng-template #loading>
+  <div class="ui centered grid">
+    <div class="ui active inline loader"></div>
+  </div>
+  <div class="ui hidden divider"></div>
+</ng-template>

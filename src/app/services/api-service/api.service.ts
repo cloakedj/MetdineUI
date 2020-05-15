@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "https://metdine.in/api";
+  API_URL = "http://1ffe32c1.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   private httpWithoutInterceptor : HttpClient;
@@ -48,9 +48,9 @@ export class ApiService {
         catchError(this.handleError)
       )
   }
-  getSellerDetails(id): Observable<Seller>{
-    this.params = new HttpParams().set("lat",localStorage.getItem("latitude"))
-    .set("long",localStorage.getItem("longitude"));
+  getSellerDetails(id : any,lat : number,long : number): Observable<Seller>{
+    this.params = new HttpParams().set("lat",lat.toString())
+    .set("long",long.toString());
     return this.http.get<Seller>(`${this.API_URL}/seller/${id}/`,{params : this.params})
     .pipe(
       catchError(this.handleError)
@@ -187,6 +187,7 @@ export class ApiService {
   updateOrderItemQuantity(id : number,quantity : number){
     return this.http.patch(`${this.API_URL}/user/order/${id}/`, {quantity : quantity})
     .pipe(
+      shareReplay(1),
       catchError(this.handleError)
     )
   }

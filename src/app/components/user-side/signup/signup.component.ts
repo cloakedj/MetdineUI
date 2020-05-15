@@ -14,7 +14,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   showUnmatchMessage : boolean = false;
   loadingUsername = false;
   loadingEmail = false;
-  showAvailable = false;
+  showUsernameAvailable = false;
+  showEmailAvailable = false;
   searchingEmail = false;
   searchingUsername = false;
   signUpForm: FormGroup = this.formBuilder.group({
@@ -53,9 +54,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       else{
         this.loadingUsername = false;
         if(_available == "false")
-        this.showAvailable = true
+        this.showUsernameAvailable = true
         else
-        this.showAvailable = false;
+        this.showUsernameAvailable = false;
       }
     });
     this.email.valueChanges
@@ -76,9 +77,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       else{
         this.loadingEmail = false;
         if(_available == "false")
-        this.showAvailable = true
+        this.showEmailAvailable = true
         else
-        this.showAvailable = false;
+        this.showEmailAvailable = false;
       }
     });
   }

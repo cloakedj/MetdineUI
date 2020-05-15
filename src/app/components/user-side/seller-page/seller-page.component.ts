@@ -9,6 +9,7 @@ import { CartService } from 'src/app/services/cart-service/cart.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { FormControl } from '@angular/forms';
+import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
 @Component({
   selector: 'app-seller-page',
@@ -25,13 +26,14 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
     private product : ProductService,
     private aroute : ActivatedRoute,
     private api : ApiService,
-    private cart : CartService,
-    private gc : GetCategoryService
+    private currlc : CurrLocationService
   ) {
     this.aroute.params.subscribe(routeParams =>{
       this.product.sellerId = routeParams.id;
       this.product.getSellerItems(this.product.sellerId);
-      this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId);
+      let lat = localStorage.getItem("latitude") || this.product.latitude || this.currlc.latitude;
+      let long = localStorage.getItem("longitude") || this.product.longitude || this.currlc.longitude;
+      this.sellerDetails$ = this.api.getSellerDetails(this.product.sellerId,lat,long);
     });
     this.product.sellerLogo = this.sellerLogo;
   }

@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product-service/product.service
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,11 +24,14 @@ export class CartComponent implements OnInit {
   public productService : ProductService,
   private api : ApiService,
   private router : Router,
-  private toastr : ToastrService
+  private toastr : ToastrService,
+  private currlc : CurrLocationService
 	) {
     if(localStorage.getItem("seller__id") && localStorage.getItem("seller__id") != 'undefined')
     {
-    this.api.getSellerDetails(this.sellerId).subscribe(
+    let lat = localStorage.getItem("latitude") || this.productService.latitude || this.currlc.latitude;
+    let long = localStorage.getItem("longitude") || this.productService.longitude || this.currlc.longitude;
+    this.api.getSellerDetails(this.sellerId,lat,long).subscribe(
       data => {
         this.sellerName = `${data["first_name"]}  ${data["last_name"]}`;
         this.sellerLogo = data["logo"];

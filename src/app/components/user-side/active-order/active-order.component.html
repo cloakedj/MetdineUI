@@ -15,7 +15,7 @@
       <h4 class="ui sub header">{{item.meal_title}}</h4>
     </div>
     <div class="six wide right aligned column">
-      <h4 class="ui sub header"> {{item.meal_price | currency : 'INR'}}</h4>
+      <h4 class="ui sub header"> {{item.meal_price * item.quantity | currency : 'INR'}}</h4>
     </div>
   </div>
   </ng-container>

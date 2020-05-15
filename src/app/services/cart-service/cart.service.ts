@@ -38,6 +38,8 @@ loadCart(): void {
       {
       if(!localStorage.getItem("seller__id"))
       localStorage.setItem("seller__id",`${data.seller_id}`);
+      if(!localStorage.getItem("seller_distance"))
+      localStorage.setItem("seller_distance",`${data.distance}`);
       }
     },
     error : (err) => console.log(err),
@@ -134,7 +136,10 @@ updateCart(id: number,operation?: string): void{
   }
   deleteItemFromCart(id : number){
     if(this.getCartLength() - 1 === 0 && this.itemExistsQuantity - 1 === 0 )
+    {
     this.clearCart();
+    localStorage.removeItem("seller_distance");
+    }
     else
     {
     this.api.deleteOrderItemById(id)

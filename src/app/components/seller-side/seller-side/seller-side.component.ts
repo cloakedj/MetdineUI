@@ -7,7 +7,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class SellerSideComponent implements OnInit {
   toggleMenu = false;
   winwidth = window.screen.width;
-  deviceActive = (window.screen.width) <= 780 || this.toggleMenu ? 'smaller' : 'computer';
+  deviceActive = (window.screen.width) <= 800 || this.toggleMenu ? 'smaller' : 'computer';
   constructor() {
   }
 
@@ -22,7 +22,7 @@ export class SellerSideComponent implements OnInit {
   hideSidebar(evt){
     let elt = document.getElementById('toggleDisplay');
     if(this.toggleMenu) elt.style.display = 'none';
-    if(window.screen.width < 700)
+    if(window.screen.width < 800)
     this.toggleMenu = !this.toggleMenu;
   }
 }

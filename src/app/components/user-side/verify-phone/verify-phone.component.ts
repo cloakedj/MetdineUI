@@ -33,9 +33,13 @@ export class VerifyPhoneComponent implements OnInit {
   Validators.maxLength(10),
   Validators.pattern(/^[0-9]+$/)]);
   verifyPhone: FormGroup = this.formbuilder.group({
-  otp:['',[Validators.required]],
+  otp:['',[Validators.required,
+    Validators.pattern(/^[0-9]+$/),
+  Validators.minLength(4),
+  Validators.maxLength(4)]],
 });
 isSellerSide : boolean;
+wrongOtpMsg : boolean = false;
 constructor(private formbuilder: FormBuilder,
   private api : ApiService,
   private cart : CartService,
@@ -93,6 +97,7 @@ buyerRequestOtp(){
 }
 onSubmit(Data){
   let rid = localStorage.getItem("otp_request_id");
+  if(this.wrongOtpMsg) this.wrongOtpMsg = false;
   if(this.isSellerSide)
   this.sellerOtpVerification(Data,rid)
   else this.buyerOtpVerification(Data,rid);
@@ -101,12 +106,17 @@ buyerOtpVerification(Data,rid){
   this.api.getOtpForVerificationBuyer(Data,rid)
   .subscribe(
     (data) => {
+      if(data == "Verification complete Successfully")
+      {
       this.toastr.success("Phone Number Has Been Successfully Verified. Redirecting...");
       localStorage.removeItem("otp_request_id");
       localStorage.setItem("buyer-phone-status","true");
       if(this.isOnCheckout)  this.router.navigate(['/map'],{queryParams : {checkout : true}});
       else
       this.router.navigateByUrl('/user/(userRouterOutlet:home)');
+      }
+      else
+      this.wrongOtpMsg = true;
     },
     (error) => this.toastr.error("Something Went Wrong. Try Again Later!")
   );

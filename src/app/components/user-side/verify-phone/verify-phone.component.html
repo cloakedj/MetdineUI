@@ -8,9 +8,15 @@
                     A Four Digit OTP Has Been Sent To {{phone.value}}
                 </h4>
             </div>
+            <div class = "ui error message" *ngIf="wrongOtpMsg">
+              <h4 class="ui header">
+                <i class="triangle exclamation icon"></i>
+                Sorry! The OTP didn't match with the one we generated.
+            </h4>
+            </div>
           <div class="ui divider"></div>
               <div class="ui fluid form">
-                <div class="field">
+                <div class="field" *ngIf="!enteredPhone">
                   <input placeholder="Phone Number" [formControl]="phone" type="text">
                   <div class="ui pointing red basic label"  *ngIf="
                   phone.errors?.minlength || phone.errors?.maxlength||
@@ -27,7 +33,7 @@
                   <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone" *ngIf="enteredPhone">
                     <div class="ui centered header">
                     <div class="ui red basic label"  *ngIf="otp.invalid && !otp.pristine">
-                        The Otp Should Be Six Digit
+                        The Otp Should Be Four Digit
                         </div>
                     </div>
                     <div class="field">

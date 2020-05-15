@@ -12,12 +12,12 @@
 .load-container h3{
   position: absolute;
   top: -26px;
-  left: 89%;
+  left: 87%;
 }
 .load-container .loader{
   position: absolute;
   top: -36px;
-  left: 89%;
+  left: 87%;
   font-size: 2rem;
 }
 .load-container h3 .check{
