@@ -46,7 +46,7 @@ export class SellerDashboardComponent implements OnInit {
       complete: () => console.log("Request completed")
     };
     this.sellerCompletedOrdersForDashboard$ = {
-      next: (data) => this.sellerCompletedOrders = data.splice(0,4),
+      next: (data) => this.sellerCompletedOrders = data.splice(data.length - 4,data.length),
       error: (err) => console.log(err),
       complete: () => console.log("Request for seller orders completed")
     }

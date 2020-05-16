@@ -13,7 +13,7 @@
     }" id="toggleDisplay">
 <app-seller-sidebar (hideMenu)="hideSidebar($event)"></app-seller-sidebar>
 </div>
-<div class="ui sixteen wide mobile twelve wide tablet twelve wide computer centered column">
+<div class="ui sixteen wide mobile twelve wide tablet twelve wide computer centered column" id="sellerOutletContainer">
 <router-outlet name="sellerRouterOutlet"></router-outlet>
 <app-footer *ngIf="winwidth > 500"></app-footer>
 </div>
