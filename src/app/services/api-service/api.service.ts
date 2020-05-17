@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "http://7e8d3021.ngrok.io/api";
+  API_URL = "https://metdine.in/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   private httpWithoutInterceptor : HttpClient;
