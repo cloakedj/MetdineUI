@@ -130,7 +130,7 @@
     </div>
 </div>
 </ng-container>
-<div class="ui stackable grid mainContainer" *ngIf="activeOrderData else loading">
+<div class="ui stackable grid mainContainer" *ngIf="activeOrderData && ordersts.orderStatus else loading">
     <div class="ten wide column">
         <ng-container *ngIf="activeOrderData">
     <div class="ui raised segment" [ngClass]="{'loading': !activeOrderData}">
@@ -139,13 +139,13 @@
         </h1>
         <h3 class="ui header">
             Status :  <a class="ui label" [ngClass]="{
-                'yellow' : activeOrderData.status === 1,
-                'orange' : activeOrderData.status === 2,
-                'purple' : activeOrderData.status === 3,
-                'pink' : activeOrderData.status === 4,
-                'brown' : activeOrderData.status === 5,
-                'red' : activeOrderData.status === 6
-            }">{{getStatus(activeOrderData.status)}}
+                'yellow' : ordersts.orderStatus === 1,
+                'orange' : ordersts.orderStatus === 2,
+                'purple' : ordersts.orderStatus === 3,
+                'pink' : ordersts.orderStatus === 4,
+                'brown' : ordersts.orderStatus === 5,
+                'red' : ordersts.orderStatus === 6
+            }">{{getStatus(ordersts.orderStatus)}}
             </a>
         </h3>
         <h3 class="ui header">
@@ -157,7 +157,7 @@
             Address : {{activeOrderData.address}}
         </h3>
         <ng-container *ngIf="sentImages">
-        <ng-container *ngIf="activeOrderData.status >= 2 && sentImages.status != 'Sent'">
+        <ng-container *ngIf="ordersts.orderStatus >= 2 && sentImages.status != 'Sent'">
                 <div class="confirmedMask">
                 <div class="lock notice">
                     <h4 class="ui center aligned icon header">
@@ -192,6 +192,15 @@
         <h2 class="ui center aligned header">
             Order Details
         </h2>
+        <div class="ui divider"></div>
+        <h3 class="ui header">
+          <i class="ui circular user icon"></i>
+        {{activeOrderData.seller_name}}
+      </h3>
+      <h3 class="ui header">
+        <i class="ui circular phone icon"></i>
+      {{activeOrderData.seller_phone}}
+    </h3>
         <div class="ui divider"></div>
         <ng-container *ngIf="activeOrderData">
         <div class="row">

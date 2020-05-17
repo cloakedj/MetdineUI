@@ -5,19 +5,19 @@
        'loading' : loading
       }">
         <h3 class="ui header">
-          Add Your Address
+          Add Your Address / Nearest Landmark
         </h3>
         <div class="ui divider"></div>
+        <button class="ui fluid primary button" (click)="getLocationCurrent()">
+          <i class="location arrow icon"></i> Get Current Location
+         </button>
+        <div class="ui horizontal divider">
+          OR
+        </div>
         <div class="ui fluid icon input">
           <input type="text" [formControl] = "searchControl" #search autocomplete="off" autocapitalize="off" spellcheck="false">
           <i class="search icon"></i>
         </div>
-        <div class="ui horizontal divider">
-          OR
-        </div>
-        <button class="ui fluid primary button" (click)="getLocationCurrent()">
-         <i class="location arrow icon"></i> Get Current Location
-        </button>
         <div class="ui top attached header">
           <h3 class="ui header">
             Currently Selected Location
@@ -32,7 +32,7 @@
         </button>
       </div>
       <div class="ui hidden divider"></div>
-      <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode && !isSellerSide">
+      <!-- <form [formGroup]="newAddressForm" *ngIf="!isOnCheckoutMode && !isSellerSide">
         <div class="ui form">
           <div class="field">
             <label>Street Address</label>
@@ -52,21 +52,41 @@
           <input type="text" formControlName="name">
         </div>
         </div>
-        <div class="two fields">
-          <div class="field">
-        <input type="hidden" value="{{latitude}}" formControlName="latitude">
+      </div>
+      </div>
+        </form> -->
+      <ng-container *ngIf="isOnCheckoutMode">
+      <form [formGroup]="newAddressForm">
+      <div class="ui form">
+      <div class="field">
+        <label>Enter Your Street Address</label>
+        <input type = "text" formControlName="street_address">
+        <div class="ui pointing red basic label" *ngIf="street_address.dirty && street_address.invalid">
+         Street Address Is Required.
         </div>
-        <div class="field">
-        <input type="hidden" value="{{longitude}}" formControlName="longitude">
       </div>
+      <div class="field">
+        <label>Enter Your Apartment Address</label>
+        <input type = "text" formControlName="apartment_address">
+        <div class="ui pointing red basic label" *ngIf="apartment_address.dirty && apartment_address.invalid">
+          Apartment Address Is Required.
+         </div>
       </div>
-      </div>
-        </form>
-      <button class="ui positive fluid button" (click)="onAddressBtnClick()"
-       [disabled]="!isOnCheckoutMode &&  !isSellerSide && (newAddressForm.pristine || newAddressForm.invalid)">
-        {{locationBtnTitle}}
+      <button class="ui positive fluid button" (click)="onAddressBtnClick()" [disabled]="newAddressForm.pristine || newAddressForm.invalid">
+       Use This Address And Checkout
       </button>
-      <ng-container *ngIf="savedAddresses">
+    </div>
+      <div class="two fields">
+        <div class="field">
+      <input type="hidden" value="{{latitude}}" formControlName="latitude">
+      </div>
+      <div class="field">
+      <input type="hidden" value="{{longitude}}" formControlName="longitude">
+    </div>
+    </div>
+      </form>
+    </ng-container>
+      <!-- <ng-container *ngIf="savedAddresses">
       <h3 class="ui center aligned header">Previously Saved Addresses</h3>
       <div class="ui divider"></div>
       <div class="ui divided list">
@@ -79,7 +99,7 @@
           </div>
         </div>
       </div>
-      </ng-container>
+      </ng-container>  -->
       <ng-container *ngIf="!isSellerSide">
         <h4 class="ui centered header">
           Return Back To <u><a href="/home">Home</a></u>
@@ -88,7 +108,9 @@
     </div>
     </div>
     <div class="ten wide column">
-      <div class="ui centered raised stretched segment">
+      <div class="ui centered raised stretched segment" [ngClass]="{
+        'loading' : loading
+       }">
       <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="true"
       >
         <agm-marker

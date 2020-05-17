@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = "https://metdine.in/api";
+  API_URL = "http://7e8d3021.ngrok.io/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
   private httpWithoutInterceptor : HttpClient;
@@ -221,9 +221,8 @@ export class ApiService {
     )
   }
   //Endpoint to Complete CheckOut
-  checkoutUserCart(address : any,distance : any){
-    localStorage.removeItem("seller_distance");
-    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address,distance : distance})
+  checkoutUserCart(address : any,lat : any, long : any){
+    return this.http.post(`${this.API_URL}/user/checkout/`,{address : address,lat : lat,long : long})
     .pipe(
       catchError(this.handleError)
     )
@@ -292,6 +291,13 @@ export class ApiService {
   //Get Active Order Details For Buyer
   getActiveOrderDetailsForBuyer(){
     return this.http.get(`${this.API_URL}/user/orders/active`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+  //Get Status of order for shared service
+  getActiveOrderStatusById(id : any){
+    return this.http.get(`${this.API_URL}/user/order/status/${id}`)
     .pipe(
       catchError(this.handleError)
     )

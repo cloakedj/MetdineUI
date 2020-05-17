@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
 import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
+import { ProductService } from 'src/app/services/product-service/product.service';
 
 @Component({
   selector: 'app-geolocation',
@@ -54,11 +55,17 @@ export class GeolocationComponent implements OnInit{
   isSigningUp : boolean;
   savedAddressesObs$ : Observer<any>;
   savedAddresses : any;
-  newAddressForm : FormGroup;
+  newAddressForm : FormGroup = this._fb.group({
+    street_address : ['',[Validators.required]],
+    apartment_address : ['',[Validators.required]],
+    latitude: [],
+    longitude: []
+  });
   loading = false;
   @Input() isSellerSide : boolean;
   constructor(
     private mapsAPILoader : MapsAPILoader,
+    private product : ProductService,
     private ngZone : NgZone,
     private aroute : ActivatedRoute,
     private api : ApiService,
@@ -71,28 +78,20 @@ export class GeolocationComponent implements OnInit{
     this.isOnCheckoutMode = params['checkout'];
     this.isSigningUp = params['signup'];
     });
-    if(!this.isSigningUp)
-    {
-    this.savedAddressesObs$ = {
-      next: (data) => this.savedAddresses = data,
-      error: (err) => console.log(err),
-      complete: () => console.log("Completed request")
-    }
-    this.api.getBuyerAddress().subscribe(this.savedAddressesObs$);
-    }
+    // if(!this.isSigningUp)
+    // {
+    // this.savedAddressesObs$ = {
+    //   next: (data) => this.savedAddresses = data,
+    //   error: (err) => console.log(err),
+    //   complete: () => console.log("Completed request")
+    // }
+    // this.api.getBuyerAddress().subscribe(this.savedAddressesObs$);
+    // }
     this.GetLocation();
   }
   ngOnInit(){
     this.locationBtnTitle = this.isOnCheckoutMode ? "Use This Address And Checkout"
     : "Save New Address";
-    this.newAddressForm = this._fb.group({
-      street_address : ['',[Validators.required]],
-      apartment_address : ['',[Validators.required]],
-      name : ['',[Validators.required,Validators.minLength(4),Validators.maxLength(20)]],
-      zip : [],
-      latitude: [],
-      longitude: []
-    });
   }
   GetLocation(){
     this.mapsAPILoader.load().then(() => {
@@ -180,11 +179,19 @@ export class GeolocationComponent implements OnInit{
     this.loading = true;
     if(this.isOnCheckoutMode){
       let redirecturl;
-      let distance = parseFloat(localStorage.getItem("seller_distance"));
-      this.api.checkoutUserCart(this.address,distance)
+      this.newAddressForm.patchValue({
+        latitude : this.latitude,
+        longitude : this.longitude
+      });
+      let lat = Number(localStorage.getItem("latitude")) || this.product.latitude || this.currlc.latitude;
+      let long = Number(localStorage.getItem("longitude")) || this.product.longitude || this.currlc.longitude;
+      this.address = `${this.newAddressForm.get("street_address").value}
+      ${this.newAddressForm.get("apartment_address").value}
+      ${this.address}`;
+      this.api.checkoutUserCart(this.address,lat,long)
       .subscribe(
         data => redirecturl = data["redirect_url"],
-        err => console.log(err),
+        err => this.toastr.error("Something Went Wrong."),
         () =>{
           this.loading = false;
           location.href = redirecturl
@@ -195,27 +202,24 @@ export class GeolocationComponent implements OnInit{
     else if(this.isSellerSide){
       this.api.saveSellerAddress(this.latitude,this.longitude,this.address).subscribe(this.saveNewAddress$);
     }
-    else
-    {
-      this.newAddressForm.patchValue({
-        zip : this.zipCode,
-        latitude : this.latitude,
-        longitude : this.longitude
-      })
-      this.saveNewAddress$ = {
-        next : (data) => console.log("Saved Address"),
-        error : err => console.log(err),
-        complete : () => {
-          this.router.navigateByUrl('/user/(userRouterOutlet:home)');
-        }
-      }
-      this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);
-    }
+    // else
+    // {
+
+    //   this.saveNewAddress$ = {
+    //     next : (data) => console.log("Saved Address"),
+    //     error : err => console.log(err),
+    //     complete : () => {
+    //       this.router.navigateByUrl('/user/(userRouterOutlet:home)');
+    //     }
+    //   }
+    //   this.api.saveBuyerAddress(this.newAddressForm.value).subscribe(this.saveNewAddress$);
+    // }
   }
   changeCurrentLocation(){
     this.currlc.setLatLong(this.latitude,this.longitude);
     this.currlc.setAddressAndCity(this.address,this.buyerCity);
     this.router.navigate(['/user']);
   }
-
+  get street_address(){ return this.newAddressForm.get("street_address")}
+  get apartment_address(){ return this.newAddressForm.get("apartment_address")}
 }

@@ -24,7 +24,6 @@ export class ProductComponent implements OnInit{
   activeProductId : any;
   cartHasDiffSeller : boolean = false;
   update : number;
-  @Input() seller_distance : any;
   constructor(
   public productService: ProductService,
   private incdeccart: IncDecCartComponent,
@@ -81,7 +80,6 @@ export class ProductComponent implements OnInit{
     else
     {
     localStorage.setItem("seller__id",this.sellerId.toString());
-    localStorage.setItem("seller_distance",this.seller_distance.toString())
     this.cart.updateCart(id);
     this.update = Math.random() * 1000;
     }

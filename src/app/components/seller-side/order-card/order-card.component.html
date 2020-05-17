@@ -10,9 +10,32 @@
 </a>
 <div class="ui hidden divider"></div>
 <div class="ui left aligned row">
-    <a class="ui orange label" *ngIf="order.status == 4 || buyerSide">
+  <ng-container *ngIf="order.status == 4 || buyerSide">
+    <a class="ui orange label">
+      Order Date
+      <div class="detail">
       {{order.create_time | date}}
+    </div>
     </a>
+    <a class="ui teal label">
+      Order Creation Time
+      <div class="detail">
+      {{order.create_time | date : 'shortTime'}}
+    </div>
+    </a>
+    <a class="ui olive label">
+      Order Ready Time
+      <div class="detail">
+      {{order.ready_time | date : 'shortTime'}}
+    </div>
+    </a>
+    <a class="ui green label">
+      Order Delivery Time
+      <div class="detail">
+      {{order.delivery_time | date : 'shortTime'}}
+    </div>
+    </a>
+  </ng-container>
     <a class="ui purple label" *ngIf="buyerSide && order.is_refund">
       Refunded
     </a>

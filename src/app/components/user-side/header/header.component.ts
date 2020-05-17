@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
 import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
+import { OrderStatusService } from 'src/app/services/order-status/order-status.service';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class HeaderComponent implements OnInit {
     public product : ProductService,
     private toastr : ToastrService,
     public  currlc : CurrLocationService,
-    private gc : GetCategoryService) {
+    private gc : GetCategoryService,
+    public orderStatus : OrderStatusService) {
       this.hasActiveOrder();
      }
      orderStatusFilter = [
@@ -78,6 +80,7 @@ export class HeaderComponent implements OnInit {
     this.api.getActiveOrderDetailsForBuyer().subscribe(
       data => {
         this.activeOrderId = data[0].id;
+        this.orderStatus.getOrderStatus(this.activeOrderId);
         this.activeOrderData = data;
       },
       err => console.log(err)

@@ -4,6 +4,7 @@ import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderStatusService } from 'src/app/services/order-status/order-status.service';
 
 @Component({
   selector: 'app-active-order',
@@ -46,7 +47,8 @@ export class ActiveOrderComponent implements OnInit {
     private gc : GetCategoryService,
     private aroute : ActivatedRoute,
     private toastr :ToastrService,
-    private router : Router) {
+    private router : Router,
+    public ordersts : OrderStatusService) {
       this.aroute.params.subscribe(params =>{
         this.activeOrderId = params["id"];
         this.getActiveOrderData();
@@ -68,6 +70,7 @@ export class ActiveOrderComponent implements OnInit {
     this.activeOrderData$ = {
       next : (data) => {
         this.activeOrderData = data;
+        this.ordersts.getOrderStatus(this.activeOrderData.id);
         if(!this.reconfirmScreen) this.getImages();
       },
       error: (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),

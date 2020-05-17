@@ -55,7 +55,7 @@
      You Have Disabled Location Services For Metdine.in. Please Turn Them On From Browser Settings.
   </h3>
 </div>
-<div class="ui sixteen wide centered  column grid container" *ngIf="activeOrderStatus && activeOrderData && userLoggedIn">
+<div class="ui sixteen wide centered  column grid container" *ngIf="activeOrderStatus && activeOrderData && userLoggedIn && orderStatus.orderStatus">
     <div class="two wide column">
         <div class="loader-container">
             <div class="pulse-loader"></div>
@@ -64,10 +64,14 @@
             <div class="pulse-loader"></div>
         </div>
     </div>
-    <ng-container *ngIf="activeOrderData[0].status === 5 else computerActiveOrderNav">
+    <ng-container *ngIf="orderStatus.orderStatus === 5 else computerActiveOrderNav">
         <div class="fourteen wide column">
             <h3 class="ui centered header">
                 We Are Waiting For The Seller To Accept Your Order. Please Wait Patiently.
+                <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderId]}}]" class="ui red label"
+                data-position="bottom left" data-inverted="" data-tooltip="View This Order">
+                    View Order
+                </a>
             </h3>
         </div>
     </ng-container>
@@ -85,11 +89,15 @@
             <div class="pulse-loader"></div>
         </div>
     </div>
-    <ng-container *ngIf="activeOrderData[0].status === 5 else activeOrderNavbarMobile">
+    <ng-container *ngIf="orderStatus.orderStatus === 5 else activeOrderNavbarMobile">
         <div class="fourteen wide column">
             <h5 class="ui sub header">
                 Waiting For The Seller To Accept Order.
             </h5>
+            <a [routerLink]="['/user',{outlets:{'userRouterOutlet' : ['active-order',activeOrderId]}}]" class="ui red label"
+            data-position="top left" data-inverted="" data-tooltip="View This Order">
+                View Order
+            </a>
         </div>
     </ng-container>
 </div>
@@ -163,12 +171,12 @@
     <div class="five wide column"*ngIf="screenSize > 360 else smallScreenStatus">
         <a class="ui image label"
         [ngClass]="{
-            'green' : activeOrderData[0].status === 1,
-            'teal' : activeOrderData[0].status === 2,
-            'yellow' : activeOrderData[0].status === 3,
-            'red' : activeOrderData[0].status === 4
+            'green' : orderStatus.orderStatus === 1,
+            'teal' : orderStatus.orderStatus === 2,
+            'yellow' : orderStatus.orderStatus === 3,
+            'red' : orderStatus.orderStatus === 4
             }">
-                {{activeOrderData[0].status | labelFilter : 'status'}}
+                {{orderStatus.orderStatus | labelFilter : 'status'}}
         </a>
     </div>
     <div class="four wide column">
@@ -205,14 +213,14 @@
     <div class="three wide column">
         <a class="ui image label"
         [ngClass]="{
-            'green' : activeOrderData[0].status === 1,
-            'teal' : activeOrderData[0].status === 2,
-            'yellow' : activeOrderData[0].status === 3,
-            'red' : activeOrderData[0].status === 4
+            'green' : orderStatus.orderStatus === 1,
+            'teal' : orderStatus.orderStatus === 2,
+            'yellow' : orderStatus.orderStatus === 3,
+            'red' : orderStatus.orderStatus === 4
             }">
             Order Status
             <a class="detail">
-                {{activeOrderData[0].status | labelFilter : 'status'}}
+                {{orderStatus.orderStatus | labelFilter : 'status'}}
             </a>
         </a>
     </div>
@@ -243,12 +251,12 @@
     <div class="five wide column">
         <a class="ui image label"
         [ngClass]="{
-            'green' : activeOrderData[0].status === 1,
-            'teal' : activeOrderData[0].status === 2,
-            'yellow' : activeOrderData[0].status === 3,
-            'red' : activeOrderData[0].status === 4
+            'green' : orderStatus.orderStatus === 1,
+            'teal' : orderStatus.orderStatus === 2,
+            'yellow' : orderStatus.orderStatus === 3,
+            'red' : orderStatus.orderStatus === 4
             }">
-                {{activeOrderData[0].status | labelFilter : 'status'}}
+                {{orderStatus.orderStatus | labelFilter : 'status'}}
         </a>
     </div>
 </ng-template>
