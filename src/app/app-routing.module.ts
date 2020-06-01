@@ -28,6 +28,7 @@ import { LoginWithPhoneComponent } from './components/user-side/login-with-phone
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
 import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
 import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/upgrade-phone.component';
+import { AboutUsComponent } from './components/company-data/about-us/about-us.component';
 
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,canActivate :[AuthGuardService],children: [
@@ -63,6 +64,7 @@ const routes: Routes =[
     { path: 'signup', component:SignupComponent, outlet: 'userGatewayRouter'},
     { path: '', redirectTo: '/userGateway/(userGatewayRouter:login)',pathMatch: 'full'}
   ]},
+  { path : 'about-us', component : AboutUsComponent},
   { path: '', redirectTo: '/user/(userRouterOutlet:home)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
 ]

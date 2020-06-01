@@ -84,6 +84,7 @@ import { AddOrAddedToCartPipe } from './pipes/addOrAddedToCart/add-or-added-to-c
 import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
 import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
 import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/upgrade-phone.component';
+import { AboutUsComponent } from './components/company-data/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +143,7 @@ import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/up
     GetquantityPipe,
     SellerPaymentInfoComponent,
     UpgradePhoneComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

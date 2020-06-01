@@ -1,0 +1,93 @@
+@import "https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&display=swap";
+
+.logo
+{
+  font-family: 'Molle', cursive;
+  color: #ac2d5c;
+  font-weight: bolder;
+  font-size: 5rem;
+}
+#mainGrid{
+    margin: 0 0 -1% 0 !important;
+    width: 100% !important;
+}
+
+.jtron{
+    background-image:url("../../../../assets/molly.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding:8% 0% 8% 0% !important;
+    z-index:1 !important;
+    position: relative;
+}
+
+.back-home{
+    margin-left:50%;
+    transform:translateX(-50%);
+}
+.jtron-mask{
+    position: absolute;
+    height:100%;
+    width:100%;
+    z-index:-1;
+    background:#00000096;
+    top:0;
+}
+
+.content-for-jt{
+    z-index:3;
+}
+
+.abs{
+    display:flex !important;
+    align-items : center;
+    justify-content : center;
+    align-content: center;
+}
+
+.abtus{
+    background: aliceblue;
+    padding: 3%;
+}
+
+.ourteam{
+    background: whitesmoke;
+    border-top: 2px solid #1cf2673b;
+    border-bottom: 2px solid #1cf2673b;
+}
+.abs h1{
+    font-family: 'Bangers', cursive;
+    font-size: 5rem;
+    transform: scale(1.5);
+}
+.par{
+    font-size:1.2rem;
+    font-family: 'Architects Daughter', cursive;
+}
+.sixteen .head{
+    color: #fff;
+    margin-top: -1%;
+    font-size: 1.4rem;
+}
+.tile-1{
+    background: aquamarine;
+}
+.tile-2{
+    background: turquoise;
+}
+.tile-3{
+    background: white;
+}
+.tile-4{
+    background: powderblue;
+}
+.tile-5{
+    background: lightsteelblue;
+}
+.tile-6{
+    background: khaki;
+}
+.tile{
+    padding:2% !important;
+}
