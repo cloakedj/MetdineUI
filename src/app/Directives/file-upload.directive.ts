@@ -37,7 +37,6 @@ export class FileUploadDirective {
     this.border = '2px solid black'
     let files = evt.dataTransfer.files;
     for(let i=0;i<files.length;i++){
-      console.log(files[i]);
       this.files.getUploadFile(files[i]);
     }
     if (files.length > 0) {

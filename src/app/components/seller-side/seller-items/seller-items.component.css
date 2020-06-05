@@ -40,7 +40,10 @@ margin-bottom: 5% !important;
     transform: 0.3s all;
 }
 .newItem:hover{
-    background-color: linen !important;
+    background : cornflowerblue !important;
+}
+.newItem:hover h2{
+    color : #fff !important;
 }
 .five.wide.column{
     margin-top:2.5%;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { KeepFilesService } from 'src/app/services/upload-files/keep-files.servi
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css']
 })
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent implements OnInit,OnDestroy{
   files: any = [];
   @Output()  imageUpload  : EventEmitter<boolean> = new EventEmitter();
 
@@ -37,6 +37,9 @@ export class FileUploadComponent implements OnInit {
     private cd : ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+  ngOnDestroy(){
+    this.filesUpload.Files = [];
   }
 
 }

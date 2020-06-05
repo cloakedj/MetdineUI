@@ -1,16 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&display=swap";
 
-.logo
-{
-  font-family: 'Molle', cursive;
-  color: #ac2d5c;
-  font-weight: bolder;
-  font-size: 5rem;
-}
-#mainGrid{
-    margin: 0 0 -1% 0 !important;
-    width: 100% !important;
-}
 
 .abt-watermark{
     position: absolute !important;
@@ -27,32 +15,7 @@
     color: #6495ed52;
     transform: translateY(-20%) scale(1.5);
 }
-.jtron{
-    background-image:url("../../../../assets/molly.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    padding:8% 0% 8% 0% !important;
-    z-index:1 !important;
-    position: relative;
-}
 
-.back-home{
-    margin-left:50%;
-    transform:translateX(-50%);
-}
-.jtron-mask{
-    position: absolute;
-    height:100%;
-    width:100%;
-    z-index:-1;
-    background:#00000096;
-    top:0;
-}
-
-.content-for-jt{
-    z-index:3;
-}
 
 .abs{
     display:flex !important;

@@ -47,7 +47,7 @@ export class SearchMaskComponent implements OnInit {
         this.loading = false;
         if(results.length == 0)
         this.plText = 'No Results Found'
-        this.queryResults = results;
+        this.queryResults = results.splice(0,3);
       }
     });
   }

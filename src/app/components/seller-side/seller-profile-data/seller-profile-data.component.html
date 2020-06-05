@@ -7,30 +7,46 @@
     <i class="circular rupee sign icon"></i>
    Seller Payment Details
   </div>
+  <div class="ui stackable grid paymentData container">
+  <div class="seven wide center aligned column">
   <div class="image content">
-    <div class="ui image" [ngClass]="{
-      'large' : windowWidth > 500,
-      'small' : windowWidth < 500
+    <div class="ui rounded image" [ngClass]="{
+      'small' : windowWidth > 500,
+      'tiny' : windowWidth <=500
     }">
       <img src="{{sellerDashOptions.logo}}">
     </div>
-    <div class="seller-profile-data description">
+    </div>
+    </div>
+        <div class="nine wide column">
       <div class="column" *ngIf="sellerPaymentInfo.account_activated">
-      <h4 class="ui header">
-        Total Revenue Collected :  {{sellerDashOptions.revenue | currency : 'INR'}}
-      </h4>
-      <h4 class="ui header">
-        Bank A/C Number : {{sellerPaymentInfo.bank_account_number}}
-      </h4>
+      <div class="ui image olive pay label" [ngClass]="{
+        'large' : windowWidth > 500
+      }">
+        Total Revenue Collected
+        <div class="detail">{{sellerDashOptions.revenue | currency : 'INR'}}</div>
       </div>
-      <h4 class="ui header">
-        IFSC Code : {{sellerPaymentInfo.ifsc_code}}
-      </h4>
-      <div class="ui hidden divider"></div>
+      <div class="ui large image purple pay label" [ngClass]="{
+        'large' : windowWidth > 500
+      }">
+        Bank A/C Number 
+        <div class="detail">{{sellerPaymentInfo.bank_account_number}}</div>
+      </div>
+      </div>
+      <div class="ui large image yellow pay label" [ngClass]="{
+        'large' : windowWidth > 500
+      }" *ngIf="sellerPaymentInfo.ifsc_code">
+         IFSC Code 
+         <div class="detail"> 
+         {{sellerPaymentInfo.ifsc_code}}
+         </div>
+      </div>
       <div class="column" *ngIf="sellerPaymentInfo.upi_activated">
-      <h4 class="ui header">
-        UPI ID : {{sellerPaymentInfo.upi_id}}
-      </h4>
+        <div class="ui blue image large pay label" [ngClass]="{
+        'large' : windowWidth > 500
+      }">UPI ID
+        <div class="detail">{{sellerPaymentInfo.upi_id}}</div>
+        </div>
     </div>
     <div class="ui divider"></div>
     <div class="ui positive right floated button" (click)="updatePaymentInfo()">
@@ -57,13 +73,17 @@
   <div class="header">
    Edit Details
   </div>
-  <div class="image content">
-    <div class="ui image" [ngClass]="{
-      'large' : windowWidth > 500,
-      'small' : windowWidth < 500
+  <div class="ui stackable grid paymentData container">
+    <div class="ui six wide center aligned column">
+    <div class="ui rounded image" [ngClass]="{
+      'small' : windowWidth > 500,
+      'tiny' : windowWidth <=500 && windowWidth > 350,
+      'mini' : windowWidth < 350
     }">
       <img src="{{sellerDashOptions.logo}}">
     </div>
+    </div>
+    <div class="ten wide column">
     <div class="scrolling description">
       <div class="ui form" id="sellerDataForm">
         <form [formGroup]="sellerDetails">
@@ -100,7 +120,8 @@
       </div>
     </form>
     </div>
-    </div>
+  </div>
+  </div>
   </div>
   <div class="actions" id="actionId">
     <button class="ui blue right labeled icon button" (click)="updatePhone()">
@@ -118,7 +139,7 @@
   </div>
 </div>
 </div>
-<div class="ui stackable grid">
+<div class="ui stackable grid" id="gridCt">
 <div class="ui ten wide stretched column">
 <div class="ui centered grid quickoptions">
   <ng-container *ngIf="sellerDashOptions else quickOptionsPlaceholder">
@@ -198,17 +219,19 @@
 <div class="ui raised segment" [ngClass]="{
   'loading' : ! sellerDashOptions
 }">
+<div class="ui top right attached black label">
+<h3 class="ui centered header sDetails">Seller Details</h3>
+</div>
   <ng-container *ngIf="sellerDashOptions">
     <div class="row">
     <img class="ui medium rounded centered image" src="{{sellerDashOptions.logo}}">
     </div>
     <div class="ui hidden divider"></div>
     <div class="row">
-      <h3 class="ui center aligned header">
-      <a class="ui black label">
-        Seller-Id : #{{sellerDashOptions.id}}
-      </a>
-    </h3>
+    <h3 class="ui centered header">
+     <div class="ui orange image label">SELLER ID  <div class="detail">#{{sellerDashOptions.id}}</div>
+     </div>
+     </h3>
       <h4 class="ui center aligned header">
         <i class="user icon"></i> {{sellerDashOptions.first_name}} {{sellerDashOptions.last_name}}
       </h4>

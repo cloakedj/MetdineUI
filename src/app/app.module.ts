@@ -85,6 +85,11 @@ import { GetquantityPipe } from './pipes/getquantity/getquantity.pipe';
 import { SellerPaymentInfoComponent } from './components/seller-side/seller-payment-info/seller-payment-info.component';
 import { UpgradePhoneComponent } from './components/seller-side/upgrade-phone/upgrade-phone.component';
 import { AboutUsComponent } from './components/company-data/about-us/about-us.component';
+import { OurTeamComponent } from './components/company-data/our-team/our-team.component';
+import { PrivacyPolicyComponent } from './components/company-data/privacy-policy/privacy-policy.component';
+import { HeaderMaskComponent } from './components/company-data/header-mask/header-mask.component';
+import { RefundsCancelsComponent } from './components/company-data/refunds-cancels/refunds-cancels.component';
+import { TermsOfUseComponent } from './components/company-data/terms-of-use/terms-of-use.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +149,11 @@ import { AboutUsComponent } from './components/company-data/about-us/about-us.co
     SellerPaymentInfoComponent,
     UpgradePhoneComponent,
     AboutUsComponent,
+    OurTeamComponent,
+    PrivacyPolicyComponent,
+    HeaderMaskComponent,
+    RefundsCancelsComponent,
+    TermsOfUseComponent,
   ],
   imports: [
     BrowserModule,

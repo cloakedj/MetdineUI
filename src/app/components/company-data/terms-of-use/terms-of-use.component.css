@@ -1,0 +1,4 @@
+@import '../privacy-policy/privacy-policy.component.css';
+.uppercase{
+    text-transform: uppercase;
+}

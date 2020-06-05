@@ -11,7 +11,7 @@
 .sixteen.wide.column{
     padding-right: 2% !important;
 }
-.ui.stackable.grid{
+#gridCt{
     margin-top: 5%;
 }
 .nocompletedOrdersMessage{
@@ -46,6 +46,12 @@
 .ui.grid.editDetails{
     padding : 0 !important;
 }
+.paymentData{
+      padding: 2% 2% 2% 2%;
+}
+.sDetails{
+  color: #fff !important;
+}
 .scrollMap{
     overflow-y: scroll;
 }
@@ -70,6 +76,9 @@ app-geolocation{
 }
 .seller-profile-data{
   width : 50% !important;
+}
+.pay{
+  margin-bottom:2% !important;
 }
 @media (max-width:500px){
 .closeMap{
