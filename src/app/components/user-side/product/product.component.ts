@@ -5,7 +5,6 @@ import { CartComponent } from '../cart/cart.component';
 import { IncDecCartComponent } from '../inc-dec-cart/inc-dec-cart.component';
 import { CartService } from 'src/app/services/cart-service/cart.service';
 import { ApiService } from 'src/app/services/api-service/api.service';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { Observable } from 'rxjs';
 import { SearchService } from 'src/app/services/search-filter/search.service';
 
@@ -29,7 +28,6 @@ export class ProductComponent implements OnInit{
   private incdeccart: IncDecCartComponent,
   public cart: CartService,
   private api : ApiService,
-  private gc : GetCategoryService,
   private _search : SearchService,
   private aroute : ActivatedRoute
   )

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { KeepFilesService } from 'src/app/services/upload-files/keep-files.service';
 
@@ -21,27 +20,28 @@ export class EditItemComponent implements OnInit {
   updatedFormData = new FormData();
   editDetails = false;
   itemIsVeg : boolean;
-  categories = [
-    {name:'Indian'},
-    {name:'Western'},
-    {name:'Asian'},
-    {name:'Mediterranian'},
-  ]
-  prepTimeList = [
-    {value:'30 minutes'},
-    {value:'60 minutes'},
-    {value:'90 minutes'},
-    {value: '120 minutes'},
-  ];
+  completed = false;
   imageUpdated = false;
   patchItemObs$ : Observer<any> = {
     next : data => this.toastr.success("Item Status Changed Successfully"),
     error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     complete : () => this.getProductDetails()
   }
+  categories = [
+    {name:'Indian',time:'30 minutes'},
+    {name:'Western',time:'60 minutes'},
+    {name:'Asian',time:'90 minutes'},
+    {name:'Mediterranian',time:'120 minutes'},
+  ];
+  prepTimeList = [
+    { key: 1, value: 'Cooking' },
+    { key: 2, value: 'Ready' },
+    { key: 3, value: 'On The Way' },
+    { key: 4, value: 'Completed' },
+    {key : 6, value : 'Rejected'}
+  ];
   constructor(private aroute :ActivatedRoute,
     private api : ApiService,
-    private gc : GetCategoryService,
     private _fb : FormBuilder,
     private keepFiles : KeepFilesService,
     private router : Router,
@@ -54,8 +54,8 @@ export class EditItemComponent implements OnInit {
      getProductDetails(){
       this.product$ = {
         next : data => this.productDetails = data,
-        error : err => console.log(err),
-        complete : () => console.log("Got product Details")
+        error : err => this.toastr.error(err),
+        complete : () => this.completed = true,
       }
       this.api.getMealItemDetail(this.productId).subscribe(this.product$);
      }

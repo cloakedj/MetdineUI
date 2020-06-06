@@ -1,0 +1,35 @@
+@import "https://fonts.googleapis.com/css2?family=Barrio&display=swap";
+.coming-soon-text{
+    color: teal;
+    font-size: 9rem;
+    text-shadow: 3px 0px #fff;
+    font-family: 'Barrio', cursive;
+    animation: changeColour 2s ease-in;
+    animation-iteration-count: infinite;
+    animation-direction : alternate;
+}
+.coming-soon{
+    height:100vh;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background: #06beb6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+button{
+    position:fixed;
+    bottom:3%;
+    right:2%;
+    font-size:1.7rem !important;
+}
+@keyframes changeColour{
+    from{
+        filter: hue-rotate(0deg);
+    }
+    to{
+        filter: hue-rotate(360deg);
+    }
+}

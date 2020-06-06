@@ -4,7 +4,6 @@ import { SearchService } from 'src/app/services/search-filter/search.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +21,6 @@ export class SearchMaskComponent implements OnInit {
   @Output() hideSearchMask = new EventEmitter<boolean>();
   constructor(
     private _search : SearchService,
-    private gc : GetCategoryService,
     private router : Router
   ) { }
 

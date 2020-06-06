@@ -3,7 +3,7 @@ import { ProductService } from '../product-service/product.service';
 import { ApiService } from '../api-service/api.service';
 import { Subscription, Observer } from 'rxjs';
 import { CartItem } from 'src/app/entities/cart-item.entity';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,13 @@ export class CartService implements OnDestroy, OnInit{
   @Input() total: number = 0;
   existingOrder : CartItem[];
   orderDetailsId : number;
-  existingTotal
+  completed = false;
   @Input() orderId : number;
   userCartdetails$ : Observer<any>;
   itemExistsQuantity : number;
   constructor(private productService: ProductService,
     private api: ApiService,
+    private toastr : ToastrService
   ){
   }
 
@@ -40,8 +41,8 @@ loadCart(): void {
       localStorage.setItem("seller__id",`${data.seller_id}`);
       }
     },
-    error : (err) => console.log(err),
-    complete : () => console.log("Request to cart fetch completed")
+    error : (err) => this.toastr.error(err),
+    complete : () => this.completed = true,
   }
   this.api.getUserCartDetails().subscribe(this.userCartdetails$);
 
@@ -55,16 +56,11 @@ updateCart(id: number,operation?: string): void{
     {
     this.api.additemtoCart(id,parseInt(localStorage.getItem("seller__id")))
     .subscribe(
-      data =>
-      {
-        console.log(data);
-        console.log("New item Added To cart")
-      },
-      err => console.log(err),
+      data => data,
+      err => this.toastr.error(err),
       () =>
       {
         this.loadCart();
-        console.log("Request to add order Completed");
       }
     )
     }
@@ -87,11 +83,10 @@ updateCart(id: number,operation?: string): void{
     {
     this.api.additemtoCart(id,this.productService.sellerId)
     .subscribe(
-      data => console.log("New item Added To cart"),
-      err => console.log(err),
+      data => data,
+      err => this.toastr.error(err),
       () => {
         this.loadCart();
-        console.log("Request to add order Completed");
       }
     )
   }
@@ -104,14 +99,13 @@ updateCart(id: number,operation?: string): void{
         if(clearToAddNewSeller) this.updateCart(clearToAddNewSeller);
         localStorage.removeItem("cartSize");
       },
-      err => console.log(err),
+      err => this.toastr.error(err),
       () => {
         if(!clearToAddNewSeller)
         localStorage.removeItem("seller__id");
         else
         localStorage.setItem("seller__id",id.toString());
         this.loadCart();
-        console.log("Completed request to delete current cart");
       }
     )
   }
@@ -122,12 +116,11 @@ updateCart(id: number,operation?: string): void{
     else  this.itemExistsQuantity -=1;
     this.api.updateOrderItemQuantity(id,this.itemExistsQuantity)
     .subscribe(
-      (data) => console.log("Cart item Quantity updated"),
-      (err) => console.log(err),
+      (data) => data,
+      (err) => this.toastr.error(err),
       () =>
       {
         this.loadCart();
-        console.log("request to update quantity completed")
       }
     );
   }
@@ -140,12 +133,11 @@ updateCart(id: number,operation?: string): void{
     {
     this.api.deleteOrderItemById(id)
     .subscribe(
-      elem => console.log("Deleted Item from Cart"),
-      err => console.log(err),
+      elem => elem,
+      err => this.toastr.error(err),
       () =>
       {
         this.loadCart();
-        console.log("request to delete Item Completed Successfully");
       }
     )
     }

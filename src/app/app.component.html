@@ -1,10 +1,4 @@
 <router-outlet></router-outlet>
-<!-- <div class="ui warning message" *ngIf="offline" id="offlineMessage">
-  <div class="ui header">
-    <i class="exclamation circle icon"></i>
-    Looks Like You Are Offline.
-  </div>
-</div> -->
 <ngx-ui-loader
   [fgsColor]="loader.config.fgsColor"
   [fgsPosition]="loader.config.fgsPosition"
@@ -27,3 +21,7 @@
   [text]="loader.config.text"
   [textColor]="loader.config.textColor"
   [textPosition]="loader.config.textPosition"></ngx-ui-loader>
+<button *ngIf="showBackToTopBtnVar" (click)="moveToTop()"
+class="ui circular icon negative button bttop"  data-inverted="" data-tooltip-position="top right" data-tooltip="Back To Top">
+<i class="ui arrow up icon"></i>
+</button>

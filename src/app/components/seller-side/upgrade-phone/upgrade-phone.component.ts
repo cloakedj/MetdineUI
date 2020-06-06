@@ -13,6 +13,7 @@ export class UpgradePhoneComponent implements OnInit {
   userDetailsObs$ : Observer<any>;
   loading : boolean = false;
   pNumber : any;
+  completed = false;
   constructor(
     private router : Router,
     private toastr : ToastrService,
@@ -21,7 +22,7 @@ export class UpgradePhoneComponent implements OnInit {
     this.userDetailsObs$ = {
       next : (data) => this.pNumber = data["phone"],
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete : () => console.log("Completed request to user profile")
+      complete : () => this.completed = true,
     }
     this.api.getUserProfileInfo().subscribe(this.userDetailsObs$);
   }

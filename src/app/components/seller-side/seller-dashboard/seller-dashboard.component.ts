@@ -5,6 +5,7 @@ import { Subscription, Observer } from 'rxjs';
 import { SellerDash } from 'src/app/entities/seller-dash.entity';
 import { Router } from '@angular/router';
 import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -24,6 +25,7 @@ export class SellerDashboardComponent implements OnInit {
   sellerAcceptedOrdersForDashboard$: Observer<any>;
   screenSize = window.screen.width;
   distanceIsMoreThanFiveKm : boolean = false;
+  completed = false;
   popupWaitOrderId : any;
   orderStatusFilter = [
     { key: 1, value: 'Cooking' },
@@ -34,7 +36,8 @@ export class SellerDashboardComponent implements OnInit {
   completedStep = false;
   constructor(private api: ApiService,
     private router: Router,
-    private seller : SellerDashboardService) {
+    private seller : SellerDashboardService,
+    private toastr : ToastrService) {
   }
   ngOnInit() {
     this.sellerData$ = {
@@ -42,18 +45,18 @@ export class SellerDashboardComponent implements OnInit {
         this.sellerDashOptions = data;
         this.seller.setSellerId(data["id"]);
       },
-      error: (err) => console.log(err),
-      complete: () => console.log("Request completed")
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     };
     this.sellerCompletedOrdersForDashboard$ = {
       next: (data) => this.sellerCompletedOrders = data.splice(data.length - 4,data.length),
-      error: (err) => console.log(err),
-      complete: () => console.log("Request for seller orders completed")
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.sellerRequestedOrdersForDashboard$ = {
       next: (data) => { this.sellerRequestedOrders = data; },
-      error: (err) => console.log(err),
-      complete: () => console.log("Request for requested orders completed")
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.sellerAcceptedOrdersForDashboard$ = {
       next: (data) =>
@@ -61,8 +64,8 @@ export class SellerDashboardComponent implements OnInit {
         this.totalActiveOrders = data.length;
         this.sellerActiveOrders = data.splice(0,1);
       },
-      error: (err) => console.log(err),
-      complete: () => console.log("Request for active orders completed")
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.sellerDashboardRequestedOrders();
     this.sellerDashboardActiveOrders();
@@ -71,18 +74,15 @@ export class SellerDashboardComponent implements OnInit {
     this.sellerItemsForDashboard$ = this.api.getSellerDashboardMeals()
       .subscribe(
         (data) => {
-          console.log(data);
           data;
         },
-        (error) => console.log(error),
-        () => console.log("Fetch Meals Completed")
+        (error) => this.toastr.error(error),
       )
-    this.api.getSellerDashboardMealById()
-      .subscribe(
-        (data) => console.log(data),
-        (err) => console.log(err),
-        () => console.log("Fetched Single Meal data Request Completed")
-      )
+    // this.api.getSellerDashboardMealById()
+    //   .subscribe(
+    //     (data) => data,
+    //     (err) => this.toastr.error(err)
+    //   )
   }
   sellerDashboardRequestedOrders() {
     this.api.getSellerDashboardOrders(true, false, 5).subscribe(this.sellerRequestedOrdersForDashboard$);
@@ -98,8 +98,8 @@ export class SellerDashboardComponent implements OnInit {
   }
   sellerDashboardorderAction(orderId, status) {
     this.api.modifyRequestedOrderStatusById(orderId, status).subscribe(
-      (data) => console.log(data),
-      (err) => console.log(err),
+      (data) => data,
+      (err) => this.toastr.error(err),
       () => {
         if (status === 1) {
           this.popupWaitOrderId = 0;
@@ -113,18 +113,17 @@ export class SellerDashboardComponent implements OnInit {
           this.sellerQuickdataForDashboard();
         }
         else this.sellerDashboardActiveOrders();
-        console.log("Order Status Modified");
+
       }
     );
   }
   updateRequestedOrderStatus(orderId: number, status: number,distance ?: any) {
     if (status === 6) {
       this.api.rejectRequestedOrderStatusById(orderId,6).subscribe(
-        (data) => console.log(data),
-        (err) => console.log(err),
+        (data) => data,
+        (err) => this.toastr.error(err),
         () => {
           this.sellerDashboardRequestedOrders();
-          console.log("Order Status Modified");
         }
       );
     }

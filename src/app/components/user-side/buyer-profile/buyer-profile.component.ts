@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { fader } from 'src/app/animations/route-animation';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
 import { Router } from '@angular/router';
@@ -11,14 +10,12 @@ import { AuthService } from 'src/app/services/auth-service/auth-service.service'
   selector: 'app-buyer-profile',
   templateUrl: './buyer-profile.component.html',
   styleUrls: ['./buyer-profile.component.css'],
-  animations: [
-    fader,
-  ]
 })
 export class BuyerProfileComponent implements OnInit {
   userDetailsObs$ : Observer<any>;
   userProfileData : any;
   numberVerified : any;
+  completed = false;
   constructor(private api : ApiService,
     private router : Router,
     private toastr : ToastrService,
@@ -26,7 +23,7 @@ export class BuyerProfileComponent implements OnInit {
     this.userDetailsObs$ = {
       next : (data) => this.userProfileData = data,
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete : () => console.log("Completed request to user profile")
+      complete : () => this.completed = true,
     }
     this.api.getUserProfileInfo().subscribe(this.userDetailsObs$);
    }
@@ -36,7 +33,7 @@ export class BuyerProfileComponent implements OnInit {
   checkPhoneStatus(){
     this.api.checkPhoneNumberVerStatus().subscribe(
       data =>this.numberVerified = data,
-      err => console.log(err)
+      err => this.toastr.error(err)
     )
   }
   verifyPhone(){

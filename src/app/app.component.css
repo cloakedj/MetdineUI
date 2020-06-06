@@ -3,21 +3,22 @@
   top:80%;
   margin: auto;
 }
-@media(min-width: 1000px){
-  #offlineMessage{
-    top:10%;
-    left:50%;
-    transform: translateX(-50%);
-    margin : 0;
-  }
+.bttop{
+    position:fixed;
+    z-index: 3 !important;
+    bottom:4%;
+    right:2%;
+    font-size:1.7rem !important;
+    animation : fadeIn 0.2s ease-in;
+    animation-fill-mode: forwards;
 }
-@media(max-width: 780px){
-  #offlineMessage{
-    min-width: 100%;
-  }
-}
-@media(max-width: 3600px){
-  #offlineMessage{
-    top:75%;
-  }
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        bottom: -1%;
+    }
+    to{
+        opacity: 1;
+        bottom:4%;
+    }
 }

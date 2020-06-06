@@ -1,6 +1,6 @@
-<app-header-mask></app-header-mask>
+<app-header-mask *ngIf="!noShow"></app-header-mask>
 <div class="ui twelve wide column grid container">
-<div class="ui attached segment">
+<div class="ui attached segment" [ngClass]="{'moveUp' : !noShow}">
 <h1 class="ui centered header">
 Privacy Policy
 </h1>
@@ -88,7 +88,7 @@ may be retained by us indefinitely, even after you terminate your account.
 We may continue to disclose such content to third parties, as described in 
 this Privacy Policy.
 </p>
-<h4 class="ui header">Informaion Collected Automatically:</h4>
+<h4 class="ui header">Information Collected Automatically:</h4>
 <p>
 We automatically receive and record information from your device or 
 web browser when you interact with the Services. This information 
@@ -310,4 +310,4 @@ detailed message to <a href="mailto:ops@metdine.com">ops@metdine.com</a>.
 </p>
 </div>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="!noShow"></app-footer>

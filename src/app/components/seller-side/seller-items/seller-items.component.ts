@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Observer } from 'rxjs';
 import { SellerDashboardService } from 'src/app/services/seller-dashboard-service/seller-dashboard.service';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,6 +20,7 @@ export class SellerItemsComponent implements OnInit {
   itemsObs$ : Observer<any[]>;
   removeItemsMode = false;
   menuItems : any[];
+  completed = false;
   patchItemObs$ : Observer<any> = {
     next : data => this.toastr.success("Item Status Changed Successfully"),
     error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
@@ -28,7 +28,6 @@ export class SellerItemsComponent implements OnInit {
   }
   constructor(private api : ApiService,
     private router : Router,
-    private gc : GetCategoryService,
     private seller : SellerDashboardService,
     private toastr : ToastrService) {
       this.getMenuItems();
@@ -41,8 +40,8 @@ export class SellerItemsComponent implements OnInit {
         else
         this.menuItems = data;
       },
-      error : err => console.log(err),
-      complete : () => console.log("Fetched Seller meals for dashboard")
+      error : err => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.api.requestSellerDetails(localStorage.getItem("seller__id")).subscribe(this.itemsObs$);
   }
@@ -68,7 +67,7 @@ export class SellerItemsComponent implements OnInit {
         this.toastr.success("Menu Item Deleted Successfully!");
         this.getMenuItems();
       },
-      err => this.toastr.error("Something Went Wrong. Try Again Later!")
+      err => this.toastr.error("Something Went Wrong. Try Again Later!"),
     )
   }
   makeItemUnavailable(id : any){

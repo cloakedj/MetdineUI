@@ -1,3 +1,12 @@
+<div class="ui basic modal" *ngIf="showPrivacyPolicyModal || showTermsOfUseModal">
+<button class="ui circular icon negative right floated closing button" (click)="hideModal()">
+  <i class="ui close icon"></i>
+</button>
+<div class="scrolling content">
+  <app-privacy-policy noShow="true" *ngIf="showPrivacyPolicyModal"></app-privacy-policy>
+  <app-terms-of-use noShow="true" *ngIf="showTermsOfUseModal"></app-terms-of-use>
+</div>
+</div>
 <app-header></app-header>
 <div class="ui two column centered grid container">
     <div class="sixteen wide mobile ten wide computer column">
@@ -43,7 +52,7 @@
                     </div>
                     <div class="field">
                       <div class="ui fluid icon input">
-                        <div class="ui active inline loader addressWait" *ngIf="!address.pristine && formatted_address == undefined "></div>
+                        <div class="ui active inline loader addressWait" *ngIf="address.dirty && formatted_address == undefined "></div>
                         <input type="text" placeholder="Address" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
                         <i class="search icon"></i>
                       </div>
@@ -51,9 +60,23 @@
                             Address Is Required
                      </div>
                     </div>
+                    <div class="ui divider"></div>
+                      <div class="field">
+                        <div class="ui grid agreement">
+                        <div class="one wide column">
+                          <mat-checkbox tabindex="0" (change)="switchCheckBox()">
+                           </mat-checkbox>
+                        </div>
+                        <div class="fourteen wide column">
+                          <label class="termsAgree">
+                          I Agree To The <a (click)="showTermsOfUseModal = true;">Terms Of Use</a> And The <a (click)="showPrivacyPolicyModal=true">Privacy Policy</a>.
+                          </label>
+                          </div>
+                        </div>
+                        </div>
                         <div class="field">
                           <div class="two ui buttons">
-                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address== undefined" type="Submit" value="Sign Up">
+                            <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address== undefined || checkedPolicyBox === false" type="Submit" value="Sign Up">
                             <button class="ui negative button" [disabled]="becomeSellerForm.pristine" (click)="becomeSellerForm.reset();">Reset</button>
                           </div>
                         </div>

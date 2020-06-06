@@ -1,4 +1,3 @@
-import { GetCategoryService } from './../../../services/get-category/get-category.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, HostListener, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CartService } from '../../../services/cart-service/cart.service';
@@ -41,16 +40,9 @@ export class HeaderComponent implements OnInit {
     public product : ProductService,
     private toastr : ToastrService,
     public  currlc : CurrLocationService,
-    private gc : GetCategoryService,
     public orderStatus : OrderStatusService) {
       this.hasActiveOrder();
      }
-     orderStatusFilter = [
-      { key: 1, value: 'Cooking' },
-      { key: 2, value: 'Ready' },
-      { key: 3, value: 'On The Way' },
-      { key: 4, value: 'Completed' }
-    ];
   ngOnInit() {
     this.ensureuser();
         if(this.userLoggedIn) {
@@ -59,8 +51,6 @@ export class HeaderComponent implements OnInit {
               this.username = data["username"];
               if(!this.product.address) this.product.GetLocation();
             },
-            err => this.toastr.error("Something Went Wrong. Try Again Later!"),
-            () => console.log("completed")
           );
       this.cart.loadCart();
         }
@@ -83,7 +73,7 @@ export class HeaderComponent implements OnInit {
         this.orderStatus.getOrderStatus(this.activeOrderId);
         this.activeOrderData = data;
       },
-      err => console.log(err)
+      err => this.toastr.error(err)
     )
   }
   getlengthIfLoggedIn(){
@@ -96,7 +86,7 @@ export class HeaderComponent implements OnInit {
     this.api.logOutUser()
     .subscribe(
       data => this.toastr.success("Logged Out Succesfully"),
-      err => console.log(err),
+      err => this.toastr.error(err),
       () =>
       {
         localStorage.clear();
@@ -106,13 +96,6 @@ export class HeaderComponent implements OnInit {
     }
     turnSearchOff(event){
       this.searchOn = event;
-    }
-    getOrderStatus(id: number): any {
-      let status;
-      this.orderStatusFilter.forEach((kvp) => {
-        if (id == kvp.key) status = kvp.value;
-      });
-      return status;
     }
 
 }

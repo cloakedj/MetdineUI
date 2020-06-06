@@ -20,14 +20,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { TrendingSellersComponent } from './components/user-side/trending-sellers/trending-sellers.component';
 import { SellerPageComponent } from './components/user-side/seller-page/seller-page.component';
-import { FilterSidebarComponent } from './components/user-side/filter-sidebar/filter-sidebar.component';
 import { FooterComponent } from './components/user-side/footer/footer.component';
 import { PagenotfoundComponent } from './components/user-side/pagenotfound/pagenotfound.component';
-import { HomepageComponent } from './components/user-side/homepage/homepage.component';
 import { BuyerProfileComponent } from './components/user-side/buyer-profile/buyer-profile.component';
-import { UserProfileComponent } from './components/user-side/buyer-profile/user-profile/user-profile.component';
 import { ProductComponent } from './components/user-side/product/product.component';
 import { CartComponent } from './components/user-side/cart/cart.component';
 import { IncDecCartComponent } from './components/user-side/inc-dec-cart/inc-dec-cart.component';
@@ -36,28 +32,23 @@ import { SignupComponent } from './components/user-side/signup/signup.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { UserGatewayComponent } from './components/user-side/user-gateway/user-gateway.component';
-import { FavouriteOrdersComponent } from './components/user-side/buyer-profile/favourite-orders/favourite-orders.component';
 import { BuyerComponent } from './components/user-side/buyer/buyer.component';
-import { SellerProfileComponent } from './components/seller-side/seller-profile/seller-profile.component';
-import { ProfileOptionsComponent } from './components/seller-side/seller-profile/profile-options/profile-options.component';
 import { MenuItemComponent } from './components/seller-side/menu-item/menu-item.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeolocationComponent } from './components/geolocation/geolocation.component';
 import { MetdineInterceptor } from './services/api-service/auth.interceptor';
 import { AuthService } from 'src/app/services/auth-service/auth-service.service';
-import { SellerPaymentMenuComponent } from './components/seller-side/seller-payment-menu/seller-payment-menu.component';
 import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 import { FileUploadComponent } from './components/user-side/file-upload/file-upload.component';
 import { FileUploadDirective } from './Directives/file-upload.directive';
 import { ContentLengthPipe } from './pipes/content-length.pipe';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TrendingSellerSidebarComponent } from './components/user-side/trending-seller-sidebar/trending-seller-sidebar.component'
 import { AgmCoreModule } from '@agm/core';
-import { AddressAutocompleteDirective } from './Directives/address-autocomplete.directive';
 import { SellerSidebarComponent } from './components/seller-side/seller-sidebar/seller-sidebar.component';
 import { CompletedOrdersComponent } from './components/seller-side/completed-orders/completed-orders.component';
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
@@ -74,7 +65,6 @@ import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule} from 
 import { ToastrModule } from 'ngx-toastr';
 import { LoginWithPhoneComponent } from './components/user-side/login-with-phone/login-with-phone.component';
 import { VerifyPhoneComponent } from './components/user-side/verify-phone/verify-phone.component';
-import { DisableInputDirective } from './Directives/disable-input.directive';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { PaymentWaitingScreenComponent } from './components/user-side/payment-waiting-screen/payment-waiting-screen.component';
 import { ConfirmUserEmailComponent } from './components/user-side/confirm-user-email/confirm-user-email.component';
@@ -90,40 +80,33 @@ import { PrivacyPolicyComponent } from './components/company-data/privacy-policy
 import { HeaderMaskComponent } from './components/company-data/header-mask/header-mask.component';
 import { RefundsCancelsComponent } from './components/company-data/refunds-cancels/refunds-cancels.component';
 import { TermsOfUseComponent } from './components/company-data/terms-of-use/terms-of-use.component';
+import { ArticlesComponent } from './components/user-side/under-work/articles/articles.component';
+import { VideosComponent } from './components/user-side/under-work/videos/videos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     BodycardsComponent,
-    TrendingSellersComponent,
     SellerPageComponent,
-    FilterSidebarComponent,
     FooterComponent,
-    PagenotfoundComponent,
-    HomepageComponent,
     BuyerProfileComponent,
-    UserProfileComponent,
     ProductComponent,
     CartComponent,
     IncDecCartComponent,
+    PagenotfoundComponent,
     LoginComponent,
     SignupComponent,
     UserGatewayComponent,
-    FavouriteOrdersComponent,
     BuyerComponent,
-    SellerProfileComponent,
-    ProfileOptionsComponent,
     MenuItemComponent,
     SellerDashboardComponent,
     GeolocationComponent,
-    SellerPaymentMenuComponent,
     BecomeSellerFormComponent,
     FileUploadComponent,
     FileUploadDirective,
     ContentLengthPipe,
     TrendingSellerSidebarComponent,
-    AddressAutocompleteDirective,
     SellerSidebarComponent,
     CompletedOrdersComponent,
     SellerSideComponent,
@@ -138,7 +121,6 @@ import { TermsOfUseComponent } from './components/company-data/terms-of-use/term
     SearchMaskComponent,
     LoginWithPhoneComponent,
     VerifyPhoneComponent,
-    DisableInputDirective,
     ConfirmEmailComponent,
     PaymentWaitingScreenComponent,
     ConfirmUserEmailComponent,
@@ -154,6 +136,8 @@ import { TermsOfUseComponent } from './components/company-data/terms-of-use/term
     HeaderMaskComponent,
     RefundsCancelsComponent,
     TermsOfUseComponent,
+    ArticlesComponent,
+    VideosComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,6 +161,7 @@ import { TermsOfUseComponent } from './components/company-data/terms-of-use/term
     MatRadioModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatCheckboxModule,
     MatCheckboxModule,
     NgxUiLoaderModule,
     NgxUiLoaderRouterModule,

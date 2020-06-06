@@ -4,7 +4,6 @@ import { Seller } from '../../../entities/seller.entity';
 import { Observable, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { ProductService } from 'src/app/services/product-service/product.service';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { ToastrService } from 'ngx-toastr';
 import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
 
@@ -24,7 +23,6 @@ export class BodycardsComponent implements OnInit {
   isSeller  = localStorage.getItem("is_seller") ? localStorage.getItem("is_seller") : "true";
   constructor(private api:ApiService,
     public product : ProductService,
-    private gc : GetCategoryService,
     private router : Router,
     private toastr : ToastrService,
     private currlc : CurrLocationService
@@ -60,7 +58,7 @@ export class BodycardsComponent implements OnInit {
         this.sellersArr = data;
         this.clearTime();
       } ,
-      err => this.toastr.error("Something Went Wrong. Try Again Later!"),
+      err => this.toastr.error("Something Went Wrong. Retrying!"),
     )
     }
     this.tryCount++;

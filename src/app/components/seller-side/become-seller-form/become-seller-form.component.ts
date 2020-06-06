@@ -8,6 +8,7 @@ import { Observer } from 'rxjs';
 import { MapsAPILoader } from '@agm/core';
 import PlaceResult = google.maps.places.PlaceResult;
 import { ToastrService } from 'ngx-toastr';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-become-seller-form',
@@ -16,6 +17,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class BecomeSellerFormComponent implements OnInit {
   becomeSellerData : Seller;
+  showPrivacyPolicyModal: boolean = false;
+  showTermsOfUseModal: boolean = false;
+  checkedPolicyBox = false;
   Obs$ : Observer<any>;
   File : File;
   latitude : any;
@@ -94,7 +98,7 @@ export class BecomeSellerFormComponent implements OnInit {
         this.becomeSellerForm.reset();
       }
         ,
-      error : err => console.log(err),
+      error : err => this.toastr.error(err),
       complete : () => {
         localStorage.setItem("is_seller","true");
         this.router.navigateByUrl('/seller-side/(sellerRouterOutlet:seller-dashboard)')
@@ -122,7 +126,13 @@ export class BecomeSellerFormComponent implements OnInit {
 
     });
   }
-
+    switchCheckBox(){
+    this.checkedPolicyBox = !this.checkedPolicyBox;
+  }
+  hideModal(){
+    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false 
+    : this.showTermsOfUseModal = false;
+  }
 
   get first_name(){ return this.becomeSellerForm.get('first_name');}
   get last_name(){ return this.becomeSellerForm.get('last_name');}

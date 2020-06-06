@@ -6,7 +6,6 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Seller } from 'src/app/entities/seller.entity';
 import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart-service/cart.service';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { SellerItem } from 'src/app/entities/seller-item.entity';
 import { FormControl } from '@angular/forms';
 import { CurrLocationService } from 'src/app/services/curr-location/curr-location.service';
@@ -44,11 +43,9 @@ export class SellerPageComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
   }
   filterByVegItems(){
-    console.log(this.backUpProducts);
     if(!this.backUpProducts)
     {
     this.backUpProducts = this.product.productsArr;
-    console.log(this.backUpProducts);
     this.product.productsArr = this.product.productsArr.filter(elem => elem.is_veg);
     }
     else {

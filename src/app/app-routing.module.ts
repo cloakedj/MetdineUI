@@ -5,13 +5,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PagenotfoundComponent } from './components/user-side/pagenotfound/pagenotfound.component';
 import { SellerPageComponent } from './components/user-side/seller-page/seller-page.component';
-import { HomepageComponent } from './components/user-side/homepage/homepage.component';
-import { BuyerProfileComponent } from './components/user-side/buyer-profile/buyer-profile.component';import { CartComponent } from './components/user-side/cart/cart.component';
+import { BuyerProfileComponent } from './components/user-side/buyer-profile/buyer-profile.component';
+import { CartComponent } from './components/user-side/cart/cart.component';
 import { LoginComponent } from './components/user-side/login/login.component';
 import { SignupComponent } from './components/user-side/signup/signup.component';
-import { UserGatewayComponent } from './components/user-side/user-gateway/user-gateway.component';import { MenuItemComponent } from './components/seller-side/menu-item/menu-item.component';
+import { UserGatewayComponent } from './components/user-side/user-gateway/user-gateway.component';
+import { MenuItemComponent } from './components/seller-side/menu-item/menu-item.component';
 import { SellerDashboardComponent } from './components/seller-side/seller-dashboard/seller-dashboard.component';
-import { GeolocationComponent } from './components/geolocation/geolocation.component';import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
+import { GeolocationComponent } from './components/geolocation/geolocation.component';
+import { BecomeSellerFormComponent } from './components/seller-side/become-seller-form/become-seller-form.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AuthGuardIsSellerService } from './services/auth-guard/auth-guard-is-seller.service';
 import { SellerSideComponent } from './components/seller-side/seller-side/seller-side.component';
@@ -33,11 +35,14 @@ import { PrivacyPolicyComponent } from './components/company-data/privacy-policy
 import { OurTeamComponent } from './components/company-data/our-team/our-team.component';
 import { RefundsCancelsComponent } from './components/company-data/refunds-cancels/refunds-cancels.component';
 import { TermsOfUseComponent } from './components/company-data/terms-of-use/terms-of-use.component';
+import { ArticlesComponent } from './components/user-side/under-work/articles/articles.component';
+import { VideosComponent } from './components/user-side/under-work/videos/videos.component';
+import { BodycardsComponent } from './components/user-side/bodycards/bodycards.component';
 
 const routes: Routes =[
   {path : 'user', component: BuyerComponent,canActivate :[AuthGuardService],children: [
   { path: 'seller-page/:id', component: SellerPageComponent, outlet:'userRouterOutlet' },
-  { path: 'home', component: HomepageComponent,outlet:'userRouterOutlet'},
+  { path: 'home', component: BodycardsComponent,outlet:'userRouterOutlet'},
   { path: 'cart', component: CartComponent, outlet : 'userRouterOutlet'},
   { path: 'active-order/:id',component: ActiveOrderComponent, outlet:'userRouterOutlet'},
   { path: 'profile', component : BuyerProfileComponent, outlet : 'userRouterOutlet'},
@@ -73,6 +78,8 @@ const routes: Routes =[
   { path : 'privacy-policy', component : PrivacyPolicyComponent},
   { path : 'refunds-policy', component : RefundsCancelsComponent},
   { path : 'terms-of-use', component : TermsOfUseComponent},
+  { path : 'articles', component : ArticlesComponent},
+  { path : 'videos', component : VideosComponent},
   { path: '', redirectTo: '/user/(userRouterOutlet:home)',pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
 ]

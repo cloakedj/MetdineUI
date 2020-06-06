@@ -154,7 +154,6 @@ export class GeolocationComponent implements OnInit{
   getAddress(latitude, longitude) {
     this.currlc.setLatLong(this.latitude,this.longitude);
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log("getAddress");
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
@@ -195,7 +194,6 @@ export class GeolocationComponent implements OnInit{
         () =>{
           this.loading = false;
           location.href = redirecturl
-          console.log("Completed Checkout");
         }
       )
     }

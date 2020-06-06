@@ -7,21 +7,15 @@ import { LoaderService } from './services/loader/loader.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  // constructor(private _snackBar : MatSnackBar,
-  //   public auth : MetdineInterceptor){}
-  // showErrorSnackbar(){
-  //   this._snackBar.open(this.auth.errorMessage);
-  //   this.auth.errorMessage = '';
-  // }
-  // offline = true;
-  // @HostListener('document : offline',['$event'])
-  // showOfflineMessage(){
-  //   this.offline = true;
-  // }
-  // @HostListener('document : online',['$event'])
-  // hideOfflineMessage(){
-  //   this.offline = false;
-  // }
+  showBackToTopBtnVar = false;
+  @HostListener('window:scroll',[])
+  showBackToTopBtn(){
+    let scrollVal = window.pageYOffset || document.documentElement.scrollTop;
+    this.showBackToTopBtnVar = scrollVal > 100 ? true : false;
+  }
+  moveToTop(){
+    document.documentElement.scrollTop = 0;
+  }
   constructor(public loader : LoaderService){
   }
 }

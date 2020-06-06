@@ -8,3 +8,45 @@
   left: 90% !important;
   top: 10% !important;
 }
+.termsAgree{
+  font-weight: bold;
+}
+.agreement a{
+  text-decoration: underline;
+  cursor : pointer;
+}
+.agreement .fourteen{
+  padding: 3% 0 0 0% !important;
+}
+.agreement .one{
+  padding: 3% !important;
+}
+.ui.basic.modal{
+    display: block !important;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    top:0;
+    left:0;
+    background-color: rgb(0,0,0,0.85);
+    position: fixed;
+}
+.modal p{
+  color: black !important;
+}
+.closing{
+    margin-right: 1% !important;
+    margin-top: 1%;
+
+}
+.scrolling.content{
+  max-height: calc(85vh) !important;
+}
+@media only screen and (max-width: 500px){
+  .agreement .fourteen{
+  padding: 3% 0 0 5% !important;
+  }
+  .agreement{
+    margin-bottom:3%;
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-previous-orders',
@@ -10,11 +11,13 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 export class PreviousOrdersComponent implements OnInit {
   sellerPreviousOrders$ : Observer<any>;
   sellerPreviousOrders : any;
-  constructor(private api : ApiService) {
+  completed = false;
+  constructor(private api : ApiService,
+  private toastr : ToastrService) {
     this.sellerPreviousOrders$ = {
       next: data => this.sellerPreviousOrders = data,
-      error : err => console.log(err),
-      complete : () => console.log("fetched previous orders")
+      error : err => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.api.getBuyerPreviousOrders().subscribe(this.sellerPreviousOrders$);
    }

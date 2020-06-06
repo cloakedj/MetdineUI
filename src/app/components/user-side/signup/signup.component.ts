@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UsernameEmailCheckService } from 'src/app/services/username-email-check/username-email-check.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-signup',
@@ -12,12 +13,15 @@ import { UsernameEmailCheckService } from 'src/app/services/username-email-check
 })
 export class SignupComponent implements OnInit, OnDestroy {
   showUnmatchMessage : boolean = false;
+  showPrivacyPolicyModal: boolean = false;
+  showTermsOfUseModal: boolean = false;
   loadingUsername = false;
   loadingEmail = false;
   showUsernameAvailable = false;
   showEmailAvailable = false;
   searchingEmail = false;
   searchingUsername = false;
+  checkedPolicyBox = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -97,7 +101,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(`/confirm-email`);
        },
       (err) => {
-        console.log(err);
         if(err["email"])
         this.toastr.error(err["email"])
         else
@@ -106,6 +109,13 @@ export class SignupComponent implements OnInit, OnDestroy {
       },
     );
     }
+  }
+  switchCheckBox(){
+    this.checkedPolicyBox = !this.checkedPolicyBox;
+  }
+  hideModal(){
+    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false 
+    : this.showTermsOfUseModal = false;
   }
   ngOnDestroy(){
   }

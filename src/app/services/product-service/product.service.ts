@@ -71,8 +71,7 @@ export class ProductService implements OnInit{
     this.products$ =   this.api.requestSellerDetails(id);
     this.products$.subscribe(
       data => this.productsArr = data,
-      err => console.log(err),
-      () => console.log("Products Fetched To Cart")
+      err => this.toastr.error(err),
     )
   }
   errorCodes(error){

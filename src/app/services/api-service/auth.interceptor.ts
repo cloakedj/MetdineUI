@@ -30,13 +30,10 @@ export class MetdineInterceptor implements HttpInterceptor{
           "Content-Type" : "application/json"
          }
       });
-      console.log("before making request",authenticatedRequest);
     return next.handle(authenticatedRequest).pipe(
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            console.log(event.body);
-            console.log("api call success :", event);
           }
         },
         error => {

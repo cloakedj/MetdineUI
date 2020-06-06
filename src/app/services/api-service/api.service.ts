@@ -93,8 +93,7 @@ export class ApiService {
         localStorage.setItem("is_seller",data["is_seller"].toString());
         localStorage.setItem("seller_phone_verified",data["phone"].toString());
       },
-      (err) => console.log(err),
-      () => console.log("checked if seller")
+      (err) => this.toastr.error(err),
     )
   }
   checkUserToken():any{
@@ -144,13 +143,13 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
-  //Function to get meals offered by seller for seller dashbaord with mealID
-  getSellerDashboardMealById():Observable<any>{
-    return this.http.get(`${this.API_URL}/seller/menu/3/`)
-    .pipe(
-      catchError(this.handleError)
-    )
-  }
+  // //Function to get meals offered by seller for seller dashbaord with mealID
+  // getSellerDashboardMealById():Observable<any>{
+  //   return this.http.get(`${this.API_URL}/seller/menu/3/`)
+  //   .pipe(
+  //     catchError(this.handleError)
+  //   )
+  // }
   //Function to get All orders completed and active for the seller dashboard
   getSellerDashboardOrders(is__active :boolean, accepted : boolean, status?: number) : Observable<any>{
     this.params = is__active ? new HttpParams().set("is_active",is__active.toString()).set("accepted",accepted.toString())
@@ -259,7 +258,7 @@ export class ApiService {
     )
   }
   //Endpoint To Patch Meal details
-  patchMealDataById(id : any,data : any){
+  patchMealDataById(id : any,data : any){   
     return this.http.patch(`${this.API_URL}/seller/menu/${id}/`,data)
     .pipe(
       catchError(this.handleError)

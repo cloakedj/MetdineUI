@@ -35,7 +35,6 @@ export class CartComponent implements OnInit {
       data => {
         this.sellerName = `${data["first_name"]}  ${data["last_name"]}`;
         this.sellerLogo = data["logo"];
-        console.log(data);
       },
       err => this.toastr.error("Something Went Wrong. Try Again Later!")
     )

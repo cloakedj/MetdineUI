@@ -20,6 +20,7 @@ export class SellerProfileDataComponent implements OnInit {
   editDetailsShow = false;
   editAddress = false;
   windowWidth  : number;
+  completed = false;
   showPaymentInfoModal = false;
   sellerPaymentInfo : any;
   sellerDetails = this._fb.group({
@@ -48,13 +49,13 @@ export class SellerProfileDataComponent implements OnInit {
       next: (data) => {
         this.sellerDashOptions = data;
       },
-      error: (err) => console.log(err),
-      complete: () => console.log("Request completed")
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     };
     this.sellerCompletedOrdersForDashboard$ = {
-      next: (data) => this.sellerCompletedOrders = data.splice(0,2),
-      error: (err) => console.log(err),
-      complete: () => console.log("Request for seller orders completed")
+      next: (data) => this.sellerCompletedOrders = data.splice(data.length-1, data.length),
+      error: (err) => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.api.getSellerQuickData().subscribe(this.sellerData$);
   }

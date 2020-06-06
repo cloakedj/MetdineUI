@@ -30,7 +30,7 @@ export class ActiveOrdersComponent implements OnInit {
   getActiveOrders(){
     this.allOrdersObs$ = {
       next : data => this.allActiveOrders = data,
-      error : (err) => console.log(err),
+      error : (err) => this.toastr.error(err),
       complete : () => this.loading = false
     }
     this.api.getSellerDashboardOrders(true, true).subscribe(this.allOrdersObs$);

@@ -1,6 +1,6 @@
-<app-header-mask></app-header-mask>
+<app-header-mask *ngIf="!noShow"></app-header-mask>
 <div class="ui twelve wide column grid container">
-<div class="ui attached segment">
+<div class="ui attached segment" [ngClass]="{'moveUp' : !noShow}">
 <h1 class="ui centered header">
 Terms Of Use
 </h1>
@@ -215,4 +215,4 @@ The last update to these Terms of Use was made on <strong>5th June 2020.</strong
 </p>
 </div>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="!noShow"></app-footer>

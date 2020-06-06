@@ -1,3 +1,12 @@
+<div class="ui basic modal" *ngIf="showPrivacyPolicyModal || showTermsOfUseModal">
+  <button class="ui circular icon negative right floated closing button" (click)="hideModal()">
+    <i class="ui close icon"></i>
+  </button>
+  <div class="scrolling content">
+    <app-privacy-policy noShow="true" *ngIf="showPrivacyPolicyModal"></app-privacy-policy>
+    <app-terms-of-use noShow="true" *ngIf="showTermsOfUseModal"></app-terms-of-use>
+  </div>
+</div>
 <div class="ui four column centered grid">
         <div class="fifteen wide mobile four wide computer column">
             <h3 class="ui top attached header center aligned inverted">Sign Up To Metdine</h3>
@@ -61,13 +70,28 @@
                             Password And Confirm Password Should Match.
                           </h5>
                         </div>
+                        <div class="ui divider"></div>
+                        <div class="field">
+                        <div class="ui grid agreement">
+                        <div class="one wide column">
+                          <mat-checkbox tabindex="0" (change)="switchCheckBox()">
+                           </mat-checkbox>
+                        </div>
+                        <div class="fourteen wide column">
+                          <label class="termsAgree">
+                          I Agree To The <a (click)="showTermsOfUseModal = true;">Terms Of Use</a> And The <a (click)="showPrivacyPolicyModal=true">Privacy Policy</a>.
+                          </label>
+                          </div>
+                        </div>
+                        </div>
+
                         <!-- <div class="ui pointing red basic label"  *ngIf="signUpForm.controls['confirmPassword'].hasError('NoPassswordMatch') && !confirmPassword.pristine">
                          Password and Confirm Password Should Match
                         </div> -->
                             </div>
                             <div class="field">
                               <div class="two ui buttons">
-                                <input class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid" type="Submit" value="Sign Up">
+                                <input class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid || checkedPolicyBox === false" type="Submit" value="Sign Up">
                                 <button class="ui negative button" [disabled]="signUpForm.pristine" (click)="signUpForm.reset();">Reset</button>
                               </div>
                             </div>

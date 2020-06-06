@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 export class SellerSidebarComponent implements OnInit {
   sellerData$ : Observer<any>;
   sellerData : any;
+  completed = false;
   @Output() hideMenu : EventEmitter<boolean> = new EventEmitter();
   @HostListener('click',['$event'])
   onClick(evt){
@@ -30,7 +31,7 @@ export class SellerSidebarComponent implements OnInit {
         this.sellerData = data;
       },
       error: (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete: () => console.log("Completed")
+      complete : () => this.completed = true,
     };
     this.api.getSellerQuickData().subscribe(this.sellerData$);
   }

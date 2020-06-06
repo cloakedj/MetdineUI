@@ -2,7 +2,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api-service/api.service';
-import { GetCategoryService } from 'src/app/services/get-category/get-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderStatusService } from 'src/app/services/order-status/order-status.service';
 
@@ -43,8 +42,8 @@ export class ActiveOrderComponent implements OnInit {
   screenSize = window.screen.width;
   allActiveOrders : any;
   showBillBreakdown : boolean = false;
+  completed = false;
   constructor(private api : ApiService,
-    private gc : GetCategoryService,
     private aroute : ActivatedRoute,
     private toastr :ToastrService,
     private router : Router,
@@ -74,7 +73,7 @@ export class ActiveOrderComponent implements OnInit {
         if(!this.reconfirmScreen) this.getImages();
       },
       error: (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete : () => console.log("Request Completed")
+      complete : () => this.completed = true,
     }
     this.api.getSingleActiveOrderDetailsForBuyer(this.activeOrderId).subscribe(this.activeOrderData$);
   }
@@ -84,7 +83,7 @@ export class ActiveOrderComponent implements OnInit {
         this.allActiveOrders = data;
       },
       error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!") ,
-      complete : () => console.log("completed")
+      complete : () => this.completed = true,
     }
     this.api.getActiveOrderDetailsForBuyer().subscribe(this.allActiveOrders$);
   }
@@ -112,7 +111,7 @@ export class ActiveOrderComponent implements OnInit {
         }
       },
       error : (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete : () => console.log("Request comleted")
+      complete : () => this.completed = true,
     }
     this.api.getConfirmationImages(this.activeOrderData.id).subscribe(this.sentImagesObs$);
   }

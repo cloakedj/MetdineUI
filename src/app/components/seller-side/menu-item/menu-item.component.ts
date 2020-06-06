@@ -30,6 +30,7 @@ export class MenuItemComponent implements OnInit {
   addNewSellerItemObs$ :Observer<any>;
   imageUploaded : boolean = false;
   smallScreen : any;
+  completed = false;
   categories = [
     {name:'Indian'},
     {name:'Western'},
@@ -107,7 +108,7 @@ export class MenuItemComponent implements OnInit {
         this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)/`);
       },
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      complete : () => console.log()
+      complete : () => this.completed = true,
     }
     this.api.addNewItemFromSellerDashboard(this.ItemObjtoPush).subscribe(this.addNewSellerItemObs$);
     this.ItemPriceTimeFormGroup.reset();

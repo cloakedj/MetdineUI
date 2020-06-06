@@ -1,7 +1,12 @@
-.attached.segment{
-    margin-top: -4%;
-    z-index: 2;
+.moveUp{
+    margin-top: -4% !important;
+    z-index: 2 !important;
+    padding: 4%;
 }
 p{
     text-align: justify;
+    color: black;
+}
+.item{
+    color: black;
 }

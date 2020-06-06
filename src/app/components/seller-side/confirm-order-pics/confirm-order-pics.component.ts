@@ -33,6 +33,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   loading = false;
   startTimer  : any;
   timerFlag = true;
+  completed  = false;
   private killTrigger = new Subject();
   private fetchData$ : Observable<any>;
   private refreshInterval$: Observable<string>;
@@ -54,10 +55,8 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         this.imageConfirmationId = data["confirmation"];
         if(!this.autoAccept) this.getConfirmationImagesStatus();
       },
-      error: err => console.log(err),
-      complete: () => {
-        console.log("Fetched Order data", this.orderDetails)
-      }
+      error: err => this.toastr.error(err),
+      complete : () => this.completed = true,
     }
     this.api.getOrderDetails(this.orderId).subscribe(this.orderDetails$);
   }
@@ -109,7 +108,6 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
         }
       },
       (error) => this.toastr.error("Something Went Wrong. Try Again Later!"),
-      () => console.log("getting status")
     )
   }
   getElapsedTime(){

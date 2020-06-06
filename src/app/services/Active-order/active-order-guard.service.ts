@@ -19,7 +19,7 @@ export class ActiveOrderGuardService implements CanActivateChild{
     .pipe(
       map((data) =>{
         if(data["detail"] == false)  {
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/user"]);
           return false;
         }
         return true;
