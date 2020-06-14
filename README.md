@@ -17,7 +17,12 @@ After node js has been downloaded and installed, the developer needs to follow t
 
 The app is now set up and the development can be started. 
 
+In development mode, uncomment line 17 of <b>`/src/app/services/api-service`</b> and comment line 18 of the same.
+In production mode, comment line 17 of <b>`/src/app/services/api-service`</b> and uncomment line 18 of the same.
+
 The project can be run locally by navigating to the project directory and running <b>`ng serve`</b>. This will start the development server which can be accessed at <b>`https://localhost:4200`</b>. The app will automatically reload if you change any of the source files.
+
+
 
 
 ## Project Breakdown
