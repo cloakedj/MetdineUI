@@ -42,7 +42,7 @@ The project needs to be built for production before development.
 ## Project build 
 Run <b>`ng build`</b> to build the project. The build artifacts will be stored in the <b>`dist/`</b> directory. Use the <b>`--prod`</b> flag for a production build.
 On running **`ng build --prod`** angular will generate a compressed and minified version of the code that will be present in the **`dist/`** directory of the app. These components consist of a number of script files that can be then copied and replaced with the script files present in the backend django part.  
-Copy the files genrated in dist in folder MetdineUI and paste them in the backend at metdine/static_files/ and contnue with deployment procedure for the backend.
+Copy the files genrated in <b>`/dist`</b> in folder <b>`MetdineUI`</b> and paste them in the backend at <b>`metdine/static_files/`</b> and contnue with deployment procedure for the backend.
 
 ## Tests
 
