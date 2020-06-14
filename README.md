@@ -15,7 +15,7 @@ After node js has been downloaded and installed, the developer needs to follow t
 **`npm i -g @angular/cli`**. This command will install the angular-cli globally so that it can be accessed from any directory. 
 2. Go to project directory or the cloned project, open cmd in current directory and run **`npm i`** to install node modules for the project.
 
-The app is now set up and the development can be started.
+The app is now set up and the development can be started. 
 
 The project can be run locally by navigating to the project directory and running <b>`ng serve`</b>. This will start the development server which can be accessed at <b>`https://localhost:4200`</b>. The app will automatically reload if you change any of the source files.
 
@@ -42,6 +42,7 @@ The project needs to be built for production before development.
 ## Project build 
 Run <b>`ng build`</b> to build the project. The build artifacts will be stored in the <b>`dist/`</b> directory. Use the <b>`--prod`</b> flag for a production build.
 On running **`ng build --prod`** angular will generate a compressed and minified version of the code that will be present in the **`dist/`** directory of the app. These components consist of a number of script files that can be then copied and replaced with the script files present in the backend django part.  
+Copy the files genrated in dist in folder MetdineUI and paste them in the backend at metdine/static_files/ and contnue with deployment procedure for the backend.
 
 ## Tests
 
