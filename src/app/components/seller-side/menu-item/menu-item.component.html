@@ -30,7 +30,7 @@
                           Item title Can Only Be Alphabetic Letters.
                         </li>
                         <li *ngIf="short_description.invalid">
-                          Please Describe Your Item In  30 - 60 letters.
+                          Please Describe Your Item In More Than 30 letters.
                         </li>
                       </ul>
                   </div>
@@ -151,8 +151,13 @@
                         <div class="two ui buttons">
                             <button class="negative ui button" matStepperPrevious type="button">Back</button>
                         <button class="positive ui button" matStepperNext [disabled]="ItemPriceTimeFormGroup.invalid || ItemPriceTimeFormGroup.pristine"
-                        (click)="[addToFormObject(ItemPriceTimeFormGroup.value),apiToAddNewSellerItem(),addNewItem.reset()]">Finish</button>
+                        (click)="[addToFormObject(ItemPriceTimeFormGroup.value),apiToAddNewSellerItem(),uploadingMeal = true]">Finish
+                      </button>
                         </div>
+                        <h5 class="ui header" *ngIf="uploadingMeal">
+                          <div class="ui active inline loader"></div>
+                          Uploading Your New Menu Item. Please Be Patient.
+                        </h5>
                       </div>
                   </div>
                 </form>
@@ -188,7 +193,7 @@
                           Please Upload An Image For The Item.
                         </li>
                         <li *ngIf="short_description.invalid">
-                          Please Describe Your Item In  30 - 60 letters.
+                          Please Describe Your Item In More Than 30 letters.
                         </li>
                       </ul>
                   </div>
@@ -309,8 +314,13 @@
                   <div class="two ui buttons">
                       <button class="negative ui button" matStepperPrevious type="button">Back</button>
                   <button class="positive ui button" matStepperNext [disabled]="ItemPriceTimeFormGroup.invalid || ItemPriceTimeFormGroup.pristine"
-                  (click)="[addToFormObject(ItemPriceTimeFormGroup.value),apiToAddNewSellerItem(),addNewItem.reset()]">Finish</button>
+                  (click)="[addToFormObject(ItemPriceTimeFormGroup.value),apiToAddNewSellerItem(), uploadingMeal = true]">Finish
+              </button>
                   </div>
+                  <h5 class="ui header" *ngIf="uploadingMeal">
+                  <div class="ui active inline loader"></div>
+                  Uploading Your New Menu Item. Please Be Patient.
+                </h5>
                 </div>
             </div>
           </form>

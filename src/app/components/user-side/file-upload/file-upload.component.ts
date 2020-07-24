@@ -9,21 +9,29 @@ import { KeepFilesService } from 'src/app/services/upload-files/keep-files.servi
 export class FileUploadComponent implements OnInit,OnDestroy{
   files: any = [];
   @Output()  imageUpload  : EventEmitter<boolean> = new EventEmitter();
+  imageTypeError: boolean = false;
 
-  uploadFile(event,byInput ?: string) {
-  this.imageUpload.emit(true);
+  uploadFile(event, byInput?: string) {
+    this.imageUpload.emit(true);
   let fileCtrl = event.target.files || event.dataTransfer.files;
   for (let index = 0; index < fileCtrl.length; index++) {
   const element = event.target.files[index];
-  const reader = new FileReader();
-  if(byInput){
-      reader.readAsDataURL(event.target.files[index]);
-      reader.onload = () => {
-        this.filesUpload.getUploadFile(reader.result);
-        this.cd.markForCheck();
-      };
+    if (element.type.split("/")[0] !== "image") {
+      this.imageTypeError = true;
+      this.imageUpload.emit(false);
     }
-    this.files.push(element.name);
+    else {
+      this.imageTypeError = false;
+      const reader = new FileReader();
+      if (byInput) {
+        reader.readAsDataURL(event.target.files[index]);
+        reader.onload = () => {
+          this.filesUpload.getUploadFile(reader.result);
+          this.cd.markForCheck();
+        };
+      }
+      this.files.push(element.name);
+  }
   }
   event.target.value = "";
   }

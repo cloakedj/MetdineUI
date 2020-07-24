@@ -16,20 +16,23 @@
             </div>
           <div class="ui divider"></div>
               <div class="ui fluid form">
-                <div class="field" *ngIf="!enteredPhone">
+                <div class="ui labeled input" *ngIf="!enteredPhone">
+                  <div class="ui label india-code">
+                    +91
+                  </div>
                   <input placeholder="Phone Number" [formControl]="phone" type="text">
-                  <div class="ui pointing red basic label"  *ngIf="
-                  phone.errors?.minlength || phone.errors?.maxlength||
-                  phone.errors?.pattern && !phone.pristine">
-                    Enter A Valid Phone Number
                 </div>
                 <div class="ui pointing red basic label"  *ngIf="
-                  phone.errors?.required && !phone.pristine">
-                    Phone Number Is Required
-                </div>
+                phone.errors?.minlength || phone.errors?.maxlength||
+                phone.errors?.pattern && !phone.pristine">
+                  Enter A Valid Phone Number
+              </div>
+              <div class="ui pointing red basic label"  *ngIf="
+                phone.errors?.required && !phone.pristine">
+                  Phone Number Is Required
+              </div>
                 <div class="ui hidden divider"></div>
-                <button class="ui positive fluid button" (click)="requestOtpByDashboard()" *ngIf="!enteredPhone" [disabled]="phone.pristine || phone.invalid">Request OTP</button>
-                </div>
+                <button class="ui positive fluid button" (click)="[regenerateOtpTimer(),requestOtpByDashboard()]" *ngIf="!enteredPhone" [disabled]="phone.pristine || phone.invalid">Request OTP</button>
                   <form [formGroup]="verifyPhone" (ngSubmit)="onSubmit(verifyPhone.value)" (ngForm)="verifyPhone" *ngIf="enteredPhone">
                     <div class="ui centered header">
                     <div class="ui red basic label"  *ngIf="otp.invalid && !otp.pristine">
@@ -41,6 +44,17 @@
                     </div>
                         <div class="field">
                             <button class="ui  positive fluid button" [disabled]="verifyPhone.pristine || verifyPhone.invalid" type="submit">Submit OTP</button>
+                        </div>
+                        <div class="field">
+                          <button class="ui fluid negative button" (click)="[regenerateOtpTimer(),requestOtpByDashboard(),resendOtp = true]" [disabled]="!activateResendOtpBtn">
+                            <h4 class="ui header timer" *ngIf="!activateResendOtpBtn">
+                              0{{minutes}} : <span *ngIf="seconds < 10">0</span>{{seconds}}
+                            </h4>
+                            Regenerate OTP
+                          </button>
+                          <h4 class="ui sub header" *ngIf="resendOtp">
+                            A New OTP Has Been Sent To {{phone.value}}
+                          </h4>
                         </div>
                 </form>
                 </div>

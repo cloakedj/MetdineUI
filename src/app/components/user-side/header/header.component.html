@@ -11,8 +11,8 @@
            <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['profile']}}]" routerLinkActive="active"><button mat-icon-button aria-label="User's Profile">
             <mat-icon class="icon" aria-hidden="false" aria-label="Metdine heart icon">person</mat-icon>
              </button>
+             <label *ngIf="username else loader">{{username}}</label>
             </a>
-            <label *ngIf="username else loader">{{username}}</label>
             <ng-template #loader>
                 <div class="ui active inline loader"></div>
             </ng-template>
@@ -25,28 +25,28 @@
            <mat-icon class="icon" aria-hidden="false" aria-label="cart icon">shopping_cart
             </mat-icon>
             </button>
+            <label>Cart</label>
             </a>
             </div>
             </div>
-            <label>Cart</label>
            <a routerLink="/seller-side" routerLinkActive="active"><button mat-icon-button aria-label="Switch to Seller">
            <mat-icon class="icon" aria-hidden="false"
            matTooltip="Switch To Seller" aria-label="Metdine heart icon">swap_calls</mat-icon>
            </button>
+           <label>Seller Side</label>
             </a>
-            <label>Seller Side</label>
             <button mat-icon-button aria-label="Search">
                 <mat-icon class="icon searchDesktop" aria-hidden="false" aria-label="Metdine search icon">
                  search
                  </mat-icon>
              </button>
-             <label>Search</label>
+             <label class="searchDesktop">Search</label>
            <button mat-icon-button aria-label="Log Out" (click)="logUserOut()">
            <mat-icon class="icon" aria-hidden="false" aria-label="Metdine delete icon">
             exit_to_app
             </mat-icon>
         </button>
-        <label>Log Out</label>
+        <label (click)="logUserOut()">Log Out</label>
     </mat-toolbar-row>
 </mat-toolbar>
 <div class="sixteen wide centered column grid container noLocation" *ngIf="product.disabledPosition">

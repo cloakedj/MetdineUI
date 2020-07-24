@@ -11,3 +11,19 @@
       </button>
     </div>
    </div>
+   <div class="err-msg ui grid" *ngIf="imageTypeError">
+     <div class="twelve wide column">
+       <h5 class="ui centered header">
+        <i class="exclamation circle icon"></i>
+         Please Upload A Valid Image.
+       </h5>
+     </div>
+     <div class="column">
+         <h5 class="ui header">
+          <i class="window close icon" (click)="imageTypeError = false"></i>
+         </h5>
+     </div>
+   </div>
+   <h4 class="ui centered sub header">
+    The Only Allowed File Types Are Image Types Like JPEG and PNG.*
+  </h4>

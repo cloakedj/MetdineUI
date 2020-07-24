@@ -36,3 +36,15 @@
 .files-list .delete-file img {
     width: 30px;
 }
+
+.err-msg .header{
+  color: red;
+}
+.window.close{
+  color: mediumvioletred;
+  cursor:pointer;
+}
+
+.sub.header{
+  color: red;
+}

@@ -6,14 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-export enum KEYS{
-  BACKSPACE = 8,
-  DELETE = 46,
-  RANGEUP = 48,
-  RANGEDOWN = 57,
-  NUMUP = 97,
-  NUMDOWN = 105
-}
 
 @Component({
   selector: 'app-verify-phone',
@@ -23,10 +15,17 @@ export enum KEYS{
 
 export class VerifyPhoneComponent implements OnInit {
   Auth_Key = '';
+  regenOtpTimer: any;
+  readonly totalTime = 120;
+  regenerateTimerValue = this.totalTime;
+  activateResendOtpBtn = true;
+  minutes = this.regenerateTimerValue / 60;
+  seconds = 60;
   postSignup : boolean;
   enteredPhone = false;
   isOnCheckout : boolean;
-  Title = "Verify Your Phone Number."
+  Title = "Verify Your Phone Number.";
+  resendOtp = false;
   phone : FormControl = new FormControl('',
   [Validators.required,
   Validators.minLength(10),
@@ -134,10 +133,32 @@ sellerOtpVerification(Data,rid){
   );
 }
 get otp(){ return this.verifyPhone.get('otp');}
-ngOnDestroy(){
+  regenerateOtpTimer() {
+    this.activateResendOtpBtn = false;
+    this.regenerateTimerValue = this.totalTime;
+    this.minutes = this.regenerateTimerValue / 60;
+    this.seconds = 60;
+    this.regenOtpTimer = setInterval(() => {
+      if (this.regenerateTimerValue > 0) {
+        if (this.regenerateTimerValue % 60 === 0) {
+          this.minutes -= 1;
+          this.seconds = 60;
+        }
+        this.seconds--;
+        this.regenerateTimerValue--;
+      }
+      else {
+        this.clearTimer();
+        this.resendOtp = false;
+        this.activateResendOtpBtn = true;
+      }
+    }, 1000);
 }
 loginWithPhone(){
   this.router.navigateByUrl(`/userGateway/(userGatewayRouter:login-with-phone)`);
+  }
+clearTimer() {
+  clearInterval(this.regenOtpTimer);
 }
 
 }

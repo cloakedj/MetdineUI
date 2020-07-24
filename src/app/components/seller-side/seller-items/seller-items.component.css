@@ -15,6 +15,7 @@ margin-bottom: 5% !important;
 }
 .desc{
     text-align: justify !important;
+    word-break: break-word;
 }
 .label{
     color:#ffffff;

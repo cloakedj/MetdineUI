@@ -3,16 +3,19 @@
 @import 'https://fonts.googleapis.com/css?family=Fondamento&display=swap';
 .icon {
     cursor: pointer;
-  }
-
+}
+.mat-toolbar a, .ui.horizontal.list{
+  margin-right: 1%;
+}
+.mat-toolbar label:hover{
+  text-decoration: underline;
+  cursor : pointer;
+}
 .spacer {
-flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 .ui.horizontal.list .item{
   margin-left:0 !important;
-}
-.mat-toolbar{
-  background: #2193b0;
 }
 .mat-toolbar label{
   color: #fff;
@@ -28,6 +31,9 @@ flex: 1 1 auto;
 .mat-toolbar-row{
   padding-top: 3%;
   padding-bottom: 2%;
+  background: #2193b0;
+  position: fixed;
+  z-index: 9999;
 }
 .mat-icon{
   color : black;

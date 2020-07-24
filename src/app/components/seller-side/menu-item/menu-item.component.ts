@@ -22,8 +22,7 @@ export class MenuItemComponent implements OnInit {
   ItemDetailsFormGroup : FormGroup;
   ItemPropertiesFormGroup : FormGroup;
   ItemPriceTimeFormGroup : FormGroup;
-  characters_used : number = 0;
-  characters_left: number = 60;
+  uploadingMeal = false;
   itemIsVeg : boolean = true;
   ItemObjtoPush = new FormData();
   itemIsAvailable = true;
@@ -67,7 +66,6 @@ export class MenuItemComponent implements OnInit {
       short_description :['',[
         Validators.required,
         Validators.minLength(30),
-        Validators.maxLength(60)
       ]],
     });
     this.ItemPropertiesFormGroup = this._formBuilder.group({
