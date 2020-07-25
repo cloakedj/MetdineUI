@@ -142,6 +142,10 @@ label{
 }
 .noLocation{
   background-color: rgba(240, 38, 38, 0.863);
+  position: fixed !important;
+  top:93% !important;
+  right:0;
+  bottom:0;
 }
 .noLocationMobile{
   top:0;

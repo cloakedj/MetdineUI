@@ -19,8 +19,8 @@ export class VerifyPhoneComponent implements OnInit {
   readonly totalTime = 120;
   regenerateTimerValue = this.totalTime;
   activateResendOtpBtn = true;
-  minutes = this.regenerateTimerValue / 60;
-  seconds = 60;
+  minutes = (this.regenerateTimerValue / 60) - 1;
+  seconds = 59;
   postSignup : boolean;
   enteredPhone = false;
   isOnCheckout : boolean;
@@ -137,7 +137,7 @@ get otp(){ return this.verifyPhone.get('otp');}
     this.activateResendOtpBtn = false;
     this.regenerateTimerValue = this.totalTime;
     this.minutes = this.regenerateTimerValue / 60;
-    this.seconds = 60;
+    this.seconds = 59;
     this.regenOtpTimer = setInterval(() => {
       if (this.regenerateTimerValue > 0) {
         if (this.regenerateTimerValue % 60 === 0) {

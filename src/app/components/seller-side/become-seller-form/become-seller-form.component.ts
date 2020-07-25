@@ -33,7 +33,6 @@ export class BecomeSellerFormComponent implements OnInit {
     last_name:['',Validators.required],
     description:['',[
       Validators.required,
-      Validators.minLength(60),
       Validators.maxLength(150)
     ]
     ],
@@ -130,7 +129,7 @@ export class BecomeSellerFormComponent implements OnInit {
     this.checkedPolicyBox = !this.checkedPolicyBox;
   }
   hideModal(){
-    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false 
+    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false
     : this.showTermsOfUseModal = false;
   }
 

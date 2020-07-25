@@ -46,7 +46,6 @@
                       <textarea placeholder="Description" formControlName="description"></textarea>
                       <div class="ui pointing red basic label"  *ngIf="description.invalid && !description.pristine">
                         <span *ngIf="description.errors?.required">Description Is Required</span>
-                        <span *ngIf="description.errors?.minlength">Description Should Be More Than 60 Characters.</span>
                         <span *ngIf="description.errors?.maxlength">Description Should Be Less Than 150 Characters.</span>
                     </div>
                     </div>
