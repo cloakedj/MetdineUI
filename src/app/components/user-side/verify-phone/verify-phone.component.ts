@@ -19,8 +19,8 @@ export class VerifyPhoneComponent implements OnInit {
   readonly totalTime = 120;
   regenerateTimerValue = this.totalTime;
   activateResendOtpBtn = true;
-  minutes = (this.regenerateTimerValue / 60) - 1;
-  seconds = 59;
+  minutes;
+  seconds;
   postSignup : boolean;
   enteredPhone = false;
   isOnCheckout : boolean;
@@ -44,9 +44,11 @@ constructor(private formbuilder: FormBuilder,
   private cart : CartService,
   private router : Router,
   private toastr : ToastrService,
-  private aroute : ActivatedRoute) {}
+  private aroute: ActivatedRoute) {
+    this.setOtpDefaults();
+  }
 
-ngOnInit() {
+  ngOnInit() {
   this.aroute.queryParams.subscribe(params => {
     this.isSellerSide = params["sellerSide"];
     this.isOnCheckout = params["onTheWayToCheckout"];
@@ -135,9 +137,7 @@ sellerOtpVerification(Data,rid){
 get otp(){ return this.verifyPhone.get('otp');}
   regenerateOtpTimer() {
     this.activateResendOtpBtn = false;
-    this.regenerateTimerValue = this.totalTime;
-    this.minutes = this.regenerateTimerValue / 60;
-    this.seconds = 59;
+    this.setOtpDefaults();
     this.regenOtpTimer = setInterval(() => {
       if (this.regenerateTimerValue > 0) {
         if (this.regenerateTimerValue % 60 === 0) {
@@ -159,6 +159,11 @@ loginWithPhone(){
   }
 clearTimer() {
   clearInterval(this.regenOtpTimer);
-}
+  }
+  setOtpDefaults() {
+    this.regenerateTimerValue = this.totalTime;
+    this.minutes = (this.regenerateTimerValue / 60) - 1;
+    this.seconds = 59;
+  }
 
 }

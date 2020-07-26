@@ -15,7 +15,7 @@
 </div>
 <div class="ui sixteen wide mobile twelve wide tablet twelve wide computer centered column" id="sellerOutletContainer">
 <router-outlet name="sellerRouterOutlet"></router-outlet>
-<app-footer *ngIf="winwidth > 500"></app-footer>
+<app-footer *ngIf="winwidth > 500" [isSellerSide]="true"></app-footer>
 </div>
 </div>
-<app-footer *ngIf="winwidth < 500"></app-footer>
+<app-footer *ngIf="winwidth < 500" [isSellerSide]="true"></app-footer>

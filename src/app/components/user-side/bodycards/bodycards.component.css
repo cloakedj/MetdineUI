@@ -1,8 +1,12 @@
 @import "https://fonts.googleapis.com/css?family=Righteous|Source+Sans+Pro&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap";
 
+.main{
+  background-color: #f5f5f7;
+}
 .sellers
 {
-  min-height: 100%;
+  min-height: 300px;
   padding-top:4%;
 }
 .mainTitle{
@@ -13,42 +17,6 @@
 }
 .currentLocation{
    word-wrap: break-word;
-}
-.image img{
-  outline: none;
-  min-height:200px;
-  max-height: 200px;
-  border-radius:9px !important;
-}
-.card{
-  box-shadow: none !important;
-  margin-bottom: 10% !important;
-}
-.ui.centered.cards .segment{
-    position: absolute;
-    top: 70%;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.ui.card>:last-child, .ui.cards>.card>:last-child
-{
-  border-radius: 10px !important;
-}
-.ui.label{
-  font-family: 'Source Sans Pro', sans-serif;
-}
-.segment .ui.header{
-  margin-top: 3%;
-  font-family: 'Righteous', cursive;
-  margin-bottom: 0%;
-}
-.ui.sub.header
-{
-  margin-top: 3%;
-  font-family: 'Righteous', cursive;
-  margin-bottom: 0%;
-  color: tomato;
 }
 .fifteen.wide.column.mobile.only{
   margin-bottom: 5%;;
@@ -78,6 +46,84 @@
 .sellerLink{
   cursor: pointer;
 }
+.item-card{
+  border: 1px solid rgb(204 204 204 / 58%);
+  min-height: 270px;
+  width: 20vw;
+  background: white;
+  border-radius: 5px;
+  padding:2%;
+  margin-right:5%;
+  margin-bottom:5%;
+}
+
+.item-head{
+  min-height: 90px;
+  padding: 5% 0% 5% 0%;
+}
+.distance .header{
+  color: #c1c1ce;
+  font-family: 'Montserrat', sans-serif;
+}
+.logo{
+  position: absolute;
+}
+.details{
+  margin-top:5%;
+  padding:3%;
+}
+.address .header{
+  margin-top:3%;
+  font-weight: 300;
+}
+.item-name .header{
+  margin-top: 3%;
+  font-family: 'Montserrat', sans-serif;
+}
+.item-name .header:hover{
+  text-decoration: underline;
+}
+.category .header{
+  font-family: 'Montserrat', sans-serif;
+  color: #d2d2e6;
+}
+.logo img{
+  height:70px;
+  width:70px;
+  border-radius: 50%;
+  border: 1px solid rgb(204 204 204 / 58%);
+  z-index: 99;
+  outline: none;
+}
+.cards-holder{
+  display: inline-flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top:3%;
+}
+.Message{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Righteous', cursive;
+    font-size: 1.5rem;
+    text-align: center;
+}
+@media only screen and (max-width:600px){
+  .cards-holder{
+    display: block;
+  }
+  .item-card{
+    width: 93vw;
+  }
+}
+@media only screen and (max-width:350px){
+  .item-card{
+    width: 92vw;
+  }
+}
 @media (max-width: 500px){
   .ui.card{
     margin-bottom:25% !important;
@@ -102,3 +148,4 @@
     left: 0;
   }
 }
+

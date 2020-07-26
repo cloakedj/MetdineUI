@@ -1,12 +1,16 @@
 @import 'https://fonts.googleapis.com/css?family=Molle:400i&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Monoton&display=swap';
+
+.hasMarginTop{
+  margin-top:5% !important;
+}
+
 footer
 {
     min-width:100%;
     height:auto;
     padding:2%;
     background:black;
-    margin-top:5%;
 }
 .logo_text
 {
@@ -36,7 +40,6 @@ footer
 @media (min-width: 1024px){
 footer
 {
-    margin-top: 5%;
     margin-left: -4%;
     margin-bottom: -5%;
 }

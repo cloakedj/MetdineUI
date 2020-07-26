@@ -6,6 +6,10 @@
 .card{
     box-shadow: none !important;
 }
+.card .description{
+  word-break: break-all;
+}
+
 .card .image-container .image img{
     border-radius: 10px !important;
     min-height: 200px;

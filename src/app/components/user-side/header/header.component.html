@@ -1,7 +1,7 @@
 <div class="ui computer only column grid">
 <mat-toolbar *ngIf="userLoggedIn">
     <mat-toolbar-row>
-           <a href="/user" class ="logo_text"><span>Metdine</span></a>
+           <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['home']}}]" routerLinkActive="active" class ="logo_text"><span>Metdine</span></a>
            <ng-container *ngIf="product.address else gettingAddress">
            <a routerLink="/map">
             <label class="address">{{product.address | contentLength : 50}}</label>
@@ -192,7 +192,7 @@
     </div>
 </ng-template>
 <ng-template #computerActiveOrderNav>
-    <div class="two wide column">
+    <!-- <div class="two wide column">
         <a class="ui image black label">
             Order Id
             <a class="detail">
@@ -237,7 +237,7 @@
         data-position="top left" data-inverted="" data-tooltip="View This Order">
             View Order
         </a>
-    </div>
+    </div> -->
 </ng-template>
 <ng-template #smallScreenActiveOrder>
     <div class="five wide column">

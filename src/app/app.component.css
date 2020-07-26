@@ -22,3 +22,18 @@
         bottom:4%;
     }
 }
+@media only screen and (max-width:600px){
+  .bttop{
+    bottom:15% !important;
+  }
+  @keyframes fadeIn{
+    from{
+        opacity: 0;
+        bottom: -1%;
+    }
+    to{
+        opacity: 1;
+        bottom:15%;
+    }
+}
+}

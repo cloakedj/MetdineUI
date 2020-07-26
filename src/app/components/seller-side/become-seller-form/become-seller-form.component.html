@@ -83,8 +83,8 @@
                 </div>
           </div>
           <h5 class="ui bottom attached center aligned inverted header">
-            Go Back To <a [routerLink]="['/user']" routerLinkActive="active">Home.</a>
+            Go Back To <a [routerLink]="['/user',{outlets : {'userRouterOutlet' : ['home']}}]" routerLinkActive="active" >Home.</a>
           </h5>
         </div>
   </div>
-  <app-footer></app-footer>
+  <app-footer [isSellerSide]="true"></app-footer>
