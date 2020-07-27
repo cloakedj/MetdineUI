@@ -12,7 +12,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  showUnmatchMessage : boolean = false;
+  showUnmatchMessage: boolean = false;
+  disableTillRequest = false;
   showPrivacyPolicyModal: boolean = false;
   showTermsOfUseModal: boolean = false;
   loadingUsername = false;
@@ -22,6 +23,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   searchingEmail = false;
   searchingUsername = false;
   checkedPolicyBox = false;
+  passHasLen = false;
+  passHasCapLetter = false;
+  passHasNumber = false;
+  passHasSpecialChar = false;
+  passIsInvalid = false;
   signUpForm: FormGroup = this.formBuilder.group({
     fname:['',Validators.required],
     lname:['',Validators.required],
@@ -86,15 +92,30 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.showEmailAvailable = false;
       }
     });
+    this.password1.valueChanges
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .subscribe(value => {
+        this.passHasLen = value.length >= 8 ? true : false;
+        this.passHasCapLetter = /[A-Z]+/.test(value);
+        this.passHasNumber = /[0-9]+/.test(value);
+        this.passHasSpecialChar = /[!@#$%\^&*/)/(+=._-]+/.test(value);
+        this.passIsInvalid =
+          this.passHasLen === false || this.passHasCapLetter === false || this.passHasNumber === false
+            && this.passHasSpecialChar === false ? true : false;
+      });
+      this.password2.valueChanges
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .subscribe(value => {
+        this.showUnmatchMessage = this.password1.value !== this.password2.value ? true : false;
+      });
+
   }
 
-  onSubmit(data){
-    if(this.password1.value !== this.password2.value)
-    {
-      this.showUnmatchMessage = true;
-    }
-    else{
-      this.showUnmatchMessage = false;
+  onSubmit(data) {
+    this.disableTillRequest = true;
+      data["username"] = data["username"].toLowerCase();
     this.api.buyerRegistration(data).subscribe(
       (data) => {
         this.signUpForm.reset();
@@ -102,19 +123,19 @@ export class SignupComponent implements OnInit, OnDestroy {
        },
       (err) => {
         if(err["email"])
-        this.toastr.error(err["email"])
+          this.toastr.error(err["email"])
         else
         if(err["username"])
-        this.toastr.error(err["email"])
+          this.toastr.error(err["email"])
+          this.disableTillRequest = false;
       },
     );
-    }
   }
   switchCheckBox(){
     this.checkedPolicyBox = !this.checkedPolicyBox;
   }
   hideModal(){
-    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false 
+    this.showPrivacyPolicyModal === true ? this.showPrivacyPolicyModal = false
     : this.showTermsOfUseModal = false;
   }
   ngOnDestroy(){

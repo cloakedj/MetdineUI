@@ -15,20 +15,26 @@
               <div class="ui divider"></div>
                   <div class="ui fluid form">
                       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
+                        <h4 class="ui centered sub header required-note">
+                          Note : All Fields Are Required.
+                        </h4>
                         <div class="field">
-                          <input placeholder="First Name"  formControlName="fname" type="text">
+                          <label for="First Name">First Name</label>
+                          <input placeholder="Enter your first name" formControlName="fname" type="text">
                           <div class="ui pointing red basic label"  *ngIf="fname.invalid && !fname.pristine">
                                 First Name Is Required
                          </div>
                         </div>
                         <div class="field">
-                          <input placeholder="Last Name" formControlName="lname" type="text">
+                          <label for="Last Name">Last Name</label>
+                          <input placeholder="Enter your last name" formControlName="lname" type="text">
                           <div class="ui pointing red basic label"  *ngIf="lname.invalid && !lname.pristine">
                                 Last Name Is Required
                          </div>
                         </div>
                         <div class="field">
-                          <input placeholder="Username" formControlName="username" type="text">
+                          <label for="username">Username</label>
+                          <input placeholder="Enter A Username" formControlName="username" type="text">
                           <div class="load-container" *ngIf="searchingUsername">
                             <div class="ui active inline loader" *ngIf="loadingUsername"></div>
                             <h3 class="ui header" *ngIf="!loadingUsername && showUsernameAvailable">
@@ -38,12 +44,25 @@
                               <i class="window close icon"></i>
                             </h3>
                           </div>
+                          <ng-container *ngIf="searchingUsername">
+                          <ng-container *ngIf="!loadingUsername && !showUsernameAvailable">
+                              <h5 class="ui header error">
+                                Sorry! <span class="default">{{username.value}}</span> is already taken. Please try something else.
+                              </h5>
+                           </ng-container>
+                           <ng-container *ngIf="!loadingUsername && showUsernameAvailable">
+                            <h5 class="ui header success">
+                              Yay! The username <span class="default">{{username.value}}</span> is available. Register it quickly.
+                            </h5>
+                          </ng-container>
+                        </ng-container>
                           <div class="ui pointing red basic label"  *ngIf="username.invalid && !username.pristine">
                                 <span *ngIf="username.errors?.required">Username Is required</span>
                            </div>
                         </div>
                         <div class="field">
-                          <input placeholder="Email" formControlName="email" type="text">
+                          <label for="email">Email</label>
+                          <input placeholder="Enter your email" formControlName="email" type="text">
                           <div class="load-container" *ngIf="searchingEmail && !email.invalid">
                             <div class="ui active inline loader" *ngIf="loadingEmail"></div>
                             <h3 class="ui header" *ngIf="!loadingEmail && showEmailAvailable">
@@ -53,18 +72,71 @@
                               <i class="window close icon"></i>
                             </h3>
                           </div>
+                          <ng-container *ngIf="searchingEmail && !email.invalid">
+                            <ng-container *ngIf="!loadingEmail && !showEmailAvailable">
+                                <h5 class="ui header error">
+                                  Sorry! <span class="default">{{email.value}}</span> is already taken. Please try something else.
+                                </h5>
+                             </ng-container>
+                             <ng-container *ngIf="!loadingEmail && showEmailAvailable">
+                              <h5 class="ui header success">
+                                Yay! The email <span class="default">{{email.value}}</span> is available. Register it quickly.
+                              </h5>
+                            </ng-container>
+                          </ng-container>
                           <div class="ui pointing red basic label"  *ngIf="email.invalid && !email.pristine">
                             Enter A Valid Email
                         </div>
                       </div>
                         <div class="field">
-                                <input placeholder="Password" formControlName="password1" type="password">
+                          <label for="password">Password</label>
+                                <input placeholder="Enter your Password" formControlName="password1" type="password">
                         <div class="ui pointing red basic label"  *ngIf="password1.errors?.required && !password1.pristine">
                                 Password Is Required
                          </div>
+                         <h5 class="ui header">
+                           Password should Contain The Following:
+                           <span [ngClass]="{'default' : password1.pristine,
+                            'error' : !passHasLen && password1.dirty,
+                            'success' : passHasLen}">
+                             <p>
+                              <i class="icon" [ngClass]="{'long arrow alternate right' : password1.pristine,
+                            'close' : !passHasLen,
+                            'check circle' : passHasLen}"></i>
+                              8 characters long</p>
+                           </span>
+                           <span [ngClass]="{'default' : password1.pristine,
+                           'error' : !passHasCapLetter && password1.dirty,
+                           'success' : passHasCapLetter}">
+                            <p>
+                              <i class="icon" [ngClass]="{'long arrow alternate right' : password1.pristine,
+                              'close' : !passHasCapLetter,
+                              'check circle' : passHasCapLetter}"></i>
+                              one uppercase letter</p>
+                          </span>
+                          <span [ngClass]="{'default' : password1.pristine,
+                          'error' : !passHasNumber && password1.dirty,
+                          'success' : passHasNumber}">
+                            <p>
+                              <i class="icon" [ngClass]="{'long arrow alternate right' : password1.pristine,
+                              'close' : !passHasNumber,
+                              'check circle' : passHasNumber}"></i>
+                              one number</p>
+                          </span>
+                          <span [ngClass]="{'default' : password1.pristine,
+                          'error' : !passHasSpecialChar && password1.dirty,
+                          'success' : passHasSpecialChar}">
+                            <p>
+                              <i class="icon" [ngClass]="{'long arrow alternate right' : password1.pristine,
+                              'close' : !passHasSpecialChar,
+                              'check circle' : passHasSpecialChar}"></i>
+                              one special character</p>
+                          </span>
+                         </h5>
                         </div>
                         <div class="field">
-                        <input placeholder="Confirm Password" formControlName="password2" type="password">
+                          <label for="Confirm Password">Confirm Password</label>
+                        <input placeholder="Retype The Password" formControlName="password2" type="password">
                         <div class="field" *ngIf="showUnmatchMessage">
                           <h5 class="ui header dontmatch">
                             Password And Confirm Password Should Match.
@@ -91,7 +163,7 @@
                             </div>
                             <div class="field">
                               <div class="two ui buttons">
-                                <input class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid || checkedPolicyBox === false" type="Submit" value="Sign Up">
+                                <input class="ui  positive button" [disabled]="signUpForm.pristine || signUpForm.invalid || checkedPolicyBox === false || passIsInvalid || showUnmatchMessage || disableTillRequest" type="Submit" value="Sign Up">
                                 <button class="ui negative button" [disabled]="signUpForm.pristine" (click)="signUpForm.reset();">Reset</button>
                               </div>
                             </div>
@@ -103,3 +175,6 @@
               </h5>
             </div>
       </div>
+
+
+

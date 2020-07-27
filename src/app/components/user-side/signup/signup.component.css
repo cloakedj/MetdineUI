@@ -64,3 +64,15 @@
 .scrolling.content{
   max-height: calc(85vh) !important;
 }
+.required-note{
+  color:red;
+}
+.default{
+  color:cornflowerblue;
+}
+.error{
+  color:rgba(218, 44, 44, 0.884);
+}
+.success{
+  color: rgba(29, 192, 29, 0.836);
+}

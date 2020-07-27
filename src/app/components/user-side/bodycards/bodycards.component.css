@@ -111,6 +111,7 @@
     font-size: 1.5rem;
     text-align: center;
 }
+
 @media only screen and (max-width:600px){
   .cards-holder{
     display: block;
@@ -148,4 +149,6 @@
     left: 0;
   }
 }
+
+
 
