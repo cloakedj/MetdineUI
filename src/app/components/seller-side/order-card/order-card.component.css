@@ -11,3 +11,8 @@
 .orderid h1{
     color:#fff;
 }
+.sellerLogo{
+    height: 50px !important;
+    width: 50px !important;
+    border-radius: 50% !important;
+}

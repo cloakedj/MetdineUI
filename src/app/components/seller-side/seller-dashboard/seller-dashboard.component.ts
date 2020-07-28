@@ -115,7 +115,7 @@ export class SellerDashboardComponent implements OnInit {
         else this.sellerDashboardActiveOrders();
 
       }
-    );
+     );
   }
   updateRequestedOrderStatus(orderId: number, status: number,distance ?: any) {
     if (status === 6) {

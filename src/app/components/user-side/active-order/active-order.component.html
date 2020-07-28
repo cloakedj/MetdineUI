@@ -145,7 +145,7 @@
                 'pink' : ordersts.orderStatus === 4,
                 'brown' : ordersts.orderStatus === 5,
                 'red' : ordersts.orderStatus === 6
-            }">{{getStatus(ordersts.orderStatus)}}
+            }">{{ordersts.orderStatus | labelFilter : 'status'}}
             </a>
         </h3>
         <h3 class="ui header">

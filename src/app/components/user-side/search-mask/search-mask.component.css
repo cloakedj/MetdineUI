@@ -43,6 +43,11 @@
 .sellerLink{
   cursor: pointer;
 }
+.sellerLink.image{
+  height:70px;
+  width:70px;
+  border-radius: 50%;
+}
 @media (max-width : 500px){
     .container{
       padding-top : 15% !important;

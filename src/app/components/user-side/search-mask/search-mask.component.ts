@@ -33,7 +33,8 @@ export class SearchMaskComponent implements OnInit {
       this.loading = true;
       if(query == '')
       {
-      this.searchBar.reset();
+        this.searchBar.reset();
+        this.plText = 'Search From our List';
       }
       if (this.searchItem)
       return this._search.searchDish(query)

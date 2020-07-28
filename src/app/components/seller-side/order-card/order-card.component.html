@@ -4,7 +4,7 @@
 <div class="ui hidden divider"></div>
 <a [routerLink]="['/user',{outlets : { userRouterOutlet : ['seller-page',order.seller_id]}}]">
 <h2 class="ui centered header" *ngIf="buyerSide">
-  <img class="ui rounded image" src="{{order.seller_logo}}">
+  <img class="ui rounded image sellerLogo" src="{{order.seller_logo}}">
   {{order.seller_name}}
 </h2>
 </a>

@@ -15,6 +15,7 @@ export class LabelFilterPipe implements PipeTransform {
     { key: 2, value: 'Ready' },
     { key: 3, value: 'On The Way' },
     { key: 4, value: 'Completed' },
+    { key: 5, value: 'Waiting'},
     {key : 6, value : 'Rejected'}
   ];
   transform(value: any, type ?: string): any {

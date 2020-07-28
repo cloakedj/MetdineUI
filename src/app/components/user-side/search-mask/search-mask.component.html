@@ -37,10 +37,10 @@
                             <div class="ui divider"></div>
                             <div class="description">
                             <a class="ui label" [ngClass]="{
-                                'green' : result.category == 0,
-                                'orange' : result.category == 1,
-                                'yellow' : result.category == 2,
-                                'olive' : result.category == 3
+                                'green' : result.category == 1,
+                                'orange' : result.category == 2,
+                                'yellow' : result.category == 3,
+                                'olive' : result.category == 4
                             }">
                                 {{result.category | labelFilter : 'category'}}
                             </a>
