@@ -56,15 +56,16 @@ export class BodycardsComponent implements OnInit {
     this.api.getAllSellers(lat,long,city).subscribe(
       data =>{
         this.sellersArr = data;
+        if (this.showMaxRetryErrorCode) this.showMaxRetryErrorCode = false;
         this.clearTime();
       } ,
-      err => this.toastr.error("Something Went Wrong. Retrying!"),
+      err => this.toastr.info("Something Went Wrong. Retrying!"),
     )
     }
     this.tryCount++;
     }
     }
-    },3000);
+    },5000);
   }
   openMap(){
     this.router.navigateByUrl('/map');
