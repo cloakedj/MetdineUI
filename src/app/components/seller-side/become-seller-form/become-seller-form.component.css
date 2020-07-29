@@ -11,6 +11,9 @@
 .termsAgree{
   font-weight: bold;
 }
+.required-note{
+  color:rgba(243, 40, 40, 0.925);
+}
 .agreement a{
   text-decoration: underline;
   cursor : pointer;

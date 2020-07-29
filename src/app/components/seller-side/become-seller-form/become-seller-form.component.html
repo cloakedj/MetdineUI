@@ -16,24 +16,26 @@
           <div class="ui divider"></div>
               <div class="ui fluid form">
                   <form [formGroup]="becomeSellerForm" (ngSubmit)="onSubmit(becomeSellerForm.value)" (ngForm)="becomeSellerForm" enctype="multipart/form-data" autocomplete="on">
+                    <h4 class="ui centered sub header required-note">
+                      Note : All Fields Are Required.
+                    </h4>
                     <div class="field">
-                      <input placeholder="First Name"  formControlName="first_name" type="text">
+                      <label for="first name">First Name</label>
+                      <input placeholder="Enter Your First Name"  formControlName="first_name" type="text">
                       <div class="ui pointing red basic label"  *ngIf="first_name.invalid && !first_name.pristine">
                             First Name Is Required
                      </div>
                     </div>
                     <div class="field">
-                      <input placeholder="Last Name" formControlName="last_name" type="text">
+                      <label for="last name">Last Name</label>
+                      <input placeholder="Enter The Last Name" formControlName="last_name" type="text">
                       <div class="ui pointing red basic label"  *ngIf="last_name.invalid && !last_name.pristine">
                             Last Name Is Required
                      </div>
                     </div>
                     <div class="field">
                       <label>Upload Logo</label>
-                      <h5 class="ui header" style="color: red;" *ngIf="showImageError">
-                      Logo Is Required. Please Upload An Appropriate Logo.
-                      </h5>
-                      <app-file-upload></app-file-upload>
+                      <app-file-upload ></app-file-upload>
                       </div>
                     <!-- <div class="field">
                       <input placeholder="Phone Number" formControlName="phone" type="text">
@@ -43,16 +45,18 @@
                     </div>
                     </div> -->
                     <div class="field">
-                      <textarea placeholder="Description" formControlName="description"></textarea>
+                      <label for="description">Seller  Description</label>
+                      <textarea placeholder="Give Your Description In A Few Words." formControlName="description"></textarea>
                       <div class="ui pointing red basic label"  *ngIf="description.invalid && !description.pristine">
                         <span *ngIf="description.errors?.required">Description Is Required</span>
                         <span *ngIf="description.errors?.maxlength">Description Should Be Less Than 150 Characters.</span>
                     </div>
                     </div>
                     <div class="field">
+                      <label for="address">Seller Address</label>
                       <div class="ui fluid icon input">
                         <div class="ui active inline loader addressWait" *ngIf="address.dirty && formatted_address == undefined "></div>
-                        <input type="text" placeholder="Address" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
+                        <input type="text" placeholder="Enter Your Address" formControlName = "address" #search autocomplete="off" autocapitalize="off" spellcheck="false">
                         <i class="search icon"></i>
                       </div>
                     <div class="ui pointing red basic label"  *ngIf="address.errors?.required && !address.pristine">
@@ -74,6 +78,9 @@
                         </div>
                         </div>
                         <div class="field">
+                          <h5 class="ui header" style="color: red;" *ngIf="showImageError">
+                            Logo Is Required. Please Upload An Appropriate Logo.
+                            </h5>
                           <div class="two ui buttons">
                             <input class="ui  positive button" [disabled]="becomeSellerForm.pristine || becomeSellerForm.invalid || formatted_address== undefined || checkedPolicyBox === false" type="Submit" value="Sign Up">
                             <button class="ui negative button" [disabled]="becomeSellerForm.pristine" (click)="becomeSellerForm.reset();">Reset</button>
