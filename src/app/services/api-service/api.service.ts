@@ -259,7 +259,7 @@ export class ApiService {
     )
   }
   //Endpoint To Patch Meal details
-  patchMealDataById(id : any,data : any){   
+  patchMealDataById(id : any,data : any){
     return this.http.patch(`${this.API_URL}/seller/menu/${id}/`,data)
     .pipe(
       catchError(this.handleError)
@@ -280,7 +280,7 @@ export class ApiService {
     )
   }
   //Endpoint to Send pictures to buyer
-  sendImagesToSeller(images : any,id: any){
+  sendImagesToBuyer(images : any,id: any){
     return this.http.patch(`${this.API_URL}/seller/confirm_images/${id}/`,images,{
       params : this.params
     })
@@ -392,6 +392,13 @@ export class ApiService {
       return this.http.post(`${this.API_URL}/user/phone/confirm/`,{phone :phoneNumber})
       .pipe(
         catchError(this.handleError)
+      )
+    }
+    //Resend OTP Endpoint
+      resendOtp() {
+        return this.http.get(`${this.API_URL}/user/otp/resend/`)
+          .pipe(
+          catchError(this.handleError)
       )
     }
     //Seller get Request ID for Otp verification

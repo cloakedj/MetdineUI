@@ -165,5 +165,11 @@ clearTimer() {
     this.minutes = (this.regenerateTimerValue / 60) - 1;
     this.seconds = 59;
   }
+  requestOtpAgain() {
+    this.api.resendOtp().subscribe(
+      data => localStorage.setItem("otp_request_id", `${data}`),
+      err => this.toastr.error("Something Went Wrong. Please try Again Later.")
+    )
+  }
 
 }

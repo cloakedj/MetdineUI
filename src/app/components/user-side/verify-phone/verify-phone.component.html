@@ -46,7 +46,7 @@
                             <button class="ui  positive fluid button" [disabled]="verifyPhone.pristine || verifyPhone.invalid" type="submit">Submit OTP</button>
                         </div>
                         <div class="field">
-                          <button class="ui fluid negative button" (click)="[regenerateOtpTimer(),requestOtpByDashboard(),resendOtp = true]" [disabled]="!activateResendOtpBtn">
+                          <button class="ui fluid negative button" (click)="[regenerateOtpTimer(),requestOtpAgain(),resendOtp = true]" [disabled]="!activateResendOtpBtn">
                             <h4 class="ui header timer" *ngIf="!activateResendOtpBtn">
                               0{{minutes}} : <span *ngIf="seconds < 10">0</span>{{seconds}}
                             </h4>

@@ -14,6 +14,7 @@ import { timer, Observer, Subject, Observable, of } from 'rxjs'
 })
 export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
   orderId: any;
+  screenSize = window.innerWidth;
   orderDetails$: Observer<any>;
   @Input() orderDetails: any;
   uploadImagesObs$ : Observer<any>;
@@ -84,7 +85,7 @@ export class ConfirmOrderPicsComponent implements OnInit, OnDestroy{
     this.uploadFiles.append(`image${i+1}`,this.keepFiles.Files[i]);
   }
   this.uploadFiles.append("status","Sent");
-  this.api.sendImagesToSeller(this.uploadFiles,this.imageConfirmationId).subscribe(this.uploadImagesObs$);
+  this.api.sendImagesToBuyer(this.uploadFiles,this.imageConfirmationId).subscribe(this.uploadImagesObs$);
   }
   getConfirmationImagesStatus(){
     this.api.getConfirmationImages(this.orderId).subscribe(

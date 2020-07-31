@@ -134,10 +134,11 @@ export class SellerDashboardComponent implements OnInit {
       this.popupWaitOrderId = orderId;
       }
       else{
-      this.sellerDashboardorderAction(orderId, status);
       if(status === 2){
         this.router.navigate(['/seller-side',{outlets : {'sellerRouterOutlet' :['active-order',orderId]}}])
-      }
+        }
+        else
+        this.sellerDashboardorderAction(orderId, status);
       }
     }
   }

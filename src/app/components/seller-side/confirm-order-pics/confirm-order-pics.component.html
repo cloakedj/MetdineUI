@@ -137,24 +137,42 @@
           }">
         <ng-container *ngIf="orderDetails">
         <div class="ui stackable grid">
-        <div class="three wide column">
-            <h1 class="ui header">Order Id : #{{orderDetails.id}}</h1>
-        </div>
-        <div class="two wide column">
-            <a class="ui teal label">{{orderDetails.status | labelFilter : 'status'}}</a>
-        </div>
-        <div class="three wide column">
-            <h3 class="ui header">
-              Revenue :
+          <div class="ui segments hSegs" [ngClass]="{'horizontal' : screenSize > 780}">
+            <div class="ui center aligned segment">
+              <div class="ui segmentTitle">
+                <p>Order ID</p>
+              </div>
+              <div class="ui purple label">
+              #{{orderDetails.id}}
+            </div>
+            </div>
+            <div class="ui center aligned segment">
+              <div class="ui segmentTitle">
+                <p>Status</p>
+              </div>
+              <a class="ui label" [ngClass]="{
+                'green' : orderDetails.status === 1,
+                'teal' : orderDetails.status === 2,
+                'yellow' : orderDetails.status === 3,
+                'blue' : orderDetails.status === 4,
+                'red' : orderDetails.status === 6
+                }">{{orderDetails.status | labelFilter : 'status'}}</a>
+            </div>
+            <div class="ui center aligned segment">
+              <div class="ui segmentTitle">
+                <p>Revenue</p>
+              </div>
+              <div class="ui black label">
               {{orderDetails.total | currency:'INR'}}
-          </h3>
+              </div>
+            </div>
+            <div class="ui segment">
+              <div class="ui segmentTitle">
+                <p>Address</p>
+              </div>
+            <span class="addr">{{orderDetails.address}}</span>
+            </div>
           </div>
-        <div class="eight wide column">
-          <h3 class="ui header">
-            Delivery To:
-            {{orderDetails.address}}
-          </h3>
-        </div>
         </div>
         <div class="ui hidden divider"></div>
         <div class="row">
@@ -162,6 +180,10 @@
             <thead>
               <tr>
                 <th>Item Name</th>
+                <ng-container *ngIf="screenSize > 800">
+                <th>Item Picture</th>
+                <th>Item Price</th>
+              </ng-container>
                 <th>Quantity</th>
                 <th>
                   <h4 class="ui header"><i class="stopwatch icon"></i></h4>
@@ -175,6 +197,14 @@
                     {{item.meal_title}}
                   </h4>
                 </td>
+                <ng-container *ngIf="screenSize > 800">
+                <td>
+                    <img class="ui avatar image" src="{{item.image}}">
+                </td>
+                <td>
+                  {{item.meal_price | currency : 'INR'}}
+                </td>
+              </ng-container>
                 <td>
                   {{item.quantity}}
                 </td>
@@ -221,7 +251,7 @@
             Submit
         </button>
         </div>
-    </div>
+        </div>
     </ng-container>
       </div>
     </div>
