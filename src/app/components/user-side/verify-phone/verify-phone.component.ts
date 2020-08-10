@@ -162,7 +162,7 @@ clearTimer() {
   }
   setOtpDefaults() {
     this.regenerateTimerValue = this.totalTime;
-    this.minutes = (this.regenerateTimerValue / 60) - 1;
+    this.minutes = this.regenerateTimerValue / 60;
     this.seconds = 59;
   }
   requestOtpAgain() {

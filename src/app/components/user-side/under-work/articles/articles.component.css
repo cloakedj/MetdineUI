@@ -1,12 +1,15 @@
 @import "https://fonts.googleapis.com/css2?family=Barrio&display=swap";
 .coming-soon-text{
     color: teal;
-    font-size: 9rem;
-    text-shadow: 3px 0px #fff;
+    font-size: 2rem;
     font-family: 'Barrio', cursive;
+    text-align: center;
     animation: changeColour 2s ease-in;
     animation-iteration-count: infinite;
     animation-direction : alternate;
+}
+.coming-soon-text a{
+    text-decoration: underline;
 }
 .coming-soon{
     height:100vh;

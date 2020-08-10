@@ -1,3 +1,4 @@
+// import { EncodeUrl } from './classes/encode-url';
 import { CartService } from './services/cart-service/cart.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -82,7 +83,7 @@ import { RefundsCancelsComponent } from './components/company-data/refunds-cance
 import { TermsOfUseComponent } from './components/company-data/terms-of-use/terms-of-use.component';
 import { ArticlesComponent } from './components/user-side/under-work/articles/articles.component';
 import { VideosComponent } from './components/user-side/under-work/videos/videos.component';
-import { UrlSerializer } from '@angular/router';
+// import { UrlSerializer } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,11 @@ import { UrlSerializer } from '@angular/router';
       provide: HTTP_INTERCEPTORS,
       useClass: MetdineInterceptor,
       multi: true
-    }
+    },
+    // {
+    //   provide: UrlSerializer,
+    //   useClass: EncodeUrl
+    // }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpBackend} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Seller } from '../../entities/seller.entity';
 import { User } from '../../entities/user.entity';
@@ -18,14 +18,11 @@ export class ApiService {
   API_URL = "https://metdine.in/api";
   params : HttpParams;
   private isUserAuthenticated = this.checkUserToken() ? true :false;
-  private httpWithoutInterceptor : HttpClient;
   constructor(private http: HttpClient,
-    private httpB : HttpBackend,
     private router : Router,
     private Auth: AuthService,
     private toastr : ToastrService
     ) {
-      this.httpWithoutInterceptor = new HttpClient(httpB);
   }
   private handleError(err: HttpErrorResponse) {
     if (err.error instanceof ErrorEvent) {
@@ -395,8 +392,9 @@ export class ApiService {
       )
     }
     //Resend OTP Endpoint
-      resendOtp() {
-        return this.http.get(`${this.API_URL}/user/otp/resend/`)
+  resendOtp() {
+    const req_id = localStorage.getItem("otp_request_id");
+        return this.http.post(`${this.API_URL}/user/otp/resend/`,{request_id: req_id})
           .pipe(
           catchError(this.handleError)
       )
