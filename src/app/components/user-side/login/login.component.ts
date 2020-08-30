@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit , OnDestroy{
     Auth_Key = '';
-    lID : any;
     loginSubscription : Subscription;
     loginForm: FormGroup = this.formbuilder.group({
     username:['',[Validators.required]],
@@ -29,15 +28,15 @@ export class LoginComponent implements OnInit , OnDestroy{
 
   ngOnInit() {
   }
-  onSubmit(Data){
+  onSubmit(Data) {
+    Data.username = Data.username.toLowerCase();
     this.loginSubscription = this.api.loginUser(Data)
     .subscribe(
       (data) => {
         this.Auth_Key = data["key"];
       this.api.AddUserTokenHeader(this.Auth_Key)
       this.cart.loadCart()
-      },
-      (err) => this.toastr.error("Something Went Wrong. Try Again Later!"),
+      }
     );
   }
   get username(){ return this.loginForm.get('username');}

@@ -27,10 +27,7 @@
                           Please Upload An Image For The Item.
                         </li>
                         <li *ngIf="title.errors?.pattern">
-                          Item title Can Only Be Alphabetic Letters.
-                        </li>
-                        <li *ngIf="short_description.invalid">
-                          Please Describe Your Item In More Than 30 letters.
+                          Item title Can Only Contain Alphabetic Letters And Numbers.
                         </li>
                       </ul>
                   </div>
@@ -126,7 +123,7 @@
                       </div>
                       <ul class="list">
                         <li *ngIf="time_to_prepare.invalid">
-                          Please Select The Category Of The Item
+                          Please Select The Time Required For Preparation Of The Item
                         </li>
                         <li *ngIf="price.errors?.required">
                           Please Enter The Price Of The Item
@@ -191,9 +188,6 @@
                         </li>
                         <li *ngIf="!imageUploaded">
                           Please Upload An Image For The Item.
-                        </li>
-                        <li *ngIf="short_description.invalid">
-                          Please Describe Your Item In More Than 30 letters.
                         </li>
                       </ul>
                   </div>
@@ -289,7 +283,7 @@
                 </div>
                 <ul class="list">
                   <li *ngIf="time_to_prepare.invalid">
-                    Please Select The Category Of The Item
+                    Please Select The Time Required For Preparation Of The Item
                   </li>
                   <li *ngIf="price.errors?.required">
                     Please Enter The Price Of The Item
@@ -313,7 +307,7 @@
                 <div class="field">
                   <div class="two ui buttons">
                       <button class="negative ui button" matStepperPrevious type="button">Back</button>
-                  <button class="positive ui button" matStepperNext [disabled]="ItemPriceTimeFormGroup.invalid || ItemPriceTimeFormGroup.pristine"
+                  <button class="positive ui button" matStepperNext [disabled]="ItemPriceTimeFormGroup.invalid || ItemPriceTimeFormGroup.pristine || processingAddItemRequest"
                   (click)="[addToFormObject(ItemPriceTimeFormGroup.value),apiToAddNewSellerItem(), uploadingMeal = true]">Finish
               </button>
                   </div>

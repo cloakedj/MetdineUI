@@ -79,6 +79,9 @@
                 <div class="field">
                     <label>Item Name</label>
                 <input type="text" formControlName="title" value="{{productDetails.title}}">
+                <div class="ui pointing red basic label"  *ngIf="!title.pristine && title.invalid">
+                  Item Title Can only Contain Numbers And Characters.
+               </div>
                 </div>
                 <div class="field">
                     <label>Item Price</label>
@@ -110,9 +113,9 @@
                     <div class="ui hidden divider"></div>
                     <label>Select Time To Prepare</label>
                     <mat-radio-group aria-label="Select Time To Prepare" formControlName="time_to_prepare">
-                    <mat-radio-button *ngFor="let time of prepTimeList;index as i;"
+                    <mat-radio-button *ngFor="let time of categories;index as i;"
                     value="{{i+1}}" [checked]="productDetails.category-1 == i" name="item-category">
-                    <a class="ui orange horizontal label">{{time.value}}</a>
+                    <a class="ui orange horizontal label">{{time.time}}</a>
                     </mat-radio-button>
                       </mat-radio-group>
                 </div>
@@ -146,7 +149,7 @@
                     <button class="ui positive button" [disabled]="updateItemData.pristine && !imageUpdated || updateItemData.invalid">
                         Update
                     </button>
-                    <button class="ui negative button">
+                    <button type="reset" (click)="resetFormToOriginalValues($event)" class="ui negative button">
                         Reset
                     </button>
                   </div>

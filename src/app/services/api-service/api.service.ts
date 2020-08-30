@@ -66,7 +66,7 @@ export class ApiService {
       catchError(this.handleError)
     )
   }
-  loginUser(credentials){
+  loginUser(credentials) {
     return this.http.post(`${this.API_URL}/rest-auth/login/`, credentials)
     .pipe(
       shareReplay(1),

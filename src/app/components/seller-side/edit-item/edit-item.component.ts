@@ -16,7 +16,16 @@ export class EditItemComponent implements OnInit {
   productDetails : any;
   product$ : Observer<any>;
   patchObs$ : Observer<any>;
-  updateItemData : FormGroup;
+  updateItemData : FormGroup = this._fb.group({
+    title : ['',[
+      Validators.pattern(/^[a-zA-Z0-9\s]+$/i)
+    ]],
+    short_description :[''],
+    category : [''],
+    is_veg:[''],
+    price:[''],
+    time_to_prepare:['']
+  });
   updatedFormData = new FormData();
   editDetails = false;
   itemIsVeg : boolean;
@@ -61,20 +70,8 @@ export class EditItemComponent implements OnInit {
      }
   ngOnInit() {
     this.getProductDetails();
-    this.updateItemData = this._fb.group({
-      title : ['',[
-        Validators.pattern(/^[a-zA-Z\s]+$/i)
-      ]],
-      short_description :['',[
-        Validators.minLength(30),
-        Validators.maxLength(60)
-      ]],
-      category : [''],
-      is_veg:[''],
-      price:[''],
-      time_to_prepare:['']
-    });
   }
+  get title() { return this.updateItemData.get('title'); }
   getVegNonVegValue(){
     this.itemIsVeg = !this.itemIsVeg;
   }
@@ -90,7 +87,10 @@ export class EditItemComponent implements OnInit {
       }
     });
     this.patchObs$ = {
-      next : data => this.toastr.success("Item Updated Successfully"),
+      next: data => {
+        this.toastr.success("Item Updated Successfully");
+        this.editDetails = false;
+      },
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => this.getProductDetails()
     }
@@ -110,6 +110,11 @@ export class EditItemComponent implements OnInit {
   }
   makeItemAvailable(id : any){
     this.api.patchMealAvailabilityById(id,true).subscribe(this.patchItemObs$);
+  }
+  resetFormToOriginalValues(event) {
+    event.preventDefault();
+    this.editDetails = false;
+    this.toastr.info("All Changes Have Been Reset Successfully", "Changes Reverted");
   }
 
 }

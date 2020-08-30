@@ -133,7 +133,6 @@ export class ActiveOrderComponent implements OnInit {
           }
           else
           {
-          this.toastr.info("Time To Accept Images Has Expired. The Order Was Accepted Automatically");
           this.getImages();
           this.clearTimer();
           }

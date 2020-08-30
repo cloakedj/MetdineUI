@@ -15,7 +15,7 @@ export class SearchMaskComponent implements OnInit {
   windowWidth : number;
   queryResults: any[] = [];
   searchBar : FormControl = new FormControl();
-  plText = 'Search From our List';
+  plText = '';
   loading = false;
   searchItem = false;
   @Output() hideSearchMask = new EventEmitter<boolean>();
@@ -34,7 +34,7 @@ export class SearchMaskComponent implements OnInit {
       if(query == '')
       {
         this.searchBar.reset();
-        this.plText = 'Search From our List';
+        this.plText = '';
       }
       if (this.searchItem)
       return this._search.searchDish(query)

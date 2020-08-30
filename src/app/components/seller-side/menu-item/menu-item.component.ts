@@ -27,7 +27,8 @@ export class MenuItemComponent implements OnInit {
   ItemObjtoPush = new FormData();
   itemIsAvailable = true;
   addNewSellerItemObs$ :Observer<any>;
-  imageUploaded : boolean = false;
+  imageUploaded: boolean = false;
+  processingAddItemRequest: boolean = false;
   smallScreen : any;
   completed = false;
   categories = [
@@ -61,11 +62,10 @@ export class MenuItemComponent implements OnInit {
     this.ItemDetailsFormGroup = this._formBuilder.group({
       title : ['',[
         Validators.required,
-        Validators.pattern(/^[a-zA-Z\s]+$/i)
+        Validators.pattern(/^[a-zA-Z0-9\s]+$/i)
       ]],
       short_description :['',[
         Validators.required,
-        Validators.minLength(30),
       ]],
     });
     this.ItemPropertiesFormGroup = this._formBuilder.group({
@@ -98,18 +98,19 @@ export class MenuItemComponent implements OnInit {
   imageHasBeenUploaded(event){
     this.imageUploaded = event;
   }
-  apiToAddNewSellerItem(){
+  apiToAddNewSellerItem() {
+    this.processingAddItemRequest = true;
     this.ItemObjtoPush.append("image",this.keepFile.Files[0]);
     this.addNewSellerItemObs$ = {
       next : data => {
         this.toastr.success("Sucessfully Added A New Item! Redirecting....");
+        this.ItemPriceTimeFormGroup.reset();
         this.router.navigateByUrl(`/seller-side/(sellerRouterOutlet:seller-items)/`);
       },
       error : err => this.toastr.error("Something Went Wrong. Try Again Later!"),
       complete : () => this.completed = true,
     }
     this.api.addNewItemFromSellerDashboard(this.ItemObjtoPush).subscribe(this.addNewSellerItemObs$);
-    this.ItemPriceTimeFormGroup.reset();
   }
   getVegNonVegValue(){
     this.itemIsVeg = !this.itemIsVeg;

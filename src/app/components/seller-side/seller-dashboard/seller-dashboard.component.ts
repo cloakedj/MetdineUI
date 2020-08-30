@@ -49,7 +49,9 @@ export class SellerDashboardComponent implements OnInit {
       complete : () => this.completed = true,
     };
     this.sellerCompletedOrdersForDashboard$ = {
-      next: (data) => this.sellerCompletedOrders = data.splice(data.length - 4,data.length),
+      next: (data) => {
+        this.sellerCompletedOrders = data.length > 3 ? data.splice(data.length - 3, data.length) : data;
+      },
       error: (err) => this.toastr.error(err),
       complete : () => this.completed = true,
     }
